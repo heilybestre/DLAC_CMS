@@ -7025,7 +7025,7 @@ body.modal-open,.modal-open .navbar-fixed-top,.modal-open .navbar-fixed-bottom
 	;
 }
 
-.clearfix:before,:after
+.clearfix:before,.:after
 {
 	display:table;
 	content:" ";
