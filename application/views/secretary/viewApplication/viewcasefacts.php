@@ -32,7 +32,7 @@
               <option>Pre-information</option>
               <option>Information</option>
               <option>Trial Court</option>
-              <option>Appeal</option>
+              
             </select> -->
                 <br>
             </div>
