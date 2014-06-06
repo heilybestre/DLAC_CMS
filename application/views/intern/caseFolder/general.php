@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <th>Present Stage:</th>
-                            <td><?php echo $case->stageName ?> <?php if($this->Case_model->select_actionplancomplete($case->caseID, $case->stage)->count == 0) echo '(with decision)'; ?></td>
+                            <td><?php echo $case->stageName ?> <?php if ($this->Case_model->select_actionplancomplete($case->caseID, $case->stage)->count == 0) echo '(with decision)'; ?></td>
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
@@ -177,314 +177,254 @@
         <div class="col-lg-1"></div>
 
         <!-- start: Timeline -->
-<div class="col-md-6">
-    <div class="box">
-        <div class="box-header"><h2><i class="icon-time"></i>Timeline</h2>
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header"><h2><i class="icon-time"></i>Timeline</h2>
+                </div>
+                <div class="box-content" id="boxcontent" style="min-height:1000px; max-height:1000px; overflow:scroll;">            
+
+                    <!-- START - 4: TRIAL COURT (TC)-->
+                    <?php if ($caselog_stage4 != null) { ?>
+                        <div class="box" style="margin-bottom:2px;" id="timeline-tc"> <!--box 1-->
+
+                            <div class="box-header" style="background-color: #E3ECD4; color:gray;">
+                                <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">4</i>Trial Court</h2>
+                                <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
+                                    <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
+                                </div>
+                            </div>
+
+                            <div id='timelinetcdiv' class="box-content">
+                                <div class="graph">
+
+                                    <div class="timeline" id="timeline-div">
+
+                                        <?php foreach ($caselog_stage4 as $log) : ?>
+                                            <div class="timeslot">
+
+                                                <div class="task">
+                                                    <span>
+                                                        <span class="type">
+                                                            <?= $log->category ?>
+                                                        </span>
+                                                        <span class="details">
+                                                            <?= $log->action ?>
+                                                        </span> 
+                                                    </span>
+                                                    <div class="arrow"></div>
+                                                </div>    
+
+                                                <div class="icon">
+                                                    <?php
+                                                    if ($log->category == 'EVIDENCE')
+                                                        echo '<i class="icon-inbox"></i>';
+                                                    else if ($log->category == 'CASE')
+                                                        echo '<i class="icon-folder-open"></i>';
+                                                    else if ($log->category == 'CALENDAR')
+                                                        echo '<i class="icon-calendar"></i>';
+                                                    else if ($log->category == 'DOCUMENT')
+                                                        echo '<i class="icon-file"></i>';
+                                                    else if ($log->category == 'PEOPLE')
+                                                        echo '<i class="icon-group"></i>';
+                                                    else if ($log->category == 'ACTIONPLAN')
+                                                        echo '<i class="icon-legal"></i>';
+                                                    ?>
+                                                </div>
+
+                                                <div class="time">
+                                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
+                                                </div>  
+                                            </div><?php endforeach ?>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <!-- END - 4: TRIAL COURT (TC) -->
+
+                    <!-- START - 3: PRE-TRIAL (PT) -->
+                    <?php if ($caselog_stage3 != null) { ?>
+                        <div class="box" style="margin-bottom:2px;" id="timeline-pt"> <!--box 1-->
+
+                            <div class="box-header" style="background-color: #E3ECD4; color:gray;">
+                                <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">3</i>Pre-Trial</h2>
+                                <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
+                                    <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
+                                </div>
+                            </div>
+
+                            <div id='timelineptdiv' class="box-content">
+                                <div class="graph">
+
+                                    <div class="timeline" id="timeline-div">
+
+                                        <?php foreach ($caselog_stage3 as $log) : ?>
+                                            <div class="timeslot">
+
+                                                <div class="task">
+                                                    <span>
+                                                        <span class="type">
+                                                            <?= $log->category ?>
+                                                        </span>
+                                                        <span class="details">
+                                                            <?= $log->action ?>
+                                                        </span> 
+                                                    </span>
+                                                    <div class="arrow"></div>
+                                                </div>    
+
+                                                <div class="icon">
+                                                    <?php
+                                                    if ($log->category == 'EVIDENCE')
+                                                        echo '<i class="icon-inbox"></i>';
+                                                    else if ($log->category == 'CASE')
+                                                        echo '<i class="icon-folder-open"></i>';
+                                                    else if ($log->category == 'CALENDAR')
+                                                        echo '<i class="icon-calendar"></i>';
+                                                    else if ($log->category == 'DOCUMENT')
+                                                        echo '<i class="icon-file"></i>';
+                                                    else if ($log->category == 'PEOPLE')
+                                                        echo '<i class="icon-group"></i>';
+                                                    else if ($log->category == 'ACTIONPLAN')
+                                                        echo '<i class="icon-legal"></i>';
+                                                    ?>
+                                                </div>
+
+                                                <div class="time">
+                                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
+                                                </div>  
+                                            </div><?php endforeach ?>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <!-- END - 3: PRE-TRIAL (PT) -->
+
+                    <!-- START - 2: PI -->
+                    <?php if ($caselog_stage2 != null) { ?>
+                        <div class="box" style="margin-bottom:2px;" id="timeline-pi"> <!--box 1-->
+
+                            <div class="box-header" style="background-color: #E3ECD4; color:gray;">
+                                <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">2</i>Preliminary Investigation</h2>
+                                <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
+                                    <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
+                                </div>
+                            </div>
+
+                            <div id='timelinepidiv' class="box-content">
+                                <div class="graph">
+
+                                    <div class="timeline" id="timeline-div">
+
+                                        <?php foreach ($caselog_stage2 as $log) : ?>
+                                            <div class="timeslot">
+
+                                                <div class="task">
+                                                    <span>
+                                                        <span class="type">
+                                                            <?= $log->category ?>
+                                                        </span>
+                                                        <span class="details">
+                                                            <?= $log->action ?>
+                                                        </span> 
+                                                    </span>
+                                                    <div class="arrow"></div>
+                                                </div>    
+
+                                                <div class="icon">
+                                                    <?php
+                                                    if ($log->category == 'EVIDENCE')
+                                                        echo '<i class="icon-inbox"></i>';
+                                                    else if ($log->category == 'CASE')
+                                                        echo '<i class="icon-folder-open"></i>';
+                                                    else if ($log->category == 'CALENDAR')
+                                                        echo '<i class="icon-calendar"></i>';
+                                                    else if ($log->category == 'DOCUMENT')
+                                                        echo '<i class="icon-file"></i>';
+                                                    else if ($log->category == 'PEOPLE')
+                                                        echo '<i class="icon-group"></i>';
+                                                    else if ($log->category == 'ACTIONPLAN')
+                                                        echo '<i class="icon-legal"></i>';
+                                                    ?>
+                                                </div>
+
+                                                <div class="time">
+                                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
+                                                </div>  
+                                            </div><?php endforeach ?>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <!-- END - 2: PI -->
+
+                    <!-- START - 1: NEW -->
+                    <div class="box" style="margin-bottom:2px;" id="timeline-new"> <!--box 1-->
+
+                        <div class="box-header" style="background-color: #E3ECD4; color:gray;">
+                            <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">1</i>New</h2>
+                            <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
+                                <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
+                            </div>
+                        </div>
+
+                        <div id='timelinenewdiv' class="box-content">
+                            <div class="graph">
+
+                                <div class="timeline" id="timeline-div">
+
+                                    <?php foreach ($caselog_stage1 as $log) : ?>
+                                        <div class="timeslot">
+
+                                            <div class="task">
+                                                <span>
+                                                    <span class="type">
+                                                        <?= $log->category ?>
+                                                    </span>
+                                                    <span class="details">
+                                                        <?= $log->action ?>
+                                                    </span> 
+                                                </span>
+                                                <div class="arrow"></div>
+                                            </div>    
+
+                                            <div class="icon">
+                                                <?php
+                                                if ($log->category == 'EVIDENCE')
+                                                    echo '<i class="icon-inbox"></i>';
+                                                else if ($log->category == 'CASE')
+                                                    echo '<i class="icon-folder-open"></i>';
+                                                else if ($log->category == 'EVENT')
+                                                    echo '<i class="icon-calendar"></i>';
+                                                else if ($log->category == 'DOCUMENT')
+                                                    echo '<i class="icon-file"></i>';
+                                                else if ($log->category == 'PEOPLE')
+                                                    echo '<i class="icon-group"></i>';
+                                                else if ($log->category == 'ACTIONPLAN')
+                                                    echo '<i class="icon-legal"></i>';
+                                                ?>
+                                            </div>
+
+                                            <div class="time">
+                                                <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
+                                            </div>  
+                                        </div><?php endforeach ?>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END - 1: NEW -->
+
+                </div>
+            </div>
         </div>
-        <div class="box-content" id="boxcontent" style="min-height:1000px; max-height:1000px; overflow:scroll;">
-
-            <!-- START - 5: APPEAL -->
-            <?php if ($caselog_stage5 != null) { ?>
-            <div class="box" style="margin-bottom:2px;" id="timeline-appeal"> <!--box 1-->
-
-                <div class="box-header" style="background-color: #E3ECD4; color:gray;">
-                    <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">5</i>Appeal</h2>
-                    <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
-                        <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
-                    </div>
-                </div>
-
-                <div id='timelineappealdiv' class="box-content">
-                    <div class="graph">
-
-                        <div class="timeline" id="timeline-div">
-
-                            <?php foreach ($caselog_stage5 as $log) : ?>
-                            <div class="timeslot">
-
-                                <div class="task">
-                                    <span>
-                                        <span class="type">
-                                            <?= $log->category ?>
-                                        </span>
-                                        <span class="details">
-                                            <?= $log->action ?>
-                                        </span> 
-                                    </span>
-                                    <div class="arrow"></div>
-                                </div>    
-
-                                <div class="icon">
-                                    <?php
-                                    if ($log->category == 'EVIDENCE')
-                                        echo '<i class="icon-inbox"></i>';
-                                    else if ($log->category == 'CASE')
-                                        echo '<i class="icon-folder-open"></i>';
-                                    else if ($log->category == 'CALENDAR' || $log->category == 'EVENT')
-                                        echo '<i class="icon-calendar"></i>';
-                                    else if ($log->category == 'DOCUMENT')
-                                        echo '<i class="icon-file"></i>';
-                                    else if ($log->category == 'PEOPLE')
-                                        echo '<i class="icon-group"></i>';
-                                    else if ($log->category == 'ACTIONPLAN')
-                                        echo '<i class="icon-legal"></i>';
-                                    ?>
-                                </div>
-
-                                <div class="time">
-                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
-                                </div>  
-                            </div><?php endforeach ?>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-            <!-- END - 5: APPEAL -->
-
-            <!-- START - 4: TRIAL COURT (TC)-->
-            <?php if ($caselog_stage4 != null) { ?>
-            <div class="box" style="margin-bottom:2px;" id="timeline-tc"> <!--box 1-->
-
-                <div class="box-header" style="background-color: #E3ECD4; color:gray;">
-                    <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">4</i>Trial Court</h2>
-                    <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
-                        <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
-                    </div>
-                </div>
-
-                <div id='timelinetcdiv' class="box-content">
-                    <div class="graph">
-
-                        <div class="timeline" id="timeline-div">
-
-                            <?php foreach ($caselog_stage4 as $log) : ?>
-                            <div class="timeslot">
-
-                                <div class="task">
-                                    <span>
-                                        <span class="type">
-                                            <?= $log->category ?>
-                                        </span>
-                                        <span class="details">
-                                            <?= $log->action ?>
-                                        </span> 
-                                    </span>
-                                    <div class="arrow"></div>
-                                </div>    
-
-                                <div class="icon">
-                                    <?php
-                                    if ($log->category == 'EVIDENCE')
-                                        echo '<i class="icon-inbox"></i>';
-                                    else if ($log->category == 'CASE')
-                                        echo '<i class="icon-folder-open"></i>';
-                                    else if ($log->category == 'CALENDAR')
-                                        echo '<i class="icon-calendar"></i>';
-                                    else if ($log->category == 'DOCUMENT')
-                                        echo '<i class="icon-file"></i>';
-                                    else if ($log->category == 'PEOPLE')
-                                        echo '<i class="icon-group"></i>';
-                                    else if ($log->category == 'ACTIONPLAN')
-                                        echo '<i class="icon-legal"></i>';
-                                    ?>
-                                </div>
-
-                                <div class="time">
-                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
-                                </div>  
-                            </div><?php endforeach ?>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-            <!-- END - 4: TRIAL COURT (TC) -->
-
-            <!-- START - 3: PRE-TRIAL (PT) -->
-            <?php if ($caselog_stage3 != null) { ?>
-            <div class="box" style="margin-bottom:2px;" id="timeline-pt"> <!--box 1-->
-
-                <div class="box-header" style="background-color: #E3ECD4; color:gray;">
-                    <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">3</i>Pre-Trial</h2>
-                    <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
-                        <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
-                    </div>
-                </div>
-
-                <div id='timelineptdiv' class="box-content">
-                    <div class="graph">
-
-                        <div class="timeline" id="timeline-div">
-
-                            <?php foreach ($caselog_stage3 as $log) : ?>
-                            <div class="timeslot">
-
-                                <div class="task">
-                                    <span>
-                                        <span class="type">
-                                            <?= $log->category ?>
-                                        </span>
-                                        <span class="details">
-                                            <?= $log->action ?>
-                                        </span> 
-                                    </span>
-                                    <div class="arrow"></div>
-                                </div>    
-
-                                <div class="icon">
-                                    <?php
-                                    if ($log->category == 'EVIDENCE')
-                                        echo '<i class="icon-inbox"></i>';
-                                    else if ($log->category == 'CASE')
-                                        echo '<i class="icon-folder-open"></i>';
-                                    else if ($log->category == 'CALENDAR')
-                                        echo '<i class="icon-calendar"></i>';
-                                    else if ($log->category == 'DOCUMENT')
-                                        echo '<i class="icon-file"></i>';
-                                    else if ($log->category == 'PEOPLE')
-                                        echo '<i class="icon-group"></i>';
-                                    else if ($log->category == 'ACTIONPLAN')
-                                        echo '<i class="icon-legal"></i>';
-                                    ?>
-                                </div>
-
-                                <div class="time">
-                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
-                                </div>  
-                            </div><?php endforeach ?>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-            <!-- END - 3: PRE-TRIAL (PT) -->
-
-            <!-- START - 2: PI -->
-            <?php if ($caselog_stage2 != null) { ?>
-            <div class="box" style="margin-bottom:2px;" id="timeline-pi"> <!--box 1-->
-
-                <div class="box-header" style="background-color: #E3ECD4; color:gray;">
-                    <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">2</i>Preliminary Investigation</h2>
-                    <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
-                        <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
-                    </div>
-                </div>
-
-                <div id='timelinepidiv' class="box-content">
-                    <div class="graph">
-
-                        <div class="timeline" id="timeline-div">
-
-                            <?php foreach ($caselog_stage2 as $log) : ?>
-                            <div class="timeslot">
-
-                                <div class="task">
-                                    <span>
-                                        <span class="type">
-                                            <?= $log->category ?>
-                                        </span>
-                                        <span class="details">
-                                            <?= $log->action ?>
-                                        </span> 
-                                    </span>
-                                    <div class="arrow"></div>
-                                </div>    
-
-                                <div class="icon">
-                                    <?php
-                                    if ($log->category == 'EVIDENCE')
-                                        echo '<i class="icon-inbox"></i>';
-                                    else if ($log->category == 'CASE')
-                                        echo '<i class="icon-folder-open"></i>';
-                                    else if ($log->category == 'CALENDAR')
-                                        echo '<i class="icon-calendar"></i>';
-                                    else if ($log->category == 'DOCUMENT')
-                                        echo '<i class="icon-file"></i>';
-                                    else if ($log->category == 'PEOPLE')
-                                        echo '<i class="icon-group"></i>';
-                                    else if ($log->category == 'ACTIONPLAN')
-                                        echo '<i class="icon-legal"></i>';
-                                    ?>
-                                </div>
-
-                                <div class="time">
-                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
-                                </div>  
-                            </div><?php endforeach ?>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-            <!-- END - 2: PI -->
-
-            <!-- START - 1: NEW -->
-            <div class="box" style="margin-bottom:2px;" id="timeline-new"> <!--box 1-->
-
-                <div class="box-header" style="background-color: #E3ECD4; color:gray;">
-                    <h2><i class="icon-" style="background-color: #B5DB7D; color:gray;">1</i>New</h2>
-                    <div class="box-icon" style="background-color: #B5DB7D; color:gray; border-width:0px;">
-                        <a href="widgets.html#" class="btn-minimize"><i class="icon-chevron-up" style="color:gray;"></i></a>
-                    </div>
-                </div>
-
-                <div id='timelinenewdiv' class="box-content">
-                    <div class="graph">
-
-                        <div class="timeline" id="timeline-div">
-
-                            <?php foreach ($caselog_stage1 as $log) : ?>
-                            <div class="timeslot">
-
-                                <div class="task">
-                                    <span>
-                                        <span class="type">
-                                            <?= $log->category ?>
-                                        </span>
-                                        <span class="details">
-                                            <?= $log->action ?>
-                                        </span> 
-                                    </span>
-                                    <div class="arrow"></div>
-                                </div>    
-
-                                <div class="icon">
-                                    <?php
-                                    if ($log->category == 'EVIDENCE')
-                                        echo '<i class="icon-inbox"></i>';
-                                    else if ($log->category == 'CASE')
-                                        echo '<i class="icon-folder-open"></i>';
-                                    else if ($log->category == 'EVENT')
-                                        echo '<i class="icon-calendar"></i>';
-                                    else if ($log->category == 'DOCUMENT')
-                                        echo '<i class="icon-file"></i>';
-                                    else if ($log->category == 'PEOPLE')
-                                        echo '<i class="icon-group"></i>';
-                                    else if ($log->category == 'ACTIONPLAN')
-                                        echo '<i class="icon-legal"></i>';
-                                    ?>
-                                </div>
-
-                                <div class="time">
-                                    <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
-                                </div>  
-                            </div><?php endforeach ?>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END - 1: NEW -->
-
-        </div>
-    </div>
-</div>
-<!-- end: Timeline -->
+        <!-- end: Timeline -->
 
     </div>
 
