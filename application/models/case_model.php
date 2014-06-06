@@ -405,6 +405,11 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
+    function select_offense() {
+        $query = $this->db->query("SELECT * FROM offenses");
+        return $query->result();
+    }
+
 }
 
 ?>
