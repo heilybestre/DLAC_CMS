@@ -94,7 +94,7 @@
                                     <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
                                     <td class="center">
                                         <?php if ($row->summary == NULL) { ?>
-                                           <label class='label label-warning'>In Progress</label>
+                                            <label class='label label-warning'>In Progress</label>
                                         <?php } else { ?>
                                             <label class='label label-default'>Completed</label>
                                         <?php } ?>
@@ -159,7 +159,7 @@
                             <tr>
                                 <th width="25%">No.</th>
                                 <th width="50%">Title</th>
-                                <th width="25%">Status</th>
+                                <th width="25%">Date Accepted</th>
                             </tr>
                         </thead>   
                         <tbody>
@@ -167,7 +167,7 @@
                                 <tr>
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
-                                    <td class="center"><?php echo $row->statusName ?></td>
+                                    <td class="center"><?php echo $row->dateReceived ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

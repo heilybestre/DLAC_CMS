@@ -25,7 +25,7 @@
                                         <th width="10%">Case No.</th>
                                         <th width="30%">Title</th>
                                         <th width="20%">Status</th>
-                                        <th width="20%">Date Opened</th>
+                                        <th width="20%">Date Accepted</th>
                                     </tr>
                                 </thead>   
                                 <tbody>
@@ -33,31 +33,32 @@
                                         <tr>
                                             <td><a href="cases/caseFolder/<?php echo $row->caseID ?>"> <?php echo $row->caseNum ?></a></td>
                                             <td>
-                                                <tabletitle>
-                                                    <?php echo $row->caseName ?>
-                                                </tabletitle>
-                                                <br>
-                                                <tabledesc>
-                                                    <?php echo $row->caseDesc ?>
-                                                </tabledesc>
-                                                    
-                                                <tabletags>Tags:
-                                                    <?php $tags = explode(" #",$row->tags); 
-                                                        $count = 1;
-                                                        foreach ($tags as $tag){
-                                                            if ($count > 1){
-                                                                echo ',  ';
-                                                            }
-                                                            echo $tag;
-                                                            $count++;
-                                                        }
-                                                    ?>
-                                                </tabletags>
-                                            </td>
-                                            <td><?php echo $row->statusName ?></td>
-                                            <td><?php echo $row->dateReceived ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                    <tabletitle>
+                                        <?php echo $row->caseName ?>
+                                    </tabletitle>
+                                    <br>
+                                    <tabledesc>
+                                        <?php echo $row->caseDesc ?>
+                                    </tabledesc>
+
+                                    <tabletags>Tags:
+                                        <?php
+                                        $tags = explode(" #", $row->tags);
+                                        $count = 1;
+                                        foreach ($tags as $tag) {
+                                            if ($count > 1) {
+                                                echo ',  ';
+                                            }
+                                            echo $tag;
+                                            $count++;
+                                        }
+                                        ?>
+                                    </tabletags>
+                                    </td>
+                                    <td><?php echo $row->statusName ?></td>
+                                    <td><?php echo $row->dateReceived ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
 

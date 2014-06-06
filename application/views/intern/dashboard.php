@@ -232,7 +232,7 @@
                             <tr>
                                 <th width="15%">No.</th>
                                 <th width="50%">Title</th>
-                                <th width="35%">Status</th>
+                                <th width="35%">Date Accepted</th>
                             </tr>
                         </thead>   
                         <tbody>
@@ -240,7 +240,7 @@
                                 <tr>
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
-                                    <td><?php echo $row->statusName ?></td>
+                                    <td><?php echo $row->dateReceived ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

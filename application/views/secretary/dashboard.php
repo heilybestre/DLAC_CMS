@@ -27,7 +27,7 @@
                                 <td><?= date('m/d/y', strtotime($row->date)) ?></td>
                                 <td class="center"><?= date('g:ia', strtotime($row->start)) ?>-<?= date('g:ia', strtotime($row->end)) ?></td>
                                 <td class="center">
-                                    <tabletitle><?= $row->title ?> (<?= $this->Case_model->select_case($row->caseID)->caseNum ?>)</tabletitle><br>
+                        <tabletitle><?= $row->title ?> (<?= $this->Case_model->select_case($row->caseID)->caseNum ?>)</tabletitle><br>
                                     <tabledesc>
                                         <?php
                                             $attendees = $this->Calendar_model->select_attendees($row->scheduleID);
