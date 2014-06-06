@@ -6,7 +6,6 @@
         <br><br>
         <div class="row">
             <br><br><br><br><br><br><br>
-            HELLO
             <center><img src="<?= base_url() ?>assets/img/logo.png"></img></center>
             <div class="login-box">
 
