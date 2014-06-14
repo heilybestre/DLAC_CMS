@@ -24,14 +24,14 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 control-group">
+                        <div class="col-sm-9 control-group">
                             <div class="controls">
                                 <div class="controls">
-                                    <select id="preEvalOffense" name="preEvalOffense" class="form-control" >
+                                    <select id="preEvalOffense" name="preEvalOffense" class="chosen-select" tabindex="8">
                                         <?php foreach ($offenses as $off): ?>
                                             <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
                                         <?php endforeach; ?>
-                                    </select>    
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -49,7 +49,7 @@ class Application extends CI_Controller {
                 break;
             case "5" :
                 $data['applications'] = $this->Case_model->select_mycasepending($uid);
-                $data['specializelawyers'] = $this->Case_model->matched_lawyers(1);
+                //$data['specializelawyers'] = $this->Case_model->matched_lawyers(1);
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/application', $data);
                 break;

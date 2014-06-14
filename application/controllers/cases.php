@@ -21,7 +21,7 @@ class Cases extends CI_Controller {
 
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
-
+        
         $datestring = "%Y-%m-%d"; //"%m/%d/%Y";
         $timestring = "%h:%i %a";
         $time = now();
@@ -262,7 +262,9 @@ class Cases extends CI_Controller {
 
         $data['casecourt'] = $this->Case_model->select_casecourt($cid);
         $data['caseoffense'] = $this->Case_model->select_caseoffense($cid);
+        $data['offenses'] = $this->Case_model->select_offense();
 
+                
         // <editor-fold defaultstate="collapsed" desc="Action Plan">
         $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
         $data['actionplan_stage1'] = $this->Case_model->select_actionplan($cid, 1);

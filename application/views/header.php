@@ -6,7 +6,6 @@
     <title>DLAC Case Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- start: Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- end: Mobile Specific -->
@@ -27,6 +26,16 @@
     <link href="<?= base_url() ?>assets/css/qunit.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/css/fullcalendar.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/css/fullcalendar.print.css" rel="stylesheet">
+    
+    <!--<link href="<?= base_url() ?>assets/css/style-prism.css" rel="stylesheet">-->
+    <link href="<?= base_url() ?>assets/css/prism.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/css/chosen.css" rel="stylesheet">
+    
+    <style type="text/css" media="all">
+    /* fix rtl for demo */
+    .chosen-rtl .chosen-drop { left: -9000px; }
+  </style>
+  
     <!-- end: CSS -->
 
 
@@ -39,4 +48,5 @@
     <link rel="apple-touch-icon-precomposed" href="http://localhost:8888/bootstrap/simpliq2/ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="http://localhost:8888/bootstrap/simpliq2/ico/favicon.png">
     <!-- end: Favicon and Touch Icons -->   
+    
 </head>

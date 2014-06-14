@@ -8,8 +8,6 @@
     </p>
 </footer>
 
-
-
 <script src="<?= base_url() ?>assets/js/jquery-2.0.3.min.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery-migrate-1.2.1.min.js"></script>
@@ -58,23 +56,35 @@
 <script src="<?= base_url() ?>assets/js/bootstrap-rowlink.js"></script>
 <script src="<?= base_url() ?>assets/js/hide-show.js"></script>
 
-
+<script src="<?= base_url() ?>assets/js/chosen.jquery.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>assets/js/chosen.proto.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>assets/js/prism.js" type="text/javascript"></script>
 
 
 <!-- CUSTOM JAVASCRIPT ------------------------------------------------------>
 <script type='text/javascript'>
 
+    var config = {
+        '.chosen-select': {},
+        '.chosen-select-deselect': {allow_single_deselect: true},
+        '.chosen-select-no-single': {disable_search_threshold: 10},
+        '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'}
+    };
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
 //customized datatables
     $(document).ready(function() {
         
-        $('#popover').popover({ 
-        html : true,
-        title: function() {
-          return $("#popover-head").html();
-        },
-        content: function() {
-          return $("#popover-content").html();
-        }
+        $('#popover').popover({
+            html: true,
+            title: function() {
+                return $("#popover-head").html();
+            },
+            content: function() {
+                return $("#popover-content").html();
+            }
         });
 
         $("#dashboard-appo").dataTable({

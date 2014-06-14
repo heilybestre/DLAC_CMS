@@ -808,12 +808,11 @@
                         <h3 id="myModalLabel">Add Tags</h3>
                     </div>
                     <div class="modal-body">
-                        <div class="col-sm-12 control-group">
-                            <div class="controls">
-                                <?php echo form_textarea(array('id' => 'caseTags', 'placeholder' => 'Tag1  #Tag2  #Tag3  #Tag4 ...', 'name' => 'caseTags', 'type' => 'text', 'class' => 'form-control', 'style' => 'height:200px;')); ?>
-                            </div>
-                        </div>
-                        <br>                    
+                        <select  multiple class="chosen-select" tabindex="8">
+                            <?php foreach ($offenses as $off): ?>
+                                <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                            <?php endforeach; ?>
+                        </select>             
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="caseID" value="<?php echo $case->caseID ?>">
