@@ -5,13 +5,13 @@
 
 
 <h5>
-    <b>Assigned to </b><label class="label label-default">None</label>
+    <b>Assigned to </b><label class="label label-default">None</label>    
     <div id="actionPlanActionButtons" class="pull-right">
-        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-ok"></i> </a>
         <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
 </h5>
+    
     <h5><b>Type:</b> (Document)</h5>
     
     <div id="editAction" class="editAction hide">
@@ -184,7 +184,7 @@
 </div>
 <!-- END OF ASSIGNED & NOT YET DONE -->
 
-<!-- START OF DONE ACTION-->
+<!-- START OF DONE-->
 
 <div id="actionPlanOption3" class="hide">
 
@@ -192,8 +192,7 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">Name</label>    
 </h5>
-    <h5><b>Type:</b> (Document)</h5>
-  
+  <h5><b>Type:</b> (Document)</h5>
     <hr>
 
 <div class="discussions" id="notesThreadOption3">
@@ -226,7 +225,7 @@
 
 
 </div>
-<!-- START OF DONE ACTION-->
+<!-- START OF DONE-->
 
 <!-- START OF EDITING -->
 

@@ -1,6 +1,6 @@
 <div class="container" style='margin-left:25px;'>
 
-    <?php echo form_open(base_url() . 'director/actionPlan', array('class' => 'form-horizontal')); ?>
+    <?php echo form_open(base_url() . 'lawyer/actionPlan', array('class' => 'form-horizontal')); ?>
 
 
     <!-- before anything else; hide tasks-->
@@ -61,7 +61,17 @@
                         <?php foreach ($actionplan_stage1 as $action) : ?>
                             <tr>
                                 <td><input class='cbactionstage1' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?> /></td>
-                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> </td>
+                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
+                                
+                                    <a href="#" id="popover-orig" data-placement="bottom" class="btn btn-success popover-orig pull-right"> <i class="icon-caret-down"></i> </a>
+                                    <div id="popover-orig-head" class="hide popover-orig-head"></div>
+                                    <div id="popover-orig-content" class="hide popover-orig-content">
+                                      <form>
+                                        <?php $this->load->view('lawyer/actionPlanOptions'); ?>
+                                      </form>
+                                    </div>
+                                    
+                                </td>
                             </tr><?php endforeach; ?>
                     </table>
                 </ul>
@@ -76,7 +86,15 @@
                         <?php foreach ($actionplan_stage2 as $action) : ?>
                             <tr>
                                 <td><input class='cbactionstage2' type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 2, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?>/></td>
-                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> </td>
+                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
+                                <a href="#" id="popover-orig" data-placement="bottom" class="btn btn-success popover-orig pull-right"> <i class="icon-caret-down"></i> </a>
+                                    <div id="popover-orig-head" class="hide popover-orig-head"></div>
+                                    <div id="popover-orig-content" class="hide popover-orig-content">
+                                      <form>
+                                        <?php $this->load->view('lawyer/actionPlanOptions'); ?>
+                                      </form>
+                                    </div>
+                                </td>
                             </tr><?php endforeach; ?>
                     </table>
                 </ul>
@@ -91,7 +109,15 @@
                         <?php foreach ($actionplan_stage3 as $action) : ?>
                             <tr>
                                 <td><input class='cbactionstage3' type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 3, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?> /></td>
-                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> </td>
+                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
+                                <a href="#" id="popover-orig" data-placement="bottom" class="btn btn-success popover-orig pull-right"> <i class="icon-caret-down"></i> </a>
+                                    <div id="popover-orig-head" class="hide popover-orig-head"></div>
+                                    <div id="popover-orig-content" class="hide popover-orig-content">
+                                      <form>
+                                        <?php $this->load->view('lawyer/actionPlanOptions'); ?>
+                                      </form>
+                                    </div>
+                                </td>
                             </tr><?php endforeach; ?>
                     </table>
                 </ul>
@@ -106,7 +132,15 @@
                         <?php foreach ($actionplan_stage4 as $action) : ?>
                             <tr>
                                 <td><input class='cbactionstage4' type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 4, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?> /></td>
-                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?></td>
+                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?>
+                                <a href="#" id="popover-orig" data-placement="bottom" class="btn btn-success popover-orig pull-right"> <i class="icon-caret-down"></i> </a>
+                                    <div id="popover-orig-head" class="hide popover-orig-head"></div>
+                                    <div id="popover-orig-content" class="hide popover-orig-content">
+                                      <form>
+                                        <?php $this->load->view('lawyer/actionPlanOptions'); ?>
+                                      </form>
+                                    </div>
+                                </td>
                             </tr><?php endforeach; ?>
                     </table>
                 </ul>
