@@ -12,6 +12,8 @@
     </div>
 </h5>
     
+    <h5><b>Type:</b> (Document)</h5>
+    
     <div id="editAction" class="editAction hide">
         <br>
          <div class="col-lg-3">
@@ -102,6 +104,8 @@
     </div>
 </h5>
     
+    <h5><b>Type:</b> (Document)</h5>
+    
         <div id="editAction2" class="editAction2 hide">
         <br>
          <div class="col-lg-3">
@@ -188,7 +192,7 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">Name</label>    
 </h5>
-  
+  <h5><b>Type:</b> (Document)</h5>
     <hr>
 
 <div class="discussions" id="notesThreadOption3">
@@ -235,6 +239,7 @@
         <a class="btn btn-danger" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
 </h5>
+    <h5><b>Type:</b> (Document)</h5>
     
     <div id="editAction" class="hide">
         <br>

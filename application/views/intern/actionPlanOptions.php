@@ -5,13 +5,14 @@
 
 
 <h5>
-    <b>Assigned to </b><label class="label label-default">None</label>    
+    <b>Assigned to </b><label class="label label-default">None</label>
     <div id="actionPlanActionButtons" class="pull-right">
         <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-ok"></i> </a>
         <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
 </h5>
+    <h5><b>Type:</b> (Document)</h5>
     
     <div id="editAction" class="editAction hide">
         <br>
@@ -103,6 +104,8 @@
     </div>
 </h5>
     
+    <h5><b>Type:</b> (Document)</h5>
+    
         <div id="editAction2" class="editAction2 hide">
         <br>
          <div class="col-lg-3">
@@ -181,7 +184,7 @@
 </div>
 <!-- END OF ASSIGNED & NOT YET DONE -->
 
-<!-- START OF DONE-->
+<!-- START OF DONE ACTION-->
 
 <div id="actionPlanOption3" class="hide">
 
@@ -189,6 +192,7 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">Name</label>    
 </h5>
+    <h5><b>Type:</b> (Document)</h5>
   
     <hr>
 
@@ -222,7 +226,7 @@
 
 
 </div>
-<!-- START OF DONE-->
+<!-- START OF DONE ACTION-->
 
 <!-- START OF EDITING -->
 
@@ -236,6 +240,7 @@
         <a class="btn btn-danger" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
 </h5>
+    <h5><b>Type:</b> (Document)</h5>
     
     <div id="editAction" class="hide">
         <br>
