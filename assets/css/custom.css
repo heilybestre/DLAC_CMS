@@ -1,3 +1,29 @@
+ #btnTakeActionPlan{
+ 	padding: 3px 4px;
+ 	font-size: 12px;
+ }
+
+ #actionPlanNotes{
+ 	min-width: 260px ! important;
+ }
+
+ .popover
+{
+    min-width: 300px ! important;
+    max-height: 400px ! important;
+    overflow: scroll;
+}
+
+ #popover-content
+    {
+        min-width:900px;
+    }
+
+ #popover-head
+    {
+        width:900px;
+    }
+
 .modal-dialog-minutes {
 	width: 800px; /* SET THE WIDTH OF THE MODAL */
 	margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
