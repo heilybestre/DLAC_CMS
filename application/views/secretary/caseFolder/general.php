@@ -31,9 +31,9 @@
                             <th>Offense:</th>
                             <td>
                                 <?php foreach ($caseoffense as $off) : ?>
-                                <label class="label label-danger">
-                                    <?php echo "$off->offense ($off->stage)" ?>
-                                </label><?php endforeach; ?>
+                                    <label class="label label-danger">
+                                        <?php echo "$off->offense ($off->stage)" ?>
+                                    </label><?php endforeach; ?>
 
                                 <a href="#addOffenseModal" data-toggle="modal"><i class="icon-edit"></i></a>
                             </td>
@@ -47,18 +47,31 @@
                             <td><?php echo $client->typeName ?></td>
                         </tr>
                         <tr>
+                            <th>Difficulty Level:</th>
+                            <td><?php if ($case->difficultyLevel >= 7 && $case->difficultyLevel <= 10) { ?>
+                                    <label class='label label-danger'><?php echo $case->difficultyLevel ?></label>
+                                <?php } ?>
+                                <?php if ($case->difficultyLevel >= 4 && $case->difficultyLevel <= 6) { ?>
+                                    <label class='label label-warning'><?php echo $case->difficultyLevel ?></label>
+                                <?php } ?>
+                                <?php if ($case->difficultyLevel >= 1 && $case->difficultyLevel <= 3) { ?>
+                                    <label class='label label-primary'><?php echo $case->difficultyLevel ?></label>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>Supervising Lawyer:</th>
                             <?php $count = 1 ?>
                             <td>
                                 <?php foreach ($caselawyers as $row): ?>
-                                <?php
-                                if ($count > 1) {
-                                    echo ' ,';
-                                }
-                                ?>
-                                <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
-                                <?php echo "$row->firstname $row->lastname"; ?>
-                                <?php $count++ ?><?php endforeach; ?>
+                                    <?php
+                                    if ($count > 1) {
+                                        echo ' ,';
+                                    }
+                                    ?>
+                                    <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
+                                    <?php echo "$row->firstname $row->lastname"; ?>
+                                    <?php $count++ ?><?php endforeach; ?>
                             </td>
                         </tr>
                         <tr>
@@ -71,7 +84,7 @@
                         </tr>
                         <tr>
                             <th><a class ="btn btn-link" style='margin-bottom: 10px' href="#viewNarrativeModal" data-toggle="modal">
-                                View Narrative</a>
+                                    View Narrative</a>
                             </th>
                             <td></td>
                         </tr>
@@ -98,11 +111,11 @@
                         </thead>   
                         <tbody>
                             <?php foreach ($casecourt as $row): ?>
-                            <tr>
-                                <td><?php echo $row->court ?></td>
-                                <td><?php echo $row->casenumber ?></td>
-                                <td><?php echo $row->statusName ?></td>
-                            </tr><?php endforeach; ?>
+                                <tr>
+                                    <td><?php echo $row->court ?></td>
+                                    <td><?php echo $row->casenumber ?></td>
+                                    <td><?php echo $row->statusName ?></td>
+                                </tr><?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -122,9 +135,9 @@
                         </thead>   
                         <tbody>
                             <?php foreach ($caseinterns as $row) : ?>
-                            <tr>
-                                <td><center><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></center></td>
-                                <td><?php echo $row->firstname . " " . $row->lastname ?></td>
+                                <tr>
+                                    <td><center><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></center></td>
+                            <td><?php echo $row->firstname . " " . $row->lastname ?></td>
                             </tr><?php endforeach; ?>
                         </tbody>
                     </table>
@@ -141,9 +154,9 @@
                 <div class="box-content" id="boxcontent">
                     <?php $tags = explode(' #', $case->tags); ?>
                     <?php foreach ($tags as $tag): ?>
-                    <label class="label label-primary">
-                        <i class="icon-tag">&nbsp; <?php echo $tag ?></i>
-                    </label><?php endforeach; ?>
+                        <label class="label label-primary">
+                            <i class="icon-tag">&nbsp; <?php echo $tag ?></i>
+                        </label><?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -171,40 +184,40 @@
 
                                 <div class="timeline" id="timeline-div">
 
-                                    <?php foreach($caselog_stage1 as $log) : ?>
-                                    <div class="timeslot">
+                                    <?php foreach ($caselog_stage1 as $log) : ?>
+                                        <div class="timeslot">
 
-                                        <div class="task">
-                                            <span>
-                                                <span class="type">
-                                                    <?= $log->category ?>
+                                            <div class="task">
+                                                <span>
+                                                    <span class="type">
+                                                        <?= $log->category ?>
+                                                    </span>
+                                                    <span class="details">
+                                                        <?= $log->action ?>
+                                                    </span> 
                                                 </span>
-                                                <span class="details">
-                                                    <?= $log->action ?>
-                                                </span> 
-                                            </span>
-                                            <div class="arrow"></div>
-                                        </div>    
+                                                <div class="arrow"></div>
+                                            </div>    
 
-                                        <div class="icon">
-                                            <?php
-                                            if ($log->category == 'EVIDENCE')
-                                                echo '<i class="icon-inbox"></i>';
-                                            else if($log->category == 'CASE')
-                                                echo '<i class="icon-folder-open"></i>';
-                                            else if($log->category == 'CALENDAR')
-                                                echo '<i class="icon-calendar"></i>';
-                                            else if($log->category == 'DOCUMENT')
-                                                echo '<i class="icon-file"></i>';
-                                            else if($log->category == 'PEOPLE')
-                                                echo '<i class="icon-group"></i>';
-                                            ?>
-                                        </div>
+                                            <div class="icon">
+                                                <?php
+                                                if ($log->category == 'EVIDENCE')
+                                                    echo '<i class="icon-inbox"></i>';
+                                                else if ($log->category == 'CASE')
+                                                    echo '<i class="icon-folder-open"></i>';
+                                                else if ($log->category == 'CALENDAR')
+                                                    echo '<i class="icon-calendar"></i>';
+                                                else if ($log->category == 'DOCUMENT')
+                                                    echo '<i class="icon-file"></i>';
+                                                else if ($log->category == 'PEOPLE')
+                                                    echo '<i class="icon-group"></i>';
+                                                ?>
+                                            </div>
 
-                                        <div class="time">
-                                            <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
-                                        </div>  
-                                    </div><?php endforeach ?>
+                                            <div class="time">
+                                                <?= date("F j, Y  h:i a", strtotime($log->dateTime)) ?>
+                                            </div>  
+                                        </div><?php endforeach ?>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -343,11 +356,11 @@
                                 <div class="controls">
                                     <select id="caseOffensePenal" name="caseOffensePenal" class="form-control"> 
                                         <optgroup label="Penal Code">
-                                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Public Order"> 
-                                                <option>Illegal Possession of Firearms</option>
-                                                <option>Inciting to rebellion or insurrection</option>
-                                                <option>Sedition</option>                    
-                                            </optgroup>
+                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Public Order"> 
+                                            <option>Illegal Possession of Firearms</option>
+                                            <option>Inciting to rebellion or insurrection</option>
+                                            <option>Sedition</option>                    
+                                        </optgroup>
                                         </optgroup> 
                                     </select>
                                 </div>
