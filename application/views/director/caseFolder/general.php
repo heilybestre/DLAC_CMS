@@ -47,19 +47,6 @@
                             <td><?php echo $client->typeName ?></td>
                         </tr>
                         <tr>
-                            <th>Difficulty Level:</th>
-                            <td><?php if ($case->difficultyLevel >= 7 && $case->difficultyLevel <= 10) { ?>
-                                    <label class='label label-danger'><?php echo $case->difficultyLevel ?></label>
-                                <?php } ?>
-                                <?php if ($case->difficultyLevel >= 4 && $case->difficultyLevel <= 6) { ?>
-                                    <label class='label label-warning'><?php echo $case->difficultyLevel ?></label>
-                                <?php } ?>
-                                <?php if ($case->difficultyLevel >= 1 && $case->difficultyLevel <= 3) { ?>
-                                    <label class='label label-primary'><?php echo $case->difficultyLevel ?></label>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                        <tr>
                             <th>Supervising Lawyer:</th>
                             <?php $count = 1 ?>
                             <td>
