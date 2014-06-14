@@ -1,3 +1,4 @@
+
 function toggleReportYearly() {
   var ele = document.getElementById("reportsMonthly");
   var ele2 = document.getElementById("reportsYearly");

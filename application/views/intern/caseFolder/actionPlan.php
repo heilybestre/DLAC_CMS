@@ -71,15 +71,19 @@
     <div id='actionplandiv' class="row disable fadedopp">
 
         <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
-
-        <div id='saveactionplan' class="col-lg-2 pull-right hide">
+        
+        <div class="col-sm-8"></div>
+        
+        <div id='saveactionplanbtndiv' class="col-lg-1 hide">
             <?php echo form_submit(array('name' => 'save', 'class' => 'btn btn-medium btn-info', 'style' => 'margin-bottom:10px'), 'Save Action Plan'); ?>
         </div>
+        
+       <div class="col-sm-1"></div>
 
-        <div id='submitactionplanbtndiv' class="col-lg-2 pull-right hide">
+        <div id='submitactionplanbtndiv' class="col-lg-1 hide">
             <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Submit Action Plan'); ?>
         </div>
-
+            
         <br><br><br>
         
         <!-- 1 NEW || MAKE ALL CHECKBOX DISABLED-->
@@ -93,8 +97,15 @@
                 <table id='action1table' class="table table-condensed" style="background-color:white;">
                     <tr>
                         <td><input class="disable" type='checkbox' name='action1[]' value='Set Client Meeting' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Set Client Meeting' class='hide'> Set Client Meeting </td>
-                        <td><a href="" class="btn"> x </a> </td>
+                        <td><input name='actionname1[]' value='Set Client Meeting' class='hide'> Set Client Meeting 
+                        <a href="#" id="popover-editing" data-placement="bottom" class="btn btn-success popover-editing"> <i class="icon-caret-down"></i> </a>
+                            <div id="popover-editing-head" class="hide popover-editing-head"></div>
+                            <div id="popover-editing-content" class="hide popover-editing-content">
+                              <form>
+                                <?php $this->load->view('intern/actionPlanOptions'); ?>
+                              </form>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td><input class="disable"  type='checkbox' name='action1[]' value='Inform Client' style='margin: 0px 5px 0px 10px;' /></td>
@@ -302,6 +313,7 @@
             <h5>Action Plan Status:<label class="label label-success">Approved</label></h5>
             <br>
         </div>
+
         <div class="col-lg-6"></div>
         <div class="col-lg-2">
             <br>
@@ -325,9 +337,9 @@
                         <td><input class='cbactionstage1' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if($action->status==1) echo 'checked'; ?> /></td>
                         <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
                             
-                            <a href="#" id="popover" data-placement="bottom" class="btn btn-success"> <i class="icon-caret-down"></i> </a>
-                            <div id="popover-head" class="hide"></div>
-                            <div id="popover-content" class="hide">
+                            <a href="#" id="popover-orig" data-placement="bottom" class="popover-orig btn btn-success"> <i class="icon-caret-down"></i> </a>
+                            <div id="popover-orig-head" class="hide"></div>
+                            <div id="popover-orig-content" class="hide">
                               <form>
                                 <?php $this->load->view('intern/actionPlanOptions'); ?>
                               </form>

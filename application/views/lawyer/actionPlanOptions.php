@@ -7,7 +7,6 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">None</label>    
     <div id="actionPlanActionButtons" class="pull-right">
-        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-ok"></i> </a>
         <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>

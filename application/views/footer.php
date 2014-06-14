@@ -66,14 +66,25 @@
 
 //customized datatables
     $(document).ready(function() {
-        
-        $('#popover').popover({ 
+  
+        $('.popover-orig').popover({ 
         html : true,
         title: function() {
-          return $("#popover-head").html();
+          return $("#popover-orig-head").html();
         },
         content: function() {
-          return $("#popover-content").html();
+          return $("#popover-orig-content").html();
+        }
+
+        });
+        
+        $('.popover-editing').popover({ 
+        html : true,
+        title: function() {
+          return $("#popover-editing-head").html();
+        },
+        content: function() {
+          return $("#popover-editing-content").html();
         }
         });
 
@@ -1057,7 +1068,9 @@
             $('#editingdiv').removeClass('hide');
             $('#btncreateactionplan').addClass('hide');
             $('#submitactionplanbtndiv').removeClass('hide');
+            $('#saveactionplanbtndiv').removeClass('hide');
         });
+ 
 
 //Add action
         $('#btnaddaction').click(function() {
@@ -1117,7 +1130,6 @@
 //Close view appointment div
         $('.btnapptclose').click(function() {
             $('#viewapptdiv').removeClass('hide');
-
             $('#cantattendapptdiv').addClass('hide');
             $('#editapptdiv').addClass('hide');
             $('#doneapptdiv').addClass('hide');
@@ -1132,7 +1144,112 @@
         var cid = "<?php echo $this->session->userdata('cid') ?>";
         window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
     });
+     //!!popover, actionplan
+    
+    $('.popover-orig').click(function(){
+      $('#actionPlanOption1').removeClass('hide');
+      $('#actionPlanOption2').addClass('hide');
+      $('#actionPlanOption3').addClass('hide');
+      $('#actionPlanOption4').addClass('hide');
+  });
 
+  $('.popover-editing').click(function(){
+        //editing
+        $('#actionPlanOption1').addClass('hide');
+        $('#actionPlanOption2').addClass('hide');
+        $('#actionPlanOption3').addClass('hide');
+        $('#actionPlanOption4').removeClass('hide');  
+    });
+    
+    $(document).on('click','.getActionButton',function(){
+        $('#actionPlanOption1').addClass('hide');
+        $('#actionPlanOption2').removeClass('hide');
+        $('#actionPlanOption3').addClass('hide');
+        $('#actionPlanOption4').addClass('hide'); 
+    });
+    
+    $(document).on('click','.editActionButton',function(){
+        $('#editAction').removeClass('hide');
+        $('#deleteAction').addClass('hide');
+        $('#actionPlanWriteNotes').addClass('hide');
+        $('#getActionButton').addClass('hide');
+    });
+    
+    $(document).on('click','.editActionButton2',function(){
+        $('#editAction2').removeClass('hide');
+        $('#deleteAction2').addClass('hide');
+        $('#actionPlanWriteNotes2').addClass('hide');
+    });
+    
+    $(document).on('click','.deleteActionButton',function(){
+        $('#editAction').addClass('hide');
+        $('#deleteAction').removeClass('hide');
+        $('#actionPlanWriteNotes').addClass('hide');
+        $('#getActionButton').addClass('hide');
+        $('#editActionButton').addClass('hide');
+        $('#deleteActionButton').addClass('hide');
+       
+    });
+    
+    $(document).on('click','.deleteActionButton2',function(){
+        $('#editAction2').addClass('hide');
+        $('#deleteAction2').removeClass('hide');
+        $('#actionPlanWriteNotes2').addClass('hide');
+        $('#getActionButton2').addClass('hide');
+        $('#editActionButton2').addClass('hide');
+        $('#deleteActionButton2').addClass('hide');
+       
+    });
+    
+    $(document).on('click','.saveActionButton',function(){
+        $('#editAction').addClass('hide');
+        $('#deleteAction').addClass('hide');
+        $('#actionPlanWriteNotes').removeClass('hide');
+        $('#getActionButton').removeClass('hide');
+    });
+    
+    $(document).on('click','.saveActionButton2',function(){
+        $('#editAction2').addClass('hide');
+        $('#deleteAction2').addClass('hide');
+        $('#actionPlanWriteNotes2').removeClass('hide');
+    });
+    
+      $(document).on('click','.cancelEditButton',function(){
+        $('#editAction').addClass('hide');
+        $('#deleteAction').addClass('hide');
+        $('#actionPlanWriteNotes').removeClass('hide');
+        $('#getActionButton').removeClass('hide');
+        $('#editActionButton').removeClass('hide');
+        $('#deleteActionButton').removeClass('hide');
+    });
+   
+   $(document).on('click','.cancelEditButton2',function(){
+        $('#editAction2').addClass('hide');
+        $('#deleteAction2').addClass('hide');
+        $('#actionPlanWriteNotes2').removeClass('hide');
+        $('#getActionButton2').removeClass('hide');
+        $('#editActionButton2').removeClass('hide');
+        $('#deleteActionButton2').removeClass('hide');
+    });
+    
+        $(document).on('click','.cancelDeleteButton',function(){
+        $('#editAction').addClass('hide');
+        $('#deleteAction').addClass('hide');
+        $('#actionPlanWriteNotes').removeClass('hide');
+        $('#getActionButton').removeClass('hide');
+        $('#editActionButton').removeClass('hide');
+        $('#deleteActionButton').removeClass('hide');
+    });
+    
+        $(document).on('click','.cancelDeleteButton2',function(){
+        $('#editAction2').addClass('hide');
+        $('#deleteAction2').addClass('hide');
+        $('#actionPlanWriteNotes2').removeClass('hide');
+        $('#getActionButton2').removeClass('hide');
+        $('#editActionButton2').removeClass('hide');
+        $('#deleteActionButton2').removeClass('hide');
+    });
+   
 </script>
 
 

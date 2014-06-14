@@ -60,7 +60,17 @@
                         <?php foreach ($actionplan_stage1 as $action) : ?>
                             <tr>
                                 <td><input class='cbactionstage1' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?> /></td>
-                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> </td>
+                                <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
+                                
+                                   <a href="#" id="popover-orig" data-placement="bottom" class="btn btn-success popover-orig"> <i class="icon-caret-down"></i> </a>
+                                    <div id="popover-orig-head" class="hide popover-orig-head"></div>
+                                    <div id="popover-orig-content" class="hide popover-orig-content">
+                                      <form>
+                                        <?php $this->load->view('director/actionPlanOptions'); ?>
+                                      </form>
+                                    </div>
+                                    
+                                </td>
                             </tr><?php endforeach; ?>
                     </table>
                 </ul>

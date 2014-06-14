@@ -1,17 +1,71 @@
- #btnTakeActionPlan{
+#notesThread2{
+ 	width: 320px ! important;
+        height:150px ! important;
+        overflow: scroll;
+ } 
+
+#actionPlanNote2{
+        height:auto; 
+}
+#actionPlanWriteNotes2{
+ 	width: 280px ! important;
+        max-height: 500px ! important;
+        overflow: auto;
+ }
+ 
+#deleteAction2{
+   width: 280px ! important;
+   height: 80px ! important;
+}
+
+#editAction2{
+ 	width: 280px ! important;
+        max-height: 500px ! important;
+        overflow: auto;
+ }
+ 
+#deleteAction{
+   width: 280px ! important;
+   height: 80px ! important;
+}
+
+#editAction{
+ 	width: 280px ! important;
+        max-height: 500px ! important;
+        overflow: auto;
+ }
+
+#notesThreadOption3{
+    width: 320px ! important;
+    height:310px ! important;
+    overflow: scroll;           
+    
+}
+#actionPlanNote{
+        height:auto; 
+}
+
+#notesThread{
+ 	width: 320px ! important;
+        height:150px ! important;
+        overflow: scroll;
+ } 
+
+#btnTakeActionPlan{
  	padding: 3px 4px;
  	font-size: 12px;
  }
 
- #actionPlanNotes{
- 	min-width: 260px ! important;
+ #actionPlanWriteNotes{
+ 	width: 280px ! important;
+        max-height: 500px ! important;
+        overflow: auto;
  }
 
  .popover
 {
-    min-width: 300px ! important;
-    max-height: 400px ! important;
-    overflow: scroll;
+    max-width: 350px ! important;
+    height: 410px ! important;
 }
 
  #popover-content
@@ -23,6 +77,8 @@
     {
         width:900px;
     }
+    
+    
 
 .modal-dialog-minutes {
 	width: 800px; /* SET THE WIDTH OF THE MODAL */
