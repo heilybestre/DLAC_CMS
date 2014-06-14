@@ -5,7 +5,6 @@
                 <div class="box-header"><br><br>
                     <ul class="nav tab-menu nav-tabs pull-left" style="font-size: 15px;">
                         <!-- <li><a href="#directorsremarks" data-toggle="tab">Director's Remarks</a></li> -->
-                        <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'recommendation') echo 'class="active"'; ?> id='liViewRecommendation'><a href="#recommendation" data-toggle="tab">Recommendation</a></li>
 
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'legaladvice') echo 'class="active"'; ?> id='liViewLegalAdvice'><a href="#legalAdvice" data-toggle="tab">Legal Advice</a></li>
 
@@ -53,9 +52,6 @@
                         </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'legaladvice') echo 'active'; ?>" id="legalAdvice" style='padding:10px;'>
                             <?php $this->load->view('lawyer/viewApplication/viewlegaladvice'); ?>
-                        </div>
-                        <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'recommendation') echo 'active'; ?>" id="recommendation" style='padding:10px;'>
-                            <?php $this->load->view('lawyer/viewApplication/viewrecommendation'); ?>
                         </div>
                     </div>
                 </div>

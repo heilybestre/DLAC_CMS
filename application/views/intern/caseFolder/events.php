@@ -152,8 +152,9 @@
                                 <tr>
                                     <th>Task</th>
                                     <th>Notes</th>
+                                    <th>Due Date</th>
                                     <th>Assigned by</th>
-                                    <th></th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>   
                             <tbody>
@@ -161,6 +162,7 @@
                                     <tr>
                                         <td class="center"><?php echo $row->task ?></td>
                                         <td class="center"><?php echo $row->notes ?></td>
+                                        <td class="center">Date</td>
                                         <td class="center"><?php echo $row->firstname . ' ' . $row->lastname ?></td>
                                         <td class="center">
                                             <?php if ($row->summary == NULL) { ?>
@@ -438,35 +440,24 @@
                                 </div>
                             </div>
 
-                            <br><br>
+                            <br><br><br><br><br>
 
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
-                                    <center> <h5> Assign To</h5> </center>
+                                    <center> <h5> Due Date </h5> </center>
                                 </div>
                             </div>
 
                             <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                    <div id='internsdiv' class="tbl-attendees">
-                                        <table class='table table-striped'>
-                                            <?php foreach ($caseinterns as $row) { ?>
-                                                <tr>
-                                                    <td align='center'>
-                                                        <input name='assignedTo[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
-                                                        <?php if ($this->session->userdata('userid') == $row->personID) echo 'checked'; ?>
-                                                               />
-                                                    </td>
-                                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                        </table>
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                        <input type="text" class="form-control date-picker" id="taskduedate" name="taskduedate" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
                                     </div>
                                 </div>
                             </div>
 
-                            <br><br><br><br><br><br><br><br><br><br>
-
+                            <br><br>
 
                         </div>
                         <div class="modal-footer">
