@@ -187,40 +187,7 @@
     <br>
 
     <div class="row">
-
-        <div class="col-lg-6">
-            <div class="box">
-                <div class="box-header">
-                    <h2><i class="icon-list"></i>Application</h2>
-                    <div class="box-icon">
-                        <a href="<?= base_url() ?>application/index"><i class="icon-plus"></i></a>
-                    </div>
-                </div>
-                <div class="box-content box-dashboard">
-                    <br>
-                    <table class="table table-striped table-bordered datatable" id="dashboard-appl" data-provides="rowlink">
-                        <thead>
-                            <tr>
-                                <th width="25%">No.</th>
-                                <th width="50%">Title</th>
-                                <th width="25%">Status</th>
-                            </tr>
-                        </thead>   
-                        <tbody>
-                            <?php foreach ($applications as $row): ?>
-                                <tr>
-                                    <td class="center"><a href="application/view/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
-                                    <td class="center"><?php echo $row->caseName ?></td>
-                                    <td class="center"><?php echo $row->statusName ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>    
-                </div>
-            </div>
-        </div><!--/col-->
-
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="box span4" onTablet="span6" onDesktop="span4">
                 <div class="box-header">
                     <h2><i class="icon-list"></i>Cases</h2>
@@ -230,9 +197,11 @@
                     <table class="table table-striped table-bordered datatable" id="dashboard-cases" data-provides="rowlink">
                         <thead>
                             <tr>
-                                <th width="15%">No.</th>
-                                <th width="50%">Title</th>
-                                <th width="35%">Date Accepted</th>
+                                <th>No.</th>
+                                <th>Title</th>
+                                <th>Date Accepted</th>
+                                <th>Offense</th>
+                                <th>Supervising Lawyer</th>
                             </tr>
                         </thead>   
                         <tbody>
@@ -241,6 +210,8 @@
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
                                     <td><?php echo $row->dateReceived ?></td>
+                                    <td><?php echo $row->offense ?></td>
+                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

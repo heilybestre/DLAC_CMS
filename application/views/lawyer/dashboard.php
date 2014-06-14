@@ -157,9 +157,11 @@
                     <table class="table table-striped table-bordered datatable" id="dashboard-drafts" data-provides="rowlink">
                         <thead>
                             <tr>
-                                <th width="25%">No.</th>
-                                <th width="50%">Title</th>
-                                <th width="25%">Date Accepted</th>
+                                <th>No.</th>
+                                <th>Title</th>
+                                <th>Date Accepted</th>
+                                <th>Offense</th>
+                                <th>Supervising Lawyer</th>
                             </tr>
                         </thead>   
                         <tbody>
@@ -168,6 +170,8 @@
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
                                     <td class="center"><?php echo $row->dateReceived ?></td>
+                                    <td class="center"><?php echo $row->offense ?></td>
+                                    <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
