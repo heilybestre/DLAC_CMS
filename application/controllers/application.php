@@ -23,6 +23,8 @@ class Application extends CI_Controller {
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
+        $data['offenses'] = $this->Case_model->select_offense();
+
         $this->load->view('header');
         switch ($utype) {
             case "1" :
@@ -47,7 +49,7 @@ class Application extends CI_Controller {
                 break;
             case "5" :
                 $data['applications'] = $this->Case_model->select_mycasepending($uid);
-
+                $data['specializelawyers'] = $this->Case_model->matched_lawyers(1);
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/application', $data);
                 break;
@@ -241,7 +243,7 @@ class Application extends CI_Controller {
 
         $uid = $this->session->userdata('userid');
         $utype = $this->People_model->getuserfield('type', $uid);
-        
+
         $data['image'] = $this->People_model->getuserfield('image', $uid);
         $data['name'] = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
 
@@ -252,7 +254,6 @@ class Application extends CI_Controller {
         $this->load->view('intern/menubar', $data);
         $this->load->view('intern/rejectApplication', $data);
         $this->load->view('footer');
-        
     }
 
     /* START - CREATE APPLICATION FUNCTIONS */

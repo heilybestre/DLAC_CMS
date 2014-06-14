@@ -406,7 +406,7 @@ class Case_model extends CI_Model {
     }
 
     function select_offense() {
-        $query = $this->db->query("SELECT * FROM offenses");
+        $query = $this->db->query("SELECT * FROM offenses ORDER BY offenseName ASC");
         return $query->result();
     }
 
