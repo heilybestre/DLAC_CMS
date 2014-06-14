@@ -191,6 +191,11 @@ class People_model extends CI_Model {
         $this->db->update('case_people', $data);
     }
 
+    function matched_lawyers($offenseID) {
+        $query = $this->db->query("SELECT * FROM `people_offense` JOIN `lawyers` ON (`lawyers`.`personID` = `people_offense`.`personID`) WHERE offenseID = $offenseID");
+        return $query;
+    }
+
 }
 
 ?>
