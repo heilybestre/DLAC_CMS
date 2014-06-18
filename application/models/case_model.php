@@ -135,7 +135,7 @@ class Case_model extends CI_Model {
     }
 
     function select_caseoffense($cid) {
-        $query = $this->db->query("SELECT * FROM case_offense WHERE caseID = $cid ");
+        $query = $this->db->query("SELECT * FROM case_offense JOIN ref_offense ON ref_offense.offenseID = case_offense.offenseID WHERE caseID = $cid ");
         return $query->result();
     }
 
