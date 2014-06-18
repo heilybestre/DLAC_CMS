@@ -44,7 +44,7 @@
                             <br><br>
                             <h2><b>Available Lawyers</b></h2>
                             
-                            <div style="500px;">
+                            <div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
