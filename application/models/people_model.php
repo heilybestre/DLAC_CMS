@@ -129,8 +129,13 @@ class People_model extends CI_Model {
     }
 
     function select_interns() {
-        $query = $this->db->query("SELECT * FROM interns ORDER BY caseload");
+        $query = $this->db->query("SELECT * FROM interns");
         return $query->result();
+    }
+
+    function select_similar($personID, $offenseID) {
+        $query = $this->db->query("SELECT COUNT(*) AS similar FROM cms.case_people JOIN case_offense ON (case_offense.caseID = case_people.caseID) JOIN ref_offense ON (case_offense.offenseID = ref_offense.offenseID) WHERE personID = $personID AND `CONDITION` = 'CURRENT' and `ref_offense`.`offenseID`=$offenseID ");
+        return $query->row();
     }
 
     function select_person($pid) {

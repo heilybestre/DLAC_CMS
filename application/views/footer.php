@@ -1262,7 +1262,24 @@
    
 </script>
 
-
+<!-- VIANICAAAAAAAAAA ------------------------------------------------------->
+<script type='text/javascript'>
+$(document).ready(function() {
+       
+    $('#preEvalOffense').change(function() {
+       alert('hello');    
+       
+       
+       
+    });
+   
+});
+   
+   
+   
+   
+ 
+</script>
 
 
 <!-- AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX -->
