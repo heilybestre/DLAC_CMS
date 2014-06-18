@@ -43,22 +43,39 @@
                             <i class="icon-ok"></i> The clinic can provide legal aid to this type of case.
                             <br><br>
                             <h2><b>Available Lawyers</b></h2>
+                            
+                            <div>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Specialized Lawyers</th>
+                                    </tr>
+                                </thead>   
+                                <tbody>
+                                    <tr>
+                                        <td>Name (AVERAGE Case Difficulty)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          
+                                <br>
+                            
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
                                         <th>Other Available Lawyers</th>
                                     </tr>
                                 </thead>   
                                 <tbody>
-                                    <?php foreach ($specializelawyers as $row): ?>
+                                    
                                         <tr>
-                                            <td><?php echo "$row->firstName $row->lastName" ?></td>
-                                            <td>Patricia Perez</td>
+                                            <td>Patricia Perez (3.5)</td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    
                                 </tbody>
                             </table>
+                                
+                            </div>
 
                             <center> <a class ="btn btn-medium btn-success" href="createApplication">Create Application</a></center>
 

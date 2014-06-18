@@ -302,164 +302,43 @@
         <hr>
 
         <div class="col-lg-5">
-
-            <div class="col-sm-2 control-group">
-                <div class="controls">
-                    <h5> <center><b>Source</b></center></h5>
-                </div>
-            </div>
-
-            <div class="form-inline">
-                <div class="controls">
-                    <center>
-                        <label class="radio" for="offenseSource-1">
-                            <input type="radio" name="offenseSource" value="Revised Penal Code" onclick="location.href = 'javascript:toggleRPC();';">
-                            Revised Penal Code
-                        </label>
-                        <label class="radio" for="offenseSource-0">
-                            <input type="radio" name="offenseSource" value="Special Penal Law"  onclick="location.href = 'javascript:toggleSpecial();';">
-                            Special Penal Law
-                        </label> &nbsp;
-                    </center>
-                </div>
-            </div>
-
-            <br>
-
-            <div id="caseOffensePenal" style="display: none">
-
-                <div class="col-sm-3 control-group">
+            
+            <div class="col-sm-3 control-group">
                     <div class="controls">
                         <h5> <center><b>Offense</b></center></h5>
                     </div>
                 </div>
 
-                <div class="col-sm-6 control-group">
-                    <div class="controls">
-                        <select id="appoffensepenal" name="appoffensepenal" class="form-control"> 
-                            <optgroup label="Penal Code">
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Public Order"> 
-                                <option>Inciting to rebellion or insurrection</option>
-                                <option>Sedition</option>                    
-                            </optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Public Interest">
-                                <option>Illegal use of uniforms & insignia</option>
-                                <option>Falsification of legislative documents</option>
-                                <option>Forgery</option>
-                                <option>Offering false testimony in evidence</option>
-                                <option>Sedition</option>                    
-                            </optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Persons">
-                                <option>Homicide</option>
-                                <option>Murder</option>
-                                <option>Parricide</option>
-                                <option>Rape</option>
-                                <option>Serious Physical Injuries</option>							
-                                <option>Sexual Assault, Acts of Lasciviousness & Rape</option>
-                                <option>Slight Physical Injuries</option>                    
-                            </optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Personal Liberty and Security">
-                                <option>Exploitation of minors</option>
-                                <option>Kidnapping and Serious Illegal Detention</option>                   
-                            </optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Property">
-                                <option>Bouncing Checks</option>  
-                                <option>Carnapping</option>
-                                <option>Robbery</option>
-                                <option>Robbery with Homicide</option>
-                                <option>Robbery with Rape</option>
-                                <option>Sqindling (Estafa)</option>
-                                <option>Theft</option>
-                            </optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Chastity">
-                                <option>Acts of Lasciviousness</option>
-                                <option>Adultery</option>  
-                                <option>Sexual Harrasment</option>
-                            </optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Honor">
-                                <option>Libel</option>  
-                                <option>Libelous Remarks</option>          	
-                                <option>Slander</option>
-                            </optgroup>
-                            </optgroup> 
-                        </select>
-                    </div>
-                </div>
-
-                <br><br>
-
-                <div class="col-sm-3 control-group">
-                    <div class="controls">
-                        <h5> <center><b>Offense Stage</b></center></h5>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 control-group">
-                    <div class="controls">
-                        <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
-                            <option>Attempted</option>
-                            <option>Frustrated</option>
-                            <option>Consumated</option>
-                            <option>N/A</option>
-                        </select>
-                        <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
-                    </div>
-                </div>
-
+        <div class="col-sm-6 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
             </div>
+        </div>
 
-            <div id="caseOffenseSpecial" style="display: none">
+        <br><br>
 
-                <div class="col-sm-3 control-group">
-                    <div class="controls">
-                        <h5> <center><b>Offense</b></center></h5>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 control-group">
-                    <div class="controls">
-                        <select name="appoffensespecial" id="appoffensespecial" class="form-control">
-                            <optgroup label="Special Laws">
-                                <option>Anti-Carnapping Act of 1972</option>
-                                <option>Anti-Child Pornography Act of 2009</option>
-                                <option>Anti-Hazing Law</option>
-                                <option>Anti-Photo and Video Voyeurism Act of 2009</option>
-                                <option>Anti-Sexual Harrassment Act of 1995</option> 
-                                <option>Anti-Violence Against Women and Their Children Act of 2004</option>
-                                <option>Anti-Wire Tapping Act</option>
-                                <option>Bouncing Checks Law</option>
-                                <option>Human Security Act of 2007</option>
-                                <option>Illegal Possession of Firearms</option>
-                                <option>Juvenile Justice and Welfare Act of 2006</option>
-                                <option>Special Protection of Children Against Child Abuse, Exploitation and Discrimination Act</option>
-                                <option>The Comprehensive Dangerous Drugs Act of 2002</option>
-                            </optgroup>  
-                        </select>
-                    </div>
-                </div>
-
-                <br><br>
-
-                <div class="col-sm-3 control-group">
-                    <div class="controls">
-                        <h5> <center><b>Offense Stage</b></center></h5>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 control-group">
-                    <div class="controls">
-                        <select id="appoffensestagespecial" name="appoffensestagespecial" class="form-control">
-                            <option>N/A</option>
-                            <option>Attempted</option>
-                            <option>Frustrated</option>
-                            <option>Consumated</option>
-                        </select>
-                        <input type="button" id="btnaddoffensespecial" value="Add Offense" class='btn btn-info col-sm-12'/>
-                    </div>
-                </div>
-
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <center><b>Offense Stage</b></center></h5>
             </div>
+        </div>
 
+        <div class="col-sm-6 control-group">
+            <div class="controls">
+                <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
+                    <option>Attempted</option>
+                    <option>Frustrated</option>
+                    <option>Consumated</option>
+                    <option>N/A</option>
+                </select>
+                <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
+            </div>
+        </div>
+        
         </div>
 
         <div id='offensetablediv' class="col-lg-6">
