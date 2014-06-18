@@ -76,6 +76,22 @@
 
 //customized datatables
     $(document).ready(function() {
+//<<<<<<< HEAD
+//
+//        $('.popover-orig').popover({
+//            html: true,
+//            title: function() {
+//                return $("#popover-orig-head").html();
+//            },
+//            content: function() {
+//                return $("#popover-orig-content").html();
+//            }
+//=======
+
+        $(".addpersonbtn").click(function(event) {
+            alert(event.target.id);
+        });
+
 
         $('.popover-orig').popover({
             html: true,
@@ -85,6 +101,7 @@
             content: function() {
                 return $("#popover-orig-content").html();
             }
+//>>>>>>> origin/master
 
         });
 
@@ -1266,6 +1283,7 @@
 <script type='text/javascript'>
     $(document).ready(function() {
 
+
         $('#preEvalOffense').change(function() {
             var offenseID = $('#preEvalOffense').val();
 
@@ -1297,6 +1315,7 @@
                 }
             });
         });
+
 
     });
 

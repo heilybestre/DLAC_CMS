@@ -12,6 +12,8 @@
 						<!-- <li id='liRecommendation'><a href="#recommendation" data-toggle="tab">Recommendation</a></li> -->
 						
 						<li id='liLegalAdvice'><a href="#legalAdvice" data-toggle="tab">Legal Advice</a></li>
+                                                
+                                                <li id='linLinkedPeople'><a href="#linkedPeople" data-toggle="tab">People</a></li>
 						
 						<li id='liDocuments'><a href="#documents" data-toggle="tab">Legal Documents</a></li>
 						
@@ -34,6 +36,9 @@
 						</div>
 						<div class="tab-pane" id="legalAdvice" style='padding:10px;'>
 							<?php $this->load->view('intern/createApplication/addlegaladvice'); ?>
+						</div>
+                                                <div class="tab-pane" id="linkedPeople" style='padding:10px;'>
+							<?php $this->load->view('intern/createApplication/addlinkedpeople'); ?>
 						</div>
 						<!-- <div class="tab-pane" id="recommendation" style='padding:10px;'>
 							<?php $this->load->view; ?>
