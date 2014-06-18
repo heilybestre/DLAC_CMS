@@ -42,12 +42,12 @@
 
         <br><br><br>
 
-        <div class="col-sm-2 control-group">
+        <div class="col-sm-2 control-group hide">
             <div class="controls">
                 <center> <h5> <b> Client Name <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> </center>
             </div>
         </div>
-        <div class="col-sm-3 control-group">
+        <div class="col-sm-3 control-group hide">
             <div class="controls">
                 <select id="appclient" name="appclient" class="form-control">
                     <?php foreach ($clientlist as $row) : ?>
@@ -137,13 +137,13 @@
 
         <br><br>
 
-        <div class="col-sm-2 control-group">
+        <div class="col-sm-2 control-group hide">
             <div class="controls">
                 <center> <h5> <b> Opposing Party </b> </h5> </center>
             </div>
         </div>
 
-        <div class="col-sm-2 control-group">
+        <div class="col-sm-2 control-group hide">
             <div id='opposingpartydiv' class="controls">
                 <select id="appopposing" name="appopposing" class="form-control">
                     <?php foreach ($opposingpartylist as $row) : ?>
@@ -157,7 +157,7 @@
         </div>
 
 
-        <div class="col-sm-1 control-group">
+        <div class="col-sm-1 control-group hide">
             <div class="controls">
                 <sup><a class ="btn btn-success pull-left" href="#addOpposingModal" data-toggle="modal" style="margin-top:0px;"> <i class="icon-plus"></i> </a></sup>
             </div>
@@ -362,6 +362,8 @@
             </div>
         </div>
     </div>
+    
+ 
 
     <div class="row">
 

@@ -76,7 +76,12 @@
 
 //customized datatables
     $(document).ready(function() {
-  
+        
+        $(".addpersonbtn").click(function(event){
+            alert(event.target.id);
+        });
+      
+      
         $('.popover-orig').popover({ 
         html : true,
         title: function() {

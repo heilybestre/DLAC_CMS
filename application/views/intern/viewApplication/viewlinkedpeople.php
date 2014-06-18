@@ -1,50 +1,192 @@
 <div id='linkedpeople_form' class="container">
+    
     <br>
+    
     <div class="row">
-        <div class="box span4" onTablet="span6" onDesktop="span4">
-            <div class="box-header">
-                <h2><i class="icon-file"></i>People</h2>
+        
+        <div class="col-sm-6">
+            
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Client/s <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
             </div>
-            <div class="box-content">
-                <table id='viewapp_linkedpeopletable' class="table table-striped table-bordered bootstrap-datatable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Participation</th>
-                            <th>Contact Number</th>
-                        </tr>
-                    </thead>   
-                    <tbody>
-                        <?php foreach ($casepeople as $row) : ?>
-                        <tr>
-                            <td>
-                                <?= "$row->firstname $row->middlename $row->lastname" ?>
-                            </td>
-                            <td>
-                                <?php echo $this->Case_model->select_strtype($row->participation)->typeName . ' (' . $this->Case_model->select_strtype($row->side)->typeName . ')' ?>
-                            </td>
-                            <td>
-                                <?php
-                                if ($row->contacthome != null) {
-                                    echo $row->contacthome . ' (Home) ; ';
-                                }
-                                ?>
-                                <?php
-                                if ($row->contactoffice != null) {
-                                    echo $row->contactoffice . ' (Office) ; ';
-                                }
-                                ?>
-                                <?php
-                                if ($row->contactmobile != null) {
-                                    echo $row->contactmobile . ' (Mobile)';
-                                }
-                                ?>
-                            </td>
-                        </tr><?php endforeach; ?>
-                    </tbody>
-                </table>
-                <br>
+        </div>
+             
+        <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+            
+           <br><br><br><br>
+           
+           <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Lawyer </b> </h5> 
+            </div>
+        </div>
+              
+         <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+    
+           
+           <br><br><br><br>
+            
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Witness </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+    
+        </div>
+        
+        <div class="col-sm-6">
+            
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <b> Opposing Party <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+            <br><br><br><br>
+               
+            
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <b> Lawyer </b> </h5> 
+            </div>
+        </div>
+              
+               <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+              <br><br><br><br>
+            
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <b> Witness </b> </h5> 
+            </div>
+        </div>
+              
+               <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+            </div>
+            
+    </div>
+       
+    </div>
+    
+    <br><br>
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Judge <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-9 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+    
+    <br><br><br><br>
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Clerk of Court <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-9 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+    
+     <br><br><br><br>
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Sheriff <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-9 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="" disabled>
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+
+    <!-- Button -->
+    <div class="row">
+        <div class="control-group pull-right">
+            <label class="control-label" for="submit"></label>
+            <div class="controls">
+                <input type='button' id='btnpeoplenext' value='Next' class='btn btn-success'>
             </div>
         </div>
     </div>
+    
+   
+    
+
+   
 </div>

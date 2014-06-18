@@ -437,6 +437,7 @@
 
 
 <!-- END OF DocByTheOpposing TABLE & MODAL -->
+</div>
 
 <!-- START OF DocByTheCourt TABLE & MODAL -->
 
@@ -519,7 +520,6 @@
 </div>
 
 <!-- END OF DocByTheCourt TABLE & MODAL -->
-</div>
 
 
   <!--   <div class="row">                                                                      NOT YET WORKING

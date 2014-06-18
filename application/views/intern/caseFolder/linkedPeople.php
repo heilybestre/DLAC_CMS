@@ -1,59 +1,271 @@
 <div class="container">
 
-    <?php echo form_open(base_url() . 'director/linkedPeople', array('class' => 'form-horizontal')); ?>
+    <br>
+    
+    <div class="row" style="margin-top:10px;">
+        
+        <div class="col-sm-6">
+            
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Client/s <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+        <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientbutton" href="#addClientModal" style="margin-top:0px;"> <i id="addclientbutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+            
+           <br><br><br><br>
+           
+           <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Lawyer </b> </h5> 
+            </div>
+        </div>
+              
+         <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+        <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientlawyerbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addclientlawyerbutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+    
+           
+           <br><br><br><br>
+            
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Witness </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+        <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientwitnessbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addclientwitnessbutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+         
+               
+        </div>
+        
+        <div class="col-sm-6">
+            
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <b> Opposing Party <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+            <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="sampleBtn2" href="#addPersonModal" style="margin-top:0px;"> <i id="sampleBtn2" class="icon-plus"></i> </a>
+            </div>
+        </div>
+            
+            <br><br><br><br>
+               
+            
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <b> Lawyer </b> </h5> 
+            </div>
+        </div>
+              
+               <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+        <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addopposinglawyerbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addopposinglawyerbutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+           
+              <br><br><br><br>
+            
+        <div class="col-sm-3 control-group">
+            <div class="controls">
+                <h5> <b> Witness </b> </h5> 
+            </div>
+        </div>
+              
+               <div class="col-sm-8 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+            </div>
 
+               <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addopposingwitnessbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addopposingwitnessbutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+            
+    </div>
+       
+    </div>
+    
+    <br><br>
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Judge <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-9 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+            <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addjudgebutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addjudgebutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+    
+    <br><br><br><br>
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Clerk of Court <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-9 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+            <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addjudgebutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addjudgebutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+    
+     <br><br><br><br>
+        <div class="col-sm-2 control-group">
+            <div class="controls">
+                <h5> <b> Sheriff <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
+            </div>
+        </div>
+             
+        <div class="col-sm-9 control-group">
+            <div class="controls">
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+            
+            <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addjudgebutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addjudgebutton" class="icon-plus"></i> </a>
+            </div>
+        </div>
+
+    <!-- Button -->
     <div class="row">
+        <div class="control-group pull-right">
+            <label class="control-label" for="submit"></label>
+            <div class="controls">
+                <input type='button' id='btnpeoplenext' value='Next' class='btn btn-success'>
+            </div>
+        </div>
+    </div>
+    
+    
+     <div class="row">
 
-        <a class ="btn btn-medium btn-success pull-right" style='margin-bottom: 10px' href="#addPersonModal" data-toggle="modal">
-            <i class="icon-plus-sign"></i>&nbsp;Add Linked Person</a>
+        <!-- START OF ADD CLIENT MODAL -->
+        <div class="modal fade" id="addClientModal">
+            <div class="modal-dialog-addClient">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add client Person</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php $this->load->view('intern/addnewclient'); ?>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="button" value="Add Person" class='btn btn-success'/>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF ADD CLIENT MODAL -->
 
     </div>
+    
 
     <div class="row">
 
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Contact Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($casepeople as $row) : ?>
-                    <tr>
-                        <td><?php echo $i ?></td>
-                        <td><?php echo $row->firstname . ' ' . $row->middlename . ' ' . $row->lastname ?></td>
-                        <td><?php echo $this->Case_model->select_strtype($row->participation)->typeName . ' (' . $this->Case_model->select_strtype($row->side)->typeName . ')' ?></td>
-                        <td>
-                            <?php
-                            if ($row->contacthome != null) {
-                                echo $row->contacthome . ' (Home) ; ';
-                            }
-                            ?>
-                            <?php
-                            if ($row->contactoffice != null) {
-                                echo $row->contactoffice . ' (Office) ; ';
-                            }
-                            ?>
-                            <?php
-                            if ($row->contactmobile != null) {
-                                echo $row->contactmobile . ' (Mobile)';
-                            }
-                            ?>
-                        </td>
-                        <?php $i++; ?>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-
-
-    <div class="row">
-
+        <!-- START OF ADD LINKED PERSON MODAL -->
         <div class="modal fade" id="addPersonModal">
             <div class="modal-dialog-evidence">
                 <div class="modal-content">
@@ -71,19 +283,19 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'First', 'id' => 'partyFirstName', 'name' => 'partyFirstName', 'type' => 'text', 'class' => 'form-control')); ?>
+                                <?php echo form_input(array('placeholder' => 'First', 'id' => 'personFirstName', 'name' => 'personFirstName', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div> 
                         </div>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Middle', 'id' => 'partyMiddleName', 'name' => 'partyMiddleName', 'type' => 'text', 'class' => 'form-control')); ?>
+                                <?php echo form_input(array('placeholder' => 'Middle', 'id' => 'personMiddleName', 'name' => 'personMiddleName', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>   
                         </div>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Last', 'id' => 'partyLastName', 'name' => 'partyLastName', 'type' => 'text', 'class' => 'form-control')); ?>   
+                                <?php echo form_input(array('placeholder' => 'Last', 'id' => 'personLastName', 'name' => 'personLastName', 'type' => 'text', 'class' => 'form-control')); ?>   
                             </div>   
                         </div>
                         <br><br>
@@ -96,35 +308,38 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'House', 'id' => 'partyAddressHouseNo', 'name' => 'partyAddressHouseNo', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>      </div>
-                        </div>
-
-                        <div class="col-sm-3 control-group">
-                            <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Street', 'id' => 'partyAddressStreet', 'name' => 'partyAddressStreet', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
+                                <?php echo form_input(array('placeholder' => 'House', 'id' => 'personAddressHouseNo', 'name' => 'personAddressHouseNo', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Town', 'id' => 'partyAddressTown', 'name' => 'partyAddressTown', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
+                                <?php echo form_input(array('placeholder' => 'Street', 'id' => 'personAddressStreet', 'name' => 'personAddressStreet', 'type' => 'text', 'class' => 'form-control')); ?>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 control-group">
+                            <div class="controls">
+                                <?php echo form_input(array('placeholder' => 'Area', 'id' => 'personAddressDistrict', 'name' => 'personAddressDistrict', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
                         <br><br>
+
                         <div class="col-sm-2 control-group">
                             <div class="controls">
-                            </div>
-                        </div>
-                        <div class="col-sm-3 control-group">
-                            <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'District', 'id' => 'partyAddressDistrict', 'name' => 'partyAddressDistrict', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Postal Code', 'id' => 'partyAddressPostalCode', 'name' => 'partyAddressPostalCode', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
+                                <?php echo form_input(array('placeholder' => 'Town', 'id' => 'personAddressTown', 'name' => 'personAddressTown', 'type' => 'text', 'class' => 'form-control')); ?>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 control-group">
+                            <div class="controls">
+                                <?php echo form_input(array('placeholder' => 'Postal Code', 'id' => 'personAddressPostalCode', 'name' => 'personAddressPostalCode', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
@@ -138,19 +353,19 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Home', 'id' => 'partyCNHome', 'name' => 'partyCNHome', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
+                                <?php echo form_input(array('placeholder' => 'Home', 'id' => 'personCNHome', 'name' => 'personCNHome', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Office', 'id' => 'partyCNOffice', 'name' => 'partyCNOffice', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
+                                <?php echo form_input(array('placeholder' => 'Office', 'id' => 'personCNOffice', 'name' => 'personCNOffice', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('placeholder' => 'Mobile', 'id' => 'partyCNOffice', 'name' => 'partyCNOffice', 'type' => 'text', 'class' => 'form-control', 'onkeyup' => 'saveThis(this.id)')); ?>
+                                <?php echo form_input(array('placeholder' => 'Mobile', 'id' => 'personCNMobile', 'name' => 'personCNMobile', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
@@ -164,82 +379,22 @@
 
                         <div class="col-sm-9 control-group">
                             <div class="controls">
-                                <select id="partyParticipation" name="partyParticipation" class="form-control">
-                                    <option></option>
-                                    <option value='5'>Sheriff</option>
-                                    <option value='6'>Public Prosecutor</option>
-                                    <option value='7'>Private Prosecutor</option>
-                                    <option value='8'>Counsel for Accused</option>
-                                    <option value='9'>Judge</option>
-                                    <option value='10'>Clerk of Court</option>
-                                    <option value='11'>Other Court Officer</option>
-                                </select>
+                                <h5>Participation</h5>
                             </div>   
                         </div>
 
                         <br><br>
-
                     </div>
+
                     <div class="modal-footer">
-                        <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Add Person</button>
+                        <input type="button" value="Add Person" class='btn btn-success'/>
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- END OF ADD LINKED PERSON MODAL -->
 
     </div>
-
-    <?php echo form_close(); ?>
-
-    <!-- <div class="row">                                                                  NOT YET WORKING
-
-        <a class ="btn btn-medium btn-link" style='margin-bottom: 10px' href="#viewLinkedPerson" data-toggle="modal">View Linked Person</a>
-
-    </div> -->
-
-    <!--START OF VIEW LINKED PERSON modal -->
-
-    <div class="row">
-
-        <div class="modal fade" id="viewLinkedPerson">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Linked Person</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <table class="table table-striped">
-                            <tr>
-                                <th>Name:</th>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <th>Address:</th>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <th>Contact Number:</th>
-                                <td> </td>
-                            </tr>
-                            <tr>
-                                <th>Participation:</th>
-                                <td> </td>
-                            </tr>
-                        </table>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-    </div>
-
-    <!--END OF VIEW LINKED PEOPLE modal -->
 
 </div>
