@@ -43,38 +43,40 @@
                             <i class="icon-ok"></i> The clinic can provide legal aid to this type of case.
                             <br><br>
                             <h2><b>Available Lawyers</b></h2>
-                            
+
                             <div>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Specialized Lawyers</th>
-                                    </tr>
-                                </thead>   
-                                <tbody>
-                                    <tr>
-                                        <td>Name (AVERAGE Case Difficulty)</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                          
-                                <br>
-                            
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Other Available Lawyers</th>
-                                    </tr>
-                                </thead>   
-                                <tbody>
-                                    
+                                <table class="table table-bordered" id="specializedLawyerTable">
+                                    <thead>
                                         <tr>
-                                            <td>Patricia Perez (3.5)</td>
+                                            <th>Specialized Lawyers</th>
                                         </tr>
-                                    
-                                </tbody>
-                            </table>
-                                
+                                    </thead>   
+                                    <tbody>
+                                        <?php foreach ($specialized as $lawyer): ?>
+                                            <tr>
+                                                <td><?php echo "$lawyer->firstname $lawyer->lastname" ?></td> <!-- Name (AVERAGE Case Difficulty)-->
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                                <br>
+
+                                <table class="table table-bordered" id="otherLawyerTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Other Available Lawyers</th>
+                                        </tr>
+                                    </thead>   
+                                    <tbody>
+                                        <?php foreach ($non_specialized as $lawyer): ?>
+                                            <tr>
+                                                <td><?php echo "$lawyer->firstname $lawyer->lastname" ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
                             </div>
 
                             <center> <a class ="btn btn-medium btn-success" href="createApplication">Create Application</a></center>

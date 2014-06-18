@@ -287,6 +287,20 @@ class People extends CI_Controller {
         echo json_encode($arrinterns);
         exit();
     }
+    
+    function showspecializedlawyers($offenseID){
+        $lawyers = $this->People_model->select_specialized($offenseID);
+        $count = 0;
+        $arrlawyers = array();
+        
+        foreach($lawyers as $l){
+            $arrlawyers[$count] = $i->firstname . ' ' . $i->lastname . ' (' . $i->difficultyLevel . ')';
+            $count++;
+        }
+        
+        echo json_encode($arrlawyers);
+        exit();
+    }
 
     // function showname($id){
     //     $name = $this->People_model->getuserfield('firstname', $id) . ' ' . $this->People_model->getuserfield('lastname', $id);

@@ -76,26 +76,26 @@
 
 //customized datatables
     $(document).ready(function() {
-  
-        $('.popover-orig').popover({ 
-        html : true,
-        title: function() {
-          return $("#popover-orig-head").html();
-        },
-        content: function() {
-          return $("#popover-orig-content").html();
-        }
+
+        $('.popover-orig').popover({
+            html: true,
+            title: function() {
+                return $("#popover-orig-head").html();
+            },
+            content: function() {
+                return $("#popover-orig-content").html();
+            }
 
         });
-        
-        $('.popover-editing').popover({ 
-        html : true,
-        title: function() {
-          return $("#popover-editing-head").html();
-        },
-        content: function() {
-          return $("#popover-editing-content").html();
-        }
+
+        $('.popover-editing').popover({
+            html: true,
+            title: function() {
+                return $("#popover-editing-head").html();
+            },
+            content: function() {
+                return $("#popover-editing-content").html();
+            }
         });
 
         $("#dashboard-appo").dataTable({
@@ -1080,7 +1080,7 @@
             $('#submitactionplanbtndiv').removeClass('hide');
             $('#saveactionplanbtndiv').removeClass('hide');
         });
- 
+
 
 //Add action
         $('#btnaddaction').click(function() {
@@ -1154,95 +1154,77 @@
         var cid = "<?php echo $this->session->userdata('cid') ?>";
         window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
     });
-     //!!popover, actionplan
-    
-    $('.popover-orig').click(function(){
-      $('#actionPlanOption1').removeClass('hide');
-      $('#actionPlanOption2').addClass('hide');
-      $('#actionPlanOption3').addClass('hide');
-      $('#actionPlanOption4').addClass('hide');
-  });
+    //!!popover, actionplan
 
-  $('.popover-editing').click(function(){
+    $('.popover-orig').click(function() {
+        $('#actionPlanOption1').removeClass('hide');
+        $('#actionPlanOption2').addClass('hide');
+        $('#actionPlanOption3').addClass('hide');
+        $('#actionPlanOption4').addClass('hide');
+    });
+
+    $('.popover-editing').click(function() {
         //editing
         $('#actionPlanOption1').addClass('hide');
         $('#actionPlanOption2').addClass('hide');
         $('#actionPlanOption3').addClass('hide');
-        $('#actionPlanOption4').removeClass('hide');  
+        $('#actionPlanOption4').removeClass('hide');
     });
-    
-    $(document).on('click','.getActionButton',function(){
+
+    $(document).on('click', '.getActionButton', function() {
         $('#actionPlanOption1').addClass('hide');
         $('#actionPlanOption2').removeClass('hide');
         $('#actionPlanOption3').addClass('hide');
-        $('#actionPlanOption4').addClass('hide'); 
+        $('#actionPlanOption4').addClass('hide');
     });
-    
-    $(document).on('click','.editActionButton',function(){
+
+    $(document).on('click', '.editActionButton', function() {
         $('#editAction').removeClass('hide');
         $('#deleteAction').addClass('hide');
         $('#actionPlanWriteNotes').addClass('hide');
         $('#getActionButton').addClass('hide');
     });
-    
-    $(document).on('click','.editActionButton2',function(){
+
+    $(document).on('click', '.editActionButton2', function() {
         $('#editAction2').removeClass('hide');
         $('#deleteAction2').addClass('hide');
         $('#actionPlanWriteNotes2').addClass('hide');
     });
-    
-    $(document).on('click','.deleteActionButton',function(){
+
+    $(document).on('click', '.deleteActionButton', function() {
         $('#editAction').addClass('hide');
         $('#deleteAction').removeClass('hide');
         $('#actionPlanWriteNotes').addClass('hide');
         $('#getActionButton').addClass('hide');
         $('#editActionButton').addClass('hide');
         $('#deleteActionButton').addClass('hide');
-       
+
     });
-    
-    $(document).on('click','.deleteActionButton2',function(){
+
+    $(document).on('click', '.deleteActionButton2', function() {
         $('#editAction2').addClass('hide');
         $('#deleteAction2').removeClass('hide');
         $('#actionPlanWriteNotes2').addClass('hide');
         $('#getActionButton2').addClass('hide');
         $('#editActionButton2').addClass('hide');
         $('#deleteActionButton2').addClass('hide');
-       
+
     });
-    
-    $(document).on('click','.saveActionButton',function(){
+
+    $(document).on('click', '.saveActionButton', function() {
         $('#editAction').addClass('hide');
         $('#deleteAction').addClass('hide');
         $('#actionPlanWriteNotes').removeClass('hide');
         $('#getActionButton').removeClass('hide');
     });
-    
-    $(document).on('click','.saveActionButton2',function(){
+
+    $(document).on('click', '.saveActionButton2', function() {
         $('#editAction2').addClass('hide');
         $('#deleteAction2').addClass('hide');
         $('#actionPlanWriteNotes2').removeClass('hide');
     });
-    
-      $(document).on('click','.cancelEditButton',function(){
-        $('#editAction').addClass('hide');
-        $('#deleteAction').addClass('hide');
-        $('#actionPlanWriteNotes').removeClass('hide');
-        $('#getActionButton').removeClass('hide');
-        $('#editActionButton').removeClass('hide');
-        $('#deleteActionButton').removeClass('hide');
-    });
-   
-   $(document).on('click','.cancelEditButton2',function(){
-        $('#editAction2').addClass('hide');
-        $('#deleteAction2').addClass('hide');
-        $('#actionPlanWriteNotes2').removeClass('hide');
-        $('#getActionButton2').removeClass('hide');
-        $('#editActionButton2').removeClass('hide');
-        $('#deleteActionButton2').removeClass('hide');
-    });
-    
-        $(document).on('click','.cancelDeleteButton',function(){
+
+    $(document).on('click', '.cancelEditButton', function() {
         $('#editAction').addClass('hide');
         $('#deleteAction').addClass('hide');
         $('#actionPlanWriteNotes').removeClass('hide');
@@ -1250,8 +1232,8 @@
         $('#editActionButton').removeClass('hide');
         $('#deleteActionButton').removeClass('hide');
     });
-    
-        $(document).on('click','.cancelDeleteButton2',function(){
+
+    $(document).on('click', '.cancelEditButton2', function() {
         $('#editAction2').addClass('hide');
         $('#deleteAction2').addClass('hide');
         $('#actionPlanWriteNotes2').removeClass('hide');
@@ -1259,26 +1241,65 @@
         $('#editActionButton2').removeClass('hide');
         $('#deleteActionButton2').removeClass('hide');
     });
-   
+
+    $(document).on('click', '.cancelDeleteButton', function() {
+        $('#editAction').addClass('hide');
+        $('#deleteAction').addClass('hide');
+        $('#actionPlanWriteNotes').removeClass('hide');
+        $('#getActionButton').removeClass('hide');
+        $('#editActionButton').removeClass('hide');
+        $('#deleteActionButton').removeClass('hide');
+    });
+
+    $(document).on('click', '.cancelDeleteButton2', function() {
+        $('#editAction2').addClass('hide');
+        $('#deleteAction2').addClass('hide');
+        $('#actionPlanWriteNotes2').removeClass('hide');
+        $('#getActionButton2').removeClass('hide');
+        $('#editActionButton2').removeClass('hide');
+        $('#deleteActionButton2').removeClass('hide');
+    });
+
 </script>
 
 <!-- VIANICAAAAAAAAAA ------------------------------------------------------->
 <script type='text/javascript'>
-$(document).ready(function() {
-       
-    $('#preEvalOffense').change(function() {
-       alert('hello');    
-       
-       
-       
+    $(document).ready(function() {
+
+        $('#preEvalOffense').change(function() {
+            var offenseID = $('#preEvalOffense').val();
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>people/showspecializedlawyers",
+                dataType: "json",
+                data: {offenseID: offenseID},
+                async: false,
+                success: function(msg) {
+
+                    var table = document.getElementById('specializedLawyerTable');
+                    table.innerHTML = "<table class='table table-bordered' id='specializedLawyerTable'>"
+                            + "<thead><tr><th>Specialized Lawyers</th></tr></thead>"
+                            + "</table>";
+
+                    var lawyers = msg;
+                    var lawyerCount = lawyers.length;
+
+                    for (var x = 0; x < lawyerCount; x++) {
+                        var lawyerName = lawyers[x];
+
+                        var row = table.insertRow(table.rows.length);
+                        var cell1 = row.insertCell(0);
+                        cell1.innerHTML = lawyerName;
+
+                    }
+                    );
+                }
+            });
+        });
+
     });
-   
-});
-   
-   
-   
-   
- 
+
 </script>
 
 

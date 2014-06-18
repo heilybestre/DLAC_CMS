@@ -128,6 +128,16 @@ class People_model extends CI_Model {
         return $query->result();
     }
 
+    function select_specialized($offenseID) {
+        $query = $this->db->query("SELECT * FROM `lawyers` JOIN `people_offense` ON (`people_offense`.`personID` = `lawyers`.`personID`) WHERE `lawyers`.`difficultyLevel` < '10' AND `people_offense`.`offenseID` = $offenseID");
+        return $query->result();
+    }
+
+    function select_non_specialized($offenseID) {
+        $query = $this->db->query("SELECT * FROM `lawyers` JOIN `people_offense` ON (`people_offense`.`personID` = `lawyers`.`personID`) WHERE `lawyers`.`difficultyLevel` < '10' AND `people_offense`.`offenseID` != $offenseID");
+        return $query->result();
+    }
+
     function select_interns() {
         $query = $this->db->query("SELECT * FROM interns");
         return $query->result();
