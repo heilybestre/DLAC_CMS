@@ -76,32 +76,25 @@
 
 //customized datatables
     $(document).ready(function() {
+                
+        $('.popover-orig').popover({
+            html: true,
+            
+            content: function() {
+                var x = $(this).attr('id').substring(13);
+               
+                return $("#popover-orig-content_"+x).html();
+                
+            }
 
-        $(".addpersonbtn").click(function(event) {
+          });
+        
+        
+        
+        $(".getActionButton").click(function(event) {
             alert(event.target.id);
         });
 
-
-        $('.popover-orig').popover({
-            html: true,
-            title: function() {
-                return $("#popover-orig-head").html();
-            },
-            content: function() {
-                return $("#popover-orig-content").html();
-            }
-
-        });
-
-        $('.popover-editing').popover({
-            html: true,
-            title: function() {
-                return $("#popover-editing-head").html();
-            },
-            content: function() {
-                return $("#popover-editing-content").html();
-            }
-        });
 
         $("#dashboard-appo").dataTable({
             "sDom": 'tipr',
@@ -1161,12 +1154,6 @@
     });
     //!!popover, actionplan
 
-    $('.popover-orig').click(function() {
-        $('#actionPlanOption1').removeClass('hide');
-        $('#actionPlanOption2').addClass('hide');
-        $('#actionPlanOption3').addClass('hide');
-        $('#actionPlanOption4').addClass('hide');
-    });
 
     $('.popover-editing').click(function() {
         //editing
@@ -1177,10 +1164,13 @@
     });
 
     $(document).on('click', '.getActionButton', function() {
-        $('#actionPlanOption1').addClass('hide');
-        $('#actionPlanOption2').removeClass('hide');
-        $('#actionPlanOption3').addClass('hide');
-        $('#actionPlanOption4').addClass('hide');
+        $(this).hide;
+        
+        
+//        $('#actionPlanOption1').addClass('hide');
+//        $('#actionPlanOption2').removeClass('hide');
+//        $('#actionPlanOption3').addClass('hide');
+//        $('#actionPlanOption4').addClass('hide');
     });
 
     $(document).on('click', '.editActionButton', function() {

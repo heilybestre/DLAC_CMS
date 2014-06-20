@@ -12,9 +12,9 @@
 #actionPlanNote2{
         height:auto; 
 }
-#actionPlanWriteNotes2{
- 	width: 280px ! important;
-        max-height: 500px ! important;
+.actionPlan-bottom-notes{
+ 	width: 300px ! important;
+        max-height: 200px ! important;
         overflow: auto;
  }
  
