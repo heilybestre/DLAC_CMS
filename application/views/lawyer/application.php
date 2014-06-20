@@ -18,17 +18,15 @@
                         </div>
                     </div>
 
-                     <div class="col-sm-9 control-group">
+                    <div class="col-sm-3 control-group">
+                        <div class="controls">
                             <div class="controls">
-                                <div class="controls">
-                                    <select id="preEvalOffense" name="preEvalOffense" class="chosen-select" tabindex="8">
-                                        <?php foreach ($offenses as $off): ?>
-                                            <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+                                <select id="preEvalOffense" name="preEvalOffense" class="form-control" >
+                                    <option>Criminal Cases</option>
+                                </select>    
                             </div>
                         </div>
+                    </div>
                     </div>
                     <br>
 
@@ -51,13 +49,16 @@
                                </tr>
                         </tbody>
                         </table>
+
+                       <center> <a class ="btn btn-medium btn-success" href="createApplication">Create Application</a></center>
+
                     </div>
                     </div>
 
                     <div id="reject">
                     <div class="alert alert-danger">
                         <i class="icon-remove"></i> The clinic cannot provide legal aid to this type of case.
-                      
+                        <center> <a class ="btn btn-medium btn-danger" href="rejectApplication">Reject</a></center>
                     </div>
                     </div>
 
@@ -65,7 +66,7 @@
                     <div class="alert alert-warning">
                         <i class="icon-remove"></i> The clinic can provide legal aid to this type of case. But there is NO AVAILABLE
                         lawyer as of this moment.
-                       
+                        <center> <a class ="btn btn-medium btn-danger" href="rejectApplication">Reject</a></center>
                     </div>
                     </div>
 

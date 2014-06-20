@@ -39,230 +39,40 @@
     </div>
 
     <br>
-    
-    <div class="row" style="margin-top:10px;">
-        
-        <div class="col-sm-6">
-            
-        <div class="col-sm-2 control-group">
-            <div class="controls">
-                <h5> <b> Client/s <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
-            </div>
-        </div>
-             
-        <div class="col-sm-8 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-        <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientbutton" href="#addClientModal" style="margin-top:0px;"> <i id="addclientbutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-            
-           <br><br><br><br>
-           
-           <div class="col-sm-2 control-group">
-            <div class="controls">
-                <h5> <b> Lawyer </b> </h5> 
-            </div>
-        </div>
-              
-         <div class="col-sm-8 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-        <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientlawyerbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addclientlawyerbutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-    
-           
-           <br><br><br><br>
-            
-        <div class="col-sm-2 control-group">
-            <div class="controls">
-                <h5> <b> Witness </b> </h5> 
-            </div>
-        </div>
-             
-        <div class="col-sm-8 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-        <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientwitnessbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addclientwitnessbutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-         
-               
-        </div>
-        
-        <div class="col-sm-6">
-            
-        <div class="col-sm-3 control-group">
-            <div class="controls">
-                <h5> <b> Opposing Party <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
-            </div>
-        </div>
-             
-        <div class="col-sm-8 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-            <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="sampleBtn2" href="#addPersonModal" style="margin-top:0px;"> <i id="sampleBtn2" class="icon-plus"></i> </a>
-            </div>
-        </div>
-            
-            <br><br><br><br>
-               
-            
-        <div class="col-sm-3 control-group">
-            <div class="controls">
-                <h5> <b> Lawyer </b> </h5> 
-            </div>
-        </div>
-              
-               <div class="col-sm-8 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-        <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addopposinglawyerbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addopposinglawyerbutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-           
-              <br><br><br><br>
-            
-        <div class="col-sm-3 control-group">
-            <div class="controls">
-                <h5> <b> Witness </b> </h5> 
-            </div>
-        </div>
-              
-               <div class="col-sm-8 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-            </div>
 
-               <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addopposingwitnessbutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addopposingwitnessbutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-            
+    <div class="row">
+        <a class ="btn btn-medium btn-success pull-right" style='margin-bottom: 10px' href="#addPersonModal" data-toggle="modal">
+            <i class="icon-plus-sign"></i>&nbsp;Add Linked Person
+        </a>
     </div>
-       
+
+    <div class="row">
+        <div class="box span4" onTablet="span6" onDesktop="span4">
+            <div class="box-header">
+                <h2><i class="icon-file"></i>People</h2>
+            </div>
+            <div class="box-content">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Participation</th>
+                            <th>Contact Number</th>
+                        </tr>
+                    </thead>   
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
-    <br><br>
-        <div class="col-sm-2 control-group">
-            <div class="controls">
-                <h5> <b> Judge <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
-            </div>
-        </div>
-             
-        <div class="col-sm-9 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-            <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addjudgebutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addjudgebutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-    
-    <br><br><br><br>
-        <div class="col-sm-2 control-group">
-            <div class="controls">
-                <h5> <b> Clerk of Court <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
-            </div>
-        </div>
-             
-        <div class="col-sm-9 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-            <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addjudgebutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addjudgebutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
-    
-     <br><br><br><br>
-        <div class="col-sm-2 control-group">
-            <div class="controls">
-                <h5> <b> Sheriff <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> 
-            </div>
-        </div>
-             
-        <div class="col-sm-9 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
-            </div>
-        </div>
-            
-            <div class="col-sm-1 control-group">
-            <div class="controls">
-                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addjudgebutton" href="#addPersonModal" style="margin-top:0px;"> <i id="addjudgebutton" class="icon-plus"></i> </a>
-            </div>
-        </div>
 
     <!-- Button -->
     <div class="row">
@@ -273,33 +83,6 @@
             </div>
         </div>
     </div>
-    
-    
-     <div class="row">
-
-        <!-- START OF ADD CLIENT MODAL -->
-        <div class="modal fade" id="addClientModal">
-            <div class="modal-dialog-addClient">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Add client Person</h4>
-                    </div>
-                    <div class="modal-body">
-                        <?php $this->load->view('intern/addnewclient'); ?>
-                    </div>
-
-                    <div class="modal-footer">
-                        <input type="button" value="Add Person" class='btn btn-success'/>
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END OF ADD CLIENT MODAL -->
-
-    </div>
-    
 
     <div class="row">
 
@@ -417,7 +200,18 @@
 
                         <div class="col-sm-9 control-group">
                             <div class="controls">
-                                <h5>Participation</h5>
+                                <select id="personParticipation" name="personParticipation" class="form-control">
+                                    <option></option>
+                                    <option value='3'>Possible Witness (Complainant)</option>
+                                    <option value='4'>Possible Witness (Defendant)</option>
+                                    <option value='5'>Sheriff</option>
+                                    <option value='6'>Public Prosecutor</option>
+                                    <option value='7'>Private Prosecutor</option>
+                                    <option value='8'>Counsel for Accused</option>
+                                    <option value='9'>Judge</option>
+                                    <option value='10'>Clerk of Court</option>
+                                    <option value='11'>Other Court Officer</option>
+                                </select>
                             </div>   
                         </div>
 
@@ -434,5 +228,5 @@
         <!-- END OF ADD LINKED PERSON MODAL -->
 
     </div>
-    
+
 </div>

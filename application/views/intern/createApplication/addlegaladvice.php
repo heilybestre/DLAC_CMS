@@ -85,13 +85,6 @@
         </div>
 
     </div>
+    <br><br>
 
 </div>
-
-	<div class="row">
-		<div class="control-group pull-right pull-down">
-			<label class="control-label" for="submit"></label>
-			<div class="controls"><?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success pull-right'), 'Submit'); ?>
-			</div>
-		</div>
-	</div>

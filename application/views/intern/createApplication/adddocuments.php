@@ -45,247 +45,451 @@
     </div><br>
 
 
-      <!-- START OF DocByTheClient TABLE & MODAL -->
+    <div class="row" style='padding-left:40px; padding-right:45px;'>
+        <!-- Button to trigger modal -->
+        <a class ="btn btn-medium btn-success pull-right" style='margin-bottom: 10px' href="#addDocumentModal" data-toggle="modal">
+            <i class="icon-plus-sign"></i>&nbsp;Add Legal Document
+        </a>
 
-    <div class="row">
+        <br><br><br>
 
-        <div class="box span4" onTablet="span6" onDesktop="span4">
-            <div class="box-header">
-                <h2><i class="icon-file"></i>Documents by the Client</h2>
-                <div class="box-icon">
-                    <a href="#addClientDocumentModal" data-toggle="modal"><i class="icon-plus"></i></a>
-                </div>
-            </div>
-            <div class="box-content">
+        <div class="modal fade" id="addDocumentModal">
+            <div class="modal-dialog-assign">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Legal Document</h4>
+                    </div>
+                    <div class="modal-body">
 
-                <table class="table table-condensed datatable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date filed</th>
-                            <th></th>
-                        </tr>
-                    </thead>   
-                    <tbody>
-                        <?php foreach ($byclient as $row): ?>
-                        <tr>
-                            <td><?php echo $row->file_name ?></td>
-                            <td><?php echo date('Y-m-d', strtotime($row->datefiled)) ?></td>
-                            <td>
-                                <a href="<?php echo base_url() . 'cases/downloadNow/' . $case->caseID . '/' . $row->documentID ?>" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>  
+                        <div class="row">   
 
-        </div>
-    </div>
+                            <div class="form-inline"> 
+                                <div class="controls">
+                                    <b>Choose Type:</b>
+                                    <label class="radio" for="type-0"> 
+                                        <input type="radio" name="type" id="type-0" value="Documentary" onclick="location.href = 'javascript:toggleAppDocClient();';"> Legal Documents by the Client
+                                    </label> &nbsp;
+                                    <label class="radio"> 
+                                        <input type="radio" name="type" id="type-1" value="Object" onclick="location.href = 'javascript:toggleAppDocOpposing();';"> Legal Documents by the Opposing Party 
+                                    </label> &nbsp;
+                                    <label class="radio"> 
+                                        <input type="radio" name="type" id="type-2" value="Testimonial" onclick="location.href = 'javascript:toggleAppDocCourt();';"> Legal Documents from the Court 
+                                    </label>
+                                </div>
+                            </div>
 
-</div><!--/row-->
+                            <br>
 
-<div class="row">
+                            <!-- START OF DOC BY CLIENT -->
+                            <div id="toggleAppDocClient" style="display: none">
+                                <div class="col-sm-1"></div><div class="col-sm-5"><input name="file[]" type="file" multiple=""/></div>
+                                <input type="button" value="Add doc by the client" class='btn btn-success'/>
 
-    <div class="modal fade" id="addClientDocumentModal">
-        <div class="modal-dialog-addDocument">
-            <div class="modal-content">
-                <?php echo form_open_multipart("cases/attachByClient/$case->caseID/$case->stage", array('class' => 'form-horizontal')); ?>
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Add Document by the Client</h4>
-                </div>
-                <div class="modal-body">
+                            </div>
+                            <br>
+                            <div id="toggleAppDocClientFields" style="display: none">
+                                <div class="col-sm-4">
+                                    <div class="col-sm-1"></div><span class="label label-warning">Document by the Client</span><br><br>
+                                </div>
 
-                    <div class="form-group">
-                        <div class="controls">
-                            <div id="dropzone">
-                                <div class="dropzone" style='margin:0px 20px 0px 20px'>
-                                    <div class="fallback">
-                                        <input id="inputFileByClient" name="myfileCourt[]" type="file" multiple=''/>
+                                <div class="col-sm-6">
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Title</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <?php echo form_input(array('id' => 'caseDocTitle', 'name' => 'caseDocTitle', 'type' => 'text', 'class' => 'form-control')); ?>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5><b> Date Issued</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                <input type="text" class="form-control date-picker" id="clidateissued" name="clidateissued" data-date-format="yyyy-mm-dd" value="yyyy-mm-dd">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Date Received</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                <input type="text" class="form-control date-picker" id="clidatereceived" name="clidatereceived" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Filed by</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <?php echo form_input(array('id' => 'caseDocFiledBy', 'name' => 'caseDocFiledBy', 'type' => 'text', 'class' => 'form-control')); ?>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Upload </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- END OF DOC BY CLIENT -->
+
+
+                            <!-- START OF DOC BY OPPOSING -->
+                            <div id="toggleAppDocOpposing" style="display: none">
+                                <div class="col-sm-1"></div><div class="col-sm-5"><input name="file" type="file" multiple=""/></div>
+                            </div>
+                            <div id="toggleAppDocOpposingFields" style="display: none">
+                                <div class="col-sm-4">
+                                    <div class="col-sm-1"></div><span class="label label-info">Document by the Opposing Party</span><br><br>
+                                </div>
+
+                                <div class="col-sm-7">
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Title</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <?php echo form_input(array('id' => 'caseDocTitle', 'name' => 'caseDocTitle', 'type' => 'text', 'class' => 'form-control')); ?>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Date Issued</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                <input type="text" class="form-control date-picker" id="oppdateissued" name="oppdateissued" data-date-format="yyyy-mm-dd" value="yyyy-mm-dd">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5><b> Date Received </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                <input type="text" class="form-control date-picker" id="oppdatereceived" name="oppdatereceived" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5><b> Filed by </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <?php echo form_input(array('id' => 'caseDocFiledBy', 'name' => 'caseDocFiledBy', 'type' => 'text', 'class' => 'form-control')); ?>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Upload </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5>  </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Document'); ?>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- END OF DOC BY OPPOSING -->
+
+                                <!-- START OF DOC FROM THE COURT -->
+                                <div id="toggleAppDocCourt" style="display: none">
+                                    <div class="col-sm-1"></div><div class="col-sm-5"><input name="file" type="file" multiple=""/></div>
+                                </div>
+
+                                <div id="toggleAppDocCourtFields" style="display:none">
+                                    <div class="col-sm-1"></div><span class="label label-danger">Document from the Court</span><br><br>
+
+                                    <div class="col-sm-7">
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5> <b>Title </b></h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                                <?php echo form_input(array('id' => 'caseDocTitle', 'name' => 'caseDocTitle', 'type' => 'text', 'class' => 'form-control')); ?>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5> <b>Date Issued</b> </h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                    <input type="text" class="form-control date-picker" id="coudateissued" name="coudateissued" data-date-format="yyyy-mm-dd" value="yyyy-mm-dd">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5> <b>Date Received</b> </h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                    <input type="text" class="form-control date-picker" id="coudatereceived" name="coudatereceived" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5><b> Order</b> </h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                                <?php echo form_input(array('id' => 'caseDocOrder', 'name' => 'caseDocOrder', 'type' => 'text', 'class' => 'form-control')); ?>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5><b> Action Needed </b></h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                                <?php echo form_input(array('id' => 'caseDocNeededAction', 'name' => 'caseDocNeededAction', 'type' => 'text', 'class' => 'form-control')); ?>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5><b> Upload </b></h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <div class="col-sm-4 control-group">
+                                            <div class="controls">
+                                                <center> <h5>  </h5> </center>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-7 control-group">
+                                            <div class="controls">
+                                                <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Legal Document'); ?>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
+                                <!-- END OF DOC FROM THE COURT -->
                             </div>
                         </div>
-                    </div> 
-
-                    <div class="row" style="max-height:400px; overflow:scroll">
-                        <div id="tableFileClientID" style="border-width:5px; font-size:13px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:50px; padding-top:10px; padding-bottom:10px; width:758px;">
+                        <div class="modal-footer">
+                            <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Document'); ?>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                         </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="box span4" onTablet="span6" onDesktop="span4">
+                    <div class="box-header">
+                        <h2><i class="icon-file"></i>Documents by the Client</h2>
                     </div>
-
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th width="80%">Title</th>
+                                </tr>
+                            </thead>   
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                    </div>
                 </div>
+            </div><!--/col-->
+        </div>
 
-                <div class="modal-footer">
-                    <input type="submit" name="submit" value="Upload" class="btn btn-success">
+        <br>
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h2><i class="icon-file"></i>Documents by the Opposing Party</h2>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th width="80%">Title</th>
+                                </tr>
+                            </thead>   
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                    </div>
                 </div>
-                <?php echo form_close(); ?>
+            </div><!--/col-->
+
+            <div class="col-lg-6">
+                <div class="box span4" onTablet="span6" onDesktop="span4">
+                    <div class="box-header">
+                        <h2><i class="icon-file"></i>Documents Issued by the Court</h2>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                            <thead>
+                                <tr>
+                                    <th width="20%"></th>
+                                    <th width="80%">Title</th>
+                                </tr>
+                            </thead>   
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!--/col-->
+        </div>
+
+        <div class="row">
+            <!-- Button -->
+            <div class="control-group pull-right">
+                <label class="control-label" for="submit"></label>
+                <div class="controls">
+                    <input id='btndocumentsnext' type="button" value="Next" class='btn btn-success col-sm-12'/>
+                </div>
             </div>
         </div>
     </div>
-
-</div> 
-
-<div class="row">
-    <!-- START OF DocByTheOpposing TABLE & MODAL -->
-
-    <div class="col-lg-6">
-
-        <div class="box span4" onTablet="span6" onDesktop="span4">
-            <div class="box-header">
-                <h2><i class="icon-file"></i>Documents by the Opposing</h2>
-                <div class="box-icon">
-                    <a href="#addOpposingDocumentModal" data-toggle="modal"><i class="icon-plus"></i></a>
-                </div>
-            </div>
-            <div class="box-content">
-                <table class="table table-condensed datatable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date Issued</th>
-                            <th></th>
-                        </tr>
-                    </thead>   
-                    <tbody>
-                        <?php foreach ($byopposing as $row): ?>
-                        <tr>
-                            <td><?php echo $row->file_name ?></td>
-                            <td><?php echo date('Y-m-d', strtotime($row->datereceived)) ?></td>
-                            <td>
-                                <a href="<?php echo base_url() . 'cases/downloadNow/' . $case->caseID . '/' . $row->documentID ?>" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>  
-        </div>
-    </div>
-
-</div><!--/row-->
-
-<div class="modal fade" id="addOpposingDocumentModal">
-    <div class="modal-dialog-addDocument">
-        <div class="modal-content">
-            <?php echo form_open_multipart("cases/attachByOpposing/$case->caseID/$case->stage", array('class' => 'form-horizontal')); ?>
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add Document by the Opposing Party</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <div class="controls">
-                        <div id="dropzone">
-                            <div class="dropzone" style='margin:0px 20px 0px 20px'>
-                                <div class="fallback">
-                                    <input id="inputFileByOpposingParty" name="myfile[]" type="file" multiple=''/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-                <div class="row" style="max-height:400px; overflow:scroll">
-
-                    <div id="tableFileOpposingParty" style="border-width:5px; font:8px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:5px; padding-top:10px; padding-bottom:10px; width:758px;">
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <input type="submit" name="submit" value="Upload" class="btn btn-success">
-            </div>
-            <?php echo form_close(); ?> 
-        </div>
-    </div>
-</div>
-
-
-<!-- END OF DocByTheOpposing TABLE & MODAL -->
-
-
-<!-- START OF DocByTheCourt TABLE & MODAL -->
-
-<div class="col-lg-6">
-
-    <div class="box span4" onTablet="span6" onDesktop="span4">
-        <div class="box-header">
-            <h2><i class="icon-file"></i>Documents Issued by the Court</h2>
-            <div class="box-icon">
-                <a href="#addCourtDocModal" data-toggle="modal"><i class="icon-plus"></i></a>
-            </div>
-        </div>
-        <div class="box-content">
-            <table class="table table-condensed datatable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Date Issued</th>
-                        <th></th>
-                    </tr>
-                </thead>   
-                <tbody>
-                    <?php foreach ($bycourt as $row) : ?>
-                    <tr>
-                        <td><?php echo $row->file_name ?></td>
-                        <td><?php echo date('Y-m-d', strtotime($row->dateissued)) ?></td>
-                        <td>
-                            <a href="<?php echo base_url() . 'cases/downloadNow/' . $case->caseID . '/' . $row->documentID ?>" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a> 
-                            <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>  
-    </div>
-</div>
-</div>
-</div><!--/row-->
-
-<br>
-
-
-<div class="modal fade" id="addCourtDocModal">
-    <div class="modal-dialog-addDocument">
-        <div class="modal-content">
-            <?php echo form_open_multipart("cases/attachByCourt/$case->caseID/$case->stage", array('class' => 'form-horizontal')); ?>
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add Document Issued by the Court</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <div class="controls">
-                        <div id="dropzone">
-                            <div class="dropzone" style='margin:0px 20px 0px 20px'>
-                                <div class="fallback">
-                                    <input id="inputFileByCourt" name="myfileCourt[]" type="file" multiple=''/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-
-                <div class="row" style="max-height:400px; overflow:scroll">
-
-                    <div id='tableFileCourt' style="border-width:5px; font:8px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:5px; padding-top:10px; padding-bottom:10px; width:758px;">
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <input type="submit" name="submit" value="Upload" class="btn btn-success">
-            </div>
-            <?php echo form_close(); ?>
-        </div>
-    </div>
-</div>
-
-<!-- END OF DocByTheCourt TABLE & MODAL -->
 
 </div>
