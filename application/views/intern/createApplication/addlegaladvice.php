@@ -1,6 +1,4 @@
 <div id='legaladvice_form' class="container">
-    
-    sample ulit
 
 	<div class="row">
 
