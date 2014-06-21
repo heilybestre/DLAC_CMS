@@ -94,49 +94,112 @@
                 </a> -->
             </h3> 
             <ul class="todo-list">
-                <table id='action1table' class="table table-condensed" style="background-color:white;">
-                    <tr>
-                        <td><input class="disable" type='checkbox' name='action1[]' value='Set Client Meeting' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Set Client Meeting' class='hide'> Set Client Meeting 
-                        <a href="#" id="popover-editing" data-placement="bottom" class="btn btn-success popover-editing pull-right"> <i class="icon-caret-down"></i> </a>
-                            <div id="popover-editing-head" class="hide popover-editing-head"></div>
-                            <div id="popover-editing-content" class="hide popover-editing-content">
-                              <form>
-                                <?php $this->load->view('intern/actionPlanOptions'); ?>
-                              </form>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input class="disable"  type='checkbox' name='action1[]' value='Inform Client' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Inform Client' class='hide'> Inform Client </td>
-                    </tr>
-                    <tr>
-                        <td><input type='checkbox' name='action1[]' value='Meet Client' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Meet Client' class='hide'> Meet Client </td>
-                    </tr>
-                    <tr>
-                        <td><input type='checkbox' name='action1[]' value='Gather Case Information' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Gather Case Information' class='hide'> Gather Case Information </td>
-                    </tr>
-                    <tr>
-                        <td><input type='checkbox' name='action1[]' value='Gather Evidence' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Gather Evidence' class='hide'> Gather Evidence </td>
-                    </tr>
-                    <tr>
-                        <td><input type='checkbox' name='action1[]' value='Gather Witnesses with Affidavits' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Gather Witnesses with Affidavits' class='hide'> Gather Witnesses with Affidavits </td>
-                    </tr>
-                    <tr>
-                        <td><input type='checkbox' name='action1[]' value='Prepare Affidavits' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Prepare Affidavits' class='hide'> Prepare Affidavits </td>
-                    </tr>
-                    <tr>
-                        <td><input type='checkbox' name='action1[]' value='Notice of Preliminary Investigation' style='margin: 0px 5px 0px 10px;' /></td>
-                        <td><input name='actionname1[]' value='Notice of Preliminary Investigation' class='hide'> Notice of Preliminary Investigation </td>
-                    </tr>
-                </table>
-            </ul>
+        <table id='action1table' class="table table-condensed" style="background-color:white;">
+        <?php $stage1count = 1; ?>
+        <?php foreach($actionplan_stage1 as $action) : ?>
+        <tr>
+        <td><input class='cbactionstage1' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if($action->status==1) {
+            echo 'checked';} ?> /></td>
+        <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
+            <a href="#" id="popover-editing<?= $action->actionplanID ?>" data-placement="bottom" class="popover-editing btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+            <div id="popover-editing-head_<?= $action->actionplanID ?>" class="hide"></div>
+            <div id="popover-editing-content_<?= $action->actionplanID ?>" class="hide">
+            <form>
+                
+            <!--ACTION PLAN STAGE 1-->
+            <div id="actionPlan_stage1" class="actionPlan_stage1">
+
+            <div id="actionPlanOption-top">
+            <h5>
+                <b>Assigned to </b><label class="label label-default">None</label>
+                <div id="actionPlanActionButtons" class="pull-right">
+                    <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                    <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                    <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                </div>
+           </h5>
+           <h5><b>Type:</b> (Document)</h5>
+                                   
+           </div>
+
+           <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
+                <h5>Notes</b></h5>
+                <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
+                <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
+                <br><br>
+           </div>
+
+           <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
+                <div class="col-lg-3"> <h5>Action:</h5></div>
+                
+                <div class="col-lg-9">
+                     <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+                </div>
+                <br><br>
+
+                <div class="col-lg-3"><h5>Type:</h5></div>
+
+                <div class="col-lg-5">
+                    <select id='editactiontype_<?= $action->actionplanID ?>' name='editactiontype' class='form-control'>
+                        <option value='1'>Evidence</option>
+                        <option value='2'>Legal Document</option>
+                        <option value='3'>People</option>
+                        <option value='4'>Events</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-3">
+                       <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
+                       <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
+                </div>
+            <br>
+            </div>
+
+            <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
+
+                <h4>Are you sure you want to delete this item?</h4> 
+                <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
+                <br>
+            </div>
+
+            <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
+            <hr>
+
+            <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
+            <ul>
+
+                <li id="actionPlanNote" class="actionPlanNote">
+                    <div class="name">Megan Abbott</div>
+                    <div class="date">Today, 1:08 PM</div>
+                    <div class="delete"><i class="icon-remove"></i></div>
+                    <div class="message">
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                    </div>	
+                </li>
+                <li id="actionPlanNote" class="actionPlanNote">
+                        <div class="name">Megan Abbott</div>
+                        <div class="date">Today, 1:08 PM</div>
+                        <div class="delete"><i class="icon-remove"></i></div>
+
+                        <div class="message">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </div>	
+                </li>
+
+                </ul>		
+               </div>
+               <br>
+               </div>
+            </div> 
+        <!--ACTION PLAN STAGE 1-->
+          </form>
+         </div>
+         </td>
+                <?php $stage1count++; ?>
+            </tr><?php endforeach; ?>
+        </table>
+    </ul>
         </div>
 
         <!-- 2 PRELIMINARY INVESTIGATION -->
@@ -291,9 +354,7 @@
         </div>
     </div>
     <?php } ?>
-
-
-
+    
     <!-- upon rejection -->
     <div class="row hide">
         <div class="col-lg-7">
@@ -326,135 +387,120 @@
     <?php if($actionplanstatus == 'approved' || $actionplanstatus == 'pending'){ ?>
     <div class="row <?php if($actionplanstatus=='pending') echo 'disable fadedopp'; ?>" >
 
-        <!-- 1 NEW -->
-        <div class="well todo col-lg-2" style="padding:10px; margin-left:2px;">
-            <h3> New 
-            </h3> 
-            <ul class="todo-list">
-                <table id='action1table' class="table table-condensed" style="background-color:white;">
-                    <?php $stage1count = 1; ?>
-                    <?php foreach($actionplan_stage1 as $action) : ?>
-                    <tr>
-                        <td><input class='cbactionstage1' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if($action->status==1) {
-echo 'checked';
-} ?> /></td>
-                        <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
-                            
-                            <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig vianica btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
-                            <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
-                            <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
-                              <form>
-                                <!--ACTION PLAN-->
-                                <div id="actionPlan_stage1" class="actionPlan_stage1">
+    <!-- 1 NEW -->
+    <div class="well todo col-lg-2" style="padding:10px; margin-left:2px;">
+    <h3> New </h3> 
+    <ul class="todo-list">
+        <table id='action1table' class="table table-condensed" style="background-color:white;">
+        <?php $stage1count = 1; ?>
+        <?php foreach($actionplan_stage1 as $action) : ?>
+        <tr>
+        <td><input class='cbactionstage1' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if($action->status==1) {
+            echo 'checked';} ?> /></td>
+        <td><input value="<?= $action->action ?>" class='hide'> <?= $action->action ?> 
+            <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig vianica btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+            <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
+            <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
+            <form>
+                
+            <!--ACTION PLAN STAGE 1-->
+            <div id="actionPlan_stage1" class="actionPlan_stage1">
 
-                                <div id="actionPlanOption-top">
-                                <h5>
-                                    <b>Assigned to </b><label class="label label-default">None</label>
-                                    <div id="actionPlanActionButtons" class="pull-right">
-                                        <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                        <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                        <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
-                                    </div>
-                                </h5>
-                                    <h5><b>Type:</b> (Document)</h5>
+            <div id="actionPlanOption-top">
+            <h5>
+                <b>Assigned to </b><label class="label label-default">None</label>
+                <div id="actionPlanActionButtons" class="pull-right">
+                    <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                    <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                    <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                </div>
+           </h5>
+           <h5><b>Type:</b> (Document)</h5>
                                    
-                                </div>
+           </div>
 
-                                <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
+           <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
+                <h5>Notes</b></h5>
+                <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
+                <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
+                <br><br>
+           </div>
 
-                                    <h5>Notes</b></h5>
-                                    <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
-                                    <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
-                                    <br><br>
-                                </div>
+           <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
+                <div class="col-lg-3"> <h5>Action:</h5></div>
+                
+                <div class="col-lg-9">
+                     <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+                </div>
+                <br><br>
 
-                                <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
-                                    <div class="col-lg-3">
-                                           <h5>Action:</h5>
-                                       </div>
+                <div class="col-lg-3"><h5>Type:</h5></div>
 
-                                       <div class="col-lg-9">
-                                           <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
-                                       </div>
+                <div class="col-lg-5">
+                    <select id='editactiontype_<?= $action->actionplanID ?>' name='editactiontype' class='form-control'>
+                        <option value='1'>Evidence</option>
+                        <option value='2'>Legal Document</option>
+                        <option value='3'>People</option>
+                        <option value='4'>Events</option>
+                    </select>
+                </div>
 
-                                       <br><br>
+                <div class="col-lg-3">
+                       <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
+                       <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
+                </div>
+            <br>
+            </div>
 
-                                       <div class="col-lg-3">
-                                           <h5>Type:</h5>
-                                       </div>
+            <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
 
-                                       <div class="col-lg-5">
-                                           <select id='editactiontype_<?= $action->actionplanID ?>' name='editactiontype' class='form-control'>
-                                               <option value='1'>Evidence</option>
-                                               <option value='2'>Legal Document</option>
-                                               <option value='3'>People</option>
-                                               <option value='4'>Events</option>
-                                           </select>
-                                       </div>
+                <h4>Are you sure you want to delete this item?</h4> 
+                <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
+                <br>
+            </div>
 
-                                       <div class="col-lg-3">
-                                           <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
-                                           <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
-                                       </div>
-                                       <br>
-                                </div>
+            <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
+            <hr>
 
-                                <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
+            <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
+            <ul>
 
-                                    <h4>Are you sure you want to delete this item?</h4> 
-                                    <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                    <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
-                                    <br>
-                                </div>
+                <li id="actionPlanNote" class="actionPlanNote">
+                    <div class="name">Megan Abbott</div>
+                    <div class="date">Today, 1:08 PM</div>
+                    <div class="delete"><i class="icon-remove"></i></div>
+                    <div class="message">
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                    </div>	
+                </li>
+                <li id="actionPlanNote" class="actionPlanNote">
+                        <div class="name">Megan Abbott</div>
+                        <div class="date">Today, 1:08 PM</div>
+                        <div class="delete"><i class="icon-remove"></i></div>
 
+                        <div class="message">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                        </div>	
+                </li>
 
-                                 <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
-                                   <hr>
+                </ul>		
+               </div>
+               <br>
+               </div>
+            </div> 
+        <!--ACTION PLAN STAGE 1-->
+          </form>
+         </div>
+         </td>
+                <?php $stage1count++; ?>
+            </tr><?php endforeach; ?>
+        </table>
+    </ul>
+    </div>
 
-                                   <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
-
-                                    <ul>
-
-                                        <li id="actionPlanNote" class="actionPlanNote">
-                                            <div class="name">Megan Abbott</div>
-                                            <div class="date">Today, 1:08 PM</div>
-                                            <div class="delete"><i class="icon-remove"></i></div>
-
-                                            <div class="message">
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                                            </div>	
-                                    </li>
-
-                                    <li id="actionPlanNote" class="actionPlanNote">
-                                            <div class="name">Megan Abbott</div>
-                                            <div class="date">Today, 1:08 PM</div>
-                                            <div class="delete"><i class="icon-remove"></i></div>
-
-                                            <div class="message">
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                                            </div>	
-                                    </li>
-
-                                    </ul>		
-
-                                    </div>
-                                   <br>
-                                    </div>
-                                </div> 
-                                <!--ACTION PLAN-->
-                                <?php //$this->load->view('intern/actionPlanOptions'); ?>
-                              </form>
-                            </div>
-
-                        </td>
-                        <?php $stage1count++; ?>
-                    </tr><?php endforeach; ?>
-                </table>
-            </ul>
-        </div>
-
-        <!-- 2 PRELIMINARY INVESTIGATION -->
-        <div class="well todo col-lg-3" style="padding:10px;">
+    <!-- 2 PRELIMINARY INVESTIGATION -->
+    <div class="well todo col-lg-3" style="padding:10px;">
             <h3> Preliminary Investigation
             </h3>
             <ul class="todo-list">
@@ -832,54 +878,6 @@ echo 'checked';
         </div>-->
     </div>
     <?php } ?>
-
-    <!-- START OF MODAL : EDITACTIONPLANMODAL -->
-    <div class="row col-lg-10 col-sm-11">
-        <div class="modal fade" id="editActionPlanModal">
-            <div class="modal-dialog-editCaseSummary">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 id="myModalLabel"> Edit Action Plan </h3>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="col-sm-2 control-group">
-                            <div class="controls">
-                                <center> <h5> Stage: <label id='labelstage' class="label label-warning">New</label> </h5> </center>
-                            </div>
-                        </div>
-
-                        <br><br><br>
-
-                        <div class="col-sm-2 control-group">
-                            <div class="controls">
-                                <center> <h5> New Task </h5> </center>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-7 control-group">
-                            <div class="controls">
-                                <input type="text" name="newTaskActionPlan" value="" id="newTaskActionPlan" class="form-control" style="margin-top:8px;"  />
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3 control-group">
-                            <div class="controls">
-                                <button class="btn btn-primary">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br><br><br>
-
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END OF MODAL : EDITACTIONPLANMODAL -->
 
     <!-- START OF MODAL : REASONACTIONPLANMODAL -->
     <div class="row">
