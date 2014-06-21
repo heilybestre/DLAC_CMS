@@ -7,13 +7,8 @@
 
 
 
-<div id="content" class="col-lg-10 col-sm-11">
-	<div class="box" style="font-size:13px;">
-		<div class="box-header">
-			<h2><i class="icon-user"></i>Add New Client</h2>
-		</div>
-		<div class="box-content">
-			<br>
+<div class="">
+    <br>
 			<div class="row">
 
 				<div class="col-lg-6">
@@ -368,13 +363,7 @@
 							</div><!--/col-->
 						</div><!--/row-->
 
-
-						<?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success pull-right'), 'Add Client'); ?>
-
-						<br><br>
-						<?php echo form_close(); ?>
-					</div>
-				</div>
+						<?php echo form_close();?> 
 
 	<!-- START OF MODAL :  photoBoothModal -->
     <div class="row">
@@ -402,4 +391,4 @@
     <!-- END OF MODAL : photoBoothModal -->
 
 
-			</div>
+</div>

@@ -9,9 +9,10 @@
 
 				<div class="box-header"><br><br>
 					<ul class="nav tab-menu nav-tabs pull-left">
-						<!-- <li id='liRecommendation'><a href="#recommendation" data-toggle="tab">Recommendation</a></li> -->
 						
 						<li id='liLegalAdvice'><a href="#legalAdvice" data-toggle="tab">Legal Advice</a></li>
+                                                
+                                                <li id='liLinkedPeople'><a href="#linkedPeople" data-toggle="tab">People</a></li>
 						
 						<li id='liDocuments'><a href="#documents" data-toggle="tab">Legal Documents</a></li>
 						
@@ -32,11 +33,16 @@
 						<div class="tab-pane" id="evidence" style='padding:10px;'>
 							<?php $this->load->view('intern/createApplication/addevidence'); ?>
 						</div>
+                                            
+                                                <div class="tab-pane" id="linkedPeople" style='padding:10px;'>
+							<?php $this->load->view('intern/createApplication/addlinkedpeople'); ?>
+						</div>
+                                            
 						<div class="tab-pane" id="legalAdvice" style='padding:10px;'>
 							<?php $this->load->view('intern/createApplication/addlegaladvice'); ?>
 						</div>
 						<!-- <div class="tab-pane" id="recommendation" style='padding:10px;'>
-							<?php $this->load->view; ?>
+							<?php// $this->load->view; ?>
 						</div> -->
 					</div>
 				</div>

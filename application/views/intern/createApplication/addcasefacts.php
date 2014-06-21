@@ -1,3 +1,5 @@
+
+
 <div id='casefacts_form' class="container">
 
     <div class="row">
@@ -44,17 +46,21 @@
 
         <div class="col-sm-2 control-group">
             <div class="controls">
-                <center> <h5> <b> Client Name <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> </center>
+                <center> <h5> <b> Client/s <span class="glyphicon glyphicon-asterisk"></span> </b> </h5> </center>
             </div>
         </div>
-        <div class="col-sm-3 control-group">
+        <div class="col-sm-8 control-group">
             <div class="controls">
-                <select id="appclient" name="appclient" class="form-control">
-                    <?php foreach ($clientlist as $row) : ?>
-                        <option value="<?= $row->personID ?>" <?php if ($row->personID == $this->session->userdata('newclientid')) echo 'selected'; ?> >
-                            <?= $row->lastname ?>, <?= $row->firstname ?> <?php if ($row->middlename != '' || $row->middlename != NULL) echo substr($row->middlename, 0, 1) . '.'; ?>
-                        </option><?php endforeach; ?>
-                </select>
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
+            </div>
+        </div>
+        <div class="col-sm-1 control-group">
+            <div class="controls">
+                <a class="btn btn-success addpersonbtn" data-toggle="modal" id="addclientbutton" href="#addClientModal1" style="margin-top:0px;"> <i id="addclientbutton" class="icon-plus"></i> </a>
             </div>
         </div>
 
@@ -143,23 +149,20 @@
             </div>
         </div>
 
-        <div class="col-sm-2 control-group">
+        <div class="col-sm-8 control-group">
             <div id='opposingpartydiv' class="controls">
-                <select id="appopposing" name="appopposing" class="form-control">
-                    <?php foreach ($opposingpartylist as $row) : ?>
-                        <?php if ($row->personID != $this->session->userdata('newclientid')) { ?>
-                            <option value="<?= $row->personID ?>">
-                                <?= $row->lastname ?>, <?= $row->firstname ?> <?php if ($row->middlename != '' || $row->middlename != NULL) echo substr($row->middlename, 0, 1) . '.'; ?>
-                            </option>
-                        <?php } ?><?php endforeach; ?>
-                </select>
+                <select  multiple class="chosen-select" tabindex="8" style="">
+                    <?php foreach ($offenses as $off): ?>
+                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php endforeach; ?>
+                </select>  
             </div>
         </div>
 
 
         <div class="col-sm-1 control-group">
             <div class="controls">
-                <sup><a class ="btn btn-success pull-left" href="#addOpposingModal" data-toggle="modal" style="margin-top:0px;"> <i class="icon-plus"></i> </a></sup>
+                <sup><a class ="btn btn-success pull-left" href="#addOpposingModal1" data-toggle="modal" style="margin-top:0px;"> <i class="icon-plus"></i> </a></sup>
             </div>
         </div>
         <br> <br><br>
@@ -366,7 +369,7 @@
     <div class="row">
 
         <!-- START OF ADD LINKED PERSON MODAL -->
-        <div class="modal fade" id="addOpposingModal">
+        <div class="modal fade" id="addOpposingModal1">
             <div class="modal-dialog-evidence">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -478,6 +481,32 @@
             </div>
         </div>
         <!-- END OF ADD LINKED PERSON MODAL -->
+    </div>
+    
+       
+     <div class="row">
+
+        <!-- START OF ADD CLIENT MODAL -->
+        <div class="modal fade" id="addClientModal1">
+            <div class="modal-dialog-addClient">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add New Client Information </h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php $this->load->view('intern/addnewclient'); ?>
+                    </div>
+
+                    <div class="modal-footer">
+                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Client'); ?>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF ADD CLIENT MODAL -->
+
     </div>
 
 </div>
