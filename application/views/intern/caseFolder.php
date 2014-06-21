@@ -41,7 +41,7 @@
                             <a href="#minutes" data-toggle="tab">Minutes</a>
                         </li>
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'class="active"'; ?>>
-                            <a href="#actionPlan" data-toggle="tab">NEW ACTION PLAN</a>
+                            <a href="#actionPlan" data-toggle="tab">Action Plan</a>
                         </li>
                         <li <?php if (!isset($_GET['tid'])) echo 'class="active"'; ?>>
                             <a href="#general" id='tidgeneral' data-toggle="tab">General</a>
@@ -107,7 +107,7 @@
                         <div class="tab-pane <?php if (!isset($_GET['tid'])) echo 'active'; ?>" id="general">
                             <?php $this->load->view('intern/caseFolder/general'); ?>
                         </div>
-                        <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'oldactionplan') echo 'active'; ?>" id="oldactionPlan">
+                        <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'active'; ?>" id="actionPlan">
                             <?php $this->load->view('intern/caseFolder/actionPlan'); ?>
                         </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
