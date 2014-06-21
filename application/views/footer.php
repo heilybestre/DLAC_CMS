@@ -88,6 +88,18 @@
             }
 
           });
+          
+        $('.popover-editing').popover({
+            html: true,
+            
+            content: function() {
+                var x = $(this).attr('id').substring(13);
+               
+                return $("#popover-editing-content_"+x).html();
+                
+            }
+
+          });
         
         
         
