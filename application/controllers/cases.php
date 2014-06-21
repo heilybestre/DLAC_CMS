@@ -263,8 +263,9 @@ class Cases extends CI_Controller {
         $data['casecourt'] = $this->Case_model->select_casecourt($cid);
         $data['caseoffense'] = $this->Case_model->select_caseoffense($cid);
         $data['offenses'] = $this->Case_model->select_offense();
-
-                
+        $data['stages'] = $this->Case_model->select_stages();
+        $data['actioncategory'] = $this->Case_model->select_action_category();
+        
         // <editor-fold defaultstate="collapsed" desc="Action Plan">
         $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
         $data['actionplan_stage1'] = $this->Case_model->select_actionplan($cid, 1);
@@ -272,6 +273,10 @@ class Cases extends CI_Controller {
         $data['actionplan_stage3'] = $this->Case_model->select_actionplan($cid, 3);
         $data['actionplan_stage4'] = $this->Case_model->select_actionplan($cid, 4);
         $data['actionplan_stage5'] = $this->Case_model->select_actionplan($cid, 5);
+        $data['actions1'] = $this->Case_model->select_actions1();
+        $data['actions2'] = $this->Case_model->select_actions2();
+        $data['actions3'] = $this->Case_model->select_actions3();
+        $data['actions4'] = $this->Case_model->select_actions4();
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Evidence">
         $data['evidencedoc'] = $this->Case_model->select_evidencedoc($cid);

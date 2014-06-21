@@ -6,423 +6,423 @@
 }
 
 #notesThread2{
- 	width: 320px ! important;
-        height:150px ! important;
-        overflow: scroll;
- } 
+    width: 320px ! important;
+    height:150px ! important;
+    overflow: scroll;
+} 
 
 #actionPlanNote2{
-        height:auto; 
+    height:auto; 
 }
 .actionPlan-bottom-notes{
- 	width: 300px ! important;
-        max-height: 200px ! important;
-        overflow: auto;
- }
- 
+    width: 300px ! important;
+    max-height: 200px ! important;
+    overflow: auto;
+}
+
 #deleteAction2{
-   width: 280px ! important;
-   height: 80px ! important;
+    width: 280px ! important;
+    height: 80px ! important;
 }
 
 #editAction2{
- 	width: 280px ! important;
-        max-height: 500px ! important;
-        overflow: auto;
- }
- 
+    width: 280px ! important;
+    max-height: 500px ! important;
+    overflow: auto;
+}
+
 #deleteAction{
-   width: 280px ! important;
-   height: 80px ! important;
+    width: 280px ! important;
+    height: 80px ! important;
 }
 
 #editAction{
- 	width: 280px ! important;
-        max-height: 500px ! important;
-        overflow: auto;
- }
+    width: 280px ! important;
+    max-height: 500px ! important;
+    overflow: auto;
+}
 
 #notesThreadOption3{
     width: 320px ! important;
     height:310px ! important;
     overflow: scroll;           
-    
+
 }
 #actionPlanNote{
-        height:auto; 
+    height:auto; 
 }
 
 #notesThread{
- 	width: 320px ! important;
-        height:150px ! important;
-        overflow: scroll;
- } 
+    width: 320px ! important;
+    height:150px ! important;
+    overflow: scroll;
+} 
 
 #btnTakeActionPlan{
- 	padding: 3px 4px;
- 	font-size: 12px;
- }
+    padding: 3px 4px;
+    font-size: 12px;
+}
 
- #actionPlanWriteNotes{
- 	width: 280px ! important;
-        max-height: 500px ! important;
-        overflow: auto;
- }
+#actionPlanWriteNotes{
+    width: 280px ! important;
+    max-height: 500px ! important;
+    overflow: auto;
+}
 
- .popover
+.popover
 {
     max-width: 350px ! important;
     height: 410px ! important;
 }
 
- #popover-content
-    {
-        min-width:900px;
-    }
+#popover-content
+{
+    min-width:900px;
+}
 
- #popover-head
-    {
-        width:900px;
-    }
-    
-    
+#popover-head
+{
+    width:900px;
+}
+
+
 
 .modal-dialog-minutes {
-	width: 800px; /* SET THE WIDTH OF THE MODAL */
-	margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 800px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 #minutesReport{
-	height:200px;
+    height:200px;
 }
 
 .disable{
-	pointer-events:none;
+    pointer-events:none;
 }
 
 .fadedopp{
-	opacity:0.7;
+    opacity:0.7;
 }
 
 .modal-dialog-addDocument{
-	width: 800px; /* SET THE WIDTH OF THE MODAL */
-	margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 800px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 #textarea_purpose, #textarea_order, #textarea_action{
-	height:50px;
-	min-height: 50px; 
-	max-height: 50px;
-	width:192px;
-	min-width: 192px; 
-	max-width: 192px;
-	resize:none;
-	overflow: scroll; 
-	overflow-y: scroll; 
-	overflow-x: scroll; 
-	overflow:-moz-scrollbars-vertical;
-	overflow:-moz-scrollbars-horizontal;
+    height:50px;
+    min-height: 50px; 
+    max-height: 50px;
+    width:192px;
+    min-width: 192px; 
+    max-width: 192px;
+    resize:none;
+    overflow: scroll; 
+    overflow-y: scroll; 
+    overflow-x: scroll; 
+    overflow:-moz-scrollbars-vertical;
+    overflow:-moz-scrollbars-horizontal;
 }
 
 #tb_title{
 
-	width:192px;
-	min-width: 192px; 
-	max-width: 192px;
+    width:192px;
+    min-width: 192px; 
+    max-width: 192px;
 
 }
 
 .modal-dialog-assessment {
-	width: 1000px; /* SET THE WIDTH OF THE MODAL */
-	margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 1000px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 .modal-dialog-transferClose {
-	width: 850px; /* SET THE WIDTH OF THE MODAL */
-	margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 #ulnotif{
-	min-width: 450px;
-	max-width: 450px;
-	min-height:100px;
-	max-height:400px;
-	overflow:scroll;
+    min-width: 450px;
+    max-width: 450px;
+    min-height:100px;
+    max-height:400px;
+    overflow:scroll;
 }
 
 .modal-dialog-assign {
-	width: 1300px; /* SET THE WIDTH OF THE MODAL */
-	margin: 25px 0 0 100px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 1300px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 100px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 .modal-dialog-reassignAppointment{
-	width: 650px; /* SET THE WIDTH OF THE MODAL */
-	margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 650px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 .modal-dialog-RelDocuments {
-	width: 850px; /* SET THE WIDTH OF THE MODAL */
-	margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 .modal-dialog-ViewJudge {
-	width: 800px; /* SET THE WIDTH OF THE MODAL */
-	margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+    width: 800px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
 #write-message{
-	height:60px;
+    height:60px;
 }
 
 #send{
-	height:60px;
+    height:60px;
 }
 
 
 .sec-div{
-	height: 550px !important;
-	overflow: scroll;
-	}​
+    height: 550px !important;
+    overflow: scroll;
+}​
 
-	.modal-dialog-UpdateRelDocuments {
-		width: 850px; /* SET THE WIDTH OF THE MODAL */
-		margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
+.modal-dialog-UpdateRelDocuments {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-	.modal-dialog-updateStageModal {
-		width: 650px; /* SET THE WIDTH OF THE MODAL */
-		margin: 80px 0 0 300px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
+.modal-dialog-updateStageModal {
+    width: 650px; /* SET THE WIDTH OF THE MODAL */
+    margin: 80px 0 0 300px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-	.box-content-openCase {
-		height: 550px !important;
-	}
+.box-content-openCase {
+    height: 550px !important;
+}
 
-	.box-dashboard {
-		height: 360px !important;
-	}
+.box-dashboard {
+    height: 360px !important;
+}
 
-	#caseClosingApplicationModal{
-		width: 850px; /* SET THE WIDTH OF THE MODAL */
-		margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
+#caseClosingApplicationModal{
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-	#caseTransferApplicationModal{
-		width: 850px; /* SET THE WIDTH OF THE MODAL */
-		margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
+#caseTransferApplicationModal{
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-	#applyToTransfer {
-		width: 850px; /* SET THE WIDTH OF THE MODAL */
-		margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
+#applyToTransfer {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-	#applyToCloseModal2 {
-		width: 690px; /* SET THE WIDTH OF THE MODAL */
-		margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
+#applyToCloseModal2 {
+    width: 690px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-	#applyToTransferModal2 {
-		width: 690px; /* SET THE WIDTH OF THE MODAL */
-		margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-	}
-
-
-	#timeline-div{  
-		height: 888px !important;
-		overflow: scroll;
-		}​
-
-		#addRelatedDocument{
-			width: 900px; /* SET THE WIDTH OF THE MODAL */
-			margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-		}
-
-		.modal-dialog-actionTaken {
-			width: 700px; /* SET THE WIDTH OF THE MODAL */
-			margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-		}
-
-		#tbl-related{
-			width: 100%;
-			height: 160px !important;
-			overflow: scroll;
-			resize: vertical;
-		}
-
-		#caseNarrative{
-			height: 250px;
-			overflow: scroll;
-			width: 100%;
-		}
-
-		#textarea{
-			width: 100%;
-			height: 50px;
-			overflow: scroll;
-			resize: vertical;
-		}
-
-		.tbl-attendees{  
-			height: 125px !important;
-			overflow: scroll;
-			border: 1px solid lightgray;
-			margin-top: 10px;
-			}​
-
-			.timeline-div{  
-				height: 800px !important;
-				overflow: scroll;
-				}​
-
-				.modal-dialog-actionTaken {
-					width: 850px; /* SET THE WIDTH OF THE MODAL */
-					margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-				}
+#applyToTransferModal2 {
+    width: 690px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
 
-				#viewNarrativeModal {
-					width: 850px; /* SET THE WIDTH OF THE MODAL */
-					margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-				}
+#timeline-div{  
+    height: 888px !important;
+    overflow: scroll;
+}​
 
-				.modal-dialog-evidence {
-					width: 850px; /* SET THE WIDTH OF THE MODAL */
-					margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-				}
+#addRelatedDocument{
+    width: 900px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-				.modal-dialog-documents {
-					width: 850px; /* SET THE WIDTH OF THE MODAL */
-					margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-				}
+.modal-dialog-actionTaken {
+    width: 700px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 350px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-				.modal-dialog-editCaseSummary {
-					width: 650px; /* SET THE WIDTH OF THE MODAL */
-					margin: 25px 0 0 325px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-				}
+#tbl-related{
+    width: 100%;
+    height: 160px !important;
+    overflow: scroll;
+    resize: vertical;
+}
 
-				.modal-dialog-documents {
-					width: 850px; /* SET THE WIDTH OF THE MODAL */
-					margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-				}
+#caseNarrative{
+    height: 250px;
+    overflow: scroll;
+    width: 100%;
+}
+
+#textarea{
+    width: 100%;
+    height: 50px;
+    overflow: scroll;
+    resize: vertical;
+}
+
+.tbl-attendees{  
+    height: 125px !important;
+    overflow: scroll;
+    border: 1px solid lightgray;
+    margin-top: 10px;
+}​
+
+.timeline-div{  
+    height: 800px !important;
+    overflow: scroll;
+}​
+
+.modal-dialog-actionTaken {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+
+#viewNarrativeModal {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+.modal-dialog-evidence {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+.modal-dialog-documents {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+.modal-dialog-editCaseSummary {
+    width: 650px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 325px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
+
+.modal-dialog-documents {
+    width: 850px; /* SET THE WIDTH OF THE MODAL */
+    margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
 /** #boxcontent {
         min-height: 550px;
         } **/
 
-        #pagination-a {
-        	font-color:gray;
-        }
+#pagination-a {
+    font-color:gray;
+}
 
 
-        #addEventModal {
-        	width: 1200px; /* SET THE WIDTH OF THE MODAL */
-        	margin: -25px 0 0 -600px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-        }
+#addEventModal {
+    width: 1200px; /* SET THE WIDTH OF THE MODAL */
+    margin: -25px 0 0 -600px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
-        #addPartiesModal {
-        	width: 1200px; /* SET THE WIDTH OF THE MODAL */
-        	margin: -25px 0 0 -600px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-        }
+#addPartiesModal {
+    width: 1200px; /* SET THE WIDTH OF THE MODAL */
+    margin: -25px 0 0 -600px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}
 
 
 
-        .interviewees-table { height: 150px; overflow: auto; }
+.interviewees-table { height: 150px; overflow: auto; }
 
-        .content {
-        	font-family: "SegoeWP-Light"
-        }
+.content {
+    font-family: "SegoeWP-Light"
+}
 
-        #login_form
-        {
-        	background-image: ".../assets/img/bg.jpg";
-        }
+#login_form
+{
+    background-image: ".../assets/img/bg.jpg";
+}
 
-        li#accounticon {
-        	display: inline;
-        	float: right;
-        	padding-top: 8px;
-        }
+li#accounticon {
+    display: inline;
+    float: right;
+    padding-top: 8px;
+}
 
-        .pagecontainer{
-        	background-color: black;
-        	margin-left: 10%;
-        	margin-right: 10%;
-        }
+.pagecontainer{
+    background-color: black;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
-        #imglogo{
-        	margin-left:5%;
-        	margin-top:5px;
-        	margin-bottom: 5px;
-        }
+#imglogo{
+    margin-left:5%;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
 
-        #name{
-        	display: inline;
-        	float: right;
-        	padding-top: 10px;
-        	padding-right: 10px;
-        }
+#name{
+    display: inline;
+    float: right;
+    padding-top: 10px;
+    padding-right: 10px;
+}
 
-        #btnsearch{
-        	display: inline;
-        	float: right;
-        	padding-top: 8px;
-        	height: 30px;
-        	padding: 4px 6px;
-        	font-size: 14px;
-        	line-height: 20px;
-        	border-style: line;
-        	border-color: lightgray;
-        	background-color: white;
-        	margin-right: 10px;
-        }
+#btnsearch{
+    display: inline;
+    float: right;
+    padding-top: 8px;
+    height: 30px;
+    padding: 4px 6px;
+    font-size: 14px;
+    line-height: 20px;
+    border-style: line;
+    border-color: lightgray;
+    background-color: white;
+    margin-right: 10px;
+}
 
-        #iconnavbar{
-        	float:right;
-        }
+#iconnavbar{
+    float:right;
+}
 
-        .controls-view{
-        	padding-top: 7px;
-        }
+.controls-view{
+    padding-top: 7px;
+}
 
-        .nextbtnbottom{
-        	position: absolute;
-        	bottom: 1%;
-        	margin-left: 80%;
-        }
+.nextbtnbottom{
+    position: absolute;
+    bottom: 1%;
+    margin-left: 80%;
+}
 
-        #divPossessionName{ /**/
-        	display: none;
-        }
+#divPossessionName{ /**/
+    display: none;
+}
 
-        #divCaseOffense{ /**/
-        	display: none;
-        }
+#divCaseOffense{ /**/
+    display: none;
+}
 
-        #divTestiReason{
-        	display: none;
-        }
+#divTestiReason{
+    display: none;
+}
 
-        #remarkstab{
-        	color:red;
-        	display: none;
-        }
+#remarkstab{
+    color:red;
+    display: none;
+}
 
-        #newClient{
-        	display: none;
-        }
+#newClient{
+    display: none;
+}
 
-        tabletitle{
-        	font-size: 15px;
-        }
+tabletitle{
+    font-size: 15px;
+}
 
-        tabledesc{
-        	font-size: 12px;
-        	font-style: italic;
-        }
+tabledesc{
+    font-size: 12px;
+    font-style: italic;
+}
 
-        tabletags{
-        	font-size: 12px;
-        }
+tabletags{
+    font-size: 12px;
+}
 
 
