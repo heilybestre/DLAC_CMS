@@ -78,19 +78,89 @@
     $(document).ready(function() {
   
         $('.popover-orig').popover({ 
-            html: true,
-            
-        content: function() {
-                var x = $(this).attr('id').substring(13);
-               
+            html: true,            
+            content: function() {
+                var x = $(this).attr('id').substring(13);               
                 return $("#popover-orig-content_"+x).html();  
-        }
+            }
+        });
+                
+        $(".getActionButton").live('click', function() {
+            var x = $(this).attr('id').substring(16);               
+            alert("ID : " +x);              
         });
         
-        
-        $(".getActionButton").click(function(event) {
-            alert(event.target.id);
+        $(".sendActionNotes").live('click', function() {
+            var x = $(this).attr('id').substring(16);                 
+            var note = $('#actionWriteNotes_'+x).val();
+            alert(note);
+            
+            $('#actionWriteNotes_'+x).val('');
         });
+        
+        //EDIT ACTIONS start
+        $(".editActionButton").live('click', function() {
+            var x = $(this).attr('id').substring(17);                 
+            $('#actionPlanOption-center-writeNotes_'+x).addClass('hide');
+            $("#actionPlan-bottom-notes_"+x).addClass('hide');
+            $("#actionPlanActionButtons_"+x).addClass('hide');            
+            $("#actionPlanOption-center-edit_"+x).removeClass('hide');    
+            
+            
+        });
+        
+        $(".cancelEditButton").live('click', function() {
+            var x = $(this).attr('id').substring(17);                
+            $('#actionPlanOption-center-writeNotes_'+x).removeClass('hide');
+            $("#actionPlan-bottom-notes_"+x).removeClass('hide');
+            $("#actionPlanActionButtons_"+x).removeClass('hide');            
+            $("#actionPlanOption-center-edit_"+x).addClass('hide');    
+            
+            
+        });
+        
+        $(".saveActionButton").live('click', function() {
+            var x = $(this).attr('id').substring(17);   
+            var action = document.getElementById('editAction_'+x).value; 
+            var type = $('#editactiontype_'+x).val();
+            alert("ID :"+x + " ;  ACTION :" +action+" ;  TYPE : "+type);
+            //AJAX CODE!!
+            
+        });
+        //end of EDIT ACTIONS
+        
+        
+        //DELETE ACTIONS start
+        $(".deleteActionButton").live('click', function() {
+            var x = $(this).attr('id').substring(19);
+            $('#actionPlanOption-center-writeNotes_'+x).addClass('hide');
+            $("#actionPlan-bottom-notes_"+x).addClass('hide');
+            $("#actionPlanActionButtons_"+x).addClass('hide');            
+            $("#actionPlanOption-center-delete_"+x).removeClass('hide');            
+        });
+        
+        $(".cancelDeleteButton").live('click', function() {
+            var x = $(this).attr('id').substring(19);
+            $('#actionPlanOption-center-writeNotes_'+x).removeClass('hide');
+            $("#actionPlan-bottom-notes_"+x).removeClass('hide');
+            $("#actionPlanActionButtons_"+x).removeClass('hide');            
+            $("#actionPlanOption-center-delete_"+x).addClass('hide');            
+        });
+        
+        $(".okayDeleteButton").live('click', function() {
+            var x = $(this).attr('id').substring(17);
+            alert(x + ":ID ; AJAX CODE")
+            //AJAX CODE!!
+        });
+                
+        //end of DELETE ACTIONS
+        
+        
+        
+        
+        
+        
+        
 
         $("#dashboard-appo").dataTable({
             "sDom": 'tipr',
