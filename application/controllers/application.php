@@ -49,8 +49,8 @@ class Application extends CI_Controller {
                 break;
             case "5" :
                 $data['applications'] = $this->Case_model->select_mycasepending($uid);
-                $data['specialized'] = $this->People_model->select_specialized(1);
-                $data['non_specialized'] = $this->People_model->select_non_specialized(1);
+//                $data['specialized'] = $this->People_model->select_specialized(1);
+//                $data['non_specialized'] = $this->People_model->select_non_specialized(1);
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/application', $data);
                 break;
@@ -83,7 +83,21 @@ class Application extends CI_Controller {
         $data['trc'] = $this->Case_model->select_caselog($cid, 4);
         $data['app'] = $this->Case_model->select_caselog($cid, 5);
 
-        $data['lawyers'] = $this->People_model->select_lawyers();
+        //$data['lawyers'] = $this->People_model->select_lawyers();
+        $offense = $this->Case_model->select_caseoffense($cid);
+
+        $data['specialize'] = array();
+        $data['nonspecialize'] = array();
+        foreach ($offense as $o) {
+            array_push($data['specialize'], $this->People_model->select_specialized($o->offenseID));
+            array_push($data['nonspecialize'], $this->People_model->select_non_specialized($o->offenseID));
+
+            //$data['specialize'] = $this->People_model->select_specialized($o->offenseID));
+            //$data['nonspecialize'] = $this->People_model->select_non_specialized($o->offenseID);
+        }
+        //var_dump($data['specialize']);
+        //var_dump($data['nonspecialize']);
+
         $data['interns'] = $this->People_model->select_interns();
 
         $data['case'] = $this->Case_model->select_case($cid);

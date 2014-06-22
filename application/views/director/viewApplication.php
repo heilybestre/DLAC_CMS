@@ -3,7 +3,7 @@
     <div class="row hide">
         <!--																																										ERROR ERROR ERROR
         <?php foreach ($casecount as $cc): ?>
-                                                <h3>The clinic currently handles <?php echo $cc->countactive ?> active cases. </h3>
+                        <h3>The clinic currently handles <?php echo $cc->countactive ?> active cases. </h3>
         <?php endforeach; ?>
         -->
     </div>
@@ -131,21 +131,34 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Case difficulty</th>
-                                        <th>Caseload</th>
                                         <th>Specialization</th>
+                                        <th>Caseload</th>
+                                        <th>Case difficulty</th>
                                     </tr>
                                 </thead>
                                 <tbody class="openCase-table">
                                     <?php $count = 0; ?>
-                                    <?php foreach ($lawyers as $lawyer): ?>
-                                        <tr <?php if ($count == 0) echo 'style="background-color:#e8f1da;"'; ?>>
-                                            <td align="center"><input type="checkbox" class="case" name="lawyer[]" value="<?php echo $lawyer->personID ?>"/></td>
-                                            <td><?php echo "$lawyer->firstname $lawyer->lastname" ?></td>
-                                            <td><?php echo $lawyer->difficultyLevel ?></td>
-                                            <td><?php echo $lawyer->caseload ?></td>
-                                            <td><?php echo $lawyer->specialization ?></td>
-                                        </tr>
+                                    <?php foreach ($specialize as $lawyer): ?>
+                                        <?php foreach ($lawyer as $l): ?>
+                                            <tr style="background-color:#e8f1da;";>
+                                                <td align="center"><input type="checkbox" class="case" name="lawyer[]" value="<?php echo $l->personID ?>"/></td>
+                                                <td><?php echo "$l->firstname $l->lastname" ?></td>
+                                                <td><?php echo $l->offenseName ?></td>
+                                                <td><?php echo $l->caseload ?></td>
+                                                <td><?php echo $l->difficultyLevel ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                    <?php foreach ($nonspecialize as $lawyer): ?>
+                                        <?php foreach ($lawyer as $l): ?>
+                                            <tr>
+                                                <td align="center"><input type="checkbox" class="case" name="lawyer[]" value="<?php echo $l->personID ?>"/></td>
+                                                <td><?php echo "$l->firstname $l->lastname" ?></td>
+                                                <td><?php echo $l->offenseName ?></td>
+                                                <td><?php echo $l->caseload ?></td>
+                                                <td><?php echo $l->difficultyLevel ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                         <?php
                                         $count++;
                                     endforeach;
@@ -165,8 +178,8 @@
                                     <tr>
                                         <th></th>
                                         <th>Name</th>
-                                        <th>Case Difficulty</th>
                                         <th>Caseload</th>
+                                        <th>Case Difficulty</th>
                                         <th>Similar Case</th>
                                     </tr>
                                 </thead>
@@ -176,8 +189,8 @@
                                         <tr <?php if ($count == 0) echo 'style="background-color:#e8f1da;"'; ?>>
                                             <td align="center"><input type="checkbox" class="case" name="intern[]" value="<?php echo $intern->personID ?>"/></td>
                                             <td><?php echo "$intern->firstname $intern->lastname" ?></td>
-                                            <td><?php echo substr($intern->difficultyLevel, 0, 3) ?></td>	
                                             <td><?php echo "$intern->caseload" ?></td>
+                                            <td><?php echo substr($intern->difficultyLevel, 0, 3) ?></td>
                                             <td><?php echo $this->People_model->select_similar($intern->personID, $offenseID)->similar ?></td>
                                         </tr>
                                         <?php

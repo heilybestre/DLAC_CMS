@@ -32,8 +32,9 @@
                             <td>
                                 <?php foreach ($caseoffense as $off) : ?>
                                     <label class="label label-danger">
-                                        <?php echo "$off->offense ($off->stage)" ?>
-                                    </label><?php endforeach; ?>
+                                        <?php echo "$off->offenseName ($off->stage)" ?>
+                                    </label>
+                                <?php endforeach; ?>
 
                                 <a href="#addOffenseModal" data-toggle="modal"><i class="icon-edit"></i></a>
                             </td>

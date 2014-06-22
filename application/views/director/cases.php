@@ -22,11 +22,11 @@
                             <table id='casestable' class="table table-striped table-bordered" data-provides="rowlink">
                                 <thead>
                                     <tr>
-                                        <th width="10%">Case No.</th>
-                                        <th width="30%">Title</th>
-                                        <th width="20%">Status</th>
-                                        <th width="20%">Date Accepted</th>
-                                        <th width="20%">Supervising Lawyer</th>
+                                        <th width="8%">Case No.</th>
+                                        <th>Title</th>
+                                        <th>Status</th>
+                                        <th>Date Accepted</th>
+                                        <th width="15%">Supervising Lawyer</th>
                                     </tr>
                                 </thead>   
                                 <tbody>
@@ -38,10 +38,12 @@
                                         <?php echo $row->caseName ?>
                                     </tabletitle>
                                     <br>
-                                    <tabledesc>
-                                        <?php echo $row->caseDesc ?>
-                                    </tabledesc>
-
+                                    <?php if ($row->caseDesc) { ?>
+                                        <tabledesc>
+                                            <?php echo $row->caseDesc ?>
+                                        </tabledesc>
+                                        <br>
+                                    <?php } ?>
                                     <tabletags>Tags:
                                         <?php
                                         $tags = explode(" #", $row->tags);
