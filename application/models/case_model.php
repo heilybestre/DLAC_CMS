@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 //Case Model
 
@@ -286,7 +286,37 @@ class Case_model extends CI_Model {
         $this->db->update('case_people', $changes);
     }
 
+    function select_actions1() {
+        $query = $this->db->query("SELECT * FROM ref_actionplan WHERE stage = 1");
+        return $query->result();
+    }
+
+    function select_actions2() {
+        $query = $this->db->query("SELECT * FROM ref_actionplan WHERE stage = 2");
+        return $query->result();
+    }
+
+    function select_actions3() {
+        $query = $this->db->query("SELECT * FROM ref_actionplan WHERE stage = 3");
+        return $query->result();
+    }
+
+    function select_actions4() {
+        $query = $this->db->query("SELECT* FROM ref_actionplan WHERE stage = 4");
+        return $query->result();
+    }
+
     // </editor-fold>
+
+    function select_stages() {
+        $query = $this->db->query("SELECT * FROM ref_stage");
+        return $query->result();
+    }
+
+    function select_action_category() {
+        $query = $this->db->query("SELECT * FROM ref_action_category");
+        return $query->result();
+    }
 
     function apply_to_transfer($cid, $pid, $changes) {
         $this->db->where('caseID', $cid);
