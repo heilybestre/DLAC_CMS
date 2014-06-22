@@ -294,7 +294,7 @@
                                                 <div id="actionPlanOption-top">
                                                     <h5>
                                                         <b>Assigned to </b><label class="label label-default">None</label>
-                                                        <div id="actionPlanActionButtons" class="pull-right">
+                                                        <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
@@ -308,7 +308,7 @@
 
                                                     <h5>Notes</b></h5>
                                                     <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
-                                                    <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
+                                                    <a class="btn btn-success pull-right sendActionNotes" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
                                                     <br><br>
                                                 </div>
 
@@ -318,7 +318,7 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-        <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+                                                        <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
                                                     </div>
 
                                                     <br><br>
@@ -346,7 +346,7 @@
                                                 <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
 
                                                     <h4>Are you sure you want to delete this item?</h4> 
-                                                    <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                     <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
                                                     <br>
                                                 </div>
@@ -418,7 +418,7 @@
                                                 <div id="actionPlanOption-top">
                                                     <h5>
                                                         <b>Assigned to </b><label class="label label-default">None</label>
-                                                        <div id="actionPlanActionButtons" class="pull-right">
+                                                        <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
@@ -432,7 +432,7 @@
 
                                                     <h5>Notes</b></h5>
                                                     <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
-                                                    <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
+                                                    <a class="btn btn-success pull-right sendActionNotes" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
                                                     <br>
                                                 </div>
 
@@ -442,7 +442,7 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-        <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+        <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
                                                     </div>
 
                                                     <br><br>
@@ -470,7 +470,7 @@
                                                 <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
 
                                                     <h4>Are you sure you want to delete this item?</h4> 
-                                                    <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                     <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
                                                     <br>
                                                 </div>
@@ -540,7 +540,7 @@
                                                 <div id="actionPlanOption-top">
                                                     <h5>
                                                         <b>Assigned to </b><label class="label label-default">None</label>
-                                                        <div id="actionPlanActionButtons" class="pull-right">
+                                                        <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
@@ -554,7 +554,7 @@
 
                                                     <h5>Notes</b></h5>
                                                     <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
-                                                    <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
+                                                    <a class="btn btn-success pull-right sendActionNotes" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
                                                     <br>
                                                 </div>
 
@@ -564,7 +564,7 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-        <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+        <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
                                                     </div>
 
                                                     <br><br>
@@ -592,7 +592,7 @@
                                                 <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
 
                                                     <h4>Are you sure you want to delete this item?</h4> 
-                                                    <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                     <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
                                                     <br>
                                                 </div>
@@ -660,7 +660,7 @@
                                                 <div id="actionPlanOption-top">
                                                     <h5>
                                                         <b>Assigned to </b><label class="label label-default">None</label>
-                                                        <div id="actionPlanActionButtons" class="pull-right">
+                                                        <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
@@ -674,7 +674,7 @@
 
                                                     <h5>Notes</b></h5>
                                                     <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
-                                                    <a href="" class="btn btn-success pull-right" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
+                                                    <a class="btn btn-success pull-right sendActionNotes" id="sendActionNotes_<?= $action->actionplanID ?>">Send</a>
                                                     <br>
                                                 </div>
 
@@ -684,7 +684,7 @@
                                                     </div>
 
                                                     <div class="col-lg-9">
-        <?php echo form_input(array('id' => 'editAction_<?= $action->actionplanID ?>', 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+        <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
                                                     </div>
 
                                                     <br><br>
@@ -712,7 +712,7 @@
                                                 <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
 
                                                     <h4>Are you sure you want to delete this item?</h4> 
-                                                    <a class="btn btn-success deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                     <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>      
                                                     <br>
                                                 </div>
