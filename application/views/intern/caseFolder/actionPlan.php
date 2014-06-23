@@ -33,11 +33,13 @@
                 <br>
             </div>
 
-            <div class="col-lg-6"></div>
-            <div class="col-lg-2">
-                <br>
-                <button id='submitactionplanbtn' class="btn btn-medium btn-success" style="margin-bottom:10px">Submit Action Plan</button>
-                <a href="" class="pull-right btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
+            <br>
+            <div class="col-lg-5 pull-right">
+                <div class='pull-right'>
+                    <a href="" id='btnaddactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Add</a>
+                    <a href="" id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit</a>
+                    <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
+                </div>
             </div>
         </div>
     <?php } ?>
@@ -96,8 +98,11 @@
             <?php echo form_submit(array('id' => 'saveactionplanbtn', 'name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Save'); ?>
             <div id='cancelactionplanbtn' class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</div>
         </div>
-        <br><br><br>
 
+        <div id='actionplanbuttonsbrdiv' class='hide'>
+            <br><br><br>
+        </div>
+        
         <!-- 1 NEW -->
         <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
             <h3> New 
@@ -172,7 +177,7 @@
                                                 <div class="col-lg-5">
                                                     <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
                                                         <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if($category->racID==$action->category) echo 'selected'; ?>><?= $category->category ?></option>
+                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -292,7 +297,7 @@
                                                 <div class="col-lg-5">
                                                     <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
                                                         <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if($category->racID==$action->category) echo 'selected'; ?>><?= $category->category ?></option>
+                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -411,7 +416,7 @@
                                                 <div class="col-lg-5">
                                                     <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
                                                         <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if($category->racID==$action->category) echo 'selected'; ?>><?= $category->category ?></option>
+                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -530,7 +535,7 @@
                                                 <div class="col-lg-5">
                                                     <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
                                                         <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if($category->racID==$action->category) echo 'selected'; ?>><?= $category->category ?></option>
+                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>

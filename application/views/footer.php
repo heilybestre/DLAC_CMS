@@ -702,6 +702,7 @@
         $('#editingdiv').removeClass('hide');
         $('#btncreateactionplan').addClass('hide');
         $('#actionplanbuttonsdiv').removeClass('hide');
+        $('#actionplanbuttonsbrdiv').removeClass('hide');
     });
 
     //Add action
@@ -747,6 +748,7 @@
     //Cancel create action plan
     $('#cancelactionplanbtn').click(function(){
         $('#actionplanbuttonsdiv').addClass('hide');
+        $('#actionplanbuttonsbrdiv').addClass('hide');
         $('#actionplandiv').addClass('disable fadedopp');
         $('#editingdiv').addClass('hide');
         $('#btncreateactionplan').removeClass('hide');
