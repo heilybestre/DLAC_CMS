@@ -245,7 +245,6 @@ class Case_model extends CI_Model {
     }
 
     // </editor-fold>
-    // 
     // <editor-fold defaultstate="collapsed" desc="INSERT 1(ONE) CASE ONLY!">
 
     function update_case($cid, $changes) {
@@ -264,9 +263,13 @@ class Case_model extends CI_Model {
     }
 
     // </editor-fold>
-    //
     // <editor-fold defaultstate="collapsed" desc="ACTIONPLAN">
 
+    function getactioncategoryname($racID) {
+        $query = $this->db->query("SELECT * from ref_action_category where racID = $racID");
+        return $query->row();
+    }
+    
     function select_action($apid) {
         $query = $this->db->query("SELECT * FROM actionplan WHERE actionplanID = $apid");
         return $query->row();

@@ -21,7 +21,6 @@
 <script src="<?= base_url() ?>assets/js/jquery.cookie.js"></script>
 <script src="<?= base_url() ?>assets/js/dataTables.bootstrap.min.js"></script>
 
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="assets/js/excanvas.min.js"></script><![endif]-->
 <script src="<?= base_url() ?>assets/js/jquery.flot.min.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery.flot.pie.min.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery.flot.stack.min.js"></script>
@@ -33,7 +32,6 @@
 <script src="<?= base_url() ?>assets/js/bootstrap-timepicker.min.js"></script>
 <script src="<?= base_url() ?>assets/js/bootstrap-datepicker.min.js"></script>
 <script src="<?= base_url() ?>assets/js/bootstrap-colorpicker.min.js"></script>
-<!--<script src="<?= base_url() ?>assets/js/jquery-loader.js"></script>-->
 <script src="<?= base_url() ?>assets/js/fullcalendar.js"></script>
 <script src="<?= base_url() ?>assets/js/gcal.js"></script>
 
@@ -74,7 +72,7 @@
         $(selector).chosen(config[selector]);
     }
 
-//customized datatables
+    //customized datatables
     $(document).ready(function() {
 
         $('.popover-orig').popover({
@@ -105,8 +103,6 @@
             $("#actionPlan-bottom-notes_" + x).addClass('hide');
             $("#actionPlanActionButtons_" + x).addClass('hide');
             $("#actionPlanOption-center-edit_" + x).removeClass('hide');
-
-
         });
 
         $(".cancelEditButton").live('click', function() {
@@ -115,8 +111,6 @@
             $("#actionPlan-bottom-notes_" + x).removeClass('hide');
             $("#actionPlanActionButtons_" + x).removeClass('hide');
             $("#actionPlanOption-center-edit_" + x).addClass('hide');
-
-
         });
 
         $(".saveActionButton").live('click', function() {
@@ -225,7 +219,7 @@
         $('#events a:first').tab('show');
     });
 
-// Date and Time Pickers
+    // Date and Time Pickers
     $(function() {
         $('#docUpload_dateIssued').datepicker();
         $('#docUpload_dateReceived').datepicker();
@@ -270,10 +264,10 @@
         $('#minutes_endtime').timepicker();
     });
 
-// Make the checkbox unclickable 
+    // Make the checkbox unclickable 
     $(".disablethis").bind("click", false);
 
-// Show Entry of Appearance (casefolder/documents/newdraft)
+    // Show Entry of Appearance (casefolder/documents/newdraft)
     $('#dddoctype').change(function() {
         var doctype = $('#dddoctype').val();
         if (doctype == 2) {
@@ -284,7 +278,7 @@
         }
     });
 
-// Current stage and client type dropdown change 
+    // Current stage and client type dropdown change 
     $(document).ready(function() {
 
         $('#appstage').change(function() {
@@ -373,440 +367,6 @@
             cell3.innerHTML = '<input type="text" name="inputoffensesource[]" value="' + appoffensesource + '" style="display:none;" readonly>' + appoffensesource;
         }
     });
-
-    /* LEWIN START */
-
-    $('#btneditoffensepenal').click(function() {
-        var caseOffensePenal = $('select[name="caseOffensePenal"]').val();
-        var caseoffensestagepenal = $('select[name="caseoffensestagepenal"]').val();
-
-        var table = document.getElementById("offensetable");
-        {
-            var row = table.insertRow(table.rows.length);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-
-            cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenal;
-            cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagepenal + '" style="display:none;" readonly>' + caseoffensestagepenal;
-            cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
-        }
-    });
-
-    $('#btneditoffensespecial').click(function() {
-        var caseOffenseSpecial = $('select[name="caseOffenseSpecial"]').val();
-        var caseoffensestagespecial = $('select[name="caseoffensestagespecial"]').val();
-
-        var table = document.getElementById("offensetable");
-        {
-            var row = table.insertRow(table.rows.length);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffenseSpecial + '" style="display:none;" readonly>' + caseOffenseSpecial;
-            cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagespecial + '" style="display:none;" readonly>' + caseoffensestagespecial;
-            cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
-        }
-    });
-
-    $('#inputFileDraft').change(function() {
-        var files = document.getElementById("inputFileDraft").files;
-
-        var table = document.getElementById("adddrafttable");
-        table.innerHTML = '';
-
-        for (var i = 0; i < files.length; i++) {
-            var fileName = files[i].name;
-            var fileSize = files[i].size;
-            var fileExt = fileName.split('.').pop();
-            var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
-
-            var row = table.insertRow(table.rows.length);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-
-            cell1.innerHTML = "<input type='text' name='rawName[]' value='" + rawName + "' /> ." + fileExt;
-            cell2.innerHTML = fileSize + 'KB';
-            cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
-        }
-
-    });
-
-
-    $('#inputFileByClient').change(function() {
-        var files = document.getElementById("inputFileByClient").files;
-
-        $('#tableFileClientID').css('background-color', '#E4ECD9');
-        var tableFileClientID = document.getElementById("tableFileClientID");
-        tableFileClientID.innerHTML = '';
-
-        for (var i = 0; i < files.length; i++) {
-
-            var fileName = files[i].name;
-            var fileSize = files[i].size;
-            var fileExt = fileName.split('.').pop();
-            var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
-
-            var tableHTML = '';
-            tableHTML += "<table class='table-condensed'>"
-                    + "<tr>"
-                    + "<td width='15%'></td>"
-                    + "<td width='38%'></td>"
-                    + "<td width='10%'></td>"
-                    + "<td width='30%'></td>"
-                    + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
-                    + "</tr>"
-                    + "<tr>"
-                    + "<td>File Name:</td>"
-                    + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docname[]' value='" + rawName + "'/> ." + fileExt + " </td>"
-                    + "<td>Purpose:</td>"
-                    + "<td rowspan='2'> <textarea id='textarea_purpose' class='form-control' name='docpurpose[]'></textarea> </td>"
-                    + "</tr>"
-
-                    + "<tr>"
-                    + "<td>Date Issued:</td>"
-                    + "<td class='col-sm-3'>"
-                    + "<div class='input-group date'>"
-                    + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                    + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_client' name='datefiled[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
-                    + "</div>"
-                    + "</td>"
-                    + "</tr>"
-
-                    + "<tr>"
-                    + "<td>Date Received:</td>"
-                    + "<td class='col-sm-3'>"
-                    + "<div class='input-group date'>"
-                    + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                    + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_client' name='datereceived[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
-                    + "</div>"
-                    + "</td>"
-                    + "</tr>"
-                    + "</table><br><br>";
-            tableFileClientID.innerHTML += tableHTML;
-        }
-
-        $('#docUpload_dateIssued_client').datepicker();
-        $('#docUpload_dateReceived_client').datepicker();
-
-    });
-
-
-    $('#inputFileByCourt').change(function() {
-        var files = document.getElementById("inputFileByCourt").files;
-
-        $('#tableFileCourt').css('background-color', '#E4ECD9');
-        var tableFileCourt = document.getElementById("tableFileCourt");
-        tableFileCourt.innerHTML = '';
-
-        for (var i = 0; i < files.length; i++) {
-
-            var fileName = files[i].name;
-            var fileSize = files[i].size;
-            var fileExt = fileName.split('.').pop();
-            var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
-
-            var tableHTML = '';
-            tableHTML += "<table class='table-condensed'>"
-                    + "<tr>"
-                    + "<td width='15%'></td>"
-                    + "<td width='38%'></td>"
-                    + "<td width='10%'></td>"
-                    + "<td width='30%'></td>"
-                    + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
-                    + "</tr>"
-                    + "<tr>"
-                    + "<td>File Name:</td>"
-                    + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameCourt[]' value='" + rawName + "'/> ." + fileExt + " </td>"
-                    + "<td>Order:</td>"
-                    + "<td rowspan='2'> <textarea id='textarea_order' class='form-control' name='docpurposeCourt[]'></textarea> </td>"
-                    + "</tr>"
-
-                    + "<tr>"
-                    + "<td >Date Issued:</td>"
-                    + "<td>"
-                    + "<div class='input-group date'>"
-                    + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                    + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_court' name='datefiledCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
-                    + "</div>"
-                    + "</td>"
-                    + "</tr>"
-
-                    + "<tr>"
-                    + "<td>Date Received:</td>"
-                    + "<td class='col-sm-3'>"
-                    + "<div class='input-group date'>"
-                    + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                    + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_court' name='datereceivedCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
-                    + "</div>"
-                    + "</td>"
-                    + "<td>Needed Action: </td>"
-                    + "<td> <input type='text' class='form-control' id='textarea_action' name='neededActionCourt[]'/> </td>"
-                    + "</tr>"
-                    + "</table><br><br>";
-            tableFileCourt.innerHTML += tableHTML;
-        }
-
-        $('#docUpload_dateReceived_court').datepicker();
-        $('#docUpload_dateIssued_court').datepicker();
-
-    });
-
-
-    $("body").on("click", "#remove_row", function() {
-        $(this).parent().parent().remove();
-    });
-
-    $('#btnaddrecords').live('click', function() {
-        var number = document.getElementById('recordsAttendance').value;
-        $('#recordsQuestion').hide();
-
-        var table = document.getElementById('attendanceLogTable');
-        var internsOptions = getAllInternsOption();
-
-        for (var i = 1; i <= number; i++)
-        {
-            var row = table.insertRow(table.rows.length);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-
-            var internsHTML = "<select id='internname' name='internname" + i + "' class='form-control'>";
-            internsHTML += internsOptions;
-            internsHTML += "</select>";
-
-            cell1.innerHTML = internsHTML;
-            cell2.innerHTML = "<div class='input-group bootstrap-timepicker'>"
-                    + "<span class='input-group-addon'><i class='icon-time'></i></span>"
-                    + "<input type='text' class='form-control timepicker attendancetime' name='timestart" + i + "' value=''>"
-                    + "</div>";
-            cell3.innerHTML = "<div class='input-group bootstrap-timepicker'>"
-                    + "<span class='input-group-addon'><i class='icon-time'></i></span>"
-                    + "<input type='text' class='form-control timepicker attendancetime' name='timeend" + i + "' value=''>"
-                    + "</div>";
-            $('.attendancetime').timepicker();
-        }
-    });
-
-
-    function getAllInternsOption() {
-        var internsHTML = '';
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url() ?>people/showinterns",
-            dataType: "json",
-            data: {},
-            async: false,
-            success: function(msg) {
-
-                var id_numbers = msg;
-                var internNo = id_numbers.length;
-
-                for (var x = 0; x < internNo; x++) {
-                    var internID = id_numbers[x];
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo base_url() ?>people/showname/",
-                        dataType: "json",
-                        data: {id: internID},
-                        async: false,
-                        success: function(result) {
-                            internsHTML += "<option value='" + internID + "'>" + result + "</option>";
-                        }, error: function() {
-                            alert("error!");
-
-                        }
-                    });
-                }
-            }
-        });
-
-        return internsHTML;
-    }
-
-//ADD PERSON
-    $('#btn_addperson').live('click', function() {
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url() ?>people/addexternal",
-            data: {use: 'doctestifyadd',
-                lastname: $('#objpersonLastName').val(),
-                firstname: $('#objpersonFirstName').val(),
-                middlename: $('#objpersonMiddleName').val(),
-                addrhouse: $('#objpersonAddressHouseNo').val(),
-                addrstreet: $('#objpersonAddressStreet').val(),
-                addrtown: $('#objpersonAddressTown').val(),
-                addrdistrict: $('#objpersonAddressDistrict').val(),
-                addrpostalcode: $('#objpersonAddressPostalCode').val(),
-                contacthome: $('#objpersonCNHome').val(),
-                contactoffice: $('#objpersonCNOffice').val(),
-                contactmobile: $('#objpersonCNMobile').val()},
-            success: function(result) {
-                $("#case-doctestify").html(result);
-                $("#case-objtestify").html(result);
-                $("#case-tesname").html(result);
-            }
-        });
-
-        //Removes textfield values
-        $('#objpersonFirstName').val('');
-        $('#objpersonLastName').val('');
-        $('#objpersonMiddleName').val('');
-        $('#objpersonAddressHouseNo').val('');
-        $('#objpersonAddressStreet').val('');
-        $('#objpersonAddressTown').val('');
-        $('#objpersonAddressDistrict').val('');
-        $('#objpersonAddressPostalCode').val('');
-        $('#objpersonCNHome').val('');
-        $('#objpersonCNOffice').val('');
-        $('#objpersonCNMobile').val('');
-
-    });
-
-    $('#case-btnadddocevidence').live('click', function() {
-
-        var caseID = document.getElementById('inputCaseID').value;
-        var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
-
-        var docName = document.getElementById('case-docname').value;
-        var case_doctype = $('input[name="case-doctype"]:checked').val();
-        var docdesc = document.getElementById('case-docdesc').value;
-        var docpurpose = document.getElementById('case-docpurpose').value;
-        var docdateissued = document.getElementById('case-docdateissued').value;
-        var docplaceissued = document.getElementById('case-docplaceissued').value;
-        var docdatereceived = document.getElementById('case-docdatereceived').value;
-        var case_doctestify = $('select[name="case-doctestify"]').val();
-        var case_doctestify_name = $("#case-doctestify :selected").text();
-        var case_docstatus = $('input[name="case-docstatus"]:checked').val();
-
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url() ?>cases/addDocuEvidence",
-            async: false,
-            data: {
-                caseID: caseID,
-                case_evidenceof: case_evidenceof,
-                docName: docName,
-                case_doctype: case_doctype,
-                docdesc: docdesc,
-                docpurpose: docpurpose,
-                docdateissued: docdateissued,
-                docplaceissued: docplaceissued,
-                docdatereceived: docdatereceived,
-                case_doctestify: case_doctestify,
-                case_docstatus: case_docstatus},
-            success: function(result) {
-
-                document.getElementById('case-docname').value = '';
-                document.getElementById('case-docdesc').value = '';
-                document.getElementById('case-docpurpose').value = '';
-                document.getElementById('case-docdateissued').value = 'yyyy-mm-dd';
-                document.getElementById('case-docplaceissued').value = '';
-                jQuery("#case-doctestify option:first-child").attr("selected", true);
-
-                var table = $('#case-docevidencetable').dataTable();
-                table.fnAddData([
-                    docName,
-                    case_doctestify_name,
-                    case_docstatus]);
-
-            }
-
-        });
-    });
-
-
-    $('#case-btnaddobjevidence').live('click', function() {
-
-        var caseID = document.getElementById('inputCaseID').value;
-        var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
-
-        var objname = document.getElementById('case-objname').value;
-        var objdesc = document.getElementById('case-objdesc').value;
-        var docpurpose = document.getElementById('case-docpurpose').value;
-        var objdatereceived = document.getElementById('case-objdatereceived').value;
-        var objdateretrieved = document.getElementById('case-objdateretrieved').value;
-        var case_objtestify = $('select[name="case-objtestify"]').val();
-        var case_objtestify_name = $("#case-objtestify :selected").text();
-        var case_objstatus = $('input[name="case-objstatus"]:checked').val();
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url() ?>cases/addObjeEvidence",
-            async: false,
-            data: {
-                caseID: caseID,
-                case_evidenceof: case_evidenceof,
-                objname: objname,
-                objdesc: objdesc,
-                docpurpose: docpurpose,
-                objdatereceived: objdatereceived,
-                objdateretrieved: objdateretrieved,
-                case_objtestify: case_objtestify,
-                case_objstatus: case_objstatus},
-            success: function(result) {
-                document.getElementById('case-objname').value = '';
-                document.getElementById('case-objdesc').value = '';
-                document.getElementById('case-docpurpose').value = '';
-                document.getElementById('case-objdateretrieved').value = 'yyyy-mm-dd';
-                jQuery("#case-objtestify option:first-child").attr("selected", true);
-
-                var table = $('#case-objevidencetable').dataTable();
-                table.fnAddData([
-                    objname,
-                    case_objtestify_name,
-                    case_objstatus]);
-            }
-        });
-
-    });
-
-    $('#case-btnaddtesevidence').live('click', function() {
-
-        var caseID = document.getElementById('inputCaseID').value;
-        var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
-
-        var case_tesname = $('select[name="case-tesname"]').val();
-        var case_tesname_name = $("#case-tesname :selected").text();
-        var tesrel = document.getElementById('case-tesrel').value;
-        var tespurpose = document.getElementById('case-tespurpose').value;
-        var tesnarrative = document.getElementById('case-tesnarrative').value;
-        var case_tesstatus = $('input[name="case-tesstatus"]:checked').val();
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url() ?>cases/addTestEvidence",
-            async: false,
-            data: {
-                caseID: caseID,
-                case_evidenceof: case_evidenceof,
-                case_tesname: case_tesname,
-                tesrel: tesrel,
-                tespurpose: tespurpose,
-                tesnarrative: tesnarrative,
-                case_tesstatus: case_tesstatus},
-            success: function(result) {
-
-                jQuery("#case-tesname option:first-child").attr("selected", true);
-                document.getElementById('case-tesrel').value = '';
-                document.getElementById('case-tespurpose').value = '';
-                document.getElementById('case-tesnarrative').value = '';
-
-                var table = $('#case-tesevidencetable').dataTable();
-                table.fnAddData([
-                    case_tesname_name,
-                    tesrel,
-                    case_tesstatus]);
-            }
-        });
-    });
-
-    /* LEWIN END */
-
 
     /* Add Doc Evidence in Table */
     $('#btnadddocevidence').click(function() {
@@ -1086,143 +646,144 @@
         });
     });
 
+    // Client name to other tabs
+    $('#appclient').change(function() {
+        var clientname = $('#appclient option:selected').text();
+        var clientid = $('select[name="appclient"]').val();
 
-    $(document).ready(function() {
+        $('.clientnamediv').html(clientname);
 
-// Client name to other tabs
-        $('#appclient').change(function() {
-            var clientname = $('#appclient option:selected').text();
-            var clientid = $('select[name="appclient"]').val();
-
-            $('.clientnamediv').html(clientname);
-
-            //Client name should not be in person to testify / testi / etc dropdowns
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/opposing',
-                success: function(result) {
-                    $("#opposingpartydiv").html(result);
-                }
-            });
-
-        });
-
-//Interview date to received dates
-        $('#appinterviewdate').change(function() {
-            var date = $('#appinterviewdate').val();
-            $('.datereceived').val(date);
-        });
-
-//Hide salary etc if unemployed
-        $('input[name="clientJobless"]').change(function() {
-            var clientjobless = $('input[name="clientJobless"]:checked').val();
-
-            if (clientjobless == 2) {
-                $('#hideifunemployed').css('display', 'none');
-            }
-            else {
-                $('#hideifunemployed').css('display', 'block');
+        //Client name should not be in person to testify / testi / etc dropdowns
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/opposing',
+            success: function(result) {
+                $("#opposingpartydiv").html(result);
             }
         });
-
-//Hide decision if reason is by the client
-        $('input[name="applytoclosereason"]').change(function() {
-            var clientreason = $('input[name="applytoclosereason"]:checked').val();
-            if (clientreason == 1) {
-                $('#radio-courts-decision').css('display', 'none');
-            }
-            else {
-                $('#radio-courts-decision').css('display', 'block');
-            }
-        });
-
-
-//Button Create Action Plan
-        $('#btncreateactionplan').click(function() {
-            $('#actionplandiv').removeClass('disable');
-            $('#actionplandiv').removeClass('fadedopp');
-            $('#editingdiv').removeClass('hide');
-            $('#btncreateactionplan').addClass('hide');
-            $('#submitactionplanbtndiv').removeClass('hide');
-            $('#saveactionplanbtndiv').removeClass('hide');
-            $('#cancelactionplanbtndiv').removeClass('hide');
-        });
-
-
-//Add action
-        $('#btnaddaction').click(function() {
-            var stage = $('#newactionstage').val();
-            var action = $('#newaction').val();
-            var table;
-
-            if (stage == 1)
-                table = document.getElementById("action1table");
-            else if (stage == 2)
-                table = document.getElementById("action2table");
-            else if (stage == 3)
-                table = document.getElementById("action3table");
-            else if (stage == 4)
-                table = document.getElementById("action4table");
-            else if (stage == 5)
-                table = document.getElementById("action5table");
-            {
-                var row = table.insertRow(table.rows.length);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
-                cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide'>" + action;
-            }
-
-            $('#newactionstage').val(1);
-            $('#newaction').val('');
-        });
-
-
-//Approve action plan (lawyer)
-        $('#btnapproveactionplan').click(function() {
-            var cid = "<?php echo $this->session->userdata('cid') ?>";
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>cases/approveactionplan/" + cid,
-                success: function(result) {
-                    $("#actionPlan").html(result);
-                }
-            });
-        });
-
-//Appointment attendees change on case change 
-        $('#newappt_case').change(function() {
-            var cid = $('select[name="newappt_case"]').val();
-            var uid = <?php echo $this->session->userdata('userid') ?>;
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/change_attendees/" + cid + '/' + uid,
-                success: function(result) {
-                    $("#internsdiv").html(result);
-                }
-            });
-        });
-
-//Close view appointment div
-        $('.btnapptclose').click(function() {
-            $('#viewapptdiv').removeClass('hide');
-            $('#cantattendapptdiv').addClass('hide');
-            $('#editapptdiv').addClass('hide');
-            $('#doneapptdiv').addClass('hide');
-            $('#deleteapptdiv').addClass('hide');
-        });
-
-//last
     });
 
-//Tid general click: refresh page
+    //Interview date to received dates
+    $('#appinterviewdate').change(function() {
+        var date = $('#appinterviewdate').val();
+        $('.datereceived').val(date);
+    });
+
+    //Hide salary etc if unemployed
+    $('input[name="clientJobless"]').change(function() {
+        var clientjobless = $('input[name="clientJobless"]:checked').val();
+
+        if (clientjobless == 2) {
+            $('#hideifunemployed').css('display', 'none');
+        }
+        else {
+            $('#hideifunemployed').css('display', 'block');
+        }
+    });
+
+    //Hide decision if reason is by the client
+    $('input[name="applytoclosereason"]').change(function() {
+        var clientreason = $('input[name="applytoclosereason"]:checked').val();
+        if (clientreason == 1) {
+            $('#radio-courts-decision').css('display', 'none');
+        }
+        else {
+            $('#radio-courts-decision').css('display', 'block');
+        }
+    });
+
+
+    /* ACTION PLAN (START) ------------------------------------------------------------------------ */
+
+    //Button Create Action Plan
+    $('#btncreateactionplan').click(function() {
+        $('#actionplandiv').removeClass('disable');
+        $('#actionplandiv').removeClass('fadedopp');
+        $('#editingdiv').removeClass('hide');
+        $('#btncreateactionplan').addClass('hide');
+        $('#actionplanbuttonsdiv').removeClass('hide');
+    });
+
+    //Add action
+    $('#btnaddaction').click(function() {
+        var stage = $('#newactionstage').val();
+        var action = $('#newaction').val();
+        var table;
+
+        if (stage == 1)
+            table = document.getElementById("action1table");
+        else if (stage == 2)
+            table = document.getElementById("action2table");
+        else if (stage == 3)
+            table = document.getElementById("action3table");
+        else if (stage == 4)
+            table = document.getElementById("action4table");
+        else if (stage == 5)
+            table = document.getElementById("action5table");
+        {
+            var row = table.insertRow(table.rows.length);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
+            cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide'>" + action;
+        }
+
+        $('#newactionstage').val(1);
+        $('#newaction').val('');
+    });
+
+    //Approve action plan (lawyer)
+    $('#btnapproveactionplan').click(function() {
+        var cid = "<?php echo $this->session->userdata('cid') ?>";
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>cases/approveactionplan/" + cid,
+            success: function(result) {
+                $("#actionPlan").html(result);
+            }
+        });
+    });
+    
+    //Cancel create action plan
+    $('#cancelactionplanbtn').click(function(){
+        $('#actionplanbuttonsdiv').addClass('hide');
+        $('#actionplandiv').addClass('disable fadedopp');
+        $('#editingdiv').addClass('hide');
+        $('#btncreateactionplan').removeClass('hide');
+    });
+
+    /* ACTION PLAN (START) ------------------------------------------------------------------------ */
+
+    //Appointment attendees change on case change 
+    $('#newappt_case').change(function() {
+        var cid = $('select[name="newappt_case"]').val();
+        var uid = <?php echo $this->session->userdata('userid') ?>;
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>calendar/change_attendees/" + cid + '/' + uid,
+            success: function(result) {
+                $("#internsdiv").html(result);
+            }
+        });
+    });
+
+    //Close view appointment div
+    $('.btnapptclose').click(function() {
+        $('#viewapptdiv').removeClass('hide');
+        $('#cantattendapptdiv').addClass('hide');
+        $('#editapptdiv').addClass('hide');
+        $('#doneapptdiv').addClass('hide');
+        $('#deleteapptdiv').addClass('hide');
+    });
+
+    //Tid general click: refresh page
     $('#tidgeneral').click(function() {
         var cid = "<?php echo $this->session->userdata('cid') ?>";
         window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
     });
-    //!!popover, actionplan
 
+    //!!popover, actionplan
     $('.popover-orig').click(function() {
         $('#actionPlanOption1').removeClass('hide');
         $('#actionPlanOption2').addClass('hide');
@@ -1240,12 +801,6 @@
 
     $(document).on('click', '.getActionButton', function() {
         $(this).hide;
-
-
-//        $('#actionPlanOption1').addClass('hide');
-//        $('#actionPlanOption2').removeClass('hide');
-//        $('#actionPlanOption3').addClass('hide');
-//        $('#actionPlanOption4').addClass('hide');
     });
 
     $(document).on('click', '.editActionButton', function() {
@@ -1361,13 +916,422 @@
                         var row = table.insertRow(table.rows.length);
                         var cell1 = row.insertCell(0);
                         cell1.innerHTML = lawyerName;
-
                     }
-                    );
                 }
             });
         });
 
+        $('#btneditoffensepenal').click(function() {
+            var caseOffensePenal = $('select[name="caseOffensePenal"]').val();
+            var caseoffensestagepenal = $('select[name="caseoffensestagepenal"]').val();
+
+            var table = document.getElementById("offensetable");
+            {
+                var row = table.insertRow(table.rows.length);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+
+                cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenal;
+                cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagepenal + '" style="display:none;" readonly>' + caseoffensestagepenal;
+                cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
+            }
+        });
+
+        $('#btneditoffensespecial').click(function() {
+            var caseOffenseSpecial = $('select[name="caseOffenseSpecial"]').val();
+            var caseoffensestagespecial = $('select[name="caseoffensestagespecial"]').val();
+
+            var table = document.getElementById("offensetable");
+            {
+                var row = table.insertRow(table.rows.length);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffenseSpecial + '" style="display:none;" readonly>' + caseOffenseSpecial;
+                cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagespecial + '" style="display:none;" readonly>' + caseoffensestagespecial;
+                cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
+            }
+        });
+
+        $('#inputFileDraft').change(function() {
+            var files = document.getElementById("inputFileDraft").files;
+
+            var table = document.getElementById("adddrafttable");
+            table.innerHTML = '';
+
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+                var fileSize = files[i].size;
+                var fileExt = fileName.split('.').pop();
+                var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+
+                var row = table.insertRow(table.rows.length);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+
+                cell1.innerHTML = "<input type='text' name='rawName[]' value='" + rawName + "' /> ." + fileExt;
+                cell2.innerHTML = fileSize + 'KB';
+                cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
+            }
+        });
+
+        $('#inputFileByClient').change(function() {
+            var files = document.getElementById("inputFileByClient").files;
+
+            $('#tableFileClientID').css('background-color', '#E4ECD9');
+            var tableFileClientID = document.getElementById("tableFileClientID");
+            tableFileClientID.innerHTML = '';
+
+            for (var i = 0; i < files.length; i++) {
+
+                var fileName = files[i].name;
+                var fileSize = files[i].size;
+                var fileExt = fileName.split('.').pop();
+                var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+
+                var tableHTML = '';
+                tableHTML += "<table class='table-condensed'>"
+                        + "<tr>"
+                        + "<td width='15%'></td>"
+                        + "<td width='38%'></td>"
+                        + "<td width='10%'></td>"
+                        + "<td width='30%'></td>"
+                        + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
+                        + "</tr>"
+                        + "<tr>"
+                        + "<td>File Name:</td>"
+                        + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docname[]' value='" + rawName + "'/> ." + fileExt + " </td>"
+                        + "<td>Purpose:</td>"
+                        + "<td rowspan='2'> <textarea id='textarea_purpose' class='form-control' name='docpurpose[]'></textarea> </td>"
+                        + "</tr>"
+
+                        + "<tr>"
+                        + "<td>Date Issued:</td>"
+                        + "<td class='col-sm-3'>"
+                        + "<div class='input-group date'>"
+                        + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                        + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_client' name='datefiled[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                        + "</div>"
+                        + "</td>"
+                        + "</tr>"
+
+                        + "<tr>"
+                        + "<td>Date Received:</td>"
+                        + "<td class='col-sm-3'>"
+                        + "<div class='input-group date'>"
+                        + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                        + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_client' name='datereceived[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                        + "</div>"
+                        + "</td>"
+                        + "</tr>"
+                        + "</table><br><br>";
+                tableFileClientID.innerHTML += tableHTML;
+            }
+
+            $('#docUpload_dateIssued_client').datepicker();
+            $('#docUpload_dateReceived_client').datepicker();
+        });
+
+        $('#inputFileByCourt').change(function() {
+            var files = document.getElementById("inputFileByCourt").files;
+
+            $('#tableFileCourt').css('background-color', '#E4ECD9');
+            var tableFileCourt = document.getElementById("tableFileCourt");
+            tableFileCourt.innerHTML = '';
+
+            for (var i = 0; i < files.length; i++) {
+
+                var fileName = files[i].name;
+                var fileSize = files[i].size;
+                var fileExt = fileName.split('.').pop();
+                var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+
+                var tableHTML = '';
+                tableHTML += "<table class='table-condensed'>"
+                        + "<tr>"
+                        + "<td width='15%'></td>"
+                        + "<td width='38%'></td>"
+                        + "<td width='10%'></td>"
+                        + "<td width='30%'></td>"
+                        + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
+                        + "</tr>"
+                        + "<tr>"
+                        + "<td>File Name:</td>"
+                        + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameCourt[]' value='" + rawName + "'/> ." + fileExt + " </td>"
+                        + "<td>Order:</td>"
+                        + "<td rowspan='2'> <textarea id='textarea_order' class='form-control' name='docpurposeCourt[]'></textarea> </td>"
+                        + "</tr>"
+
+                        + "<tr>"
+                        + "<td >Date Issued:</td>"
+                        + "<td>"
+                        + "<div class='input-group date'>"
+                        + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                        + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_court' name='datefiledCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                        + "</div>"
+                        + "</td>"
+                        + "</tr>"
+
+                        + "<tr>"
+                        + "<td>Date Received:</td>"
+                        + "<td class='col-sm-3'>"
+                        + "<div class='input-group date'>"
+                        + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                        + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_court' name='datereceivedCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                        + "</div>"
+                        + "</td>"
+                        + "<td>Needed Action: </td>"
+                        + "<td> <input type='text' class='form-control' id='textarea_action' name='neededActionCourt[]'/> </td>"
+                        + "</tr>"
+                        + "</table><br><br>";
+                tableFileCourt.innerHTML += tableHTML;
+            }
+
+            $('#docUpload_dateReceived_court').datepicker();
+            $('#docUpload_dateIssued_court').datepicker();
+        });
+
+        $("body").on("click", "#remove_row", function() {
+            $(this).parent().parent().remove();
+        });
+
+        $('#btnaddrecords').live('click', function() {
+            var number = document.getElementById('recordsAttendance').value;
+            $('#recordsQuestion').hide();
+
+            var table = document.getElementById('attendanceLogTable');
+            var internsOptions = getAllInternsOption();
+
+            for (var i = 1; i <= number; i++)
+            {
+                var row = table.insertRow(table.rows.length);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+
+                var internsHTML = "<select id='internname' name='internname" + i + "' class='form-control'>";
+                internsHTML += internsOptions;
+                internsHTML += "</select>";
+
+                cell1.innerHTML = internsHTML;
+                cell2.innerHTML = "<div class='input-group bootstrap-timepicker'>"
+                        + "<span class='input-group-addon'><i class='icon-time'></i></span>"
+                        + "<input type='text' class='form-control timepicker attendancetime' name='timestart" + i + "' value=''>"
+                        + "</div>";
+                cell3.innerHTML = "<div class='input-group bootstrap-timepicker'>"
+                        + "<span class='input-group-addon'><i class='icon-time'></i></span>"
+                        + "<input type='text' class='form-control timepicker attendancetime' name='timeend" + i + "' value=''>"
+                        + "</div>";
+                $('.attendancetime').timepicker();
+            }
+        });
+
+        function getAllInternsOption() {
+            var internsHTML = '';
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>people/showinterns",
+                dataType: "json",
+                data: {},
+                async: false,
+                success: function(msg) {
+
+                    var id_numbers = msg;
+                    var internNo = id_numbers.length;
+
+                    for (var x = 0; x < internNo; x++) {
+                        var internID = id_numbers[x];
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>people/showname/",
+                            dataType: "json",
+                            data: {id: internID},
+                            async: false,
+                            success: function(result) {
+                                internsHTML += "<option value='" + internID + "'>" + result + "</option>";
+                            }, error: function() {
+                                alert("error!");
+
+                            }
+                        });
+                    }
+                }
+            });
+            return internsHTML;
+        }
+
+        //ADD PERSON
+        $('#btn_addperson').live('click', function() {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>people/addexternal",
+                data: {use: 'doctestifyadd',
+                    lastname: $('#objpersonLastName').val(),
+                    firstname: $('#objpersonFirstName').val(),
+                    middlename: $('#objpersonMiddleName').val(),
+                    addrhouse: $('#objpersonAddressHouseNo').val(),
+                    addrstreet: $('#objpersonAddressStreet').val(),
+                    addrtown: $('#objpersonAddressTown').val(),
+                    addrdistrict: $('#objpersonAddressDistrict').val(),
+                    addrpostalcode: $('#objpersonAddressPostalCode').val(),
+                    contacthome: $('#objpersonCNHome').val(),
+                    contactoffice: $('#objpersonCNOffice').val(),
+                    contactmobile: $('#objpersonCNMobile').val()},
+                success: function(result) {
+                    $("#case-doctestify").html(result);
+                    $("#case-objtestify").html(result);
+                    $("#case-tesname").html(result);
+                }
+            });
+
+            //Removes textfield values
+            $('#objpersonFirstName').val('');
+            $('#objpersonLastName').val('');
+            $('#objpersonMiddleName').val('');
+            $('#objpersonAddressHouseNo').val('');
+            $('#objpersonAddressStreet').val('');
+            $('#objpersonAddressTown').val('');
+            $('#objpersonAddressDistrict').val('');
+            $('#objpersonAddressPostalCode').val('');
+            $('#objpersonCNHome').val('');
+            $('#objpersonCNOffice').val('');
+            $('#objpersonCNMobile').val('');
+        });
+
+        $('#case-btnadddocevidence').live('click', function() {
+            var caseID = document.getElementById('inputCaseID').value;
+            var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
+
+            var docName = document.getElementById('case-docname').value;
+            var case_doctype = $('input[name="case-doctype"]:checked').val();
+            var docdesc = document.getElementById('case-docdesc').value;
+            var docpurpose = document.getElementById('case-docpurpose').value;
+            var docdateissued = document.getElementById('case-docdateissued').value;
+            var docplaceissued = document.getElementById('case-docplaceissued').value;
+            var docdatereceived = document.getElementById('case-docdatereceived').value;
+            var case_doctestify = $('select[name="case-doctestify"]').val();
+            var case_doctestify_name = $("#case-doctestify :selected").text();
+            var case_docstatus = $('input[name="case-docstatus"]:checked').val();
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>cases/addDocuEvidence",
+                async: false,
+                data: {
+                    caseID: caseID,
+                    case_evidenceof: case_evidenceof,
+                    docName: docName,
+                    case_doctype: case_doctype,
+                    docdesc: docdesc,
+                    docpurpose: docpurpose,
+                    docdateissued: docdateissued,
+                    docplaceissued: docplaceissued,
+                    docdatereceived: docdatereceived,
+                    case_doctestify: case_doctestify,
+                    case_docstatus: case_docstatus},
+                success: function(result) {
+
+                    document.getElementById('case-docname').value = '';
+                    document.getElementById('case-docdesc').value = '';
+                    document.getElementById('case-docpurpose').value = '';
+                    document.getElementById('case-docdateissued').value = 'yyyy-mm-dd';
+                    document.getElementById('case-docplaceissued').value = '';
+                    jQuery("#case-doctestify option:first-child").attr("selected", true);
+
+                    var table = $('#case-docevidencetable').dataTable();
+                    table.fnAddData([
+                        docName,
+                        case_doctestify_name,
+                        case_docstatus]);
+                }
+            });
+        });
+
+
+        $('#case-btnaddobjevidence').live('click', function() {
+            var caseID = document.getElementById('inputCaseID').value;
+            var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
+
+            var objname = document.getElementById('case-objname').value;
+            var objdesc = document.getElementById('case-objdesc').value;
+            var docpurpose = document.getElementById('case-docpurpose').value;
+            var objdatereceived = document.getElementById('case-objdatereceived').value;
+            var objdateretrieved = document.getElementById('case-objdateretrieved').value;
+            var case_objtestify = $('select[name="case-objtestify"]').val();
+            var case_objtestify_name = $("#case-objtestify :selected").text();
+            var case_objstatus = $('input[name="case-objstatus"]:checked').val();
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>cases/addObjeEvidence",
+                async: false,
+                data: {
+                    caseID: caseID,
+                    case_evidenceof: case_evidenceof,
+                    objname: objname,
+                    objdesc: objdesc,
+                    docpurpose: docpurpose,
+                    objdatereceived: objdatereceived,
+                    objdateretrieved: objdateretrieved,
+                    case_objtestify: case_objtestify,
+                    case_objstatus: case_objstatus},
+                success: function(result) {
+                    document.getElementById('case-objname').value = '';
+                    document.getElementById('case-objdesc').value = '';
+                    document.getElementById('case-docpurpose').value = '';
+                    document.getElementById('case-objdateretrieved').value = 'yyyy-mm-dd';
+                    jQuery("#case-objtestify option:first-child").attr("selected", true);
+
+                    var table = $('#case-objevidencetable').dataTable();
+                    table.fnAddData([
+                        objname,
+                        case_objtestify_name,
+                        case_objstatus]);
+                }
+            });
+        });
+
+        $('#case-btnaddtesevidence').live('click', function() {
+            var caseID = document.getElementById('inputCaseID').value;
+            var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
+
+            var case_tesname = $('select[name="case-tesname"]').val();
+            var case_tesname_name = $("#case-tesname :selected").text();
+            var tesrel = document.getElementById('case-tesrel').value;
+            var tespurpose = document.getElementById('case-tespurpose').value;
+            var tesnarrative = document.getElementById('case-tesnarrative').value;
+            var case_tesstatus = $('input[name="case-tesstatus"]:checked').val();
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>cases/addTestEvidence",
+                async: false,
+                data: {
+                    caseID: caseID,
+                    case_evidenceof: case_evidenceof,
+                    case_tesname: case_tesname,
+                    tesrel: tesrel,
+                    tespurpose: tespurpose,
+                    tesnarrative: tesnarrative,
+                    case_tesstatus: case_tesstatus},
+                success: function(result) {
+
+                    jQuery("#case-tesname option:first-child").attr("selected", true);
+                    document.getElementById('case-tesrel').value = '';
+                    document.getElementById('case-tespurpose').value = '';
+                    document.getElementById('case-tesnarrative').value = '';
+
+                    var table = $('#case-tesevidencetable').dataTable();
+                    table.fnAddData([
+                        case_tesname_name,
+                        tesrel,
+                        case_tesstatus]);
+                }
+            });
+        });
     });
 
 </script>

@@ -71,8 +71,9 @@
 
 .popover
 {
+    min-width: 328px ! important;
     max-width: 350px ! important;
-    height: 410px ! important;
+    max-height: 410px ! important;
 }
 
 #popover-content
@@ -101,7 +102,7 @@
 }
 
 .fadedopp{
-    opacity:0.7;
+    opacity:0.2;
 }
 
 .modal-dialog-addDocument{
@@ -425,4 +426,11 @@ tabletags{
     font-size: 12px;
 }
 
+.actionplanwidth{
+    width: 23%;
+}
 
+.centerdiv{
+    display: block;
+    margin: auto;
+}
