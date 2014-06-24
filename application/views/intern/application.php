@@ -1,12 +1,12 @@
 <div id="content" class="col-lg-10 col-sm-11">
 
     <!-- start: Content -->
-    <!--     <div class="row">
+   <div class="row">
             <div class="col-lg-12">
                 <a class ="btn btn-medium btn-success pull-right" style='margin-bottom: 10px' href="createApplication">
                     <i class="icon-plus-sign"></i>&nbsp;Create Application</a>
             </div>
-        </div> -->
+        </div>
 
     <div class="row">
 

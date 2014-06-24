@@ -23,7 +23,6 @@
                     <h5><b>Current Stage:</b> <?php echo $case->stageName ?></h5>                
                     <h5><b>Assigned Lawyer:</b> <?php foreach($lawyers as $lawyer) {echo "$lawyer->firstname $lawyer->lastname";}?></h5>
                     <h5><b>Assigned Interns:</b> <?php foreach($interns as $intern) {echo "$intern->firstname $intern->lastname ";}?></h5>
-                    <h5><b>Difficulty Level:</b> </h5>
                 </div>
 
 <!--                 <div class="well" style="padding:10px; background-color:white;">

@@ -109,8 +109,8 @@
 						<li <?php if ($this->uri->segment(1) == "people") echo ' class="active"' ?> >
 							<a href="<?= base_url() ?>people"><i class="icon-group"></i>People</a>
 						</li>
-						<li <?php if ($this->uri->segment(2) == "newclient") echo ' class="active"' ?> >
-							<a href="<?= base_url() ?>people/newclient">&nbsp;&nbsp;&nbsp;<i class="icon-plus-sign"></i>Add New Client</a>
+                                                <li <?php if ($this->uri->segment(1) == "reports") echo ' class="active"' ?> >
+							<a href="<?= base_url() ?>report/index"><i class="icon-bar-chart"></i>Reports</a>
 						</li>
 						<li <?php if ($this->uri->segment(1) == "archive") echo ' class="active"' ?> >
 							<a href="<?= base_url() ?>archive"><i class="icon-file"></i>Archive</a>

@@ -116,7 +116,7 @@ class People extends CI_Controller {
 
         $this->load->view('header');
         $this->load->view('intern/menubar', $data);
-        $this->load->view('intern/addnewclient');
+        $this->load->view('intern/addnewclient-1');
         $this->load->view('footer');
     }
 

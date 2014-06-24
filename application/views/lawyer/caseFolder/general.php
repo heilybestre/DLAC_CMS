@@ -48,19 +48,6 @@
                             <td><?php echo $client->typeName ?></td>
                         </tr>
                         <tr>
-                            <th>Difficulty Level:</th>
-                            <td><?php if ($case->difficultyLevel >= 7 && $case->difficultyLevel <= 10) { ?>
-                                    <label class='label label-danger'><?php echo $case->difficultyLevel ?></label>
-                                <?php } ?>
-                                <?php if ($case->difficultyLevel >= 4 && $case->difficultyLevel <= 6) { ?>
-                                    <label class='label label-warning'><?php echo $case->difficultyLevel ?></label>
-                                <?php } ?>
-                                <?php if ($case->difficultyLevel >= 1 && $case->difficultyLevel <= 3) { ?>
-                                    <label class='label label-primary'><?php echo $case->difficultyLevel ?></label>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                        <tr>
                             <th>Supervising Lawyer:</th>
                             <?php $count = 1 ?>
                             <td>
@@ -504,48 +491,6 @@
                                 <div class="controls">
                                     <?php echo form_textarea(array('style' => 'height:70px', 'id' => 'edit_caseDescription', 'name' => 'edit_caseDescription', 'type' => 'text', 'class' => 'form-control', 'value' => "$case->caseDesc")); ?> 
                                 </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-sm-2 control-group">
-                                <div class="controls">
-                                    <center> <h5> Difficulty Level: </h5> </center>
-                                </div>
-                            </div>
-
-                            <div style="margin-left:130px;">
-
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-0', 'value' => '1', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-1', 'value' => '2', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-2', 'value' => '3', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-3', 'value' => '4', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-4', 'value' => '5', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-5', 'value' => '6', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-6', 'value' => '7', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-7', 'value' => '8', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-8', 'value' => '9', 'checked' => TRUE)); ?> &nbsp;
-                                <?php echo form_radio(array('name' => 'difficultyLevel', 'id' => 'difficultyLevel-9', 'value' => '10', 'checked' => TRUE)); ?> &nbsp;
-
-                                <br>
-                                1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;6
-                                &nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;10
-
-                                <select class="hide form-control" style="width:100px;">
-                                    <option></option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                </select> 
                             </div>
 
                         </div>

@@ -133,7 +133,6 @@
                                         <th>Name</th>
                                         <th>Specialization</th>
                                         <th>Caseload</th>
-                                        <th>Case difficulty</th>
                                     </tr>
                                 </thead>
                                 <tbody class="openCase-table">
@@ -145,7 +144,6 @@
                                                 <td><?php echo "$l->firstname $l->lastname" ?></td>
                                                 <td><?php echo $l->offenseName ?></td>
                                                 <td><?php echo $l->caseload ?></td>
-                                                <td><?php echo $l->difficultyLevel ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php endforeach; ?>
@@ -156,7 +154,6 @@
                                                 <td><?php echo "$l->firstname $l->lastname" ?></td>
                                                 <td><?php echo $l->offenseName ?></td>
                                                 <td><?php echo $l->caseload ?></td>
-                                                <td><?php echo $l->difficultyLevel ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         <?php
@@ -179,7 +176,6 @@
                                         <th></th>
                                         <th>Name</th>
                                         <th>Caseload</th>
-                                        <th>Case Difficulty</th>
                                         <th>Similar Case</th>
                                     </tr>
                                 </thead>
@@ -190,7 +186,6 @@
                                             <td align="center"><input type="checkbox" class="case" name="intern[]" value="<?php echo $intern->personID ?>"/></td>
                                             <td><?php echo "$intern->firstname $intern->lastname" ?></td>
                                             <td><?php echo "$intern->caseload" ?></td>
-                                            <td><?php echo substr($intern->difficultyLevel, 0, 3) ?></td>
                                             <td><?php echo $this->People_model->select_similar($intern->personID, $offenseID)->similar ?></td>
                                         </tr>
                                         <?php
