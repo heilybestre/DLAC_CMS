@@ -19,7 +19,7 @@ class Task_model extends CI_Model {
         return $query->result();
     }
 
-    function insert_task() {
+    function insert_task($data) {
         $this->db->insert('task', $data);
     }
 

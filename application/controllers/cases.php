@@ -21,7 +21,7 @@ class Cases extends CI_Controller {
 
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
-        
+
         $datestring = "%Y-%m-%d"; //"%m/%d/%Y";
         $timestring = "%h:%i %a";
         $time = now();
@@ -265,7 +265,7 @@ class Cases extends CI_Controller {
         $data['offenses'] = $this->Case_model->select_offense();
         $data['stages'] = $this->Case_model->select_stages();
         $data['actioncategory'] = $this->Case_model->select_action_category();
-        
+
         // <editor-fold defaultstate="collapsed" desc="Action Plan">
         $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
         $data['actionplan_stage1'] = $this->Case_model->select_actionplan($cid, 1);
@@ -1258,6 +1258,26 @@ class Cases extends CI_Controller {
     function casegeneral($cid) {
         echo $cid;
         //redirect("cases/caseFolder/$cid");
+    }
+
+    function addMyTask($cid) {
+        extract($_POST);
+        $datestring = "%Y-%m-%d %H:%i:%s";
+        $time = now();
+        $datetimenow = mdate($datestring, $time);
+
+        $changes = array(
+            'caseID' => $cid,
+            'task' => $task,
+            'assignedBy' => $assignedBy,
+            'assignedTo' => $assignedBy,
+            'dateAssigned' => $datetimenow,
+            'dateDue' => $taskduedate,
+            'notes' => $notes,
+        );
+
+        $this->Task_model->insert_task($changes);
+        
     }
 
     function addTask($cid) {
