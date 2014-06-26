@@ -88,13 +88,25 @@ class Application extends CI_Controller {
 
         $data['specialize'] = array();
         $data['nonspecialize'] = array();
+
         foreach ($offense as $o) {
             array_push($data['specialize'], $this->People_model->select_specialized($o->offenseID));
-            array_push($data['nonspecialize'], $this->People_model->select_non_specialized($o->offenseID));
+            foreach ($data['specialize'] as $spe) {
 
-            //$data['specialize'] = $this->People_model->select_specialized($o->offenseID));
-            //$data['nonspecialize'] = $this->People_model->select_non_specialized($o->offenseID);
+                foreach ($this->People_model->select_non_specialized($o->offenseID) as $non) {
+                    if ($spe[0]->personID == $non->personID && in_array($non->personID, $data['nonspecialize'], true)) {
+                        
+                    } else {
+
+                        array_push($data['nonspecialize'], $non);
+                        echo 'nagpush sa non specializr' . $non->firstname . '<br>';
+                    }
+                }
+            }
         }
+
+        //$data['specialize'] = $this->People_model->select_specialized($o->offenseID));
+        //$data['nonspecialize'] = $this->People_model->select_non_specialized($o->offenseID);
         //var_dump($data['specialize']);
         //var_dump($data['nonspecialize']);
 

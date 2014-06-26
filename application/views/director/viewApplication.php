@@ -3,7 +3,7 @@
     <div class="row hide">
         <!--																																										ERROR ERROR ERROR
         <?php foreach ($casecount as $cc): ?>
-                        <h3>The clinic currently handles <?php echo $cc->countactive ?> active cases. </h3>
+                                <h3>The clinic currently handles <?php echo $cc->countactive ?> active cases. </h3>
         <?php endforeach; ?>
         -->
     </div>
@@ -148,14 +148,12 @@
                                         <?php endforeach; ?>
                                     <?php endforeach; ?>
                                     <?php foreach ($nonspecialize as $lawyer): ?>
-                                        <?php foreach ($lawyer as $l): ?>
-                                            <tr>
-                                                <td align="center"><input type="checkbox" class="case" name="lawyer[]" value="<?php echo $l->personID ?>"/></td>
-                                                <td><?php echo "$l->firstname $l->lastname" ?></td>
-                                                <td><?php echo $l->offenseName ?></td>
-                                                <td><?php echo $l->caseload ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
+                                        <tr>
+                                            <td align="center"><input type="checkbox" class="case" name="lawyer[]" value="<?php echo $lawyer->personID ?>"/></td>
+                                            <td><?php echo "$lawyer->firstname $lawyer->lastname" ?></td>
+                                            <td><?php echo $lawyer->offenseName ?></td>
+                                            <td><?php echo $lawyer->caseload ?></td>
+                                        </tr>
                                         <?php
                                         $count++;
                                     endforeach;
