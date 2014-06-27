@@ -1117,6 +1117,7 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder
     ;
 }
 
+/*
 border-color:#e4e6eb !important;
 -webkit-border-radius:2px;
 -moz-border-radius:2px;
@@ -1124,7 +1125,7 @@ border-radius:2px;
 -webkit-box-shadow:none;
 -moz-box-shadow:none;
 box-shadow:none;
-}
+}*/
 
 textarea
 {

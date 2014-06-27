@@ -80,296 +80,60 @@
             content: function() {
                 var x = $(this).attr('id').substring(13);
                 var typeValue = $('#arrayActionType_' + x).val();
-                var typeText = $("#editactiontype_"+x+" option[value="+typeValue+"]").text();
-                $('#actionTypeLabel_' + x).text(typeText);  
+                var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
+                $('#actionTypeLabel_' + x).text(typeText);
                 return $("#popover-orig-content_" + x).html();
             }
         });
-        
-
-        $(".getActionButton").live('click', function() {
-            var x = $(this).attr('id').substring(16);
-            alert("ID : " + x);
-        });
-
-        $(".sendActionNotes").live('click', function() {
-            var x = $(this).attr('id').substring(16);
-            var note = $('#actionWriteNotes_' + x).val();
-            alert(note);
-
-            $('#actionWriteNotes_' + x).val('');
-        });
-
-        //EDIT ACTIONS start
-        $(".editActionButton").live('click', function() {
-            var x = $(this).attr('id').substring(17);
-            $('#actionPlanOption-center-writeNotes_' + x).addClass('hide');
-            $("#actionPlan-bottom-notes_" + x).addClass('hide');
-            $("#actionPlanActionButtons_" + x).addClass('hide');
-            $("#actionPlanOption-center-edit_" + x).removeClass('hide');
-            
-            //set Action and Type input
-            var actionName = $('#actionNameLabel_'+x).text();
-            $('#editAction_' + x).attr('value', actionName);
-            
-            var typeValue = $('#arrayActionType_' + x).val();
-            var typeText = $("#editactiontype_"+x+" option[value="+typeValue+"]").text();
-            $("#editactiontype_"+x+" option:contains(" + typeText + ")").attr('selected', 'selected');
-            
-        });
-
-        $(".cancelEditButton").live('click', function() {
-            var x = $(this).attr('id').substring(17);
-            $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
-            $("#actionPlan-bottom-notes_" + x).removeClass('hide');
-            $("#actionPlanActionButtons_" + x).removeClass('hide');
-            $("#actionPlanOption-center-edit_" + x).addClass('hide');
-        });
-
-        $(".saveActionButton").live('click', function() {
-            var x = $(this).attr('id').substring(17);
-            var actionName = document.getElementById('editAction_' + x).value;
-            var type = $('#editactiontype_' + x).val();
-            var typeText = $( "#editactiontype_"+x+" option:selected" ).text();            
-            
-            $('#actionNameLabel_' + x).text(actionName);
-            $('#arrayActionName_' + x).attr('value',actionName);
-            
-            $('#actionTypeLabel_' + x).text(typeText);            
-            $('#arrayActionType_' + x).attr('value',type);
-            
-            $('#editAction_' + x).attr('value',actionName);
-            
-            $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
-            $("#actionPlan-bottom-notes_" + x).removeClass('hide');
-            $("#actionPlanActionButtons_" + x).removeClass('hide');
-            $("#actionPlanOption-center-edit_" + x).addClass('hide');
-            
-        });
-        //end of EDIT ACTIONS
-
-
-        //DELETE ACTIONS start
-        $(".deleteActionButton").live('click', function() {
-            var x = $(this).attr('id').substring(19);
-            $('#actionPlanOption-center-writeNotes_' + x).addClass('hide');
-            $("#actionPlan-bottom-notes_" + x).addClass('hide');
-            $("#actionPlanActionButtons_" + x).addClass('hide');
-            $("#actionPlanOption-center-delete_" + x).removeClass('hide');
-        });
-
-        $(".cancelDeleteButton").live('click', function() {
-            var x = $(this).attr('id').substring(19);
-            $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
-            $("#actionPlan-bottom-notes_" + x).removeClass('hide');
-            $("#actionPlanActionButtons_" + x).removeClass('hide');
-            $("#actionPlanOption-center-delete_" + x).addClass('hide');
-        });
-
-        $(".okayDeleteButton").live('click', function() {
-            var x = $(this).attr('id').substring(17);
-            $('#actionTableRow_' +x).remove();
-        });
-
-        //end of DELETE ACTIONS
-        
-        //ADD ACTION FOR ACTION PLAN
-        var addActionCounterID = 0;
-        $('#btnaddaction').click(function() {            
-            addActionCounterID++;
-            var stage = $('#newactionstage').val();
-            var action = $('#newaction').val();
-            var typeValue = $('#newactiontype').val();
-            var typeText = $("#newactiontype option[value="+typeValue+"]").text();
-            var actionplanID = addActionCounterID+'x';
-                        
-            var table;
-
-            if (stage == 1)
-                table = document.getElementById("action1table");
-            else if (stage == 2)
-                table = document.getElementById("action2table");
-            else if (stage == 3)
-                table = document.getElementById("action3table");
-            else if (stage == 4)
-                table = document.getElementById("action4table");
-            else if (stage == 5)
-                table = document.getElementById("action5table");
-            {
-                var row = table.insertRow(table.rows.length);
-                row.id = 'actionTableRow_'+actionplanID;
-                
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
-                cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide' id='arrayActionName_"+ actionplanID +"'>"               
-                                 +"<input name='actiontype1" + stage + "[]' value='"+typeValue+"' class='hide' id='arrayActionType_"+ actionplanID +"'>"
-                                 +"<label id='actionNameLabel_"+ actionplanID +"'>"+action+"</label>";
-                                    + action;
-                cell3.innerHTML = "<a id='popover-orig_"+actionplanID+"' data-placement='bottom' class='popover-orig btn btn-success pull-right vianica'> <i class='icon-caret-down'></i> </a>"
-                	+"<div id='popover-orig-head_" + actionplanID + "' class='hide'></div>"
-                        +"<div id='popover-orig-content_" + actionplanID + "' class='hide'>"
-                              //  +"<form>"
-                                        //<!-- Action plan POPOVER -->
-                                        +"<div id='actionPlan_stage1' class='actionPlan_stage1'>"
-
-                                                +"<div id='actionPlanOption-top'>"
-                                                        +"<h5>"
-                                                                +"<b>Assigned to </b><label class='label label-default'>None</label>"
-                                                                +"<div id='actionPlanActionButtons_" + actionplanID + "' class='pull-right'>"
-                                                                        +"<a class='btn btn-success getActionButton' id='getActionButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
-                                                                        +"<a class='btn btn-info editActionButton' id='editActionButton_" + actionplanID + "'><i class='icon-edit'></i> </a> "
-                                                                        +"<a class='btn btn-danger deleteActionButton' id='deleteActionButton_" + actionplanID + "'><i class='icon-trash'></i> </a> "
-                                                                +"</div>"
-                                                        +"</h5>"
-                                                        +"<h5><b>Type:</b> <label id='actionTypeLabel_" + actionplanID + "'>None</label></h5>"
-                                                +"</div>"
-
-                                                +"<div id='actionPlanOption-center-writeNotes_" + actionplanID + "'>"
-                                                        +"<h5>Notes</b></h5>"
-                                                        +"<textarea class='diss-form' id='actionWriteNotes_" + actionplanID + "' placeholder='Write comment' style='overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;'></textarea>"
-                                                        +"<a class='btn btn-success pull-right sendActionNotes' id='sendActionNotes_" + actionplanID + "'>Send</a>"
-                                                        +"<br><br>"
-                                                +"</div>"
-
-                                                //<!--Edit-->
-                                                +"<div id='actionPlanOption-center-edit_" + actionplanID + "' class='hide'>"
-                                                        +"<div class='col-lg-3'>"
-                                                                +"<h5>Action:</h5>"
-                                                        +"</div>"
-
-                                                        +"<div class='col-lg-9'>"
-                                                                +"<input type='text' name='editAction' value='" + action + "' id='editAction_" + actionplanID + "' placeholder='Action' class='form-control'>"					
-                                                        +"</div>"
-
-                                                        +"<br><br>"
-
-                                                        +"<div class='col-lg-3'>"
-                                                               +"<h5>Type:</h5>"
-                                                        +"</div>"
-
-                                                        +"<div class='col-lg-5'>"
-                                                                +"<select id='editactiontype_" + actionplanID + "' name='newactiontype' class='form-control'>"
-                                                                        +"<option value='1'>None</option>"
-                                                                        +"<option value='2'>Event</option>"
-                                                                        +"<option value='3'>Minutes</option>"
-                                                                        +"<option value='4'>Evidence</option>"
-                                                                        +"<option value='5'>Draft</option>"
-                                                                        +"<option value='6'>Document</option>"
-                                                                +"</select>"
-                                                        +"</div>"
-
-                                                        +"<div class='col-lg-3'>"
-                                                                +"<a class='btn btn-success saveActionButton' id='saveActionButton_" + actionplanID + "'> <i class='icon-save'></i> </a> "
-                                                                +"<a class='btn btn-danger cancelEditButton' id='cancelEditButton_" + actionplanID + "'> <i class='icon-ban-circle'></i> </a>"
-                                                        +"</div>"
-
-                                                        +"<br><br><br>"
-                                                +"</div>"
-
-                                                //<!--Delete-->
-                                                +"<div id='actionPlanOption-center-delete_" + actionplanID + "' class='hide'>"
-                                                        +"<h4><center>Are you sure you want to delete this item?</center></h4> "
-                                                        +"<div class='centerdiv' style='width:20%'>"
-                                                                +"<a class='btn btn-success okayDeleteButton' id='okayDeleteButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
-                                                                +"<a class='btn btn-danger cancelDeleteButton' id='cancelDeleteButton_" + actionplanID + "'> <i class='icon-remove'></i> </a>"
-                                                        +"</div>"
-                                                        +"<br><br>"
-                                                +"</div>"
-
-                                                +"<div id='actionPlan-bottom-notes_" + actionplanID + "' class='actionPlan-bottom-notes'>"
-                                                        +"<hr>"
-                                                        +"<div class='discussions' id='notesThread_" + actionplanID + "'>"
-                                                                +"<ul></ul>"
-                                                        +"</div>"
-                                                        +"<br>"
-                                                +"</div>"
-                                        +"</div> "
-                                //<!-- Action plan POPOVER -->
-                               // +"</form>"
-                        +"</div>";
-
-            }
-                        
-            $('.popover-orig').popover({
-                html: true,
-                content: function() {                
-                    var x = $(this).attr('id').substring(13);
-                    var typeValue = $('#arrayActionType_' + x).val();
-                    var typeText = $("#editactiontype_"+x+" option[value="+typeValue+"]").text();
-                    $('#actionTypeLabel_' + x).text(typeText);  
-                    return $("#popover-orig-content_" + x).html();
-                }
-            });        
-            
-            $('#newactionstage').val(1);
-            $('#newaction').val('');
-        });
-
-
-
         $("#dashboard-appo").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
             "bDestroy": true
         });
-
         $("#dashboard-tasks").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
             "bDestroy": true
         });
-
         $("#dashboard-appl").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 6,
             "bDestroy": true
         });
-
         $("#dashboard-cases").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 6,
             "bDestroy": true
         });
-
         $("#dashboard-req").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
             "bDestroy": true
         });
-
         $("#dashboard-drafts").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
             "bDestroy": true
         });
-
         $('#viewapp_linkedpeopletable').dataTable({
             "sDom": 'tipr',
             "aaSorting": [[1, "asc"]]
         });
-
         $('#assigninternstable').dataTable({
             "sDom": 'tipr',
             "aaSorting": [[2, "asc"]]
         });
-
         $('#assignlawyertable').dataTable({
             "sDom": 'tipr',
             "aaSorting": []
         });
-
         $('#applicationstable').dataTable({
             "aaSorting": [[2, "desc"]]
         });
-
         $('#casestable').dataTable({
             "aaSorting": [[3, "desc"]]
         });
-
     });
-
     // Load calendar on Events Tab
     $(document).ready(function() {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -377,7 +141,6 @@
         });
         $('#events a:first').tab('show');
     });
-
     // Date and Time Pickers
     $(function() {
         $('#docUpload_dateIssued').datepicker();
@@ -426,10 +189,8 @@
         $('#secretaryBirthday').datepicker();
         $('#director').datepicker();
     });
-
     // Make the checkbox unclickable 
     $(".disablethis").bind("click", false);
-
     // Show Entry of Appearance (casefolder/documents/newdraft)
     $('#dddoctype').change(function() {
         var doctype = $('#dddoctype').val();
@@ -440,7 +201,6 @@
             $('#entryOfAppearance').addClass('hide');
         }
     });
-
     // Current stage and client type dropdown change 
     $(document).ready(function() {
 
@@ -463,8 +223,6 @@
             }
         });
     });
-
-
     /* CREATE APPLICATION NEXT BUTTONS */
     $(document).ready(function() {
         $('#btncasefactsnext').click(function() {
@@ -492,13 +250,11 @@
             $('#recommendation').addClass('active');
         });
     });
-
     /* Add Offense in Table (PENAL) */
     $('#btnaddoffensepenal').click(function() {
         var appoffensepenal = $('select[name="appoffensepenal"]').val();
         var appoffensestagepenal = $('select[name="appoffensestagepenal"]').val();
         var appoffensesource = $('input[name="offenseSource"]:checked').val();
-
         var table = document.getElementById("offensetable");
         {
             var row = table.insertRow(table.rows.length);
@@ -511,13 +267,11 @@
             cell3.innerHTML = '<input type="text" name="inputoffensesource[]" value="' + appoffensesource + '" style="display:none;" readonly>' + appoffensesource;
         }
     });
-
     /* Add Offense in Table (SPECIAL) */
     $('#btnaddoffensespecial').click(function() {
         var appoffensespecial = $('select[name="appoffensespecial"]').val();
         var appoffensestagespecial = $('select[name="appoffensestagespecial"]').val();
         var appoffensesource = $('input[name="offenseSource"]:checked').val();
-
         var table = document.getElementById("offensetable");
         {
             var row = table.insertRow(table.rows.length);
@@ -530,7 +284,6 @@
             cell3.innerHTML = '<input type="text" name="inputoffensesource[]" value="' + appoffensesource + '" style="display:none;" readonly>' + appoffensesource;
         }
     });
-
     /* Add Doc Evidence in Table */
     $('#btnadddocevidence').click(function() {
         var docevidenceof = $('input[name="evidenceof"]:checked').val();
@@ -544,9 +297,7 @@
         var doctestify = $('select[name="doctestify"]').val();
         var doctestifystr = $('#doctestify option:selected').text();
         var docstatus = $('input[name="docstatus"]:checked').val();
-
         var table = $('#docevidencetable').dataTable();
-
         table.fnAddData([
             '<input type="text" name="idocname[]" value="' + docname + '" style="display:none;" readonly>' + docname,
             '<input type="text" name="idoctestify[]" value="' + doctestify + '" style="display:none;" readonly>' + doctestifystr,
@@ -559,7 +310,6 @@
             '<input type="text" name="idocdatereceived[]" value="' + docdatereceived + '" style="border:none;" readonly>',
             '<input type="text" name="idocevidenceof[]" value="' + docevidenceof + '" style="border:none;" readonly>'
         ]);
-
         //Hide columns
         $('#docevidencetable tr td:nth-child(4)').addClass('hide');
         $('#docevidencetable tr td:nth-child(5)').addClass('hide');
@@ -568,7 +318,6 @@
         $('#docevidencetable tr td:nth-child(8)').addClass('hide');
         $('#docevidencetable tr td:nth-child(9)').addClass('hide');
         $('#docevidencetable tr td:nth-child(10)').addClass('hide');
-
         //Removes textfields values
         $('#docname').val('');
         $('#docdesc').val('');
@@ -576,7 +325,6 @@
         $('#docdateissued').val('yyyy-mm-dd');
         $('#docplaceissued').val('');
     });
-
     /* Add Obj Evidence in Table */
     $('#btnaddobjevidence').click(function() {
         var objevidenceof = $('input[name="evidenceof"]:checked').val();
@@ -587,9 +335,7 @@
         var objtestify = $('select[name="objtestify"]').val();
         var objtestifystr = $('#objtestify option:selected').text();
         var objstatus = $('input[name="objstatus"]:checked').val();
-
         var table = $('#objevidencetable').dataTable();
-
         table.fnAddData([
             '<input type="text" name="iobjname[]" value="' + objname + '" style="display:none;" readonly>' + objname,
             '<input type="text" name="iobjtestify[]" value="' + objtestify + '" style="display:none;" readonly>' + objtestifystr,
@@ -599,19 +345,16 @@
             '<input type="text" name="iobjdateretrieved[]" value="' + objdateretrieved + '" style="border:none;" readonly>',
             '<input type="text" name="iobjevidenceof[]" value="' + objevidenceof + '" style="border:none;" readonly>'
         ]);
-
         //Hide columns
         $('#objevidencetable tr td:nth-child(4)').addClass('hide');
         $('#objevidencetable tr td:nth-child(5)').addClass('hide');
         $('#objevidencetable tr td:nth-child(6)').addClass('hide');
         $('#objevidencetable tr td:nth-child(7)').addClass('hide');
-
         //Remove textfield values
         $('#objname').val('');
         $('#objdesc').val('');
         $('#objdateretrieved').val('yyyy-mm-dd');
     });
-
     /* Add Tes Evidence in Table */
     $('#btnaddtesevidence').click(function() {
         var tesevidenceof = $('input[name="evidenceof"]:checked').val();
@@ -621,9 +364,7 @@
         var tespurpose = $('#tespurpose').val();
         var tesnarrative = $('#tesnarrative').val();
         var tesstatus = $('input[name="tesstatus"]:checked').val();
-
         var table = $('#tesevidencetable').dataTable();
-
         table.fnAddData([
             '<input type="text" name="itesname[]" value="' + tesname + '" style="display:none;" readonly>' + tesnamestr,
             '<input type="text" name="itesrel[]" value="' + tesrel + '" style="display:none;" readonly>' + tesrel,
@@ -632,17 +373,14 @@
             '<input type="text" name="itesnarrative[]" value="' + tesnarrative + '" style="border:none;" readonly>',
             '<input type="text" name="itesevidenceof[]" value="' + tesevidenceof + '" style="border:none;" readonly>'
         ]);
-
         $('#tesevidencetable tr td:nth-child(4)').addClass('hide');
         $('#tesevidencetable tr td:nth-child(5)').addClass('hide');
         $('#tesevidencetable tr td:nth-child(6)').addClass('hide');
-
         //Removes textfield values
         $('#tesrel').val('');
         $('#tespurpose').val('');
         $('#tesnarrative').val('');
     });
-
     /* Adds doc person to testify  */
     $('#btnaddpersondoc').click(function() {
         $.ajax({
@@ -664,7 +402,6 @@
                 $("#doctestifydiv").html(result);
             }
         });
-
         //Removes textfield values
         $('#docpersonFirstName').val('');
         $('#docpersonLastName').val('');
@@ -677,10 +414,8 @@
         $('#docpersonCNHome').val('');
         $('#docpersonCNOffice').val('');
         $('#docpersonCNMobile').val('');
-
         //Change other dropdowns
         var clientid = $('select[name="appclient"]').val();
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/objtestify',
@@ -688,7 +423,6 @@
                 $("#objtestifydiv").html(result);
             }
         });
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/tesname',
@@ -696,9 +430,7 @@
                 $("#tesnamediv").html(result);
             }
         });
-
     });
-
     /* Adds obj person to testify  */
     $('#btnaddpersonobj').click(function() {
         $.ajax({
@@ -720,7 +452,6 @@
                 $("#objtestifydiv").html(result);
             }
         });
-
         //Removes textfield values
         $('#objpersonFirstName').val('');
         $('#objpersonLastName').val('');
@@ -733,10 +464,8 @@
         $('#objpersonCNHome').val('');
         $('#objpersonCNOffice').val('');
         $('#objpersonCNMobile').val('');
-
         //Change other dropdowns
         var clientid = $('select[name="appclient"]').val();
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/doctestify',
@@ -744,7 +473,6 @@
                 $("#doctestifydiv").html(result);
             }
         });
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/tesname',
@@ -753,7 +481,6 @@
             }
         });
     });
-
     /* Adds testi person */
     $('#btnaddpersontes').click(function() {
         $.ajax({
@@ -775,7 +502,6 @@
                 $("#tesnamediv").html(result);
             }
         });
-
         //Removes textfield values
         $('#tespersonFirstName').val('');
         $('#tespersonLastName').val('');
@@ -788,10 +514,8 @@
         $('#tespersonCNHome').val('');
         $('#tespersonCNOffice').val('');
         $('#tespersonCNMobile').val('');
-
         //Change other dropdowns
         var clientid = $('select[name="appclient"]').val();
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/objtestify',
@@ -799,7 +523,6 @@
                 $("#objtestifydiv").html(result);
             }
         });
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url() ?>application/removeclient/" + clientid + '/doctestify',
@@ -808,14 +531,11 @@
             }
         });
     });
-
     // Client name to other tabs
     $('#appclient').change(function() {
         var clientname = $('#appclient option:selected').text();
         var clientid = $('select[name="appclient"]').val();
-
         $('.clientnamediv').html(clientname);
-
         //Client name should not be in person to testify / testi / etc dropdowns
         $.ajax({
             type: "POST",
@@ -825,17 +545,14 @@
             }
         });
     });
-
     //Interview date to received dates
     $('#appinterviewdate').change(function() {
         var date = $('#appinterviewdate').val();
         $('.datereceived').val(date);
     });
-
     //Hide salary etc if unemployed
     $('input[name="clientJobless"]').change(function() {
         var clientjobless = $('input[name="clientJobless"]:checked').val();
-
         if (clientjobless == 2) {
             $('#hideifunemployed').css('display', 'none');
         }
@@ -843,7 +560,6 @@
             $('#hideifunemployed').css('display', 'block');
         }
     });
-
     //Hide decision if reason is by the client
     $('input[name="applytoclosereason"]').change(function() {
         var clientreason = $('input[name="applytoclosereason"]:checked').val();
@@ -854,8 +570,6 @@
             $('#radio-courts-decision').css('display', 'block');
         }
     });
-
-
     /* ACTION PLAN (START) ------------------------------------------------------------------------ */
 
     //Button Create Action Plan
@@ -867,10 +581,6 @@
         $('#actionplanbuttonsdiv').removeClass('hide');
         $('#actionplanbuttonsbrdiv').removeClass('hide');
     });
-
-    //Add action
-    
-
     //Approve action plan (lawyer)
     $('#btnapproveactionplan').click(function() {
         var cid = "<?php echo $this->session->userdata('cid') ?>";
@@ -882,14 +592,214 @@
             }
         });
     });
-    
     //Cancel create action plan
-    $('#cancelactionplanbtn').click(function(){
+    $('#cancelactionplanbtn').click(function() {
         $('#actionplanbuttonsdiv').addClass('hide');
         $('#actionplanbuttonsbrdiv').addClass('hide');
         $('#actionplandiv').addClass('disable fadedopp');
         $('#editingdiv').addClass('hide');
         $('#btncreateactionplan').removeClass('hide');
+    });
+    $(".getActionButton").live('click', function() {
+        var x = $(this).attr('id').substring(16);
+        alert("ID : " + x);
+    });
+    $(".sendActionNotes").live('click', function() {
+        var x = $(this).attr('id').substring(16);
+        var note = $('#actionWriteNotes_' + x).val();
+        alert(note);
+        $('#actionWriteNotes_' + x).val('');
+    });
+    //EDIT ACTIONS start
+    $(".editActionButton").live('click', function() {
+        var x = $(this).attr('id').substring(17);
+        $('#actionPlanOption-center-writeNotes_' + x).addClass('hide');
+        $("#actionPlan-bottom-notes_" + x).addClass('hide');
+        $("#actionPlanActionButtons_" + x).addClass('hide');
+        $("#actionPlanOption-center-edit_" + x).removeClass('hide');
+        //set Action and Type input
+        var actionName = $('#actionNameLabel_' + x).text();
+        $('#editAction_' + x).attr('value', actionName);
+        var typeValue = $('#arrayActionType_' + x).val();
+        var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
+        $("#editactiontype_" + x + " option:contains(" + typeText + ")").attr('selected', 'selected');
+    });
+    $(".cancelEditButton").live('click', function() {
+        var x = $(this).attr('id').substring(17);
+        $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
+        $("#actionPlan-bottom-notes_" + x).removeClass('hide');
+        $("#actionPlanActionButtons_" + x).removeClass('hide');
+        $("#actionPlanOption-center-edit_" + x).addClass('hide');
+    });
+    $(".saveActionButton").live('click', function() {
+        var x = $(this).attr('id').substring(17);
+        var actionName = document.getElementById('editAction_' + x).value;
+        var type = $('#editactiontype_' + x).val();
+        var typeText = $("#editactiontype_" + x + " option:selected").text();
+        $('#actionNameLabel_' + x).text(actionName);
+        $('#arrayActionName_' + x).attr('value', actionName);
+        $('#actionTypeLabel_' + x).text(typeText);
+        $('#arrayActionType_' + x).attr('value', type);
+        $('#editAction_' + x).attr('value', actionName);
+        $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
+        $("#actionPlan-bottom-notes_" + x).removeClass('hide');
+        $("#actionPlanActionButtons_" + x).removeClass('hide');
+        $("#actionPlanOption-center-edit_" + x).addClass('hide');
+    });
+    //end of EDIT ACTIONS
+
+
+    //DELETE ACTIONS start
+    $(".deleteActionButton").live('click', function() {
+        var x = $(this).attr('id').substring(19);
+        $('#actionPlanOption-center-writeNotes_' + x).addClass('hide');
+        $("#actionPlan-bottom-notes_" + x).addClass('hide');
+        $("#actionPlanActionButtons_" + x).addClass('hide');
+        $("#actionPlanOption-center-delete_" + x).removeClass('hide');
+    });
+    $(".cancelDeleteButton").live('click', function() {
+        var x = $(this).attr('id').substring(19);
+        $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
+        $("#actionPlan-bottom-notes_" + x).removeClass('hide');
+        $("#actionPlanActionButtons_" + x).removeClass('hide');
+        $("#actionPlanOption-center-delete_" + x).addClass('hide');
+    });
+    $(".okayDeleteButton").live('click', function() {
+        var x = $(this).attr('id').substring(17);
+        $('#actionTableRow_' + x).remove();
+    });
+    //end of DELETE ACTIONS
+
+    //ADD ACTION FOR ACTION PLAN
+    var addActionCounterID = 0;
+    $('#btnaddaction').click(function() {
+        addActionCounterID++;
+        var stage = $('#newactionstage').val();
+        var action = $('#newaction').val();
+        var typeValue = $('#newactiontype').val();
+        var typeText = $("#newactiontype option[value=" + typeValue + "]").text();
+        var actionplanID = addActionCounterID + 'x';
+        var table;
+        if (stage == 1)
+            table = document.getElementById("action1table");
+        else if (stage == 2)
+            table = document.getElementById("action2table");
+        else if (stage == 3)
+            table = document.getElementById("action3table");
+        else if (stage == 4)
+            table = document.getElementById("action4table");
+        else if (stage == 5)
+            table = document.getElementById("action5table");
+        {
+            var row = table.insertRow(table.rows.length);
+            row.id = 'actionTableRow_' + actionplanID;
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
+            cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide' id='arrayActionName_" + actionplanID + "'>"
+                    + "<input name='actiontype1" + stage + "[]' value='" + typeValue + "' class='hide' id='arrayActionType_" + actionplanID + "'>"
+                    + "<label id='actionNameLabel_" + actionplanID + "'>" + action + "</label>";
+            +action;
+            cell3.innerHTML = "<a id='popover-orig_" + actionplanID + "' data-placement='bottom' class='popover-orig btn btn-success pull-right vianica'> <i class='icon-caret-down'></i> </a>"
+                    + "<div id='popover-orig-head_" + actionplanID + "' class='hide'></div>"
+                    + "<div id='popover-orig-content_" + actionplanID + "' class='hide'>"
+                    //  +"<form>"
+                    //<!-- Action plan POPOVER -->
+                    + "<div id='actionPlan_stage1' class='actionPlan_stage1'>"
+
+                    + "<div id='actionPlanOption-top'>"
+                    + "<h5>"
+                    + "<b>Assigned to </b><label class='label label-default'>None</label>"
+                    + "<div id='actionPlanActionButtons_" + actionplanID + "' class='pull-right'>"
+                    + "<a class='btn btn-success getActionButton' id='getActionButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
+                    + "<a class='btn btn-info editActionButton' id='editActionButton_" + actionplanID + "'><i class='icon-edit'></i> </a> "
+                    + "<a class='btn btn-danger deleteActionButton' id='deleteActionButton_" + actionplanID + "'><i class='icon-trash'></i> </a> "
+                    + "</div>"
+                    + "</h5>"
+                    + "<h5><b>Type:</b> <label id='actionTypeLabel_" + actionplanID + "'>None</label></h5>"
+                    + "</div>"
+
+                    + "<div id='actionPlanOption-center-writeNotes_" + actionplanID + "'>"
+                    + "<h5>Notes</b></h5>"
+                    + "<textarea class='diss-form' id='actionWriteNotes_" + actionplanID + "' placeholder='Write comment' style='overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;'></textarea>"
+                    + "<a class='btn btn-success pull-right sendActionNotes' id='sendActionNotes_" + actionplanID + "'>Send</a>"
+                    + "<br><br>"
+                    + "</div>"
+
+                    //<!--Edit-->
+                    + "<div id='actionPlanOption-center-edit_" + actionplanID + "' class='hide'>"
+                    + "<div class='col-lg-3'>"
+                    + "<h5>Action:</h5>"
+                    + "</div>"
+
+                    + "<div class='col-lg-9'>"
+                    + "<input type='text' name='editAction' value='" + action + "' id='editAction_" + actionplanID + "' placeholder='Action' class='form-control'>"
+                    + "</div>"
+
+                    + "<br><br>"
+
+                    + "<div class='col-lg-3'>"
+                    + "<h5>Type:</h5>"
+                    + "</div>"
+
+                    + "<div class='col-lg-5'>"
+                    + "<select id='editactiontype_" + actionplanID + "' name='newactiontype' class='form-control'>"
+                    + "<option value='1'>None</option>"
+                    + "<option value='2'>Event</option>"
+                    + "<option value='3'>Minutes</option>"
+                    + "<option value='4'>Evidence</option>"
+                    + "<option value='5'>Draft</option>"
+                    + "<option value='6'>Document</option>"
+                    + "</select>"
+                    + "</div>"
+
+                    + "<div class='col-lg-3'>"
+                    + "<a class='btn btn-success saveActionButton' id='saveActionButton_" + actionplanID + "'> <i class='icon-save'></i> </a> "
+                    + "<a class='btn btn-danger cancelEditButton' id='cancelEditButton_" + actionplanID + "'> <i class='icon-ban-circle'></i> </a>"
+                    + "</div>"
+
+                    + "<br><br><br>"
+                    + "</div>"
+
+                    //<!--Delete-->
+                    + "<div id='actionPlanOption-center-delete_" + actionplanID + "' class='hide'>"
+                    + "<h4><center>Are you sure you want to delete this item?</center></h4> "
+                    + "<div class='centerdiv' style='width:20%'>"
+                    + "<a class='btn btn-success okayDeleteButton' id='okayDeleteButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
+                    + "<a class='btn btn-danger cancelDeleteButton' id='cancelDeleteButton_" + actionplanID + "'> <i class='icon-remove'></i> </a>"
+                    + "</div>"
+                    + "<br><br>"
+                    + "</div>"
+
+                    + "<div id='actionPlan-bottom-notes_" + actionplanID + "' class='actionPlan-bottom-notes'>"
+                    + "<hr>"
+                    + "<div class='discussions' id='notesThread_" + actionplanID + "'>"
+                    + "<ul></ul>"
+                    + "</div>"
+                    + "<br>"
+                    + "</div>"
+                    + "</div> "
+                    //<!-- Action plan POPOVER -->
+                    // +"</form>"
+                    + "</div>";
+
+        }
+
+        $('.popover-orig').popover({
+            html: true,
+            content: function() {
+                var x = $(this).attr('id').substring(13);
+                var typeValue = $('#arrayActionType_' + x).val();
+                var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
+                $('#actionTypeLabel_' + x).text(typeText);
+                return $("#popover-orig-content_" + x).html();
+            }
+        });
+
+        $('#newactionstage').val(1);
+        $('#newaction').val('');
+        $('#newactiontype').val(1);
     });
 
     /* ACTION PLAN (START) ------------------------------------------------------------------------ */
@@ -1303,7 +1213,7 @@
             return internsHTML;
         }
 
-        //ADD PERSON
+//ADD PERSON
         $('#btn_addperson').live('click', function() {
             $.ajax({
                 type: "POST",
@@ -1327,7 +1237,7 @@
                 }
             });
 
-            //Removes textfield values
+//Removes textfield values
             $('#objpersonFirstName').val('');
             $('#objpersonLastName').val('');
             $('#objpersonMiddleName').val('');
@@ -1489,7 +1399,6 @@
             }
         });
     });
-
     /* Adds opposing party */
     $('#btnaddopposingparty').click(function() {
         $.ajax({
@@ -1510,7 +1419,6 @@
                 $("#opposingpartydiv").html(result);
             }
         });
-
         //Removes textfield values
         $('#partyFirstName').val('');
         $('#partyLastName').val('');
@@ -1523,9 +1431,7 @@
         $('#partyCNHome').val('');
         $('#partyCNOffice').val('');
         $('#partyCNMobile').val('');
-    });
-
-</script>
+    });</script>
 
 
 <!-- JAVASCRIPT FUNCTIONS -->
@@ -1575,7 +1481,6 @@
             success: function(result) {
             }
         });
-
         if (currentstage == 1) {
             if ($('.cbactionstage1:checked').length == $('.cbactionstage1').length) {
                 $.ajax({
