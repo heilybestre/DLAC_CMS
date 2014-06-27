@@ -175,6 +175,19 @@ class People_model extends CI_Model {
         $this->db->insert('residency', $data);
     }
 
+    function update_residency($rid) {
+        $timestring = "%H:%i:%s";
+        $time = now();
+        $timenow = mdate($timestring, $time);
+
+        $data = array(
+            'timeEnded' => $timenow
+        );
+
+        $this->db->where('residencyID', $rid);
+        $this->db->update('residency', $data);
+    }
+
     function check_residency($pid, $date, $start, $end) {
         $query = $this->db->query(" SELECT 
             COUNT(*) = 0 AS Available
