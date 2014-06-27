@@ -13,15 +13,16 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
-
         $uid = $this->session->userdata('userid');
-        $utype = $this->People_model->getuserfield('type', $uid);
+        if (empty($uid)) {
+            redirect('login/index');
+        }
 
+        $utype = $this->People_model->getuserfield('type', $uid);
         $data['image'] = $this->People_model->getuserfield('image', $uid);
         $data['name'] = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
 
         $data['appointments'] = $this->Calendar_model->select_schedulenow($uid);
-        
 
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
@@ -64,7 +65,7 @@ class Dashboard extends CI_Controller {
                 $data['applications'] = $this->Case_model->select_mycasepending($uid);
                 $data['cases'] = $this->Case_model->select_mycaseaccepted($uid);
                 $data['thingstodo'] = $this->Case_model->select_mytask($uid);
-                
+
                 $data['person'] = $this->People_model->select_person($uid);
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/dashboard', $data);

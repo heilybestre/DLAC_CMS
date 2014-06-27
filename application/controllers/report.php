@@ -14,6 +14,9 @@ class Report extends CI_Controller {
 
     function index() {
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $utype = $this->People_model->getuserfield('type', $uid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
@@ -62,6 +65,9 @@ class Report extends CI_Controller {
 
     function uploadme() {
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $data['image'] = $this->People_model->getuserfield('image', $uid);
         $data['name'] = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
 

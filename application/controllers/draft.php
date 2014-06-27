@@ -13,6 +13,9 @@ class Draft extends CI_Controller {
 
     function index() {
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $utype = $this->People_model->getuserfield('type', $uid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);

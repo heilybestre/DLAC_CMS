@@ -14,6 +14,9 @@ class People extends CI_Controller {
 
     function index() {
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $utype = $this->People_model->getuserfield('type', $uid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
@@ -54,6 +57,9 @@ class People extends CI_Controller {
     function profile() {
 
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $utype = $this->People_model->getuserfield('type', $uid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
@@ -106,6 +112,9 @@ class People extends CI_Controller {
 
     function newclient() {
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $utype = $this->People_model->getuserfield('type', $uid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
@@ -189,6 +198,9 @@ class People extends CI_Controller {
 
     function internAttendance() {
         $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $datestring = "%F %j, %Y";
         $datestring2 = "%Y-%m-%d";
         $time = now();
@@ -213,8 +225,9 @@ class People extends CI_Controller {
 
     function attendancelogs() {
         $uid = $this->session->userdata('userid');
-
-        $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
         $datestring = "%F %j, %Y";
         $datestring2 = "%Y-%m-%d";
         $time = now();

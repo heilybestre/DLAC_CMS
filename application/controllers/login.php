@@ -46,8 +46,13 @@ class Login extends CI_Controller {
                     'timeStarted' => $timenow,
                 );
 
-                $this->People_model->insert_residency($changes);
+                $utype = $this->People_model->getuserfield('type', $userid);
+
+                if ($utype == 5) {
+                    $this->People_model->insert_residency($changes);
+                }
                 $rid = $this->db->insert_id();
+
                 $login_data = array(
                     'logged_in' => TRUE,
                     'userid' => $userid,
@@ -63,9 +68,12 @@ class Login extends CI_Controller {
 
     function logout() {
         $uid = $this->session->userdata('userid');
+        $utype = $this->People_model->getuserfield('type', $uid);
         $rid = $this->session->userdata('residencyid');
-        $this->People_model->update_residency($rid);
 
+        if ($utype == 5) {
+            $this->People_model->update_residency($rid);
+        }
         //Delete cookies
         foreach ($_COOKIE AS $key => $value) {
             SETCOOKIE($key, $value, TIME() - 10000, "/", ".domain.com");
