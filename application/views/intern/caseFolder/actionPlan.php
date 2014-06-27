@@ -1,5 +1,9 @@
 <div class="container" style="margin-top:-50px;">
 
+    <!--  -->
+    <label id="usernameforaction" class="hide"><?= $name; ?></label>
+    <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
+    
     <!-- Action plan is PENDING | Waiting for lawyer's response -->
     <?php if ($actionplanstatus == 'pending') { ?>
         <!-- upon submission of intern -->
@@ -36,8 +40,7 @@
             <br>
             <div class="col-lg-5 pull-right">
                 <div class='pull-right'>
-                    <a href="" id='btnaddactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Add</a>
-                    <a href="" id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit</a>
+                    <a href="" id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
                     <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
                 </div>
             </div>
@@ -102,7 +105,7 @@
         <div id='actionplanbuttonsbrdiv' class='hide'>
             <br><br><br>
         </div>
-        
+
         <!-- 1 NEW -->
         <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
             <h3> New 
@@ -143,9 +146,11 @@
                                                         ?>
                                                     </label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
-                                                        <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                        <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                        <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php if ($action->status == 0) { ?>
+                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php } ?>
                                                     </div>
                                                 </h5>
                                                 <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
@@ -263,9 +268,11 @@
                                                 <h5>
                                                     <b>Assigned to </b><label class="label label-default">None</label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
-                                                        <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                        <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                        <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php if ($action->status == 0) { ?>
+                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php } ?>
                                                     </div>
                                                 </h5>
                                                 <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
@@ -382,9 +389,11 @@
                                                 <h5>
                                                     <b>Assigned to </b><label class="label label-default">None</label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
-                                                        <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                        <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                        <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php if ($action->status == 0) { ?>
+                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php } ?>
                                                     </div>
                                                 </h5>
                                                 <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?></label></h5>
@@ -499,11 +508,13 @@
 
                                             <div id="actionPlanOption-top">
                                                 <h5>
-                                                    <b>Assigned to </b><label class="label label-default">None</label>
+                                                    <b>Assigned to </b><label class="label label-default"></label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
-                                                        <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                        <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                        <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php if ($action->status == 0) { ?>
+                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                        <?php } ?>
                                                     </div>
                                                 </h5>
                                                 <h5><b>Type:</b> <label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>

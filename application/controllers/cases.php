@@ -260,7 +260,7 @@ class Cases extends CI_Controller {
             redirect('login/index');
         }
         $utype = $this->People_model->getuserfield('type', $uid);
-
+        
         $this->session->set_userdata('cid', $cid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
