@@ -4,7 +4,7 @@
   <div class="row">
       <div class="box">
           
-        <div class="box-header"><h2> Director Profile</h2>
+        <div class="box-header"><h2> Secretary Profile</h2>
         </div>
         <div class="box-content">
 
@@ -15,7 +15,7 @@
         
         <div class="col-lg-10 well" style="background-color:rgb(221, 255, 221);padding:0px;">
             
-            <h5><a class="btn btn-info pull-right" href="#editDirectorProfileModal" data-toggle="modal" style="margin-top:0px; margin-right:2px; margin-bottom: 2px;"><i class="icon-edit"></i> Edit Profile</a></h5>
+            <h5><a class="btn btn-info pull-right" href="#editSecretaryProfileModal" data-toggle="modal" style="margin-top:0px; margin-right:2px; margin-bottom: 2px;"><i class="icon-edit"></i> Edit Profile</a></h5>
 
             <table class="table table-bordered">
                 <tr>
@@ -27,15 +27,12 @@
                 <tr style="height:20px;">
                     <th>Name</th>
                     <td><?php echo "$person->firstname $person->middlename $person->lastname" ?></td>
+                </tr>
+                <tr style="height:20px;">
                     <th>Birthday</th>
                     <td>01/24/1996</td>
                 </tr>
-                <tr>
-                    <th>Specialization</th>
-                    <td></td>
-                    <th>Roll Number</th>
-                    <td></td>
-                </tr>
+                
                 <tr>
                     <th colspan="5"><center> <b>CONTACT INFORMATION</b></center> </th>
                 </tr>
@@ -47,21 +44,7 @@
                     <th>E-mail Address</th>
                     <td colspan="4"></td>
                 </tr>
-               <tr>
-                   <th colspan="5"> <center> PERFORMANCE IN DLAC </center> </th>
-                </tr>
-                <tr>
-                    <th>Current Cases Handled</th>
-                    <td colspan="4"><?php echo $currentcasehandled->currentcaseload ?></td>
-                </tr>
-                <tr>
-                    <th>Cases Handled</th>
-                    <td colspan="4"><?php echo $person->caseload ?></td>
-                </tr>
-                <tr>
-                    <th>Cases Won</th>
-                    <td colspan="4"><?php echo $currentcasehandled->currentcaseload ?></td>
-                </tr>
+               
                 </tbody>
             </table>
 
@@ -96,12 +79,12 @@
       <!-- START OF MODAL : EDITLAWYERPROFILEMODAL -->
     <div class="row">
 
-        <div class="modal fade" id="editDirectorProfileModal">
+        <div class="modal fade" id="editSecretaryProfileModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 id="myModalLabel"> Edit Director Profile </h3>
+                        <h3 id="myModalLabel"> Edit Secretary Profile </h3>
                     </div>
                     <div class="modal-body">
                         
@@ -113,18 +96,18 @@
 
                     <div class="col-sm-3 control-group">
                         <div class="controls">
-                            <?php echo form_input(array('id' => 'directorFirstName', 'placeholder'=>'First Name',  'name' => 'lawyerFirstName', 'type' => 'text', 'class' => 'form-control')); ?>
+                            <?php echo form_input(array('id' => 'secretaryFirstName', 'placeholder'=>'First Name',  'name' => 'lawyerFirstName', 'type' => 'text', 'class' => 'form-control')); ?>
                         </div>
                     </div>
                         
                    <div class="col-sm-3 control-group">
                         <div class="controls">
-                            <?php echo form_input(array('id' => 'directorMiddleName', 'name' => 'directorMiddleName', 'placeholder'=>'Middle Name', 'type' => 'text', 'class' => 'form-control')); ?>
+                            <?php echo form_input(array('id' => 'secretaryMiddleName', 'name' => 'secretaryMiddleName', 'placeholder'=>'Middle Name', 'type' => 'text', 'class' => 'form-control')); ?>
                         </div>
                     </div>
                    <div class="col-sm-3 control-group">
                         <div class="controls">
-                            <?php echo form_input(array('id' => 'directorLastName', 'name' => 'directorLastName', 'placeholder'=>'Last Name', 'type' => 'text', 'class' => 'form-control')); ?>
+                            <?php echo form_input(array('id' => 'secretaryLastName', 'name' => 'secretaryLastName', 'placeholder'=>'Last Name', 'type' => 'text', 'class' => 'form-control')); ?>
                         </div>
                     </div>
                         
@@ -140,39 +123,13 @@
                             <div class="controls">
                                     <div class="input-group date">
                                             <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                            <input type="text" class="form-control date-picker" id="directorBirthday" name="directorBirthday" data-date-format="yyyy-mm-dd" value="yyyy-mm-dd">
+                                            <input type="text" class="form-control date-picker" id="secretaryBirthday" name="secretaryBirthday" data-date-format="yyyy-mm-dd" value="yyyy-mm-dd">
                                     </div>
                             </div>
                     </div>
                         
                         <br><br>
                         
-                    <div class="col-sm-3 control-group">
-                        <div class="controls">
-                            <center> <h5> <b> Specialization </b> </h5> </center>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-5 control-group">
-                        <div class="controls">
-                                <?php echo form_input(array('id' => 'directorSpecialization', 'name' => 'directorSpecialization', 'type' => 'text', 'class' => 'form-control')); ?>
-                        </div>
-                    </div>
-                        
-                    <br><br>
-                    <div class="col-sm-3 control-group">
-                        <div class="controls">
-                            <center> <h5> <b> Roll Number </b> </h5> </center>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-5 control-group">
-                        <div class="controls">
-                                <?php echo form_input(array('id' => 'directorRollNumber', 'name' => 'directorRollNumber', 'type' => 'text', 'class' => 'form-control')); ?>
-                        </div>
-                    </div>
-                        
-                    <br><br>
                     
                     <div class="col-sm-12 control-group">
                         <div class="controls">
@@ -190,7 +147,7 @@
 
                     <div class="col-sm-5 control-group">
                         <div class="controls">
-                            <?php echo form_input(array('id' => 'directorMobile',   'name' => 'directorMobile', 'type' => 'text', 'class' => 'form-control')); ?>
+                            <?php echo form_input(array('id' => 'secretaryMobile',   'name' => 'secretaryMobile', 'type' => 'text', 'class' => 'form-control')); ?>
                         </div>
                     </div>
                     
@@ -204,7 +161,7 @@
 
                     <div class="col-sm-5 control-group">
                         <div class="controls">
-                            <?php echo form_input(array('id' => 'directorEmail',   'name' => 'directorEmail', 'type' => 'text', 'class' => 'form-control')); ?>
+                            <?php echo form_input(array('id' => 'secretaryEmail',   'name' => 'secretaryEmail', 'type' => 'text', 'class' => 'form-control')); ?>
                         </div>
                     </div>
                     

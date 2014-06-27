@@ -262,6 +262,10 @@
         $('#minutesdate').datepicker();
         $('#minutes_starttime').timepicker();
         $('#minutes_endtime').timepicker();
+        $('#internBirthday').datepicker();
+        $('#lawyerBirthday').datepicker();
+        $('#secretaryBirthday').datepicker();
+        $('#director').datepicker();
     });
 
     // Make the checkbox unclickable 
