@@ -79,9 +79,13 @@
             html: true,
             content: function() {
                 var x = $(this).attr('id').substring(13);
+                var typeValue = $('#arrayActionType_' + x).val();
+                var typeText = $("#editactiontype_"+x+" option[value="+typeValue+"]").text();
+                $('#actionTypeLabel_' + x).text(typeText);  
                 return $("#popover-orig-content_" + x).html();
             }
         });
+        
 
         $(".getActionButton").live('click', function() {
             var x = $(this).attr('id').substring(16);
@@ -103,6 +107,15 @@
             $("#actionPlan-bottom-notes_" + x).addClass('hide');
             $("#actionPlanActionButtons_" + x).addClass('hide');
             $("#actionPlanOption-center-edit_" + x).removeClass('hide');
+            
+            //set Action and Type input
+            var actionName = $('#actionNameLabel_'+x).text();
+            $('#editAction_' + x).attr('value', actionName);
+            
+            var typeValue = $('#arrayActionType_' + x).val();
+            var typeText = $("#editactiontype_"+x+" option[value="+typeValue+"]").text();
+            $("#editactiontype_"+x+" option:contains(" + typeText + ")").attr('selected', 'selected');
+            
         });
 
         $(".cancelEditButton").live('click', function() {
@@ -115,11 +128,23 @@
 
         $(".saveActionButton").live('click', function() {
             var x = $(this).attr('id').substring(17);
-            var action = document.getElementById('editAction_' + x).value;
+            var actionName = document.getElementById('editAction_' + x).value;
             var type = $('#editactiontype_' + x).val();
-            alert("ID :" + x + " ;  ACTION :" + action + " ;  TYPE : " + type);
-            //AJAX CODE!!
-
+            var typeText = $( "#editactiontype_"+x+" option:selected" ).text();            
+            
+            $('#actionNameLabel_' + x).text(actionName);
+            $('#arrayActionName_' + x).attr('value',actionName);
+            
+            $('#actionTypeLabel_' + x).text(typeText);            
+            $('#arrayActionType_' + x).attr('value',type);
+            
+            $('#editAction_' + x).attr('value',actionName);
+            
+            $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
+            $("#actionPlan-bottom-notes_" + x).removeClass('hide');
+            $("#actionPlanActionButtons_" + x).removeClass('hide');
+            $("#actionPlanOption-center-edit_" + x).addClass('hide');
+            
         });
         //end of EDIT ACTIONS
 
@@ -143,11 +168,145 @@
 
         $(".okayDeleteButton").live('click', function() {
             var x = $(this).attr('id').substring(17);
-            alert(x + ":ID ; AJAX CODE")
-            //AJAX CODE!!
+            $('#actionTableRow_' +x).remove();
         });
 
         //end of DELETE ACTIONS
+        
+        //ADD ACTION FOR ACTION PLAN
+        var addActionCounterID = 0;
+        $('#btnaddaction').click(function() {            
+            addActionCounterID++;
+            var stage = $('#newactionstage').val();
+            var action = $('#newaction').val();
+            var typeValue = $('#newactiontype').val();
+            var typeText = $("#newactiontype option[value="+typeValue+"]").text();
+            var actionplanID = addActionCounterID+'x';
+                        
+            var table;
+
+            if (stage == 1)
+                table = document.getElementById("action1table");
+            else if (stage == 2)
+                table = document.getElementById("action2table");
+            else if (stage == 3)
+                table = document.getElementById("action3table");
+            else if (stage == 4)
+                table = document.getElementById("action4table");
+            else if (stage == 5)
+                table = document.getElementById("action5table");
+            {
+                var row = table.insertRow(table.rows.length);
+                row.id = 'actionTableRow_'+actionplanID;
+                
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
+                cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide' id='arrayActionName_"+ actionplanID +"'>"               
+                                 +"<input name='actiontype1" + stage + "[]' value='"+typeValue+"' class='hide' id='arrayActionType_"+ actionplanID +"'>"
+                                 +"<label id='actionNameLabel_"+ actionplanID +"'>"+action+"</label>";
+                                    + action;
+                cell3.innerHTML = "<a id='popover-orig_"+actionplanID+"' data-placement='bottom' class='popover-orig btn btn-success pull-right vianica'> <i class='icon-caret-down'></i> </a>"
+                	+"<div id='popover-orig-head_" + actionplanID + "' class='hide'></div>"
+                        +"<div id='popover-orig-content_" + actionplanID + "' class='hide'>"
+                              //  +"<form>"
+                                        //<!-- Action plan POPOVER -->
+                                        +"<div id='actionPlan_stage1' class='actionPlan_stage1'>"
+
+                                                +"<div id='actionPlanOption-top'>"
+                                                        +"<h5>"
+                                                                +"<b>Assigned to </b><label class='label label-default'>None</label>"
+                                                                +"<div id='actionPlanActionButtons_" + actionplanID + "' class='pull-right'>"
+                                                                        +"<a class='btn btn-success getActionButton' id='getActionButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
+                                                                        +"<a class='btn btn-info editActionButton' id='editActionButton_" + actionplanID + "'><i class='icon-edit'></i> </a> "
+                                                                        +"<a class='btn btn-danger deleteActionButton' id='deleteActionButton_" + actionplanID + "'><i class='icon-trash'></i> </a> "
+                                                                +"</div>"
+                                                        +"</h5>"
+                                                        +"<h5><b>Type:</b> <label id='actionTypeLabel_" + actionplanID + "'>None</label></h5>"
+                                                +"</div>"
+
+                                                +"<div id='actionPlanOption-center-writeNotes_" + actionplanID + "'>"
+                                                        +"<h5>Notes</b></h5>"
+                                                        +"<textarea class='diss-form' id='actionWriteNotes_" + actionplanID + "' placeholder='Write comment' style='overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;'></textarea>"
+                                                        +"<a class='btn btn-success pull-right sendActionNotes' id='sendActionNotes_" + actionplanID + "'>Send</a>"
+                                                        +"<br><br>"
+                                                +"</div>"
+
+                                                //<!--Edit-->
+                                                +"<div id='actionPlanOption-center-edit_" + actionplanID + "' class='hide'>"
+                                                        +"<div class='col-lg-3'>"
+                                                                +"<h5>Action:</h5>"
+                                                        +"</div>"
+
+                                                        +"<div class='col-lg-9'>"
+                                                                +"<input type='text' name='editAction' value='" + action + "' id='editAction_" + actionplanID + "' placeholder='Action' class='form-control'>"					
+                                                        +"</div>"
+
+                                                        +"<br><br>"
+
+                                                        +"<div class='col-lg-3'>"
+                                                               +"<h5>Type:</h5>"
+                                                        +"</div>"
+
+                                                        +"<div class='col-lg-5'>"
+                                                                +"<select id='editactiontype_" + actionplanID + "' name='newactiontype' class='form-control'>"
+                                                                        +"<option value='1'>None</option>"
+                                                                        +"<option value='2'>Event</option>"
+                                                                        +"<option value='3'>Minutes</option>"
+                                                                        +"<option value='4'>Evidence</option>"
+                                                                        +"<option value='5'>Draft</option>"
+                                                                        +"<option value='6'>Document</option>"
+                                                                +"</select>"
+                                                        +"</div>"
+
+                                                        +"<div class='col-lg-3'>"
+                                                                +"<a class='btn btn-success saveActionButton' id='saveActionButton_" + actionplanID + "'> <i class='icon-save'></i> </a> "
+                                                                +"<a class='btn btn-danger cancelEditButton' id='cancelEditButton_" + actionplanID + "'> <i class='icon-ban-circle'></i> </a>"
+                                                        +"</div>"
+
+                                                        +"<br><br><br>"
+                                                +"</div>"
+
+                                                //<!--Delete-->
+                                                +"<div id='actionPlanOption-center-delete_" + actionplanID + "' class='hide'>"
+                                                        +"<h4><center>Are you sure you want to delete this item?</center></h4> "
+                                                        +"<div class='centerdiv' style='width:20%'>"
+                                                                +"<a class='btn btn-success okayDeleteButton' id='okayDeleteButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
+                                                                +"<a class='btn btn-danger cancelDeleteButton' id='cancelDeleteButton_" + actionplanID + "'> <i class='icon-remove'></i> </a>"
+                                                        +"</div>"
+                                                        +"<br><br>"
+                                                +"</div>"
+
+                                                +"<div id='actionPlan-bottom-notes_" + actionplanID + "' class='actionPlan-bottom-notes'>"
+                                                        +"<hr>"
+                                                        +"<div class='discussions' id='notesThread_" + actionplanID + "'>"
+                                                                +"<ul></ul>"
+                                                        +"</div>"
+                                                        +"<br>"
+                                                +"</div>"
+                                        +"</div> "
+                                //<!-- Action plan POPOVER -->
+                               // +"</form>"
+                        +"</div>";
+
+            }
+                        
+            $('.popover-orig').popover({
+                html: true,
+                content: function() {                
+                    var x = $(this).attr('id').substring(13);
+                    var typeValue = $('#arrayActionType_' + x).val();
+                    var typeText = $("#editactiontype_"+x+" option[value="+typeValue+"]").text();
+                    $('#actionTypeLabel_' + x).text(typeText);  
+                    return $("#popover-orig-content_" + x).html();
+                }
+            });        
+            
+            $('#newactionstage').val(1);
+            $('#newaction').val('');
+        });
+
 
 
         $("#dashboard-appo").dataTable({
@@ -685,7 +844,7 @@
         }
     });
 
-    //Hide decision ifreason is by the client
+    //Hide decision if reason is by the client
     $('input[name="applytoclosereason"]').change(function() {
         var clientreason = $('input[name="applytoclosereason"]:checked').val();
         if (clientreason == 1) {
@@ -709,139 +868,8 @@
         $('#actionplanbuttonsbrdiv').removeClass('hide');
     });
 
-    //ADD ACTION FOR ACTION PLAN
-    var addActionCounterID = 0;
-    $('#btnaddaction').click(function() {
-        addActionCounterID++;
-        var stage = $('#newactionstage').val();
-        var action = $('#newaction').val();
-        var typeValue = $('#newactiontype').val();
-        var typeText = $("#newactiontype option[value=" + typeValue + "]").text();
-        var actionplanID = addActionCounterID + 'x';
-
-        var table;
-
-        if (stage == 1)
-            table = document.getElementById("action1table");
-        else if (stage == 2)
-            table = document.getElementById("action2table");
-        else if (stage == 3)
-            table = document.getElementById("action3table");
-        else if (stage == 4)
-            table = document.getElementById("action4table");
-        else if (stage == 5)
-            table = document.getElementById("action5table");
-        {
-            var row = table.insertRow(table.rows.length);
-            row.id = 'actionTableRow_' + actionplanID;
-
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
-            cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide' id='arrayActionName_" + actionplanID + "'>"
-                    + "<input name='actiontype1" + stage + "[]' value='" + typeValue + "' class='hide' id='arrayActionType_" + actionplanID + "'>"
-                    + "<label id='actionNameLabel_" + actionplanID + "'>" + action + "</label>";
-            +action;
-            cell3.innerHTML = "<a id='popover-orig_" + actionplanID + "' data-placement='bottom' class='popover-orig btn btn-success pull-right vianica'> <i class='icon-caret-down'></i> </a>"
-                    + "<div id='popover-orig-head_" + actionplanID + "' class='hide'></div>"
-                    + "<div id='popover-orig-content_" + actionplanID + "' class='hide'>"
-                    //  +"<form>"
-                    //<!-- Action plan POPOVER -->
-                    + "<div id='actionPlan_stage1' class='actionPlan_stage1'>"
-
-                    + "<div id='actionPlanOption-top'>"
-                    + "<h5>"
-                    + "<b>Assigned to </b><label class='label label-default'>None</label>"
-                    + "<div id='actionPlanActionButtons_" + actionplanID + "' class='pull-right'>"
-                    + "<a class='btn btn-success getActionButton' id='getActionButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
-                    + "<a class='btn btn-info editActionButton' id='editActionButton_" + actionplanID + "'><i class='icon-edit'></i> </a> "
-                    + "<a class='btn btn-danger deleteActionButton' id='deleteActionButton_" + actionplanID + "'><i class='icon-trash'></i> </a> "
-                    + "</div>"
-                    + "</h5>"
-                    + "<h5><b>Type:</b> <label id='actionTypeLabel_" + actionplanID + "'>None</label></h5>"
-                    + "</div>"
-
-                    + "<div id='actionPlanOption-center-writeNotes_" + actionplanID + "'>"
-                    + "<h5>Notes</b></h5>"
-                    + "<textarea class='diss-form' id='actionWriteNotes_" + actionplanID + "' placeholder='Write comment' style='overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;'></textarea>"
-                    + "<a class='btn btn-success pull-right sendActionNotes' id='sendActionNotes_" + actionplanID + "'>Send</a>"
-                    + "<br><br>"
-                    + "</div>"
-
-                    //<!--Edit-->
-                    + "<div id='actionPlanOption-center-edit_" + actionplanID + "' class='hide'>"
-                    + "<div class='col-lg-3'>"
-                    + "<h5>Action:</h5>"
-                    + "</div>"
-
-                    + "<div class='col-lg-9'>"
-                    + "<input type='text' name='editAction' value='" + action + "' id='editAction_" + actionplanID + "' placeholder='Action' class='form-control'>"
-                    + "</div>"
-
-                    + "<br><br>"
-
-                    + "<div class='col-lg-3'>"
-                    + "<h5>Type:</h5>"
-                    + "</div>"
-
-                    + "<div class='col-lg-5'>"
-                    + "<select id='editactiontype_" + actionplanID + "' name='newactiontype' class='form-control'>"
-                    + "<option value='1'>None</option>"
-                    + "<option value='2'>Event</option>"
-                    + "<option value='3'>Minutes</option>"
-                    + "<option value='4'>Evidence</option>"
-                    + "<option value='5'>Draft</option>"
-                    + "<option value='6'>Document</option>"
-                    + "</select>"
-                    + "</div>"
-
-                    + "<div class='col-lg-3'>"
-                    + "<a class='btn btn-success saveActionButton' id='saveActionButton_" + actionplanID + "'> <i class='icon-save'></i> </a> "
-                    + "<a class='btn btn-danger cancelEditButton' id='cancelEditButton_" + actionplanID + "'> <i class='icon-ban-circle'></i> </a>"
-                    + "</div>"
-
-                    + "<br><br><br>"
-                    + "</div>"
-
-                    //<!--Delete-->
-                    + "<div id='actionPlanOption-center-delete_" + actionplanID + "' class='hide'>"
-                    + "<h4><center>Are you sure you want to delete this item?</center></h4> "
-                    + "<div class='centerdiv' style='width:20%'>"
-                    + "<a class='btn btn-success okayDeleteButton' id='okayDeleteButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
-                    + "<a class='btn btn-danger cancelDeleteButton' id='cancelDeleteButton_" + actionplanID + "'> <i class='icon-remove'></i> </a>"
-                    + "</div>"
-                    + "<br><br>"
-                    + "</div>"
-
-                    + "<div id='actionPlan-bottom-notes_" + actionplanID + "' class='actionPlan-bottom-notes'>"
-                    + "<hr>"
-                    + "<div class='discussions' id='notesThread_" + actionplanID + "'>"
-                    + "<ul></ul>"
-                    + "</div>"
-                    + "<br>"
-                    + "</div>"
-                    + "</div> "
-                    //<!-- Action plan POPOVER -->
-                    // +"</form>"
-                    + "</div>";
-
-        }
-
-        $('.popover-orig').popover({
-            html: true,
-            content: function() {
-                var x = $(this).attr('id').substring(13);
-                var typeValue = $('#arrayActionType_' + x).val();
-                var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
-                $('#actionTypeLabel_' + x).text(typeText);
-                return $("#popover-orig-content_" + x).html();
-            }
-        });
-
-        $('#newactionstage').val(1);
-        $('#newaction').val('');
-    });
+    //Add action
+    
 
     //Approve action plan (lawyer)
     $('#btnapproveactionplan').click(function() {
@@ -854,9 +882,9 @@
             }
         });
     });
-
+    
     //Cancel create action plan
-    $('#cancelactionplanbtn').click(function() {
+    $('#cancelactionplanbtn').click(function(){
         $('#actionplanbuttonsdiv').addClass('hide');
         $('#actionplanbuttonsbrdiv').addClass('hide');
         $('#actionplandiv').addClass('disable fadedopp');
@@ -1005,6 +1033,7 @@
 
         $('#preEvalOffense').change(function() {
             var offenseID = $('#preEvalOffense').val();
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url() ?>people/showspecializedlawyers",
@@ -1017,10 +1046,13 @@
                     table.innerHTML = "<table class='table table-bordered' id='specializedLawyerTable'>"
                             + "<thead><tr><th>Specialized Lawyers</th></tr></thead>"
                             + "</table>";
+
                     var lawyers = msg;
                     var lawyerCount = lawyers.length;
+
                     for (var x = 0; x < lawyerCount; x++) {
                         var lawyerName = lawyers[x];
+
                         var row = table.insertRow(table.rows.length);
                         var cell1 = row.insertCell(0);
                         cell1.innerHTML = lawyerName;
@@ -1028,23 +1060,28 @@
                 }
             });
         });
+
         $('#btneditoffensepenal').click(function() {
             var caseOffensePenal = $('select[name="caseOffensePenal"]').val();
             var caseoffensestagepenal = $('select[name="caseoffensestagepenal"]').val();
+
             var table = document.getElementById("offensetable");
             {
                 var row = table.insertRow(table.rows.length);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
+
                 cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenal;
                 cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagepenal + '" style="display:none;" readonly>' + caseoffensestagepenal;
                 cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
             }
         });
+
         $('#btneditoffensespecial').click(function() {
             var caseOffenseSpecial = $('select[name="caseOffenseSpecial"]').val();
             var caseoffensestagespecial = $('select[name="caseoffensestagespecial"]').val();
+
             var table = document.getElementById("offensetable");
             {
                 var row = table.insertRow(table.rows.length);
@@ -1056,35 +1093,44 @@
                 cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
             }
         });
+
         $('#inputFileDraft').change(function() {
             var files = document.getElementById("inputFileDraft").files;
+
             var table = document.getElementById("adddrafttable");
             table.innerHTML = '';
+
             for (var i = 0; i < files.length; i++) {
                 var fileName = files[i].name;
                 var fileSize = files[i].size;
                 var fileExt = fileName.split('.').pop();
                 var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+
                 var row = table.insertRow(table.rows.length);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
+
                 cell1.innerHTML = "<input type='text' name='rawName[]' value='" + rawName + "' /> ." + fileExt;
                 cell2.innerHTML = fileSize + 'KB';
                 cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
             }
         });
+
         $('#inputFileByClient').change(function() {
             var files = document.getElementById("inputFileByClient").files;
+
             $('#tableFileClientID').css('background-color', '#E4ECD9');
             var tableFileClientID = document.getElementById("tableFileClientID");
             tableFileClientID.innerHTML = '';
+
             for (var i = 0; i < files.length; i++) {
 
                 var fileName = files[i].name;
                 var fileSize = files[i].size;
                 var fileExt = fileName.split('.').pop();
                 var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+
                 var tableHTML = '';
                 tableHTML += "<table class='table-condensed'>"
                         + "<tr>"
@@ -1127,17 +1173,21 @@
             $('#docUpload_dateIssued_client').datepicker();
             $('#docUpload_dateReceived_client').datepicker();
         });
+
         $('#inputFileByCourt').change(function() {
             var files = document.getElementById("inputFileByCourt").files;
+
             $('#tableFileCourt').css('background-color', '#E4ECD9');
             var tableFileCourt = document.getElementById("tableFileCourt");
             tableFileCourt.innerHTML = '';
+
             for (var i = 0; i < files.length; i++) {
 
                 var fileName = files[i].name;
                 var fileSize = files[i].size;
                 var fileExt = fileName.split('.').pop();
                 var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+
                 var tableHTML = '';
                 tableHTML += "<table class='table-condensed'>"
                         + "<tr>"
@@ -1182,23 +1232,29 @@
             $('#docUpload_dateReceived_court').datepicker();
             $('#docUpload_dateIssued_court').datepicker();
         });
+
         $("body").on("click", "#remove_row", function() {
             $(this).parent().parent().remove();
         });
+
         $('#btnaddrecords').live('click', function() {
             var number = document.getElementById('recordsAttendance').value;
             $('#recordsQuestion').hide();
+
             var table = document.getElementById('attendanceLogTable');
             var internsOptions = getAllInternsOption();
+
             for (var i = 1; i <= number; i++)
             {
                 var row = table.insertRow(table.rows.length);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
+
                 var internsHTML = "<select id='internname' name='internname" + i + "' class='form-control'>";
                 internsHTML += internsOptions;
                 internsHTML += "</select>";
+
                 cell1.innerHTML = internsHTML;
                 cell2.innerHTML = "<div class='input-group bootstrap-timepicker'>"
                         + "<span class='input-group-addon'><i class='icon-time'></i></span>"
@@ -1211,8 +1267,10 @@
                 $('.attendancetime').timepicker();
             }
         });
+
         function getAllInternsOption() {
             var internsHTML = '';
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url() ?>people/showinterns",
@@ -1223,6 +1281,7 @@
 
                     var id_numbers = msg;
                     var internNo = id_numbers.length;
+
                     for (var x = 0; x < internNo; x++) {
                         var internID = id_numbers[x];
                         $.ajax({
@@ -1235,6 +1294,7 @@
                                 internsHTML += "<option value='" + internID + "'>" + result + "</option>";
                             }, error: function() {
                                 alert("error!");
+
                             }
                         });
                     }
@@ -1266,6 +1326,7 @@
                     $("#case-tesname").html(result);
                 }
             });
+
             //Removes textfield values
             $('#objpersonFirstName').val('');
             $('#objpersonLastName').val('');
@@ -1279,9 +1340,11 @@
             $('#objpersonCNOffice').val('');
             $('#objpersonCNMobile').val('');
         });
+
         $('#case-btnadddocevidence').live('click', function() {
             var caseID = document.getElementById('inputCaseID').value;
             var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
+
             var docName = document.getElementById('case-docname').value;
             var case_doctype = $('input[name="case-doctype"]:checked').val();
             var docdesc = document.getElementById('case-docdesc').value;
@@ -1292,6 +1355,7 @@
             var case_doctestify = $('select[name="case-doctestify"]').val();
             var case_doctestify_name = $("#case-doctestify :selected").text();
             var case_docstatus = $('input[name="case-docstatus"]:checked').val();
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url() ?>cases/addDocuEvidence",
@@ -1316,6 +1380,7 @@
                     document.getElementById('case-docdateissued').value = 'yyyy-mm-dd';
                     document.getElementById('case-docplaceissued').value = '';
                     jQuery("#case-doctestify option:first-child").attr("selected", true);
+
                     var table = $('#case-docevidencetable').dataTable();
                     table.fnAddData([
                         docName,
@@ -1324,9 +1389,12 @@
                 }
             });
         });
+
+
         $('#case-btnaddobjevidence').live('click', function() {
             var caseID = document.getElementById('inputCaseID').value;
             var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
+
             var objname = document.getElementById('case-objname').value;
             var objdesc = document.getElementById('case-objdesc').value;
             var docpurpose = document.getElementById('case-docpurpose').value;
@@ -1335,6 +1403,7 @@
             var case_objtestify = $('select[name="case-objtestify"]').val();
             var case_objtestify_name = $("#case-objtestify :selected").text();
             var case_objstatus = $('input[name="case-objstatus"]:checked').val();
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url() ?>cases/addObjeEvidence",
@@ -1355,6 +1424,7 @@
                     document.getElementById('case-docpurpose').value = '';
                     document.getElementById('case-objdateretrieved').value = 'yyyy-mm-dd';
                     jQuery("#case-objtestify option:first-child").attr("selected", true);
+
                     var table = $('#case-objevidencetable').dataTable();
                     table.fnAddData([
                         objname,
@@ -1363,15 +1433,18 @@
                 }
             });
         });
+
         $('#case-btnaddtesevidence').live('click', function() {
             var caseID = document.getElementById('inputCaseID').value;
             var case_evidenceof = $('input[name="case-evidenceof"]:checked').val();
+
             var case_tesname = $('select[name="case-tesname"]').val();
             var case_tesname_name = $("#case-tesname :selected").text();
             var tesrel = document.getElementById('case-tesrel').value;
             var tespurpose = document.getElementById('case-tespurpose').value;
             var tesnarrative = document.getElementById('case-tesnarrative').value;
             var case_tesstatus = $('input[name="case-tesstatus"]:checked').val();
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url() ?>cases/addTestEvidence",
@@ -1390,6 +1463,7 @@
                     document.getElementById('case-tesrel').value = '';
                     document.getElementById('case-tespurpose').value = '';
                     document.getElementById('case-tesnarrative').value = '';
+
                     var table = $('#case-tesevidencetable').dataTable();
                     table.fnAddData([
                         case_tesname_name,
@@ -1398,7 +1472,9 @@
                 }
             });
         });
-    });</script>
+    });
+
+</script>
 
 
 <!-- AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX AJAX -->
@@ -1413,6 +1489,7 @@
             }
         });
     });
+
     /* Adds opposing party */
     $('#btnaddopposingparty').click(function() {
         $.ajax({
@@ -1433,6 +1510,7 @@
                 $("#opposingpartydiv").html(result);
             }
         });
+
         //Removes textfield values
         $('#partyFirstName').val('');
         $('#partyLastName').val('');
@@ -1445,7 +1523,9 @@
         $('#partyCNHome').val('');
         $('#partyCNOffice').val('');
         $('#partyCNMobile').val('');
-    });</script>
+    });
+
+</script>
 
 
 <!-- JAVASCRIPT FUNCTIONS -->
@@ -1495,6 +1575,7 @@
             success: function(result) {
             }
         });
+
         if (currentstage == 1) {
             if ($('.cbactionstage1:checked').length == $('.cbactionstage1').length) {
                 $.ajax({

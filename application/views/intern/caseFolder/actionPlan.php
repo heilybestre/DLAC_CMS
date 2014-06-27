@@ -111,19 +111,19 @@
                 <table id='action1table' class="table table-condensed" style="background-color:white;">
                     <?php $stage1count = 1; ?>
                     <?php foreach ($actionplan_stage1 as $action) : ?>
-                        <tr>
+                        <tr id="actionTableRow_<?= $action->actionplanID ?>">
                             <td><input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php
                                 if ($action->status == 1) {
                                     echo 'checked';
                                 }
                                 ?> /></td>
                             <td>
-                                <input name='actionname1[]' value="<?= $action->action ?>" class='hide'>
-                                <input name='actiontype1[]' value="<?= $action->category ?>" class='hide'>
-                                <?= $action->action ?>
+                                <input name='actionname1[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
+                                <input name='actiontype1[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
+                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig vianica btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -148,7 +148,7 @@
                                                         <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </h5>
+                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -244,15 +244,15 @@
             <ul class="todo-list">
                 <table id='action2table' class='table table-condensed' style='background-color:white;'>
                     <?php foreach ($actionplan_stage2 as $action) : ?>
-                        <tr>
+                        <tr id="actionTableRow_<?= $action->actionplanID ?>">
                             <td><input name='action2[]' class='cbactionstage2 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 2, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?>/></td>
                             <td>
-                                <input name='actionname2[]' value="<?= $action->action ?>" class='hide'>
-                                <input name='actiontype2[]' value="<?= $action->category ?>" class='hide'>
-                                <?= $action->action ?>
+                                <input name='actionname2[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
+                                <input name='actiontype2[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
+                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig vianica btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -268,7 +268,7 @@
                                                         <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </h5>
+                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -363,15 +363,15 @@
             <ul class="todo-list">
                 <table id='action3table' class='table table-condensed' style='background-color:white;'>
                     <?php foreach ($actionplan_stage3 as $action) : ?>
-                        <tr>
+                        <tr id="actionTableRow_<?= $action->actionplanID ?>">
                             <td><input name='action3[]' class='cbactionstage3 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 3, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?> /></td>
                             <td>
-                                <input name='actionname3[]' value="<?= $action->action ?>" class='hide'>
-                                <input name='actiontype3[]' value="<?= $action->category ?>" class='hide'>
-                                <?= $action->action ?>
+                                <input name='actionname3[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
+                                <input name='actiontype3[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>" >
+                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig vianica btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -387,7 +387,7 @@
                                                         <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </h5>
+                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?></label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -482,15 +482,15 @@
             <ul class="todo-list">
                 <table id='action4table' class='table table-condensed' style='background-color:white;'>
                     <?php foreach ($actionplan_stage4 as $action) : ?>
-                        <tr>
+                        <tr id="actionTableRow_<?= $action->actionplanID ?>">
                             <td><input name='action4[]' class='cbactionstage4 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 4, <?= $case->stage ?>)" <?php if ($action->status == 1) echo 'checked'; ?> /></td>
                             <td>
-                                <input name='actionname4[]' value="<?= $action->action ?>" class='hide'>
-                                <input name='actiontype4[]' value="<?= $action->category ?>" class='hide'>
-                                <?= $action->action ?>
+                                <input name='actionname4[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
+                                <input name='actiontype4[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
+                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig vianica btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -506,7 +506,7 @@
                                                         <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </h5>
+                                                <h5><b>Type:</b> <label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
