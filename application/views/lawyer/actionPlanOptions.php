@@ -1,3 +1,130 @@
+<div id="actionPlanOption" class="actionPlanOption">
+
+<div id="actionPlanOption-top">
+<h5>
+    <b>Assigned to </b><label class="label label-default">nex</label>
+    <div id="actionPlanActionButtons" class="pull-right">
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
+        <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
+        <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
+    </div>
+</h5>
+    <h5><b>Type:</b> (Document)</h5>
+
+</div>
+    
+<div id="actionPlanOption-center-assign">
+
+
+<h5>
+    <b>Assigned to </b><label class="label label-default">None</label>    
+</h5>
+    <h5><b>Type:</b> (Document)</h5>
+  
+    <hr>
+    <div id="assignAction">
+        
+        <h5><b>Assign to: </b></h5>
+        <table class="table table-striped">
+            <tr>
+                <th>Intern</th>
+                <th>Experience</th>
+            </tr>
+            <tr>
+                <td>(Intern Name)</td>
+                <td>(12)</td>
+            </tr>
+        </table>
+        
+    </div>
+
+
+</div>
+    
+<div id="actionPlanOption-center-notes">
+
+    <h5><b>Notes</b></h5>
+    <textarea class="diss-form" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
+    <a href="" class="btn btn-success pull-right">Send</a>
+
+</div>
+
+<div id="actionPlanOption-center-edit">
+
+    <br>
+    <div class="col-lg-3">
+           <h5>Action:</h5>
+       </div>
+
+       <div class="col-lg-9">
+           <?php echo form_input(array('id' => 'newaction', 'name' => 'newaction', 'placeholder' => 'Action', 'class' => 'form-control')); ?>
+       </div>
+
+       <br><br>
+
+       <div class="col-lg-3">
+           <h5>Type:</h5>
+       </div>
+
+       <div class="col-lg-5">
+           <select id='newactiontype' name='newactiontype' class='form-control'>
+               <option value='1'>Evidence</option>
+               <option value='2'>Legal Document</option>
+               <option value='3'>People</option>
+               <option value='4'>Events</option>
+           </select>
+       </div>
+
+       <div class="col-lg-3">
+           <a class="btn btn-success saveActionButton" id="saveActionButton"> <i class="icon-save"></i> </a>
+           <a class="btn btn-danger cancelEditButton" id="cancelEditButton"> <i class="icon-ban-circle"></i> </a>
+       </div>
+
+</div>
+    
+<div id="actionPlanOption-center-delete">
+    
+    <h4>Are you sure you want to delete this item?</h4> 
+    <a class="btn btn-success deleteActionButton" id="deleteActionButton"> <i class="icon-ok"></i> </a>
+    <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton"> <i class="icon-remove"></i> </a>      
+    
+</div>
+    
+
+ <div id="actionPlan-bottom-notes" class="actionPlan-bottom-notes">
+     
+    <hr>
+     
+   <div class="discussions" id="notesThread">
+
+    <ul>
+								
+        <li id="actionPlanNote" class="actionPlanNote">
+            <div class="name">Megan Abbott</div>
+            <div class="date">Today, 1:08 PM</div>
+            <div class="delete"><i class="icon-remove"></i></div>
+
+            <div class="message">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+            </div>	
+    </li>
+    
+    <li id="actionPlanNote" class="actionPlanNote">
+            <div class="name">Megan Abbott</div>
+            <div class="date">Today, 1:08 PM</div>
+            <div class="delete"><i class="icon-remove"></i></div>
+
+            <div class="message">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+            </div>	
+    </li>
+						
+    </ul>		
+
+    </div>
+            
+    </div>
+</div>    
 
 <!-- START OF NOT YET ASSIGNED & NOT YET DONE -->
 
@@ -5,13 +132,13 @@
 
 
 <h5>
-    <b>Assigned to </b><label class="label label-default">None</label>    
+    <b>Assigned to </b><label class="label label-default">None</label>
     <div id="actionPlanActionButtons" class="pull-right">
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
 </h5>
-    
     <h5><b>Type:</b> (Document)</h5>
     
     <div id="editAction" class="editAction hide">
@@ -99,6 +226,7 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">Name</label>    
     <div id="actionPlanActionButtons" class="pull-right">
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info editActionButton2" id="editActionButton2"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton2" id="deleteActionButton2"><i class="icon-trash"></i> </a>
     </div>
@@ -184,7 +312,7 @@
 </div>
 <!-- END OF ASSIGNED & NOT YET DONE -->
 
-<!-- START OF DONE-->
+<!-- START OF DONE ACTION-->
 
 <div id="actionPlanOption3" class="hide">
 
@@ -192,7 +320,8 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">Name</label>    
 </h5>
-  <h5><b>Type:</b> (Document)</h5>
+    <h5><b>Type:</b> (Document)</h5>
+  
     <hr>
 
 <div class="discussions" id="notesThreadOption3">
@@ -225,7 +354,7 @@
 
 
 </div>
-<!-- START OF DONE-->
+<!-- START OF DONE ACTION-->
 
 <!-- START OF EDITING -->
 
@@ -235,6 +364,7 @@
 <h5>
     <b>Last Edited by: </b><label class="label label-default">Name</label>    
     <div id="actionPlanActionButtons" class="pull-right">
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
@@ -318,4 +448,64 @@
 </div>
 <!-- END OF EDITING -->
 
+<!-- START OF DONE ACTION-->
 
+<div id="actionPlanOption5" class="hide">
+
+
+<h5>
+    <b>Assigned to </b><label class="label label-default">None</label>    
+</h5>
+    <h5><b>Type:</b> (Document)</h5>
+  
+    <hr>
+    <div id="assignAction">
+        
+        <h5><b>Assign to: </b></h5>
+        <table class="table table-striped">
+            <tr>
+                <th>Intern</th>
+                <th>Experience</th>
+            </tr>
+            <tr>
+                <td>(Intern Name)</td>
+                <td>(12)</td>
+            </tr>
+        </table>
+        
+    </div>
+
+
+</div>
+<!-- END OF DONE ACTION-->
+
+<!-- START OF ASSIGN ACTION-->
+
+<div id="actionPlanOption5" class="hide">
+
+
+<h5>
+    <b>Assigned to </b><label class="label label-default">None</label>    
+</h5>
+    <h5><b>Type:</b> (Document)</h5>
+  
+    <hr>
+    <div id="assignAction">
+        
+        <h5><b>Assign to: </b></h5>
+        <table class="table table-striped">
+            <tr>
+                <th>Intern</th>
+                <th>Experience</th>
+            </tr>
+            <tr>
+                <td>(Intern Name)</td>
+                <td>(12)</td>
+            </tr>
+        </table>
+        
+    </div>
+
+
+</div>
+<!-- END OF ASSIGN ACTION-->
