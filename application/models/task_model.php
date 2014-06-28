@@ -9,13 +9,13 @@ class Task_model extends CI_Model {
     }
 
     function select_mytask($uid) {
-        $this->db->reconnect();
-        $query = $this->db->query("SELECT * FROM task WHERE assignedTo = $uid");
+        
+        $query = $this->db->query("SELECT * FROM tasks WHERE assignedTo = $uid");
         return $query->result();
     }
 
     function select_theirtask($uid) {
-        $query = $this->db->query("SELECT * FROM task WHERE assignedBy = $uid");
+        $query = $this->db->query("SELECT * FROM tasks WHERE assignedBy = $uid");
         return $query->result();
     }
 

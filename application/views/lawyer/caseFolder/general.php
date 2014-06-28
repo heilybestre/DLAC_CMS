@@ -32,7 +32,7 @@
                             <td>
                                 <?php foreach ($caseoffense as $off) : ?>
                                     <label class="label label-danger">
-                                        <?php echo "$off->offense ($off->stage)" ?>
+                                        <?php echo "$off->offenseName ($off->stage)" ?>
                                     </label>
                                 <?php endforeach; ?>
 
@@ -692,7 +692,7 @@
 
                             <?php foreach ($caseoffense as $row): ?>
                                 <tr>
-                                    <td><?php echo $row->offense ?></td>
+                                    <td><?php echo $row->offenseName ?></td>
                                     <td><?php echo $row->stage ?></td>
                                     <td><button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i> </button> </td>
                                 </tr>

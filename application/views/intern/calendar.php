@@ -161,13 +161,13 @@ $(document).ready(function() {
                             </tr>
                         </thead>   
                         <tbody>
-                            <?php foreach ($tasks as $row) : ?>
+                            <?php foreach ($thingstodo as $row) : ?>
                                 <tr>
                                     <td class="center"><?php echo $row->dateDue . "<br>(" . $row->daysLeft . " days left)" ?></td>
                                     <td class="center"><?php echo $row->task ?></td>
                                     <td class="center"><?php
                                         if ($this->session->userdata('userid') != $row->assignedBy) {
-                                            echo $row->firstName . " " . $row->lastName;
+                                            echo $row->bfirstName . " " . $row->blastName;
                                         } else {
                                             echo "You";
                                         }

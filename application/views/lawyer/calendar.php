@@ -6,124 +6,121 @@
 
 <script>
 
-$(document).ready(function() {
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
+    $(document).ready(function() {
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
 
-    var calendar = $('#calendar').fullCalendar({
-        editable: false,
-        disableDragging: true,
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
+        var calendar = $('#calendar').fullCalendar({
+            editable: false,
+            disableDragging: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            //Shows appoinments
+            events: "<?php echo base_url() ?>calendar/userschedules/" + <?php echo $this->session->userdata('userid') ?>,
+            selectable: true,
+            selectHelper: true,
+            //Shows Add Appointment modal
+            select: function(start, end, allDay) {
+                var dateChosen = $.fullCalendar.formatDate(start, "yyyy-MM-dd");
+                var timeStart = $.fullCalendar.formatDate(start, "hh:mm TT");
+                var timeEnd = $.fullCalendar.formatDate(end, "hh:mm TT");
+                document.getElementById("newappt_date").value = dateChosen;
+                document.getElementById('newappt_starttime').value = timeStart;
+                document.getElementById('newappt_endtime').value = timeEnd;
+                $('#addAppointmentModal').modal('show');
+                calendar.fullCalendar('unselect');
 
-        //Shows appoinments
-        events: "<?php echo base_url() ?>calendar/userschedules/"+ <?php echo $this->session->userdata('userid') ?>,
-        selectable: true,
-        selectHelper: true,
+                //Add Appointment function
+                $('#btnaddappointment').click(function() {
+                    var caseid = $('select[name="newappt_case"]').val();
+                    var title = $('#newappt_title').val();
+                    var dateSelected = $('#newappt_date').val();
+                    var startSelected = $('#newappt_starttime').val();
+                    var endSelected = $('#newappt_endtime').val();
+                    var type = $('input[name="newappt_type"]:checked').val();
+                    var place = $('#newappt_place').val();
 
-        //Shows Add Appointment modal
-        select: function(start, end, allDay) {
-            var dateChosen = $.fullCalendar.formatDate( start, "yyyy-MM-dd" );
-            var timeStart = $.fullCalendar.formatDate( start, "hh:mm TT" );
-            var timeEnd = $.fullCalendar.formatDate( end, "hh:mm TT" );
-            document.getElementById("newappt_date").value = dateChosen;
-            document.getElementById('newappt_starttime').value = timeStart;
-            document.getElementById('newappt_endtime').value = timeEnd;
-            $('#addAppointmentModal').modal('show');
-            calendar.fullCalendar('unselect');
+                    var fullCalendarStart_FC = $.fullCalendar.parseDate(dateSelected + ' ' + startSelected);
+                    var fullCalendarEnd_FC = $.fullCalendar.parseDate(dateSelected + ' ' + endSelected);
 
-            //Add Appointment function
-            $('#btnaddappointment').click(function(){
-                var caseid = $('select[name="newappt_case"]').val();
-                var title = $('#newappt_title').val();
-                var dateSelected = $('#newappt_date').val();
-                var startSelected = $('#newappt_starttime').val();
-                var endSelected = $('#newappt_endtime').val();
-                var type = $('input[name="newappt_type"]:checked').val();
-                var place = $('#newappt_place').val();
+                    var fullCalendarStart = $.fullCalendar.formatDate(fullCalendarStart_FC, "yyyy-MM-dd HH:mm");
+                    var fullCalendarEnd = $.fullCalendar.formatDate(fullCalendarEnd_FC, "yyyy-MM-dd HH:mm");
 
-                var fullCalendarStart_FC = $.fullCalendar.parseDate(dateSelected+' '+startSelected);
-                var fullCalendarEnd_FC = $.fullCalendar.parseDate(dateSelected+' '+endSelected);
+                });
+                //
+            },
+            editable: true,
+                    eventClick: function(calEvent, jsEvent, view) {
+                        $('#viewAppointmentModal').modal('show');
 
-                var fullCalendarStart = $.fullCalendar.formatDate( fullCalendarStart_FC, "yyyy-MM-dd HH:mm" );
-                var fullCalendarEnd = $.fullCalendar.formatDate( fullCalendarEnd_FC, "yyyy-MM-dd HH:mm" );
+                        //For view div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view/" + calEvent.id,
+                            success: function(result) {
+                                $('#viewapptdiv').html(result);
+                            }
+                        });
 
-            });
-            //
-          },
-          editable: true,
+                        //For done div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/calendar',
+                            success: function(result) {
+                                $('#doneapptdiv').html(result);
+                            }
+                        });
 
-          eventClick: function(calEvent, jsEvent, view) {
-            $('#viewAppointmentModal').modal('show');
+                        //For edit div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_edit/" + calEvent.id,
+                            success: function(result) {
+                                $('#editapptdiv').html(result);
+                            }
+                        });
 
-            //For view div
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/view/" + calEvent.id,
-                success: function(result) {
-                    $('#viewapptdiv').html(result);
-                }
-            });
+                        //For cant attend div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/calendar',
+                            success: function(result) {
+                                $('#cantattendapptdiv').html(result);
+                            }
+                        });
 
-            //For done div
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/calendar',
-                success: function(result) {
-                    $('#doneapptdiv').html(result);
-                }
-            });
+                        //For delete attend div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_delete/" + calEvent.id,
+                            success: function(result) {
+                                $('#deleteapptdiv').html(result);
+                            }
+                        });
 
-            //For edit div
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/view_edit/" + calEvent.id,
-                success: function(result) {
-                    $('#editapptdiv').html(result);
-                }
-            });
-
-            //For cant attend div
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/calendar',
-                success: function(result) {
-                    $('#cantattendapptdiv').html(result);
-                }
-            });
-
-            //For delete attend div
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/view_delete/" + calEvent.id,
-                success: function(result) {
-                    $('#deleteapptdiv').html(result);
-                }
-            });
-
-            //For footer div
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url() ?>calendar/view_modalfooter/" + calEvent.id,
-                success: function(result) {
-                    $('#modalfooterdiv').html(result);
-                }
-            });
-          }
+                        //For footer div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_modalfooter/" + calEvent.id,
+                            success: function(result) {
+                                $('#modalfooterdiv').html(result);
+                            }
+                        });
+                    }
         });
-});
+    });
 </script>
 
 <style>
-#calendar {
-    width: 900px;
-    margin: 0 auto;
-}
+    #calendar {
+        width: 900px;
+        margin: 0 auto;
+    }
 </style>
 
 <div id="content" class="col-lg-10 col-sm-12">
@@ -143,49 +140,49 @@ $(document).ready(function() {
                 </div>
 
 
-            <div class="box">
-                <div class="box-header">
-                    <h2><i class="icon-check"></i>Things To-Do</h2>
-                    <div class="box-icon">
-                        <a href="#addTaskModal" data-toggle="modal"><i class="icon-plus"></i></a>
+                <div class="box">
+                    <div class="box-header">
+                        <h2><i class="icon-check"></i>Things To-Do</h2>
+                        <div class="box-icon">
+                            <a href="#addTaskModal" data-toggle="modal"><i class="icon-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Due Date</th>
+                                    <th width="40%">Task</th>
+                                    <th width="20%">Assigned by</th>
+                                    <th width="15%"></th>
+                                </tr>
+                            </thead>   
+                            <tbody>
+                                <?php foreach ($thingstodo as $row) : ?>
+                                    <tr>
+                                        <td class="center"><?php echo $row->dateDue . "<br>(" . $row->daysLeft . " days left)" ?></td>
+                                        <td class="center"><?php echo $row->task ?></td>
+                                        <td class="center"><?php
+                                            if ($this->session->userdata('userid') != $row->assignedBy) {
+                                                echo $row->bfirstName . " " . $row->blastName;
+                                            } else {
+                                                echo "You";
+                                            }
+                                            ?></td>
+                                        <td class="center">
+                                            <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal">
+                                                <i class="icon-ok"></i>  
+                                            </a>
+                                            <a class="btn btn-danger" tite="Delete" href="#deleteTaskModal" data-toggle="modal">
+                                                <i class="icon-trash"></i> 
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table> 
                     </div>
                 </div>
-                <div class="box-content">
-                    <table class="table table-striped table-bordered bootstrap-datatable datatable">
-                        <thead>
-                            <tr>
-                                <th width="15%">Due Date</th>
-                                <th width="40%">Task</th>
-                                <th width="20%">Assigned by</th>
-                                <th width="15%"></th>
-                            </tr>
-                        </thead>   
-                        <tbody>
-                            <?php foreach ($tasks as $row) : ?>
-                                <tr>
-                                    <td class="center"><?php echo $row->dateDue . "<br>(" . $row->daysLeft . " days left)" ?></td>
-                                    <td class="center"><?php echo $row->task ?></td>
-                                    <td class="center"><?php
-                                        if ($this->session->userdata('userid') != $row->assignedBy) {
-                                            echo $row->firstName . " " . $row->lastName;
-                                        } else {
-                                            echo "You";
-                                        }
-                                        ?></td>
-                                    <td class="center">
-                                        <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal">
-                                            <i class="icon-ok"></i>  
-                                        </a>
-                                        <a class="btn btn-danger" tite="Delete" href="#deleteTaskModal" data-toggle="modal">
-                                            <i class="icon-trash"></i> 
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table> 
-                </div>
-            </div>
 
             </div>
         </div>
@@ -322,9 +319,9 @@ $(document).ready(function() {
                                 <div class="controls">
                                     <div id='internsdiv' class="tbl-attendees">
                                         <?php
-                                        $count=0;
-                                        foreach ($allcases as $dd){
-                                            if($count==0){
+                                        $count = 0;
+                                        foreach ($allcases as $dd) {
+                                            if ($count == 0) {
                                                 $interns = $this->Case_model->select_caseinterns($dd->caseID);
                                                 $lawyers = $this->Case_model->select_caselawyers($dd->caseID);
                                             }
@@ -332,25 +329,25 @@ $(document).ready(function() {
                                         }
                                         ?>
                                         <table class='table table-striped'>
-                                            <?php foreach ($interns as $row){ ?>
-                                            <tr>
-                                                <td align='center'>
-                                                    <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
-                                                    <?php if($this->session->userdata('userid')==$row->personID) echo 'checked'; ?>
-                                                    />
-                                                </td>
-                                                <td><?php echo "$row->firstname $row->lastname" ?></td>
-                                            </tr>
+                                            <?php foreach ($interns as $row) { ?>
+                                                <tr>
+                                                    <td align='center'>
+                                                        <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
+                                                        <?php if ($this->session->userdata('userid') == $row->personID) echo 'checked'; ?>
+                                                               />
+                                                    </td>
+                                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
+                                                </tr>
                                             <?php } ?>
-                                            <?php foreach ($lawyers as $row){ ?>
-                                            <tr>
-                                                <td align='center'>
-                                                    <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
-                                                    <?php if($this->session->userdata('userid')==$row->personID) echo 'checked'; ?>
-                                                    />
-                                                </td>
-                                                <td><?php echo "$row->firstname $row->lastname" ?></td>
-                                            </tr>
+                                            <?php foreach ($lawyers as $row) { ?>
+                                                <tr>
+                                                    <td align='center'>
+                                                        <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
+                                                        <?php if ($this->session->userdata('userid') == $row->personID) echo 'checked'; ?>
+                                                               />
+                                                    </td>
+                                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
+                                                </tr>
                                             <?php } ?>
                                         </table>
                                     </div>
@@ -421,115 +418,115 @@ $(document).ready(function() {
         </div>
         <!-- END OF MODAL : VIEW Appointment -->
 
-                    <!-- START OF MODAL : ADD Task -->
-    <div class="row">
+        <!-- START OF MODAL : ADD Task -->
+        <div class="row">
 
-        <div class="modal fade" id="addTaskModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Add New Task</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="col-sm-4 control-group">
-                            <div class="controls">
-                                <center> <h5> Task </h5> </center>
-                            </div>
+            <div class="modal fade" id="addTaskModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Add New Task</h4>
                         </div>
+                        <div class="modal-body">
 
-                        <div class="col-sm-7 control-group">
-                            <div class="controls">
-                                <?php echo form_input(array('class' => 'form-control')); ?>
-                            </div>
-                        </div>
-
-                        <br><br>
-
-                        <div class="col-sm-4 control-group">
-                            <div class="controls">
-                                <center> <h5> Due Date </h5> </center>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-7 control-group">
-                            <div class="controls">
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                    <input type="text" class="form-control date-picker" id="taskduedate" name="taskduedate" data-date-format="yyyy-mm-dd" value="<?php echo $datenow;?>">
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5> Task </h5> </center>
                                 </div>
                             </div>
-                        </div>
 
-                        <br><br>
-
-                        <div class="col-sm-4 control-group">
-                            <div class="controls">
-                                <center> <h5> Assign To</h5> </center>
+                            <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                    <?php echo form_input(array('class' => 'form-control')); ?>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-7 control-group">
-                            <div class="controls">
-                                <div id='internsdiv' class="tbl-attendees">
+                            <br><br>
+
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5> Due Date </h5> </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                        <input type="text" class="form-control date-picker" id="taskduedate" name="taskduedate" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5> Assign To</h5> </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                    <div id='internsdiv' class="tbl-attendees">
                                         <table class='table table-striped'>
-                                            <?php foreach ($caseinterns as $row){ ?>
-                                            <tr>
-                                                <td align='center'>
-                                                    <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
-                                                    <?php if($this->session->userdata('userid')==$row->personID) echo 'checked'; ?>
-                                                    />
-                                                </td>
-                                                <td><?php echo "$row->firstname $row->lastname" ?></td>
-                                            </tr>
+                                            <?php foreach ($caseinterns as $row) { ?>
+                                                <tr>
+                                                    <td align='center'>
+                                                        <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>"
+                                                        <?php if ($this->session->userdata('userid') == $row->personID) echo 'checked'; ?>
+                                                               />
+                                                    </td>
+                                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
+                                                </tr>
                                             <?php } ?>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+
+                            <br><br><br><br><br><br>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success">Confirm</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+        </div>
+        <!-- END OF MODAL : ADD Task -->
+
+        <!-- START OF MODAL : DONE Task -->
+        <div class="row">
+
+            <div class="modal fade" id="doneTaskModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Task</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>To confirm this action, please briefly discuss what you did for the task:</p>
+                            <div class="controls">
+                                <textarea id="limit" rows="6" style="width:100%"></textarea>
                             </div>
                         </div>
-
-                        <br><br><br><br><br><br>
-
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Confirm</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-    </div>
-    <!-- END OF MODAL : ADD Task -->
-
-    <!-- START OF MODAL : DONE Task -->
-    <div class="row">
-
-        <div class="modal fade" id="doneTaskModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Task</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>To confirm this action, please briefly discuss what you did for the task:</p>
-                        <div class="controls">
-                            <textarea id="limit" rows="6" style="width:100%"></textarea>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success">Confirm</button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Confirm</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
-    </div>
-    <!-- END OF MODAL : DONE Task -->
+        </div>
+        <!-- END OF MODAL : DONE Task -->
 
     </div>
 </div>

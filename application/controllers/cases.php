@@ -1304,6 +1304,7 @@ class Cases extends CI_Controller {
                 'assignedTo' => $intern,
                 'dateAssigned' => $datetimenow,
                 'notes' => $notes,
+                'dateDue' => $taskduedate
             );
 
             $this->Case_model->insert_task($changes);

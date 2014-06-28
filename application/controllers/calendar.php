@@ -55,11 +55,13 @@ class Calendar extends CI_Controller {
                 break;
             case 4 :
                 $data['allcases'] = $this->Case_model->select_usercases($uid);
+                $data['thingstodo'] = $this->Task_model->select_theirtask($uid);
                 $this->load->view('lawyer/menubar', $data);
                 $this->load->view('lawyer/calendar', $data);
                 break;
             case 5 :
                 $data['allcases'] = $this->Case_model->select_usercases($uid);
+                $data['thingstodo'] = $this->Task_model->select_mytask($uid);
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/calendar', $data);
                 break;
