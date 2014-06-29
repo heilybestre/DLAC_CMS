@@ -229,8 +229,7 @@
 }
 
 
-#timeline-div{  
-    height: 888px !important;
+#timeline-div{
     overflow: scroll;
 }​
 
@@ -435,11 +434,14 @@ tabletags{
     margin: auto;
 }
 
-.highlight
-{
+.highlight{
     background-color: yellow !important;
     outline: none;
     display: inline !important;
     font-size:inherit !important;
-    
+}
+
+.timelineboxcontent{
+    height:1000px;
+    overflow:scroll;    
 }

@@ -179,8 +179,11 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-header"><h2><i class="icon-time"></i>Timeline</h2>
+                    <div class="col-lg-6 pull-right" style='margin: 4px 10px 0 0'>
+                        <?php echo form_input(array('id' => 'searchtimeline', 'name' => 'searchtimeline', 'placeholder' => 'Search Timeline', 'class' => 'form-control')); ?>
+                    </div>
                 </div>
-                <div class="box-content" id="boxcontent" style="min-height:1000px; max-height:1000px; overflow:scroll;">
+                <div class="box-content timelineboxcontent" id="boxcontent">
 
                     <!-- START - 4: TRIAL COURT (TC)-->
                     <?php if ($caselog_stage4 != null) { ?>

@@ -184,7 +184,7 @@
                         <?php echo form_input(array('id' => 'searchtimeline', 'name' => 'searchtimeline', 'placeholder' => 'Search Timeline', 'class' => 'form-control')); ?>
                     </div>
                 </div>
-                <div class="box-content" id="boxcontent" style="min-height:1000px; max-height:1000px; overflow:scroll;">
+                <div class="box-content timelineboxcontent" id="boxcontent">
 
                     <!-- START - 4: TRIAL COURT (TC)-->
                     <?php if ($caselog_stage4 != null) { ?>
