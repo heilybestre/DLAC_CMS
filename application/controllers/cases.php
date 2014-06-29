@@ -343,7 +343,8 @@ class Cases extends CI_Controller {
         // </editor-fold>
 
         $data['case'] = $this->Case_model->select_case($cid);
-
+        $data['caseinterns'] = $this->Case_model->select_caseinterns($cid);
+        
         $datestring = "%Y-%m-%d"; //"%m/%d/%Y";
         $timestring = "%h:%i %a";
         $time = now();
@@ -371,7 +372,7 @@ class Cases extends CI_Controller {
             case 4 :
                 $data['casecondition'] = $this->Case_model->select_condition($cid);
                 $data['thingstodo'] = $this->Case_model->select_theircasetask($cid, $uid);
-
+                
                 $this->load->view('lawyer/menubar', $data);
                 $this->load->view('lawyer/caseFolder', $data);
                 break;
