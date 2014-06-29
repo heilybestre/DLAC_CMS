@@ -1286,7 +1286,7 @@ class Cases extends CI_Controller {
         );
 
         $this->Task_model->insert_task($changes);
-        redirect("ases/caseFolder/$cid?tid=events");
+        redirect("cases/caseFolder/$cid?tid=events");
     }
 
     function addTask($cid) {

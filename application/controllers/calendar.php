@@ -55,13 +55,11 @@ class Calendar extends CI_Controller {
                 break;
             case 4 :
                 $data['allcases'] = $this->Case_model->select_usercases($uid);
-                $data['thingstodo'] = $this->Task_model->select_theirtask($uid);
                 $this->load->view('lawyer/menubar', $data);
                 $this->load->view('lawyer/calendar', $data);
                 break;
             case 5 :
                 $data['allcases'] = $this->Case_model->select_usercases($uid);
-                $data['thingstodo'] = $this->Task_model->select_mytask($uid);
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/calendar', $data);
                 break;
@@ -159,18 +157,43 @@ class Calendar extends CI_Controller {
     function caseevents($cid) {
         $schedules = $this->Calendar_model->select_caseschedule($cid);
         $case = $this->Case_model->select_case($cid);
+        $caseinternsandlawyers = $this->Case_model->select_caseinternsandlawyers($cid);
 
         $events = array();
+        $eventsID = array();
 
-        foreach ($schedules as $row) {
-            $events[] = array(
-                'id' => "$row->scheduleID",
-                'title' => "$row->title ($case->caseNum)",
-                'start' => "$row->start",
-                'end' => "$row->end",
-                'allDay' => false
-            );
+        foreach ($caseinternsandlawyers as $row) {
+            $userevents = $this->Calendar_model->select_userschedule($row->personID);
+            $bgcolor = '';
+            $bordercolor = '';
+
+            foreach ($userevents as $event) {
+
+                if (!in_array($event->scheduleID, $eventsID)) {
+                    
+                    if ($event->caseID == $cid) {
+                        $bgcolor = '#B4D880 !important';
+                        $bordercolor = '#B4D880 !important';
+                    } else {
+                        $bgcolor = '#D3D3D3 !important';
+                        $bordercolor = '#D3D3D3 !important';
+                    }
+
+                    $events[] = array(
+                        'id' => "$event->scheduleID",
+                        'title' => "$event->title ($case->caseNum)",
+                        'backgroundColor' => $bgcolor,
+                        'borderColor' => $bordercolor,
+                        'start' => "$event->start",
+                        'end' => "$event->end",
+                        'allDay' => false
+                    );
+
+                    array_push($eventsID, $event->scheduleID);
+                }
+            }
         }
+
         echo json_encode($events);
     }
 

@@ -60,7 +60,7 @@ class Case_model extends CI_Model {
             $query = $this->db->query("SELECT * 
     			FROM  `case_people` 
     			JOIN  `case` ON  `case_people`.caseID =  `case`.caseID
-    			WHERE personID = $uid");
+    			WHERE personID = $uid AND `case`.`status` = 3");
         }
 
         return $query->result();
@@ -187,6 +187,16 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
+    function select_caseinternsandlawyers($cid) {
+        $query = $this->db->query("SELECT * FROM case_people 
+                    JOIN people ON `people`.`personID` = `case_people`.`personID` 
+                    WHERE caseID = $cid 
+                    AND (`people`.`type` = 5 
+                    AND (`condition` = 'current' OR `condition` = 'applytotransfer'))
+                    OR (caseID = 25 AND `people`.`type` = 4 AND `condition` = 'current')");
+        return $query->result();
+    }
+
     function select_closecaselawyers($cid) {
         $query = $this->db->query("SELECT * FROM case_people JOIN people ON `people`.`personID` = `case_people`.`personID` WHERE caseID = $cid AND `people`.`type` = 4 AND `condition` = 'expired' ORDER BY dateend DESC, datestart DESC");
         return $query->result();
@@ -269,7 +279,7 @@ class Case_model extends CI_Model {
         $query = $this->db->query("SELECT * from ref_action_category where racID = $racID");
         return $query->row();
     }
-    
+
     function select_action($apid) {
         $query = $this->db->query("SELECT * FROM actionplan WHERE actionplanID = $apid");
         return $query->row();
