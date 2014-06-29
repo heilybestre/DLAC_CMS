@@ -75,11 +75,14 @@
         $(selector).chosen(config[selector]);
     }
 
-    $("#btnSearchTimeline").live('click', function() {
-        var word = 'Assigned';
+    $("#searchtimeline").live('keyup', function() {
+        var word = $('#searchtimeline').val();
         var $div = $('span.details');
+        var $div2 = $('div.time');
         $div.removeHighlight();
+        $div2.removeHighlight();
         $div.highlight(word);
+        $div2.highlight(word);
     });
 
     //customized datatables
