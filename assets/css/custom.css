@@ -434,3 +434,12 @@ tabletags{
     display: block;
     margin: auto;
 }
+
+.highlight
+{
+    background-color: yellow !important;
+    outline: none;
+    display: inline !important;
+    font-size:inherit !important;
+    
+}
