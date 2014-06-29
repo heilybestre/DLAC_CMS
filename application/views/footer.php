@@ -84,10 +84,10 @@
         $div.highlight(word);
         $div2.highlight(word);
     });
-
+    
     //customized datatables
     $(document).ready(function() {
-
+        
         $('.popover-orig').popover({
             html: true,
             content: function() {
@@ -147,7 +147,14 @@
         $('#casestable').dataTable({
             "aaSorting": [[3, "desc"]]
         });
+        
+        // Fix datatables pagination in dashboard
+        var segment = "<?php echo $this->uri->segment(1) ?>";
+        if(segment=='dashboard'){
+            $('div.dataTables_paginate').css('margin-top', '-25px');
+        }
     });
+    
     // Load calendar on Events Tab
     $(document).ready(function() {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
