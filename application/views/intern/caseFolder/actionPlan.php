@@ -31,7 +31,7 @@
     <!-- Action plan is APPROVED  -->
     <?php if ($actionplanstatus == 'approved') { ?>
         <!--if approved-->
-        <div class="row">
+        <div class="row" id="actionplanapproveddiv">
             <div class="col-lg-4">
                 <h5>Action Plan Status:<label class="label label-success">Approved</label></h5>
                 <br>
@@ -40,7 +40,7 @@
             <br>
             <div class="col-lg-5 pull-right">
                 <div class='pull-right'>
-                    <a href="" id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
+                    <a id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
                     <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
                 </div>
             </div>
@@ -101,6 +101,10 @@
             <?php echo form_submit(array('id' => 'saveactionplanbtn', 'name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Save'); ?>
             <div id='cancelactionplanbtn' class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</div>
         </div>
+        <div id='actionplanbuttonseditdiv' class='hide pull-right' style='margin-right: 50px;'>
+            <?php echo form_submit(array('id' => 'saveactionplanbtnEDITED', 'name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Save'); ?>
+            <a href="" class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</a>
+        </div>
 
         <div id='actionplanbuttonsbrdiv' class='hide'>
             <br><br><br>
@@ -123,7 +127,7 @@
                             <td>
                                 <input name='actionname1[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype1[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
                                 <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
@@ -148,12 +152,12 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                            <a class="btn btn-info editActionButton hide" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton hide" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type:</b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -254,7 +258,7 @@
                             <td>
                                 <input name='actionname2[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype2[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
                                 <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
@@ -270,12 +274,12 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                            <a class="btn btn-info editActionButton hide" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton hide" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type:</b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -375,7 +379,7 @@
                             <td>
                                 <input name='actionname3[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype3[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>" >
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
                                 <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
@@ -390,12 +394,12 @@
                                                     <b>Assigned to </b><label class="label label-default">None</label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                            <a class="btn btn-info editActionButton hide" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton hide" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?></label></h5>
+                                                <h5><b>Type:</b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?></label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -495,7 +499,7 @@
                             <td>
                                 <input name='actionname4[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype4[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
                                 <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
@@ -511,12 +515,12 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                            
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                            <a class="btn btn-info editActionButton hide" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
+                                                            <a class="btn btn-danger deleteActionButton hide" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b> <label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type:</b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
