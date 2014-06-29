@@ -105,32 +105,33 @@ class Application extends CI_Controller {
         }
 
         foreach ($offense as $o) {
-            
-            foreach ($this->People_model->select_non_specialized($o->offenseID) as $non) {
-                
-                $trial = false;
-                
-                foreach ($data['specialize'] as $specialize) {
 
-                    if ($specialize[0]->personID == $non->personID){
-                        $trial = true;
-                    } 
+            foreach ($this->People_model->select_non_specialized($o->offenseID) as $non) {
+
+                $trial = false;
+
+                $error = array_filter($data['specialize']);
+                if (!empty($error)) {
+                    foreach ($data['specialize'] as $specialize) {
+
+                        if ($specialize[0]->personID == $non->personID) {
+                            $trial = true;
+                        }
+                    }
                 }
-                
-                if($trial==false){
-                    
+
+                if ($trial == false) {
+
                     $trial2 = false;
                     foreach ($data['nonspecialize'] as $nonspecialize) {
-                        if ($nonspecialize->personID == $non->personID){
+                        if ($nonspecialize->personID == $non->personID) {
                             $trial2 = true;
-                        } 
-                    }                    
-                    if($trial2==false){
-                        array_push($data['nonspecialize'], $non);     
+                        }
                     }
-                    
+                    if ($trial2 == false) {
+                        array_push($data['nonspecialize'], $non);
+                    }
                 }
-                
             }
         }
 

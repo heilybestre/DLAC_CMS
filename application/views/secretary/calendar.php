@@ -72,7 +72,7 @@
             </div>
 
             <!-- Task Assigned -->
-            <div class="box" style="font-size:13px;">
+            <div class="box hide" style="font-size:13px;">
                 <div class="box-header">
                     <h2><i class="icon-tasks"></i>Tasks Assigned</h2>
                     <div class="box-icon">
