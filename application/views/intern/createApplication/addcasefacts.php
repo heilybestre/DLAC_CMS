@@ -1,5 +1,3 @@
-
-
 <div id='casefacts_form' class="container">
 
     <div class="row">
@@ -335,7 +333,7 @@
                 <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
                     <option>Attempted</option>
                     <option>Frustrated</option>
-                    <option>Consumated</option>
+                    <option>Consummated</option>
                     <option>N/A</option>
                 </select>
                 <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>

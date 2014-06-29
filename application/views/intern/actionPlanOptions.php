@@ -1,10 +1,11 @@
+<!--intern-->
 <div id="actionPlanOption" class="actionPlanOption">
 
 <div id="actionPlanOption-top">
 <h5>
     <b>Assigned to </b><label class="label label-default">None</label>
     <div id="actionPlanActionButtons" class="pull-right">
-        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-ok"></i> </a>
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
@@ -12,10 +13,10 @@
     <h5><b>Type:</b> (Document)</h5>
 
 </div>
-    
+      
 <div id="actionPlanOption-center-notes">
 
-    <h5>Notes</b></h5>
+    <h5><b>Notes</b></h5>
     <textarea class="diss-form" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
     <a href="" class="btn btn-success pull-right">Send</a>
 
@@ -106,7 +107,7 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">None</label>
     <div id="actionPlanActionButtons" class="pull-right">
-        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-ok"></i> </a>
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info editActionButton" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
@@ -198,6 +199,7 @@
 <h5>
     <b>Assigned to </b><label class="label label-default">Name</label>    
     <div id="actionPlanActionButtons" class="pull-right">
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info editActionButton2" id="editActionButton2"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger deleteActionButton2" id="deleteActionButton2"><i class="icon-trash"></i> </a>
     </div>
@@ -335,6 +337,7 @@
 <h5>
     <b>Last Edited by: </b><label class="label label-default">Name</label>    
     <div id="actionPlanActionButtons" class="pull-right">
+        <a class="btn btn-success getActionButton" id="getActionButton"> <i class="icon-user"></i> </a>
         <a class="btn btn-info" id="editActionButton"><i class="icon-edit"></i> </a>
         <a class="btn btn-danger" id="deleteActionButton"><i class="icon-trash"></i> </a>
     </div>
@@ -417,5 +420,7 @@
 
 </div>
 <!-- END OF EDITING -->
+
+
 
 

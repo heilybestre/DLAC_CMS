@@ -147,7 +147,7 @@
                                                     </label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
-                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                            
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
@@ -269,7 +269,7 @@
                                                     <b>Assigned to </b><label class="label label-default">None</label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
-                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                            
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
@@ -390,7 +390,6 @@
                                                     <b>Assigned to </b><label class="label label-default">None</label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
-                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
@@ -511,7 +510,7 @@
                                                     <b>Assigned to </b><label class="label label-default"></label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
-                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
+                                                           
                                                             <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
                                                             <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>

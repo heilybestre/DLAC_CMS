@@ -43,6 +43,8 @@
 <script src="<?= base_url() ?>assets/js/pages/index.js"></script>
 <script src="<?= base_url() ?>assets/js/pages/table.js"></script>
 
+<script src="<?= base_url() ?>assets/js/bootstrapValidator.js"></script>
+
 <!-- end: JavaScript-->
 
 
@@ -85,6 +87,7 @@
                 return $("#popover-orig-content_" + x).html();
             }
         });
+   
         $("#dashboard-appo").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
@@ -599,17 +602,25 @@
         $('#actionplandiv').addClass('disable fadedopp');
         $('#editingdiv').addClass('hide');
         $('#btncreateactionplan').removeClass('hide');
+        $("#actionPlanOption-center-assign_" + x).addClass('hide');
     });
+    
     $(".getActionButton").live('click', function() {
         var x = $(this).attr('id').substring(16);
-        alert("ID : " + x);
+        $('#actionPlanOption-center-writeNotes_' + x).addClass('hide');
+        $("#actionPlan-bottom-notes_" + x).addClass('hide');
+        $("#actionPlanActionButtons_" + x).removeClass('hide');
+        $("#actionPlanOption-center-assign_" + x).removeClass('hide');
     });
+    
     $(".sendActionNotes").live('click', function() {
         var x = $(this).attr('id').substring(16);
         var note = $('#actionWriteNotes_' + x).val();
         alert(note);
         $('#actionWriteNotes_' + x).val('');
     });
+    
+    
     //EDIT ACTIONS start
     $(".editActionButton").live('click', function() {
         var x = $(this).attr('id').substring(17);
@@ -617,6 +628,7 @@
         $("#actionPlan-bottom-notes_" + x).addClass('hide');
         $("#actionPlanActionButtons_" + x).addClass('hide');
         $("#actionPlanOption-center-edit_" + x).removeClass('hide');
+        $("#actionPlanOption-center-assign_" + x).addClass('hide');
         //set Action and Type input
         var actionName = $('#actionNameLabel_' + x).text();
         $('#editAction_' + x).attr('value', actionName);
@@ -656,6 +668,7 @@
         $("#actionPlan-bottom-notes_" + x).addClass('hide');
         $("#actionPlanActionButtons_" + x).addClass('hide');
         $("#actionPlanOption-center-delete_" + x).removeClass('hide');
+        $("#actionPlanOption-center-assign_" + x).addClass('hide');
     });
     $(".cancelDeleteButton").live('click', function() {
         var x = $(this).attr('id').substring(19);
@@ -663,10 +676,12 @@
         $("#actionPlan-bottom-notes_" + x).removeClass('hide');
         $("#actionPlanActionButtons_" + x).removeClass('hide');
         $("#actionPlanOption-center-delete_" + x).addClass('hide');
+        $("#actionPlanOption-center-assign_" + x).addClass('hide');
     });
     $(".okayDeleteButton").live('click', function() {
         var x = $(this).attr('id').substring(17);
         $('#actionTableRow_' + x).remove();
+        
     });
     //end of DELETE ACTIONS
 
@@ -801,6 +816,7 @@
         $('#newaction').val('');
         $('#newactiontype').val(1);
     });
+    
 
     /* ACTION PLAN (START) ------------------------------------------------------------------------ */
 
@@ -849,9 +865,6 @@
         $('#actionPlanOption4').removeClass('hide');
     });
 
-    $(document).on('click', '.getActionButton', function() {
-        $(this).hide;
-    });
 
     $(document).on('click', '.editActionButton', function() {
         $('#editAction').removeClass('hide');
