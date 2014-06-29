@@ -20,7 +20,7 @@
                 <h5>
                     <b>Offense:</b> <?php foreach ($caseoffense as $off) : ?>
                         <label class="label label-danger">
-                            <?php echo "$off->offense ($off->stage)" ?>
+                            <?php echo "$off->offenseName ($off->stage)" ?>
                         </label>
                     <?php endforeach; ?>
 
