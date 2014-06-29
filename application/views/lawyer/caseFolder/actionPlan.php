@@ -3,7 +3,7 @@
     <!--  -->
     <label id="usernameforaction" class="hide"><?= $name; ?></label>
     <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
-    
+
     <!-- Action plan is PENDING | Waiting for lawyer's response -->
     <?php if ($actionplanstatus == 'pending') { ?>
         <!-- upon submission of intern -->
@@ -36,14 +36,7 @@
                 <h5>Action Plan Status:<label class="label label-success">Approved</label></h5>
                 <br>
             </div>
-
             <br>
-            <div class="col-lg-5 pull-right">
-                <div class='pull-right'>
-                    <a href="" id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
-                    <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
-                </div>
-            </div>
         </div>
     <?php } ?>
 
@@ -112,7 +105,6 @@
             </h3> 
             <ul class="todo-list">
                 <table id='action1table' class="table table-condensed" style="background-color:white;">
-                    <?php $stage1count = 1; ?>
                     <?php foreach ($actionplan_stage1 as $action) : ?>
                         <tr id="actionTableRow_<?= $action->actionplanID ?>">
                             <td><input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php
@@ -148,12 +140,10 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -163,71 +153,29 @@
                                                 <br><br>
                                             </div>
 
-                                            <!--Edit-->
-                                            <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
-                                                <div class="col-lg-3">
-                                                    <h5>Action:</h5>
-                                                </div>
-
-                                                <div class="col-lg-9">
-                                                    <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?>
-                                                </div>
-
-                                                <br><br>
-
-                                                <div class="col-lg-3">
-                                                    <h5>Type:</h5>
-                                                </div>
-
-                                                <div class="col-lg-5">
-                                                    <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
-                                                        <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-lg-3">
-                                                    <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
-                                                    <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
-                                                </div>
-
-                                                <br><br><br>
-                                            </div>
-                                            
+                                            <!--Assign-->
                                             <div id="actionPlanOption-center-assign_<?= $action->actionplanID ?>" class="hide">
-                                                    
                                                 <hr>
-                                                    <div id="assignAction">
+                                                <div id="assignAction">
 
-                                                        <h5><b>Assign to: </b></h5>
-                                                        <table class="table table-striped">
+                                                    <h5><b>Assign to: </b></h5>
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th>Intern</th>
+                                                            <th>Experience</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <?php foreach ($caseinterns as $intern) { ?>
                                                             <tr>
-                                                                <th>Intern</th>
-                                                                <th>Experience</th>
-                                                                <th></th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>(Intern Name)</td>
-                                                                <td>(12)</td>
+                                                                <td><?= "$intern->firstname $intern->lastname" ?></td>
+                                                                <td>(##)</td>
                                                                 <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
                                                             </tr>
-                                                        </table>
-
-                                                    </div>
-
-
+                                                        <?php } ?>
+                                                    </table>
                                                 </div>
-
-                                            <!--Delete-->
-                                            <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
-                                                <h4><center>Are you sure you want to delete this item?</center></h4> 
-                                                <div class='centerdiv' style='width:20%'>
-                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                    <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>
-                                                </div>
-                                                <br><br>
                                             </div>
+
 
                                             <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
                                                 <hr>
@@ -259,7 +207,6 @@
                                     </form>
                                 </div>
                             </td>
-                            <?php $stage1count++; ?>
                         </tr>
                     <?php endforeach; ?>
                 </table>
@@ -290,16 +237,23 @@
 
                                             <div id="actionPlanOption-top">
                                                 <h5>
-                                                    <b>Assigned to </b><label class="label label-default">None</label>
+                                                    <b>Assigned to </b>
+                                                    <label class="label label-default">
+                                                        <?php
+                                                        if ($action->assignedTo != null) {
+                                                            echo $this->People_model->getuserfield('firstname', $action->assignedTo);
+                                                        } else {
+                                                            echo 'None';
+                                                        }
+                                                        ?>
+                                                    </label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -309,70 +263,29 @@
                                                 <br><br>
                                             </div>
 
-                                            <!--Edit-->
-                                            <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
-                                                <div class="col-lg-3">
-                                                    <h5>Action:</h5>
-                                                </div>
-
-                                                <div class="col-lg-9">
-                                                    <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?>
-                                                </div>
-
-                                                <br><br>
-
-                                                <div class="col-lg-3">
-                                                    <h5>Type:</h5>
-                                                </div>
-
-                                                <div class="col-lg-5">
-                                                    <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
-                                                        <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-lg-3">
-                                                    <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
-                                                    <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
-                                                </div>
-
-                                                <br><br><br>
-                                            </div>
-                                            
+                                            <!--Assign-->
                                             <div id="actionPlanOption-center-assign_<?= $action->actionplanID ?>" class="hide">
                                                 <hr>
-                                                    <div id="assignAction">
+                                                <div id="assignAction">
 
-                                                        <h5><b>Assign to: </b></h5>
-                                                        <table class="table table-striped">
+                                                    <h5><b>Assign to: </b></h5>
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th>Intern</th>
+                                                            <th>Experience</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <?php foreach ($caseinterns as $intern) { ?>
                                                             <tr>
-                                                                <th>Intern</th>
-                                                                <th>Experience</th>
-                                                                <th></th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>(Intern Name)</td>
-                                                                <td>(12)</td>
+                                                                <td><?= "$intern->firstname $intern->lastname" ?></td>
+                                                                <td>(##)</td>
                                                                 <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
                                                             </tr>
-                                                        </table>
-
-                                                    </div>
-
-
+                                                        <?php } ?>
+                                                    </table>
                                                 </div>
-
-                                            <!--Delete-->
-                                            <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
-                                                <h4><center>Are you sure you want to delete this item?</center></h4> 
-                                                <div class='centerdiv' style='width:20%'>
-                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                    <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>
-                                                </div>
-                                                <br><br>
                                             </div>
+
 
                                             <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
                                                 <hr>
@@ -434,16 +347,23 @@
 
                                             <div id="actionPlanOption-top">
                                                 <h5>
-                                                    <b>Assigned to </b><label class="label label-default">None</label>
+                                                    <b>Assigned to </b>
+                                                    <label class="label label-default">
+                                                        <?php
+                                                        if ($action->assignedTo != null) {
+                                                            echo $this->People_model->getuserfield('firstname', $action->assignedTo);
+                                                        } else {
+                                                            echo 'None';
+                                                        }
+                                                        ?>
+                                                    </label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b><label id="actionTypeLabel_<?= $action->actionplanID ?>"> <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?></label></h5>
+                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -453,70 +373,29 @@
                                                 <br><br>
                                             </div>
 
-                                            <!--Edit-->
-                                            <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
-                                                <div class="col-lg-3">
-                                                    <h5>Action:</h5>
-                                                </div>
-
-                                                <div class="col-lg-9">
-                                                    <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?>
-                                                </div>
-
-                                                <br><br>
-
-                                                <div class="col-lg-3">
-                                                    <h5>Type:</h5>
-                                                </div>
-
-                                                <div class="col-lg-5">
-                                                    <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
-                                                        <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-lg-3">
-                                                    <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
-                                                    <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
-                                                </div>
-
-                                                <br><br><br>
-                                            </div>
-                                            
+                                            <!--Assign-->
                                             <div id="actionPlanOption-center-assign_<?= $action->actionplanID ?>" class="hide">
                                                 <hr>
-                                                    <div id="assignAction">
+                                                <div id="assignAction">
 
-                                                        <h5><b>Assign to: </b></h5>
-                                                        <table class="table table-striped">
+                                                    <h5><b>Assign to: </b></h5>
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th>Intern</th>
+                                                            <th>Experience</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <?php foreach ($caseinterns as $intern) { ?>
                                                             <tr>
-                                                                <th>Intern</th>
-                                                                <th>Experience</th>
-                                                                <th></th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>(Intern Name)</td>
-                                                                <td>(12)</td>
+                                                                <td><?= "$intern->firstname $intern->lastname" ?></td>
+                                                                <td>(##)</td>
                                                                 <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
                                                             </tr>
-                                                        </table>
-
-                                                    </div>
-
-
+                                                        <?php } ?>
+                                                    </table>
                                                 </div>
-
-                                            <!--Delete-->
-                                            <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
-                                                <h4><center>Are you sure you want to delete this item?</center></h4> 
-                                                <div class='centerdiv' style='width:20%'>
-                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                    <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>
-                                                </div>
-                                                <br><br>
                                             </div>
+
 
                                             <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
                                                 <hr>
@@ -578,16 +457,23 @@
 
                                             <div id="actionPlanOption-top">
                                                 <h5>
-                                                    <b>Assigned to </b><label class="label label-default"></label>
+                                                    <b>Assigned to </b>
+                                                    <label class="label label-default">
+                                                        <?php
+                                                        if ($action->assignedTo != null) {
+                                                            echo $this->People_model->getuserfield('firstname', $action->assignedTo);
+                                                        } else {
+                                                            echo 'None';
+                                                        }
+                                                        ?>
+                                                    </label>
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
-                                                           <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
-                                                            <a class="btn btn-info editActionButton" id="editActionButton_<?= $action->actionplanID ?>"><i class="icon-edit"></i> </a>
-                                                            <a class="btn btn-danger deleteActionButton" id="deleteActionButton_<?= $action->actionplanID ?>"><i class="icon-trash"></i> </a>
+                                                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type:</b> <label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -597,70 +483,29 @@
                                                 <br><br>
                                             </div>
 
-                                            <!--Edit-->
-                                            <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>" class="hide">
-                                                <div class="col-lg-3">
-                                                    <h5>Action:</h5>
-                                                </div>
-
-                                                <div class="col-lg-9">
-                                                    <?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?>
-                                                </div>
-
-                                                <br><br>
-
-                                                <div class="col-lg-3">
-                                                    <h5>Type:</h5>
-                                                </div>
-
-                                                <div class="col-lg-5">
-                                                    <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
-                                                        <?php foreach ($actioncategory as $category) : ?>
-                                                            <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-lg-3">
-                                                    <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
-                                                    <a class="btn btn-danger cancelEditButton" id="cancelEditButton_<?= $action->actionplanID ?>"> <i class="icon-ban-circle"></i> </a>
-                                                </div>
-
-                                                <br><br><br>
-                                            </div>
-                                            
+                                            <!--Assign-->
                                             <div id="actionPlanOption-center-assign_<?= $action->actionplanID ?>" class="hide">
                                                 <hr>
-                                                    <div id="assignAction">
+                                                <div id="assignAction">
 
-                                                        <h5><b>Assign to: </b></h5>
-                                                        <table class="table table-striped">
+                                                    <h5><b>Assign to: </b></h5>
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th>Intern</th>
+                                                            <th>Experience</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <?php foreach ($caseinterns as $intern) { ?>
                                                             <tr>
-                                                                <th>Intern</th>
-                                                                <th>Experience</th>
-                                                                <th></th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>(Intern Name)</td>
-                                                                <td>(12)</td>
+                                                                <td><?= "$intern->firstname $intern->lastname" ?></td>
+                                                                <td>(##)</td>
                                                                 <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
                                                             </tr>
-                                                        </table>
-
-                                                    </div>
-
-
+                                                        <?php } ?>
+                                                    </table>
                                                 </div>
-
-                                            <!--Delete-->
-                                            <div id="actionPlanOption-center-delete_<?= $action->actionplanID ?>" class="hide">
-                                                <h4><center>Are you sure you want to delete this item?</center></h4> 
-                                                <div class='centerdiv' style='width:20%'>
-                                                    <a class="btn btn-success okayDeleteButton" id="okayDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-ok"></i> </a>
-                                                    <a class="btn btn-danger cancelDeleteButton" id="cancelDeleteButton_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </a>
-                                                </div>
-                                                <br><br>
                                             </div>
+
 
                                             <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
                                                 <hr>
