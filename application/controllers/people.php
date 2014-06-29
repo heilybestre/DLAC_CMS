@@ -241,7 +241,7 @@ class People extends CI_Controller {
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
-        $data['residency'] = $this->People_model->select_residency('2014-03-10');
+        $data['residency'] = $this->People_model->select_residency('2014-06-28');
 
         $this->load->view('header');
         $this->load->view('secretary/menubar', $data);

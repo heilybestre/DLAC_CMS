@@ -66,7 +66,7 @@ class Application extends CI_Controller {
         if (empty($uid)) {
             redirect('login/index');
         }
-        
+
         $utype = $this->People_model->getuserfield('type', $uid);
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
@@ -93,22 +93,44 @@ class Application extends CI_Controller {
         //$data['lawyers'] = $this->People_model->select_lawyers();
         $offense = $this->Case_model->select_caseoffense($cid);
 
+        //$data['specialize'] = array();
+        //$data['nonspecialize'] = array();
+
         $data['specialize'] = array();
         $data['nonspecialize'] = array();
 
         foreach ($offense as $o) {
             array_push($data['specialize'], $this->People_model->select_specialized($o->offenseID));
-            foreach ($data['specialize'] as $spe) {
+            //array_push($nonspecialize, $this->People_model->select_specialized($o->offenseID));
+        }
 
-                foreach ($this->People_model->select_non_specialized($o->offenseID) as $non) {
-                    if ($spe[0]->personID == $non->personID && in_array($non->personID, $data['nonspecialize'], true)) {
-                        
-                    } else {
+        foreach ($offense as $o) {
+            
+            foreach ($this->People_model->select_non_specialized($o->offenseID) as $non) {
+                
+                $trial = false;
+                
+                foreach ($data['specialize'] as $specialize) {
 
-                        array_push($data['nonspecialize'], $non);
-                        echo 'nagpush sa non specializr' . $non->firstname . '<br>';
-                    }
+                    if ($specialize[0]->personID == $non->personID){
+                        $trial = true;
+                    } 
                 }
+                
+                if($trial==false){
+                    
+                    $trial2 = false;
+                    foreach ($data['nonspecialize'] as $nonspecialize) {
+                        if ($nonspecialize->personID == $non->personID){
+                            $trial2 = true;
+                        } 
+                    }                    
+                    if($trial2==false){
+                        array_push($data['nonspecialize'], $non);     
+                    }
+                    
+                }
+                
             }
         }
 
