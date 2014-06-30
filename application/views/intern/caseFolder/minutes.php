@@ -36,9 +36,24 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Add New Minutes</h4>
                     </div>
-                    <div class="modal-body" style="height:220px;">
+                    <div class="modal-body" style="height:300px; overflow-y: scroll;">
 
                   	<div class="col-lg-6">
+                            
+
+                        <div class="col-sm-4 control-group">
+                            <div class="controls">
+                                <center> <h5> Related Action Plan Item: </h5> </center>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8 control-group">
+                            <div class="controls">
+                                <?php echo form_input(array('class' => 'form-control')); ?>
+                            </div>
+                        </div>
+                            
+                            <br><br><br>
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
@@ -63,9 +78,9 @@
                         <div class="col-sm-9 control-group">
                             <div class="controls">
                                 <div class="input-group date">
-									<span class="input-group-addon"><i class="icon-calendar"></i></span>
-									<input type="text" class="form-control date-picker" id="minutesdate" name="minutesdate" data-date-format="yyyy-mm-dd" value="<?php echo $datenow;?>">
-								</div>
+                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                    <input type="text" class="form-control date-picker" id="minutesdate" name="minutesdate" data-date-format="yyyy-mm-dd" value="<?php echo $datenow;?>">
+                            </div>
                             </div>
                         </div>
 

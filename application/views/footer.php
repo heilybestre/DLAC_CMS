@@ -220,6 +220,7 @@
         $('#lawyerBirthday').datepicker();
         $('#secretaryBirthday').datepicker();
         $('#director').datepicker();
+        $('#attendancelogdate').datepicker();
     });
     // Make the checkbox unclickable 
     $(".disablethis").bind("click", false);

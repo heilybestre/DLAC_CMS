@@ -219,7 +219,7 @@ class People extends CI_Controller {
 
         $this->load->view('header');
         $this->load->view('secretary/menubar', $data);
-        $this->load->view('secretary/internmgt', $data);
+        $this->load->view('secretary/attendanceLogs', $data);
         $this->load->view('footer');
     }
 
@@ -245,7 +245,7 @@ class People extends CI_Controller {
 
         $this->load->view('header');
         $this->load->view('secretary/menubar', $data);
-        $this->load->view('secretary/attendanceLogs', $data);
+        $this->load->view('secretary/internmgt', $data);
         $this->load->view('footer');
     }
 

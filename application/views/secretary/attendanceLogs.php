@@ -12,12 +12,12 @@
                 <div class="box-content">
                     <div>Today is <?= $datenow ?>
                         <br><br>
-                        <a class="btn btn-default pull-right" style="background-color:#CBF7D7; margin-top:0px; margin-right:10px;" href="<?= base_url() ?>people/internAttendance"> Create New Attendance Log</a>
+                        <a class="btn btn-default pull-right" style="background-color:#CBF7D7; margin-top:0px; margin-right:10px;" href="<?= base_url() ?>people/attendancelogs"> Create New Attendance Log</a>
                     </div>
 
                     <br><br><br>
-
-                    <div class="col-sm-1 control-group" style="margin-left:40px;">
+                    
+                                       <div class="col-sm-1 control-group" style="margin-left:40px;">
                         <div class="controls">
                             <h5> <b> Choose Date </b></h5>
                         </div>
@@ -25,11 +25,10 @@
 
                     <div class="col-sm-3 control-group">
                         <div class="controls">
-                            <select class="form-control">
-                                <option></option>
-                                <option></option>
-                                <option></option>
-                            </select>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                <input type="text" class="form-control date-picker" id="attendancelogdate" name="attendancelogdate" data-date-format="yyyy-mm-dd" value=""/>
+                        </div>
                         </div>        
                     </div>
 
@@ -42,6 +41,29 @@
                     <br><br>
 
                     <hr>
+                    
+                    <div id="attendanceLogAllInterns">
+                        
+                   <table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0">
+                      <thead>
+                        <tr>
+                          <th>Intern</th>
+                          <th>Residency Hours</th>
+                        </tr>
+                      </thead>   
+                      <tbody>
+                        <?php //foreach ($apps as $row) : ?>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                        </tr>
+                      <?php //endforeach; ?>
+                    </tbody>
+                  </table>
+                        
+                    </div>
+                    
+                    <div class="hide" id="attendanceLogByDate">
 
                     <div style="background-color:#ECF8F0; padding:15px;">
 
@@ -93,6 +115,7 @@
 
                     </div>
                     <hr>
+                    </div>
                 </div>
             </div>
         </div><!--/col-->

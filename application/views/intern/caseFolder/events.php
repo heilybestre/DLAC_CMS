@@ -172,7 +172,7 @@
                                             ?></td>
                                         <td class="center">
                                             <?php if ($row->summary == NULL) { ?>
-                                                <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
+                                                <a class="btn btn-success" title="Done" href="<?php $this->load->view('intern/caseFolder/minutes'); ?> " data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
                                                     <i class="icon-ok"></i>  
                                                 </a>
                                             <?php } else { ?>

@@ -23,6 +23,7 @@
             <div class="form-inline"> 
                 <div class="controls">
                     <b>Choose Type:</b>
+                    <a href="events.php"></a>
                     <label class="radio" for="type-0"> 
                         <input type="radio" name="case-type" id="type-0" value="Documentary" onclick="location.href = 'javascript:toggleAppEvidenceDoc();';"> Documentary 
                     </label>&nbsp;

@@ -273,6 +273,12 @@
                             <input class="hidden" id="documentID" name="documentID"/> <!-- H's -->
                             <table class="table-condensed" style="font-size:11px;">
                                 <tr>
+                                    <th>Related Action Plan Item:</th>
+                                    <td> <select class="form-control">
+                                            <option>1</option>
+                                        </select> </td>
+                                </tr>
+                                <tr>
                                     <th width='20%'>Name:</th>
                                     <td width='35%'> <input class="text form-control" id="tb_title_draftasdoc" name="documentname"/> </td>
                                     <th width='15%'>Purpose:</th>

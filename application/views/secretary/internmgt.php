@@ -11,7 +11,8 @@
 
 					<div>Today is <?= $datenow ?>
 						<br>
-						<a class="btn btn-default pull-right" style="margin-top:0px; margin-left:10px;" href="<?= base_url() ?>people/attendancelogs"> View Attendance Logs</a>
+                                                <a class="btn btn-default pull-right" style="background-color:#CBF7D7; margin-top:0px; margin-right:10px;" href="<?= base_url() ?>people/internAttendance"> View Attendance Log</a>
+						
 					</div>
 
 					<br>
@@ -44,7 +45,7 @@
 										<div class="controls">
 											<div class="input-group date">
 												<span class="input-group-addon"><i class="icon-calendar"></i></span>
-												<input type="text" class="form-control date-picker" id="attendancedate" name="residencydate" data-date-format="yyyy-mm-dd" value="<?= $datenowdd ?>">
+												<input type="text" class="form-control date-picker" id="attendancedate" name="residencydate" data-date-format="yyyy-mm-dd" value="">
 											</div>
 										</div>
 									</div>
