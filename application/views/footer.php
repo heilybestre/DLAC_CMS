@@ -157,6 +157,14 @@
         $('#casestable').dataTable({
             "aaSorting": [[3, "desc"]]
         });
+        
+        // Fix datatables pagination in dashboard
+        var segment = "<?php echo $this->uri->segment(1) ?>";
+        if(segment=='dashboard'){
+            $('div.dataTables_paginate').css('margin-top', '-25px');
+            $('div.dataTables_paginate').css('margin-right', '0px');
+        }
+
     });
     // Load calendar on Events Tab
     $(document).ready(function() {
