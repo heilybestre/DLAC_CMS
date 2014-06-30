@@ -94,6 +94,31 @@
         $('.deleteActionButton').removeClass('hide');
         
     });
+    
+    $(".btnAssignPerson").live('click', function() {
+        var actionplanID = $(this).attr('id').substring(16);
+        var personID = $(this).attr('value');
+        var personName = $('#task_'+actionplanID+'_intern_'+personID).val();
+        $('#btnAssignPerson_'+actionplanID+'.btnAssignPerson').addClass('hide'); 
+        $('#btnUnassignPerson_'+actionplanID+'.btnUnassignPerson_'+personID).removeClass('hide');
+        
+        $('#labelAssignPerson_'+actionplanID).text(personName);
+        $('#assignedPersonID_'+actionplanID).val(personID);
+        $('#assignedPersonName_'+actionplanID).val(personName);
+
+    });
+    
+    $(".btnUnassignPerson").live('click', function() {
+        var actionplanID = $(this).attr('id').substring(18);
+        $(this).addClass('hide');
+        $('#btnAssignPerson_'+actionplanID+'.btnAssignPerson').removeClass('hide');  
+        
+        $('#labelAssignPerson_'+actionplanID).text('None');
+        $('#assignedPersonID_'+actionplanID).val("");
+        $('#assignedPersonName_'+actionplanID).val("");
+    });
+    
+    
 
     //customized datatables
     $(document).ready(function() {
@@ -105,6 +130,34 @@
                 var typeValue = $('#arrayActionType_' + x).val();
                 var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
                 $('#actionTypeLabel_' + x).text(typeText);
+                return $("#popover-orig-content_" + x).html();
+            }
+        });
+        
+        $('.popover-orig-lawyer').popover({
+            html: true,
+            content: function() {
+                var x = $(this).attr('id').substring(13);
+//                var typeValue = $('#arrayActionType_' + x).val();
+//                var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
+//                $('#actionTypeLabel_' + x).text(typeText);
+                
+                var personID = $('#assignedPersonID_'+x).val();
+                var personName = $('#assignedPersonName_'+x).val();
+                
+                if(personID !== ""){          
+                    
+                    $('#labelAssignPerson_'+x).text(personName);
+                    $('#btnAssignPerson_'+x+'.btnAssignPerson').addClass('hide');
+                    $('#btnUnassignPerson_'+x+'.btnUnassignPerson').addClass('hide');
+                    $('#btnUnassignPerson_'+x+'.btnUnassignPerson_'+personID).removeClass('hide');
+                    
+                }else{                    
+                    
+                    $('#labelAssignPerson_'+x).text('None');
+                    $('#btnAssignPerson_'+x+'.btnAssignPerson').removeClass('hide');
+                    $('#btnUnassignPerson_'+x+'.btnUnassignPerson').addClass('hide');
+                }
                 return $("#popover-orig-content_" + x).html();
             }
         });
@@ -220,7 +273,6 @@
         $('#lawyerBirthday').datepicker();
         $('#secretaryBirthday').datepicker();
         $('#director').datepicker();
-        $('#attendancelogdate').datepicker();
     });
     // Make the checkbox unclickable 
     $(".disablethis").bind("click", false);
@@ -643,13 +695,46 @@
         $("#actionPlan-bottom-notes_" + x).addClass('hide');
         $("#actionPlanActionButtons_" + x).removeClass('hide');
         $("#actionPlanOption-center-assign_" + x).removeClass('hide');
+        $(this).addClass('hide');
+        $("#backActionButton_" + x).removeClass('hide');  
+    });
+    
+    $(".backActionButton").live('click', function() {
+        var x = $(this).attr('id').substring(17);
+        $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
+        $("#actionPlan-bottom-notes_" + x).removeClass('hide');        
+        $("#actionPlanOption-center-assign_" + x).addClass('hide');
+        $(this).addClass('hide');
+        $("#getActionButton_" + x).removeClass('hide');  
     });
 
     $(".sendActionNotes").live('click', function() {
         var x = $(this).attr('id').substring(16);
-        var note = $('#actionWriteNotes_' + x).val();
-        alert(note);
-        $('#actionWriteNotes_' + x).val('');
+        var message = $('#actionWriteNotes_' + x).val();
+        
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) {
+            mm='0'+mm;
+        } 
+
+        today = mm+'/'+dd+'/'+yyyy;        
+        
+        var html =  "<li id='actionPlanNote' class='actionPlanNote'>"
+                            + "<div class='name'>"+$('#usernameforaction').text()+"</div>"
+                            + "<div class='date'>"+today+"</div>"
+                            + "<div class='delete'><i class='icon-remove'></i></div>"
+                            + "<div class='message'>"+message+"</div>"	
+                    + "</li>";
+        $('#notesThread_'+x+' ul').append(html);
+        
     });
 
 

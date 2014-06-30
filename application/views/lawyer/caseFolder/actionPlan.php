@@ -114,11 +114,13 @@
                                 ?> /></td>
                             <td>
                                 <input name='actionname1[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
-                                <input name='actiontype1[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <input name='actiontype1[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">                               
+                                <input type="hidden" value="" id="assignedPersonID_<?= $action->actionplanID ?>"/>
+                                <input type="hidden" value="" id="assignedPersonName_<?= $action->actionplanID ?>"/>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig-lawyer btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -128,7 +130,7 @@
                                             <div id="actionPlanOption-top">
                                                 <h5>
                                                     <b>Assigned to </b>
-                                                    <label class="label label-default">
+                                                    <label class="label label-default" id="labelAssignPerson_<?= $action->actionplanID ?>">
                                                         <?php
                                                         if ($action->assignedTo != null) {
                                                             echo $this->People_model->getuserfield('firstname', $action->assignedTo);
@@ -140,10 +142,11 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                                                            <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -169,7 +172,10 @@
                                                             <tr>
                                                                 <td><?= "$intern->firstname $intern->lastname" ?></td>
                                                                 <td>(##)</td>
-                                                                <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
+                                                                <td><button type="button" class="btn btn-success btnAssignPerson" id="btnAssignPerson_<?= $action->actionplanID ?>" value="<?=$intern->personID?>"> <i class="icon-ok"></i> </button>
+                                                                    <button type="button" class="btn btn-danger hide btnUnassignPerson btnUnassignPerson_<?= $intern->personID ?>" id="btnUnassignPerson_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </button>                                                                    
+                                                                    <input type="hidden" value="<?= "$intern->firstname $intern->lastname" ?>" id="task_<?= $action->actionplanID ?>_intern_<?=$intern->personID?>">
+                                                                </td>
                                                             </tr>
                                                         <?php } ?>
                                                     </table>
@@ -225,10 +231,12 @@
                             <td>
                                 <input name='actionname2[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype2[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <input type="hidden" value="" id="assignedPersonID_<?= $action->actionplanID ?>"/>
+                                <input type="hidden" value="" id="assignedPersonName_<?= $action->actionplanID ?>"/>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig-lawyer btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -238,7 +246,7 @@
                                             <div id="actionPlanOption-top">
                                                 <h5>
                                                     <b>Assigned to </b>
-                                                    <label class="label label-default">
+                                                    <label class="label label-default" id="labelAssignPerson_<?= $action->actionplanID ?>">
                                                         <?php
                                                         if ($action->assignedTo != null) {
                                                             echo $this->People_model->getuserfield('firstname', $action->assignedTo);
@@ -250,10 +258,11 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                                                            <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -279,7 +288,10 @@
                                                             <tr>
                                                                 <td><?= "$intern->firstname $intern->lastname" ?></td>
                                                                 <td>(##)</td>
-                                                                <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
+                                                                <td><button type="button" class="btn btn-success btnAssignPerson" id="btnAssignPerson_<?= $action->actionplanID ?>" value="<?=$intern->personID?>"> <i class="icon-ok"></i> </button>
+                                                                    <button type="button" class="btn btn-danger hide btnUnassignPerson btnUnassignPerson_<?= $intern->personID ?>" id="btnUnassignPerson_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </button>                                                                    
+                                                                    <input type="hidden" value="<?= "$intern->firstname $intern->lastname" ?>" id="task_<?= $action->actionplanID ?>_intern_<?=$intern->personID?>">
+                                                                </td>
                                                             </tr>
                                                         <?php } ?>
                                                     </table>
@@ -335,10 +347,12 @@
                             <td>
                                 <input name='actionname3[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype3[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>" >
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <input type="hidden" value="" id="assignedPersonID_<?= $action->actionplanID ?>"/>
+                                <input type="hidden" value="" id="assignedPersonName_<?= $action->actionplanID ?>"/>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig-lawyer btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -348,7 +362,7 @@
                                             <div id="actionPlanOption-top">
                                                 <h5>
                                                     <b>Assigned to </b>
-                                                    <label class="label label-default">
+                                                    <label class="label label-default" id="labelAssignPerson_<?= $action->actionplanID ?>">
                                                         <?php
                                                         if ($action->assignedTo != null) {
                                                             echo $this->People_model->getuserfield('firstname', $action->assignedTo);
@@ -360,10 +374,11 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                                                            <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -389,7 +404,10 @@
                                                             <tr>
                                                                 <td><?= "$intern->firstname $intern->lastname" ?></td>
                                                                 <td>(##)</td>
-                                                                <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
+                                                                <td><button type="button" class="btn btn-success btnAssignPerson" id="btnAssignPerson_<?= $action->actionplanID ?>" value="<?=$intern->personID?>"> <i class="icon-ok"></i> </button>
+                                                                    <button type="button" class="btn btn-danger hide btnUnassignPerson btnUnassignPerson_<?= $intern->personID ?>" id="btnUnassignPerson_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </button>                                                                    
+                                                                    <input type="hidden" value="<?= "$intern->firstname $intern->lastname" ?>" id="task_<?= $action->actionplanID ?>_intern_<?=$intern->personID?>">
+                                                                </td>
                                                             </tr>
                                                         <?php } ?>
                                                     </table>
@@ -445,10 +463,12 @@
                             <td>
                                 <input name='actionname4[]' value="<?= $action->action ?>" class='hide' id="arrayActionName_<?= $action->actionplanID ?>">
                                 <input name='actiontype4[]' value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
-                                <label id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                                <input type="hidden" value="" id="assignedPersonID_<?= $action->actionplanID ?>"/>
+                                <input type="hidden" value="" id="assignedPersonName_<?= $action->actionplanID ?>"/>
+                                <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                             </td>
                             <td>
-                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
+                                <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig-lawyer btn btn-success pull-right"> <i class="icon-caret-down"></i> </a>
                                 <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                                 <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                                     <form>
@@ -458,7 +478,7 @@
                                             <div id="actionPlanOption-top">
                                                 <h5>
                                                     <b>Assigned to </b>
-                                                    <label class="label label-default">
+                                                    <label class="label label-default" id="labelAssignPerson_<?= $action->actionplanID ?>">
                                                         <?php
                                                         if ($action->assignedTo != null) {
                                                             echo $this->People_model->getuserfield('firstname', $action->assignedTo);
@@ -470,10 +490,11 @@
                                                     <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
                                                         <?php if ($action->status == 0) { ?>
                                                             <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                                                            <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
                                                         <?php } ?>
                                                     </div>
                                                 </h5>
-                                                <h5><b>Type: </b><label id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
+                                                <h5><b>Type: </b><label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>"><?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?> </label></h5>
                                             </div>
 
                                             <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -499,7 +520,10 @@
                                                             <tr>
                                                                 <td><?= "$intern->firstname $intern->lastname" ?></td>
                                                                 <td>(##)</td>
-                                                                <td> <a class="btn btn-success"> <i class="icon-ok"></i> </a> </td>
+                                                                <td><button type="button" class="btn btn-success btnAssignPerson" id="btnAssignPerson_<?= $action->actionplanID ?>" value="<?=$intern->personID?>"> <i class="icon-ok"></i> </button>
+                                                                    <button type="button" class="btn btn-danger hide btnUnassignPerson btnUnassignPerson_<?= $intern->personID ?>" id="btnUnassignPerson_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </button>                                                                    
+                                                                    <input type="hidden" value="<?= "$intern->firstname $intern->lastname" ?>" id="task_<?= $action->actionplanID ?>_intern_<?=$intern->personID?>">
+                                                                </td>
                                                             </tr>
                                                         <?php } ?>
                                                     </table>
