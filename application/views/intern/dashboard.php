@@ -164,7 +164,7 @@
                                     <td class="center"><?php echo $row->task ?></td>
                                     <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
                                     <td class="center"><?php echo $row->notes ?></td>
-                                    <td class="center"><?php echo $row->firstname . ' ' . $row->lastname ?></td>
+                                    <td class="center"><?php echo $row->bfirstname . ' ' . $row->blastname ?></td>
                                     <td class="center">
                                         <?php if ($row->summary == NULL) { ?>
                                             <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">

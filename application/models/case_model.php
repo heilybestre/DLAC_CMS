@@ -226,11 +226,12 @@ class Case_model extends CI_Model {
 
     function select_case($cid) {
         $query = $this->db->query("SELECT * FROM `case`
-    		/* LEFT JOIN court ON `case`.caseID = court.caseID ACCEPT NOT WORKING WITH THIS */
+    		
     		JOIN ref_status ON ref_status.caseStatusID = `case`.`status`
     		JOIN ref_stage ON ref_stage.stageID = `case`.stage
     		LEFT JOIN `people` ON `people`.`personID` = `case`.`applyToCloseBy`
     		WHERE `case`.caseID = $cid");
+        /* LEFT JOIN court ON `case`.caseID = court.caseID ACCEPT NOT WORKING WITH THIS */
         return $query->row();
     }
 

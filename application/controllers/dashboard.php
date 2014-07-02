@@ -56,7 +56,7 @@ class Dashboard extends CI_Controller {
             case "4" :
                 $data['cases'] = $this->Case_model->select_mycaseaccepted($uid);
                 $data['drafts'] = $this->Case_model->select_mydocumentpending($uid);
-                $data['thingstodo'] = $this->Case_model->select_theirtask($uid);
+                $data['thingstodo'] = $this->Task_model->select_theirtask($uid);
 
                 $this->load->view('lawyer/menubar', $data);
                 $this->load->view('lawyer/dashboard', $data);
@@ -64,7 +64,7 @@ class Dashboard extends CI_Controller {
             case "5" :
                 $data['applications'] = $this->Case_model->select_mycasepending($uid);
                 $data['cases'] = $this->Case_model->select_mycaseaccepted($uid);
-                $data['thingstodo'] = $this->Case_model->select_mytask($uid);
+                $data['thingstodo'] = $this->Task_model->select_mytask($uid);
 
                 $data['person'] = $this->People_model->select_person($uid);
                 $this->load->view('intern/menubar', $data);

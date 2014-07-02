@@ -14,7 +14,7 @@ class Task_model extends CI_Model {
     }
 
     function select_mycasetask($cid, $uid) {
-        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedBy` WHERE assignedTo = $uid AND caseID = $cid");
+        $query = $this->db->query("SELECT * FROM tasks WHERE assignedTo = $uid AND caseID = $cid");
         return $query->result();
     }
 
@@ -24,7 +24,7 @@ class Task_model extends CI_Model {
     }
 
     function select_theircasetask($cid, $uid) {
-        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedTo` WHERE assignedBy = $uid AND caseID = $cid");
+        $query = $this->db->query("SELECT * FROM tasks WHERE assignedBy = $uid AND caseID = $cid");
         return $query->result();
     }
 

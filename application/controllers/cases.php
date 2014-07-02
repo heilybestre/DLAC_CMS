@@ -371,14 +371,14 @@ class Cases extends CI_Controller {
                 break;
             case 4 :
                 $data['casecondition'] = $this->Case_model->select_condition($cid);
-                $data['thingstodo'] = $this->Case_model->select_theircasetask($cid, $uid);
+                $data['thingstodo'] = $this->Task_model->select_theircasetask($cid, $uid);
                 
                 $this->load->view('lawyer/menubar', $data);
                 $this->load->view('lawyer/caseFolder', $data);
                 break;
             case 5 :
                 $data['caseperson'] = $this->Case_model->select_caseperson($cid, $uid);
-                $data['thingstodo'] = $this->Case_model->select_mycasetask($cid, $uid);
+                $data['thingstodo'] = $this->Task_model->select_mycasetask($cid, $uid);
 
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/caseFolder', $data);
