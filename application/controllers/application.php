@@ -331,6 +331,7 @@ class Application extends CI_Controller {
         $data['lawyerlist'] = $this->People_model->lawyerlist();
         $data['internlist'] = $this->People_model->internlist();
         $data['clientid'] = $this->People_model->select_firstclient();
+        $data['offenses'] = $this->Case_model->select_offense();
 
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
@@ -338,13 +339,14 @@ class Application extends CI_Controller {
         $datestring = "%Y-%m-%d";
         $timestring = "%h:%i %a";
         $time = now();
+        
         $datenow = mdate($datestring, $time);
         $timenow = mdate($timestring, $time);
         $data['datenow'] = $datenow;
         $data['timenow'] = $timenow;
 
         $datetimestring = "%Y-%m-%d %H:%i:%s";
-        $time = now();
+        
         $datetimenow = mdate($datetimestring, $time);
         $yearnowlasttwo = substr($datetimenow, 2, 2);
         $data['datetimenow'] = $datetimenow;

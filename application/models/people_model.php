@@ -115,6 +115,7 @@ class People_model extends CI_Model {
     }
 
     function internlist() {
+        $this->db->order_by("lastname", "asc");
         $query = $this->db->get('interns');
         return $query->result();
     }

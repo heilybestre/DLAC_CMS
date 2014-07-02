@@ -50,8 +50,8 @@
         <div class="col-sm-8 control-group">
             <div class="controls">
                 <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php foreach ($clientlist as $client): ?>
+                        <option value="<?php echo $client->personID ?>"><?php echo "$client->lastname, $client->firstname $client->lastname" ?></option>
                     <?php endforeach; ?>
                 </select>  
             </div>
@@ -150,8 +150,8 @@
         <div class="col-sm-8 control-group">
             <div id='opposingpartydiv' class="controls">
                 <select  multiple class="chosen-select" tabindex="8" style="">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                    <?php foreach ($opposingpartylist as $opposing): ?>
+                        <option value="<?php echo $opposing->personID ?>"><?php echo "$opposing->lastname, $opposing->firstname $opposing->middlename" ?></option>
                     <?php endforeach; ?>
                 </select>  
             </div>
@@ -303,43 +303,43 @@
         <hr>
 
         <div class="col-lg-5">
-            
+
             <div class="col-sm-3 control-group">
-                    <div class="controls">
-                        <h5> <center><b>Offense</b></center></h5>
-                    </div>
+                <div class="controls">
+                    <h5> <center><b>Offense</b></center></h5>
                 </div>
-
-        <div class="col-sm-6 control-group">
-            <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8">
-                    <?php foreach ($offenses as $off): ?>
-                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                    <?php endforeach; ?>
-                </select>  
             </div>
-        </div>
 
-        <br><br>
-
-        <div class="col-sm-3 control-group">
-            <div class="controls">
-                <h5> <center><b>Offense Stage</b></center></h5>
+            <div class="col-sm-6 control-group">
+                <div class="controls">
+                    <select  multiple class="chosen-select" tabindex="8">
+                        <?php foreach ($offenses as $off): ?>
+                            <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                        <?php endforeach; ?>
+                    </select>  
+                </div>
             </div>
-        </div>
 
-        <div class="col-sm-6 control-group">
-            <div class="controls">
-                <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
-                    <option>Attempted</option>
-                    <option>Frustrated</option>
-                    <option>Consummated</option>
-                    <option>N/A</option>
-                </select>
-                <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
+            <br><br>
+
+            <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <h5> <center><b>Offense Stage</b></center></h5>
+                </div>
             </div>
-        </div>
-        
+
+            <div class="col-sm-6 control-group">
+                <div class="controls">
+                    <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
+                        <option>Attempted</option>
+                        <option>Frustrated</option>
+                        <option>Consummated</option>
+                        <option>N/A</option>
+                    </select>
+                    <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
+                </div>
+            </div>
+
         </div>
 
         <div id='offensetablediv' class="col-lg-6">
@@ -480,9 +480,9 @@
         </div>
         <!-- END OF ADD LINKED PERSON MODAL -->
     </div>
-    
-       
-     <div class="row">
+
+
+    <div class="row">
 
         <!-- START OF ADD CLIENT MODAL -->
         <div class="modal fade" id="addClientModal1">
