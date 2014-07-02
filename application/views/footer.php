@@ -86,43 +86,40 @@
     });
 
     $("#btneditactionplan").live('click', function() {
-        $('#actionplanapproveddiv').addClass('hide');        
+        $('#actionplanapproveddiv').addClass('hide');
         $('#editingdiv').removeClass('hide');
         $('#actionplanbuttonseditdiv').removeClass('hide');
         $('#actionplanbuttonsbrdiv').removeClass('hide');
         $('.editActionButton').removeClass('hide');
         $('.deleteActionButton').removeClass('hide');
-        
+
     });
-    
+
     $(".btnAssignPerson").live('click', function() {
         var actionplanID = $(this).attr('id').substring(16);
         var personID = $(this).attr('value');
-        var personName = $('#task_'+actionplanID+'_intern_'+personID).val();
-        $('#btnAssignPerson_'+actionplanID+'.btnAssignPerson').addClass('hide'); 
-        $('#btnUnassignPerson_'+actionplanID+'.btnUnassignPerson_'+personID).removeClass('hide');
-        
-        $('#labelAssignPerson_'+actionplanID).text(personName);
-        $('#assignedPersonID_'+actionplanID).val(personID);
-        $('#assignedPersonName_'+actionplanID).val(personName);
+        var personName = $('#task_' + actionplanID + '_intern_' + personID).val();
+        $('#btnAssignPerson_' + actionplanID + '.btnAssignPerson').addClass('hide');
+        $('#btnUnassignPerson_' + actionplanID + '.btnUnassignPerson_' + personID).removeClass('hide');
+
+        $('#labelAssignPerson_' + actionplanID).text(personName);
+        $('#assignedPersonID_' + actionplanID).val(personID);
+        $('#assignedPersonName_' + actionplanID).val(personName);
 
     });
-    
+
     $(".btnUnassignPerson").live('click', function() {
         var actionplanID = $(this).attr('id').substring(18);
         $(this).addClass('hide');
-        $('#btnAssignPerson_'+actionplanID+'.btnAssignPerson').removeClass('hide');  
-        
-        $('#labelAssignPerson_'+actionplanID).text('None');
-        $('#assignedPersonID_'+actionplanID).val("");
-        $('#assignedPersonName_'+actionplanID).val("");
+        $('#btnAssignPerson_' + actionplanID + '.btnAssignPerson').removeClass('hide');
+
+        $('#labelAssignPerson_' + actionplanID).text('None');
+        $('#assignedPersonID_' + actionplanID).val("");
+        $('#assignedPersonName_' + actionplanID).val("");
     });
-    
-    
 
-    //customized datatables
+    // POPOVERS
     $(document).ready(function() {
-
         $('.popover-orig').popover({
             html: true,
             content: function() {
@@ -130,10 +127,12 @@
                 var typeValue = $('#arrayActionType_' + x).val();
                 var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
                 $('#actionTypeLabel_' + x).text(typeText);
+                
+                $('#editAction_' + x).text('hello');
                 return $("#popover-orig-content_" + x).html();
             }
         });
-        
+
         $('.popover-orig-lawyer').popover({
             html: true,
             content: function() {
@@ -141,27 +140,40 @@
 //                var typeValue = $('#arrayActionType_' + x).val();
 //                var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
 //                $('#actionTypeLabel_' + x).text(typeText);
-                
-                var personID = $('#assignedPersonID_'+x).val();
-                var personName = $('#assignedPersonName_'+x).val();
-                
-                if(personID !== ""){          
-                    
-                    $('#labelAssignPerson_'+x).text(personName);
-                    $('#btnAssignPerson_'+x+'.btnAssignPerson').addClass('hide');
-                    $('#btnUnassignPerson_'+x+'.btnUnassignPerson').addClass('hide');
-                    $('#btnUnassignPerson_'+x+'.btnUnassignPerson_'+personID).removeClass('hide');
-                    
-                }else{                    
-                    
-                    $('#labelAssignPerson_'+x).text('None');
-                    $('#btnAssignPerson_'+x+'.btnAssignPerson').removeClass('hide');
-                    $('#btnUnassignPerson_'+x+'.btnUnassignPerson').addClass('hide');
+
+                var personID = $('#assignedPersonID_' + x).val();
+                var personName = $('#assignedPersonName_' + x).val();
+
+                if (personID !== "") {
+                    $('#labelAssignPerson_' + x).text(personName);
+                    $('#btnAssignPerson_' + x + '.btnAssignPerson').addClass('hide');
+                    $('#btnUnassignPerson_' + x + '.btnUnassignPerson').addClass('hide');
+                    $('#btnUnassignPerson_' + x + '.btnUnassignPerson_' + personID).removeClass('hide');
+                } else {
+                    $('#labelAssignPerson_' + x).text('None');
+                    $('#btnAssignPerson_' + x + '.btnAssignPerson').removeClass('hide');
+                    $('#btnUnassignPerson_' + x + '.btnUnassignPerson').addClass('hide');
                 }
                 return $("#popover-orig-content_" + x).html();
             }
         });
 
+        // When clicked outside, popovers will close
+        $('body').on('click', function(e) {
+            $('.popover-orig').each(function() {
+                //the 'is' for buttons that trigger popups
+                //the 'has' for icons within a button that triggers a popup
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                }
+            });
+        });
+       
+    });
+
+
+    //customized datatables
+    $(document).ready(function() {
         $("#dashboard-appo").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
@@ -210,15 +222,16 @@
         $('#casestable').dataTable({
             "aaSorting": [[3, "desc"]]
         });
-        
+
         // Fix datatables pagination in dashboard
         var segment = "<?php echo $this->uri->segment(1) ?>";
-        if(segment=='dashboard'){
+        if (segment == 'dashboard') {
             $('div.dataTables_paginate').css('margin-top', '-25px');
             $('div.dataTables_paginate').css('margin-right', '0px');
         }
-
     });
+
+
     // Load calendar on Events Tab
     $(document).ready(function() {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -226,6 +239,8 @@
         });
         $('#events a:first').tab('show');
     });
+
+
     // Date and Time Pickers
     $(function() {
         $('#docUpload_dateIssued').datepicker();
@@ -274,8 +289,12 @@
         $('#secretaryBirthday').datepicker();
         $('#director').datepicker();
     });
+
+
     // Make the checkbox unclickable 
     $(".disablethis").bind("click", false);
+
+
     // Show Entry of Appearance (casefolder/documents/newdraft)
     $('#dddoctype').change(function() {
         var doctype = $('#dddoctype').val();
@@ -696,45 +715,45 @@
         $("#actionPlanActionButtons_" + x).removeClass('hide');
         $("#actionPlanOption-center-assign_" + x).removeClass('hide');
         $(this).addClass('hide');
-        $("#backActionButton_" + x).removeClass('hide');  
+        $("#backActionButton_" + x).removeClass('hide');
     });
-    
+
     $(".backActionButton").live('click', function() {
         var x = $(this).attr('id').substring(17);
         $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
-        $("#actionPlan-bottom-notes_" + x).removeClass('hide');        
+        $("#actionPlan-bottom-notes_" + x).removeClass('hide');
         $("#actionPlanOption-center-assign_" + x).addClass('hide');
         $(this).addClass('hide');
-        $("#getActionButton_" + x).removeClass('hide');  
+        $("#getActionButton_" + x).removeClass('hide');
     });
 
     $(".sendActionNotes").live('click', function() {
         var x = $(this).attr('id').substring(16);
         var message = $('#actionWriteNotes_' + x).val();
-        
+
         var today = new Date();
         var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
+        var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
 
-        if(dd<10) {
-            dd='0'+dd;
-        } 
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
 
-        if(mm<10) {
-            mm='0'+mm;
-        } 
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
 
-        today = mm+'/'+dd+'/'+yyyy;        
-        
-        var html =  "<li id='actionPlanNote' class='actionPlanNote'>"
-                            + "<div class='name'>"+$('#usernameforaction').text()+"</div>"
-                            + "<div class='date'>"+today+"</div>"
-                            + "<div class='delete'><i class='icon-remove'></i></div>"
-                            + "<div class='message'>"+message+"</div>"	
-                    + "</li>";
-        $('#notesThread_'+x+' ul').append(html);
-        
+        today = mm + '/' + dd + '/' + yyyy;
+
+        var html = "<li id='actionPlanNote' class='actionPlanNote'>"
+                + "<div class='name'>" + $('#usernameforaction').text() + "</div>"
+                + "<div class='date'>" + today + "</div>"
+                + "<div class='delete'><i class='icon-remove'></i></div>"
+                + "<div class='message'>" + message + "</div>"
+                + "</li>";
+        $('#notesThread_' + x + ' ul').append(html);
+
     });
 
 
@@ -770,10 +789,10 @@
         $('#actionTypeLabel_' + x).text(typeText);
         $('#arrayActionType_' + x).attr('value', type);
         $('#editAction_' + x).attr('value', actionName);
-        $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
-        $("#actionPlan-bottom-notes_" + x).removeClass('hide');
-        $("#actionPlanActionButtons_" + x).removeClass('hide');
-        $("#actionPlanOption-center-edit_" + x).addClass('hide');
+//        $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
+//        $("#actionPlan-bottom-notes_" + x).removeClass('hide');
+//        $("#actionPlanActionButtons_" + x).removeClass('hide');
+//        $("#actionPlanOption-center-edit_" + x).addClass('hide');
     });
     //end of EDIT ACTIONS
 
