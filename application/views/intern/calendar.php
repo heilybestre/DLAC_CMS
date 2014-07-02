@@ -177,7 +177,7 @@
                                     <td class="center"><?php echo $row->task ?></td>
                                     <td class="center"><?php
                                         if ($this->session->userdata('userid') != $row->assignedBy) {
-                                            echo $row->bfirstName . " " . $row->blastName;
+                                            echo $row->bfirstname . " " . $row->blastname;
                                         } else {
                                             echo "You";
                                         }
