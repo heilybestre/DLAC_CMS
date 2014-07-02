@@ -8,7 +8,8 @@ class People_model extends CI_Model {
         parent::__construct();
     }
 
-    //User
+    // <editor-fold defaultstate="collapsed" desc="USER">
+//User
     function login($un, $pw) {
         $query = "SELECT personID FROM people WHERE username = ? and password = ?";
         $result = $this->db->query($query, array($un, md5($pw)));
@@ -62,6 +63,9 @@ class People_model extends CI_Model {
         }
     }
 
+    //</editor-fold>
+    //
+    // <editor-fold defaultstate="collapsed" desc="CLIENT">
     //client
     function clientlist() {
         $query = $this->db->query("SELECT * FROM people
@@ -88,6 +92,9 @@ class People_model extends CI_Model {
         return $query->row();
     }
 
+    //</editor-fold>
+    //
+    // <editor-fold defaultstate="collapsed" desc="OTHER">
     //other
 
     function externallist() {
@@ -224,6 +231,7 @@ class People_model extends CI_Model {
         return $query;
     }
 
+    //</editor-fold>
 }
 
 ?>

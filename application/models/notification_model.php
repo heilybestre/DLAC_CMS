@@ -128,7 +128,7 @@ class Notification_model extends CI_Model {
     }
 
     //You have an appointment to re-assign
-    function event_reassign($sender, $receiver){
+    function event_reassign($sender, $receiver) {
         $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
 
         $data = array(
@@ -139,12 +139,12 @@ class Notification_model extends CI_Model {
             'dateTime' => $datetimenow,
             'category' => 'calendar',
             'destination' => 'dashboard'
-            );
+        );
         $this->db->insert('notification', $data);
     }
 
     //Your appointment has been re-assigned
-    function event_reassigned($sender, $receiver, $title){
+    function event_reassigned($sender, $receiver, $title) {
         $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
 
         $data = array(
@@ -155,7 +155,7 @@ class Notification_model extends CI_Model {
             'dateTime' => $datetimenow,
             'category' => 'calendar',
             'destination' => 'dashboard'
-            );
+        );
         $this->db->insert('notification', $data);
     }
 
@@ -202,7 +202,7 @@ class Notification_model extends CI_Model {
     }
 
     //Intern has drafted a Draft for Case
-    function draft_new($sender, $receiver, $caseid, $documentid){
+    function draft_new($sender, $receiver, $caseid, $documentid) {
         $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
         $sendername = $this->People_model->getuserfield('firstname', $sender);
         $casename = $this->Case_model->select_case($caseid)->caseName;
@@ -224,7 +224,7 @@ class Notification_model extends CI_Model {
     }
 
     //Lawyer/Intern revised draft Draft for Case
-    function draft_revise($sender, $receiver, $caseid, $documentid){
+    function draft_revise($sender, $receiver, $caseid, $documentid) {
         $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
         $sendername = $this->People_model->getuserfield('firstname', $sender);
         $casename = $this->Case_model->select_case($caseid)->caseName;
@@ -246,7 +246,7 @@ class Notification_model extends CI_Model {
     }
 
     //Lawyer has approved draft Draft for Case
-    function draft_approve($sender, $receiver, $caseid, $documentid){
+    function draft_approve($sender, $receiver, $caseid, $documentid) {
         $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
         $sendername = $this->People_model->getuserfield('firstname', $sender);
         $casename = $this->Case_model->select_case($caseid)->caseName;
@@ -275,12 +275,11 @@ class Notification_model extends CI_Model {
         $casename = $this->Case_model->select_case($caseid)->caseName;
         $casenum = $this->Case_model->select_case($caseid)->caseNum;
 
-        if(!$old==0){
+        if (!$old == 0) {
             // $oldname = $this->People_model->getuserfield('firstname', $old);
             // $message= "$casename ($casenum) has been transferred to you from $oldname";
-            $message= "$casename ($casenum) has been transferred to you.";
-        }
-        else
+            $message = "$casename ($casenum) has been transferred to you.";
+        } else
             $message = "$casename ($casenum) has been transferred to $newname.";
 
         $data = array(
@@ -336,8 +335,6 @@ class Notification_model extends CI_Model {
 
         $this->db->insert('notification', $data);
     }
-
-
 
     function select_notifs($pid) {
         $query = $this->db->query("SELECT * FROM notification WHERE receiver = $pid ORDER BY dateTime DESC");

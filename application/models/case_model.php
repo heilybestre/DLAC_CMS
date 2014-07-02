@@ -66,6 +66,11 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
+    function select_mycases($uid) {
+        $query = $this->db->query("SELECT * FROM mycases JOIN `case_people` ON `case_people`.`caseID` = `mycases`.`caseID` WHERE `case_people`.`personID` = $uid");
+        return $query->result();
+    }
+
     // </editor-fold>
     // 
     // <editor-fold defaultstate="collapsed" desc="CREATE APPLICATION">
@@ -254,8 +259,32 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
+    function select_caseresearch($cid) {
+        $query = $this->db->query("SELECT * FROM `research` JOIN `case` ON `case`.`caseID` = `research`.`relatedcaseID` WHERE `research`.`caseID` = $cid");
+        return $query->result();
+    }
+
+    function select_nontransferees($cid) {
+        $query = $this->db->query("SELECT * FROM interns WHERE personID NOT IN (SELECT personID FROM case_people WHERE caseID = $cid)");
+        return $query->result();
+    }
+
+    function select_suggestedresearch($cid, $tag) {
+        $query = $this->db->query("SELECT * FROM `caseclosed` WHERE `caseID` != $cid AND tags LIKE '%$tag%'; ");
+        return $query->result();
+    }
+
+    function select_actionplancomplete($cid, $sid) {
+        $query = $this->db->query("SELECT count(*) AS `count` FROM `actionplan` WHERE caseID = $cid AND stage = $sid AND status = 0");
+        return $query->row();
+    }
+
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="INSERT 1(ONE) CASE ONLY!">
+    // 
+    // <editor-fold defaultstate="collapsed" desc="UPDATE A SINGLE CASE">
+    function insert_casenumber($data) {
+        $this->db->insert('court', $data);
+    }
 
     function update_case($cid, $changes) {
         $this->db->where('caseID', $cid);
@@ -268,11 +297,8 @@ class Case_model extends CI_Model {
     $tags') WHERE caseID = $cid");
     }
 
-    function insert_caseperson($data) {
-        $this->db->insert('case_people', $data);
-    }
-
-    // </editor-fold>
+    //</editor-fold>
+    // 
     // <editor-fold defaultstate="collapsed" desc="ACTIONPLAN">
 
     function getactioncategoryname($racID) {
@@ -320,52 +346,8 @@ class Case_model extends CI_Model {
     }
 
     // </editor-fold>
-
-    function select_stages() {
-        $query = $this->db->query("SELECT * FROM ref_stage");
-        return $query->result();
-    }
-
-    function select_action_category() {
-        $query = $this->db->query("SELECT * FROM ref_action_category");
-        return $query->result();
-    }
-
-    function apply_to_transfer($cid, $pid, $changes) {
-        $this->db->where('caseID', $cid);
-        $this->db->where('personID', $pid);
-        $this->db->update('case_people', $changes);
-    }
-
-    function select_transferees($cid) {
-        $query = $this->db->query("SELECT * FROM case_people JOIN people ON people.`personID` = case_people.`personID` WHERE caseID = $cid AND `condition` = 'applytotransfer'");
-        return $query->result();
-    }
-
-    function select_strtype($inttype) {
-        $query = $this->db->query("SELECT * FROM ref_type WHERE typeID = $inttype");
-        return $query->row();
-    }
-
-    function select_strstage($id) {
-        $query = $this->db->query("SELECT * FROM ref_stage WHERE stageID = $id");
-        return $query->row();
-    }
-
-    function select_nontransferees($cid) {
-        $query = $this->db->query("SELECT * FROM interns WHERE personID NOT IN (SELECT personID FROM case_people WHERE caseID = $cid)");
-        return $query->result();
-    }
-
-    function insert_casenumber($data) {
-        $this->db->insert('court', $data);
-    }
-
-    function delete_offense($cid) {
-        $this->db->where('caseID', $cid);
-        $this->db->delete('offense');
-    }
-
+    //
+    //// <editor-fold defaultstate="collapsed" desc="LEGAL DOCUMENT">
     function insert_casedocument($cid, $data) {
         $this->db->insert('legaldocument', $data);
     }
@@ -380,11 +362,6 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
-    function select_caseresearch($cid) {
-        $query = $this->db->query("SELECT * FROM `research` JOIN `case` ON `case`.`caseID` = `research`.`relatedcaseID` WHERE `research`.`caseID` = $cid");
-        return $query->result();
-    }
-
     function delete_legaldocument($did) {
         $this->db->where('documentID', $did);
         $this->db->delete('legaldocument');
@@ -395,13 +372,41 @@ class Case_model extends CI_Model {
         $this->db->update('legaldocument', $changes);
     }
 
-    function select_suggestedresearch($cid, $tag) {
-        $query = $this->db->query("SELECT * FROM `caseclosed` WHERE `caseID` != $cid AND tags LIKE '%$tag%'; ");
+    //</editor-fold>
+    //
+    // <editor-fold defaultstate="collapsed" desc="OFFENSE">
+    function select_offense() {
+        $query = $this->db->query("SELECT * FROM offenses ORDER BY offenseName ASC");
         return $query->result();
     }
 
-    function select_mycases($uid) {
-        $query = $this->db->query("SELECT * FROM mycases JOIN `case_people` ON `case_people`.`caseID` = `mycases`.`caseID` WHERE `case_people`.`personID` = $uid");
+    function delete_offense($cid) {
+        $this->db->where('caseID', $cid);
+        $this->db->delete('offense');
+    }
+
+    //</editor-fold>
+    //
+    // <editor-fold defaultstate="collapsed" desc="RESEARCH">
+    function insert_research($data) {
+        $this->db->insert('research', $data);
+    }
+
+    //</editor-fold>
+    //
+    // <editor-fold defaultstate="collapsed" desc="CASE PEOPLE">
+    function insert_caseperson($data) {
+        $this->db->insert('case_people', $data);
+    }
+
+    function apply_to_transfer($cid, $pid, $changes) {
+        $this->db->where('caseID', $cid);
+        $this->db->where('personID', $pid);
+        $this->db->update('case_people', $changes);
+    }
+
+    function select_transferees($cid) {
+        $query = $this->db->query("SELECT * FROM case_people JOIN people ON people.`personID` = case_people.`personID` WHERE caseID = $cid AND `condition` = 'applytotransfer'");
         return $query->result();
     }
 
@@ -410,49 +415,31 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
-    function select_actionplancomplete($cid, $sid) {
-        $query = $this->db->query("SELECT count(*) AS `count` FROM `actionplan` WHERE caseID = $cid AND stage = $sid AND status = 0");
+    //</editor-fold>
+    //
+    // <editor-fold defaultstate="collapsed" desc="REFERENCE ID">
+    function select_strtype($inttype) {
+        $query = $this->db->query("SELECT * FROM ref_type WHERE typeID = $inttype");
         return $query->row();
     }
 
-    function insert_research($data) {
-        $this->db->insert('research', $data);
+    function select_strstage($id) {
+        $query = $this->db->query("SELECT * FROM ref_stage WHERE stageID = $id");
+        return $query->row();
     }
 
-    function insert_task($data) {
-        $this->db->insert('task', $data);
-    }
-
-    function update_task($tid, $changes) {
-        $this->db->where('taskID', $tid);
-        $this->db->update('task', $changes);
-    }
-
-    function select_mytask($uid) {
-        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedBy` WHERE assignedTo = $uid");
+    function select_stages() {
+        $query = $this->db->query("SELECT * FROM ref_stage");
         return $query->result();
     }
 
-    function select_mycasetask($cid, $uid) {
-        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedBy` WHERE assignedTo = $uid AND caseID = $cid");
+    function select_action_category() {
+        $query = $this->db->query("SELECT * FROM ref_action_category");
         return $query->result();
     }
 
-    function select_theirtask($uid) {
-        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedTo` WHERE assignedBy = $uid");
-        return $query->result();
-    }
-
-    function select_theircasetask($cid, $uid) {
-        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedTo` WHERE assignedBy = $uid AND caseID = $cid");
-        return $query->result();
-    }
-
-    function select_offense() {
-        $query = $this->db->query("SELECT * FROM offenses ORDER BY offenseName ASC");
-        return $query->result();
-    }
-
+    //</editor-fold>
+//
 }
 
 ?>

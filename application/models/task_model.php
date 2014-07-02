@@ -9,8 +9,12 @@ class Task_model extends CI_Model {
     }
 
     function select_mytask($uid) {
-        
         $query = $this->db->query("SELECT * FROM tasks WHERE assignedTo = $uid");
+        return $query->result();
+    }
+
+    function select_mycasetask($cid, $uid) {
+        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedBy` WHERE assignedTo = $uid AND caseID = $cid");
         return $query->result();
     }
 
@@ -19,12 +23,18 @@ class Task_model extends CI_Model {
         return $query->result();
     }
 
+    function select_theircasetask($cid, $uid) {
+        $query = $this->db->query("SELECT * FROM task JOIN `people` ON `people`.`personID` = `task`.`assignedTo` WHERE assignedBy = $uid AND caseID = $cid");
+        return $query->result();
+    }
+
     function insert_task($data) {
         $this->db->insert('task', $data);
     }
 
     function update_task($tid) {
-        
+        $this->db->where('taskID', $tid);
+        $this->db->update('task', $changes);
     }
 
     function delete_task($tid) {
