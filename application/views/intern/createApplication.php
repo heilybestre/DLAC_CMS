@@ -13,10 +13,6 @@
 
                         <li id='liLegalAdvice'><a href="#legalAdvice" data-toggle="tab">Legal Advice</a></li>
 
-                        <li id='liDocuments'><a href="#documents" data-toggle="tab">Legal Documents</a></li>
-
-                        <li id='liEvidence'><a href="#evidence" data-toggle="tab">Evidence</a></li>
-
                         <li id='liCaseFacts' class='active'><a href="#caseFacts" data-toggle="tab">Case Facts</a></li>   
                     </ul>
                 </div>
@@ -25,12 +21,6 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane active" id="caseFacts" style='padding:10px;'>
                             <?php $this->load->view('intern/createApplication/addcasefacts'); ?>
-                        </div>
-                        <div class="tab-pane" id="documents" style='padding:10px;'>
-                            <?php $this->load->view('intern/createApplication/adddocuments'); ?>
-                        </div>
-                        <div class="tab-pane" id="evidence" style='padding:10px;'>
-                            <?php $this->load->view('intern/createApplication/addevidence'); ?>
                         </div>
                         <div class="tab-pane" id="legalAdvice" style='padding:10px;'>
                             <?php $this->load->view('intern/createApplication/addlegaladvice'); ?>

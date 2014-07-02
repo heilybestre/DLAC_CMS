@@ -126,42 +126,6 @@
 
 </div>
 
-
-<div class="row" id='recommendation_form'>
-
-<h5><b>Intern's Recommendation for the Director</b></h5>
-<hr width='950px'>
-
-<div class="col-sm-2 control-group">
-	<div class="controls">
-		<center> <h5> <b>Recommended for</b> </h5> </center>
-	</div>
-</div>
-
-<!-- Multiple Radios -->
-<div class="control-group">
-	<div class="controls">
-		<?php echo form_radio(array('name' => 'apprecommendedfor', 'id' => 'recommendedFor-0', 'value' => 'Approval', 'checked' => TRUE)); ?>
-		Approval
-		<?php echo form_radio(array('name' => 'apprecommendedfor', 'id' => 'recommendedFor-1', 'value' => 'Rejection', 'checked' => FALSE)); ?>
-		Rejection
-	</div>
-</div>
-
-<br>
-
-<div class="col-sm-2 control-group">
-	<div class="controls">
-		<center> <h5> <b>Rationale</b> </h5> </center>
-	</div>
-</div>
-
-<div class="col-sm-9 control-group">                  
-	<?php echo form_textarea(array('id' => 'apprecommendation', 'name' => 'apprecommendation', 'type' => 'text', 'class' => 'form-control', 'style' => 'height: 280px' )); ?>
-</div>
-
-</div>
-
 <!-- Button -->
 	<!-- Button -->
 	<div class="row">

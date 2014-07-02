@@ -16,9 +16,6 @@
                         <!-- <li><a href="#directorsremarks" data-toggle="tab">Director's Remarks</a></li> -->
                         <!-- <li><a href="#recommendation" data-toggle="tab">Recommendation</a></li> -->
                         <li><a href="#legalAdvice" data-toggle="tab">Legal Advice</a></li>
-                        <li><a href="#linkedPeople" data-toggle="tab">People</a></li>
-                        <li><a href="#documents" data-toggle="tab">Legal Documents</a></li>
-                        <li><a href="#evidence" data-toggle="tab">Evidence</a></li>
                         <li><a href="#caseFacts" data-toggle="tab">Case Facts</a></li>
                         <li class="active"><a href="#clientInfo" data-toggle="tab">Client Information</a></li>
                     </ul>
@@ -68,26 +65,8 @@
                         <div class="tab-pane" id="caseFacts">
                             <?php $this->load->view('director/viewApplication/viewcasefacts'); ?>
                         </div>
-                        <div class="tab-pane" id="actionTaken">
-                            <?php $this->load->view('director/viewApplication/viewactiontaken'); ?>
-                        </div>
-                        <div class="tab-pane" id="documents">
-                            <?php $this->load->view('director/viewApplication/viewdocuments'); ?>
-                        </div>
-                        <div class="tab-pane" id="evidence">
-                            <?php $this->load->view('director/viewApplication/viewevidence'); ?>
-                        </div>
-                        <div class="tab-pane" id="linkedPeople">
-                            <?php $this->load->view('director/viewApplication/viewlinkedpeople'); ?>
-                        </div>
                         <div class="tab-pane" id="legalAdvice">
                             <?php $this->load->view('director/viewApplication/viewlegaladvice'); ?>
-                        </div>
-                        <div class="tab-pane" id="recommendation">
-                            <?php $this->load->view('director/viewApplication/viewrecommendation'); ?>
-                        </div>
-                        <div class="tab-pane" id="directorsremarks">
-                            <?php $this->load->view('director/viewApplication/directorsremarks'); ?>
                         </div>
                     </div>
                 </div>
