@@ -49,11 +49,12 @@
         </div>
         <div class="col-sm-8 control-group">
             <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="" id="createAppClientList">
+                <select class="chosen-select" tabindex="8" style="" id="createAppClientList" name="appclient[]">
                     <?php foreach ($clientlist as $client): ?>
                         <option value="<?php echo $client->personID ?>"><?php echo "$client->lastname, $client->firstname $client->middlename" ?></option>
                     <?php endforeach; ?>
-                </select>  
+                </select>
+                <input type="hidden" id="createAppClientListHidden" name="clientarray" value="">
             </div>
         </div>
         <div class="col-sm-1 control-group">
@@ -149,11 +150,12 @@
 
         <div class="col-sm-8 control-group">
             <div id='opposingpartydiv' class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="" id="createAppOpposingPartyList">
+                <select  multiple class="chosen-select" tabindex="8" style="" id="createAppOpposingPartyList" name="appopposing[]">
                     <?php foreach ($opposingpartylist as $opposing): ?>
                         <option value="<?php echo $opposing->personID ?>"><?php echo "$opposing->lastname, $opposing->firstname $opposing->middlename" ?></option>
                     <?php endforeach; ?>
-                </select>  
+                </select>
+                <input type="hidden" value="" id="createAppOpposingPartyListHidden" name="opposingarray">
             </div>
         </div>
 
@@ -302,43 +304,43 @@
         <div class="hide"> <h4> Possible Offense</h4> </div>
         <hr>
 
-<!--        <div class="col-lg-5">-->
+        <!--        <div class="col-lg-5">-->
 
-<!--            <div class="col-sm-3 control-group">
-                <div class="controls">
-                    <h5> <center><b>Offense</b></center></h5>
-                </div>
-            </div>
-
-            <div class="col-sm-6 control-group">
-                <div class="controls">
-                    <select class="chosen-select" tabindex="8">
-                        <?php foreach ($offenses as $off): ?>
-                            <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                        <?php endforeach; ?>
-                    </select>  
-                </div>
-            </div>
-
-            <br><br>
-
-            <div class="col-sm-3 control-group">
-                <div class="controls">
-                    <h5> <center><b>Offense Stage</b></center></h5>
-                </div>
-            </div>
-
-            <div class="col-sm-6 control-group">
-                <div class="controls">
-                    <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
-                        <option>Attempted</option>
-                        <option>Frustrated</option>
-                        <option>Consummated</option>
-                        <option>N/A</option>
-                    </select>
-                    <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
-                </div>
-            </div>-->
+        <!--            <div class="col-sm-3 control-group">
+                        <div class="controls">
+                            <h5> <center><b>Offense</b></center></h5>
+                        </div>
+                    </div>
+        
+                    <div class="col-sm-6 control-group">
+                        <div class="controls">
+                            <select class="chosen-select" tabindex="8">
+        <?php foreach ($offenses as $off): ?>
+                                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+        <?php endforeach; ?>
+                            </select>  
+                        </div>
+                    </div>
+        
+                    <br><br>
+        
+                    <div class="col-sm-3 control-group">
+                        <div class="controls">
+                            <h5> <center><b>Offense Stage</b></center></h5>
+                        </div>
+                    </div>
+        
+                    <div class="col-sm-6 control-group">
+                        <div class="controls">
+                            <select id="appoffensestagepenal" name="appoffensestagepenal" class="form-control">
+                                <option>Attempted</option>
+                                <option>Frustrated</option>
+                                <option>Consummated</option>
+                                <option>N/A</option>
+                            </select>
+                            <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
+                        </div>
+                    </div>-->
 
         <!--</div>-->
 

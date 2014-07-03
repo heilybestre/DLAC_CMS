@@ -26,7 +26,7 @@
                             <?php $this->load->view('intern/createApplication/addlegaladvice'); ?>
                         </div>
                         <!-- <div class="tab-pane" id="recommendation" style='padding:10px;'>
-                        <?php $this->load->view; ?>
+                        <?php //$this->load->view; ?>
                         </div> -->
                     </div>
                 </div>
@@ -38,18 +38,18 @@
             <tbody>
                 <tr>
                     <td>
-                        <select class="form-control">
+                        <select class="form-control" name="appoffensename[]">
                             <?php foreach ($offenses as $off): ?>
                                 <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
                             <?php endforeach; ?>
                         </select> 
                     </td>
                     <td>
-                        <select id="appoffensestagepenal" name="appoffensestagepenal[]" class="form-control">
-                            <option>Attempted</option>
-                            <option>Frustrated</option>
-                            <option>Consummated</option>
-                            <option>N/A</option>
+                        <select id="appoffensestagepenal" name="appoffensestage[]" class="form-control">
+                            <option value="Attempted">Attempted</option>
+                            <option value="Frustrated">Frustrated</option>
+                            <option value="Consummated">Consummated</option>
+                            <option value="N/A">N/A</option>
                         </select>
                     </td>
                     <td><button type='button' class="btn btn-danger removerowcreateAppOffense" style="margin-top:0px;"> <i class="icon-minus"></i> </button></td>
