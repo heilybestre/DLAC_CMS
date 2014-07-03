@@ -89,7 +89,7 @@ class Case_model extends CI_Model {
     }
 
     function insert_offense($data) {
-        $this->db->insert('offense', $data);
+        $this->db->insert('case_offense', $data);
     }
 
     function insert_court($data) {

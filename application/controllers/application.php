@@ -339,14 +339,14 @@ class Application extends CI_Controller {
         $datestring = "%Y-%m-%d";
         $timestring = "%h:%i %a";
         $time = now();
-        
+
         $datenow = mdate($datestring, $time);
         $timenow = mdate($timestring, $time);
         $data['datenow'] = $datenow;
         $data['timenow'] = $timenow;
 
         $datetimestring = "%Y-%m-%d %H:%i:%s";
-        
+
         $datetimenow = mdate($datetimestring, $time);
         $yearnowlasttwo = substr($datetimenow, 2, 2);
         $data['datetimenow'] = $datetimenow;
@@ -403,8 +403,6 @@ class Application extends CI_Controller {
         /* CASE TABLE */
         $forcase = array(
             'appAdviceGiven' => $appadvicegiven,
-            'appRecommendedFor' => $apprecommendedfor,
-            'appRecommendation' => $apprecommendation,
             'appNotes' => $appnotes,
             'appSubmittedBy' => $uid,
             'appDateSubmitted' => $datetimenow,
@@ -419,7 +417,6 @@ class Application extends CI_Controller {
             'caseNum' => $appnumber
         );
         $this->Case_model->insert_app($forcase);
-
         //get the case id by last id inserted
         $caseID = $this->db->insert_id();
 
@@ -450,16 +447,17 @@ class Application extends CI_Controller {
             case 13: $appopptype = 12;
                 break;
         };
-
-        $forcasepeopleopp = array(
-            'caseID' => $caseID,
-            'personID' => $appopposing,
-            'participation' => 7, //opposing party
-            'condition' => 'current',
-            'side' => $appopptype,
-            'datestart' => $datetimenow
-        );
-        $this->Case_model->insert_caseperson($forcasepeopleopp);
+        for ($index = 0; $index < count($appopposing); $index++) {
+            $forcasepeopleopp = array(
+                'caseID' => $caseID,
+                'personID' => $appopposing[$index],
+                'participation' => 7, //opposing party
+                'condition' => 'current',
+                'side' => $appopptype,
+                'datestart' => $datetimenow
+            );
+            $this->Case_model->insert_caseperson($forcasepeopleopp);
+        }
 
         /* COURT TABLE */
         if ($appcaseno == null || $appcaseno == '')
@@ -502,18 +500,17 @@ class Application extends CI_Controller {
         }
 
         /* OFFENSE TABLE */
-        $tagoffense = ''; //for tags later
+        $tagoffense = ''; //for tags later  
 
-        if (isset($inputoffense)) {
-            for ($index = 0; $index < count($inputoffense); $index++) {
+        if (isset($appoffensename)) {
+            for ($index = 0; $index < count($appoffensename); $index++) {
                 $data = array(
                     'caseID' => $caseID,
-                    'offense' => $inputoffense [$index],
-                    'stage' => $inputoffensestage [$index]
+                    'offenseID' => $appoffensename [$index],
+                    'stage' => $appoffensestage [$index]
                 );
                 $this->Case_model->insert_offense($data);
-
-                $tagoffense = $tagoffense . ' #' . $inputoffense[$index];
+                $tagoffense = $tagoffense . ' #' . $appoffensename[$index];
             }
         }
 
@@ -612,7 +609,6 @@ class Application extends CI_Controller {
 
         /* NOTIFICATION TABLE */
         $this->Notification_model->app_new($uid, 1, $caseID);
-
         redirect('application/index');
     }
 

@@ -120,6 +120,16 @@
 
     // POPOVERS
     $(document).ready(function() {
+        
+        $('#createAppClientList').on('change', function(evt, params){
+           var word = $('#createAppClientList').val();
+           $('#createAppClientListHidden').val(word);
+        });
+        $('#createAppOpposingPartyList').on('change', function(evt, params){
+           var word = $('#createAppOpposingPartyList').val();
+           $('#createAppOpposingPartyListHidden').val(word);      
+        });
+        
         $('.popover-orig').popover({
             html: true,
             content: function() {
