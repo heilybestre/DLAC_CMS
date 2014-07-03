@@ -334,8 +334,8 @@
         $('#btncasefactsnext').click(function() {
             $('#liCaseFacts').removeClass('active');
             $('#caseFacts').removeClass('active');
-            $('#liEvidence').addClass('active');
-            $('#evidence').addClass('active');
+            $('#liLegalAdvice').addClass('active');
+            $('#legalAdvice').addClass('active');               
         });
         $('#btnevidencenext').click(function() {
             $('#liEvidence').removeClass('active');
@@ -355,6 +355,19 @@
             $('#liRecommendation').addClass('active');
             $('#recommendation').addClass('active');
         });
+        
+        $('#createApplicationAddOffense').click(function() {
+            var newrow= $('#offensetableTD tbody').html();
+            $('#offensetable >tbody:last').append(newrow);            
+        });
+        
+        $(".removerowcreateAppOffense").live('click', function() {
+            //alert('asd');
+            $(this).parent().parent().remove();
+        });
+        
+        
+        
     });
     /* Add Offense in Table (PENAL) */
     $('#btnaddoffensepenal').click(function() {
