@@ -756,29 +756,31 @@
         var x = $(this).attr('id').substring(16);
         var message = $('#actionWriteNotes_' + x).val();
 
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-
-        today = mm + '/' + dd + '/' + yyyy;
-
+//        var today = new Date();
+//        var dd = today.getDate();
+//        var mm = today.getMonth() + 1; //January is 0!
+//        var yyyy = today.getFullYear();
+//
+//        if (dd < 10) {
+//            dd = '0' + dd;
+//        }
+//
+//        if (mm < 10) {
+//            mm = '0' + mm;
+//        }
+//
+//        today = mm + '/' + dd + '/' + yyyy;
+        
+        var today = "<?php echo date('m/d/y G:i') ?>";
+        
         var html = "<li id='actionPlanNote' class='actionPlanNote'>"
                 + "<div class='name'>" + $('#usernameforaction').text() + "</div>"
                 + "<div class='date'>" + today + "</div>"
-                + "<div class='delete'><i class='icon-remove'></i></div>"
                 + "<div class='message'>" + message + "</div>"
                 + "</li>";
         $('#notesThread_' + x + ' ul').append(html);
-
+        
+        $('#actionWriteNotes_' + x).val('');
     });
 
 

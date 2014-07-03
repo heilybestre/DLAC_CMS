@@ -15,9 +15,12 @@
   height:auto; 
 }
 .actionPlan-bottom-notes{
-  width: 300px ! important;
+  width: 280px ! important;
   max-height: 200px ! important;
   overflow: auto;
+  margin-top: 10px;
+  background-color: rgb(240, 240, 240);
+  padding-top: 15px;
 }
 
 #deleteAction2{
