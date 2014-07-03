@@ -51,7 +51,7 @@
             <div class="controls">
                 <select  multiple class="chosen-select" tabindex="8" style="" id="createAppClientList">
                     <?php foreach ($clientlist as $client): ?>
-                        <option value="<?php echo $client->personID ?>"><?php echo "$client->lastname, $client->firstname $client->lastname" ?></option>
+                        <option value="<?php echo $client->personID ?>"><?php echo "$client->lastname, $client->firstname $client->middlename" ?></option>
                     <?php endforeach; ?>
                 </select>  
             </div>
@@ -302,9 +302,9 @@
         <div class="hide"> <h4> Possible Offense</h4> </div>
         <hr>
 
-        <div class="col-lg-5">
+<!--        <div class="col-lg-5">-->
 
-            <div class="col-sm-3 control-group">
+<!--            <div class="col-sm-3 control-group">
                 <div class="controls">
                     <h5> <center><b>Offense</b></center></h5>
                 </div>
@@ -338,15 +338,15 @@
                     </select>
                     <input type="button" id="btnaddoffensepenal" value="Add Offense" class='btn btn-info col-sm-12'/>
                 </div>
-            </div>
+            </div>-->
 
-        </div>
+        <!--</div>-->
 
-        <div id='offensetablediv' class="col-lg-6">
+        <div id='offensetablediv' class="col-lg-8">
             <table id='offensetable' class="table table-striped table-bordered">
                 <tr>
-                    <th>Offense</th>
-                    <th>Offense Stage</th>
+                    <th style='width:65%'>Offense</th>
+                    <th style='width:29%'>Offense Stage</th>
                     <th><a class="btn btn-success" id="createApplicationAddOffense" style="margin-top:0px;"> <i class="icon-plus"></i> </a></th>
                 </tr>
             </table>

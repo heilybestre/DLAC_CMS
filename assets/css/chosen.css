@@ -224,7 +224,7 @@
 .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
   margin: 1px 0;
   padding: 5px;
-  height: 15px;
+  height: 20px; //originally 15px -vianica
   outline: 0;
   border: 0 !important;
   background: transparent !important;
@@ -328,6 +328,7 @@
 }
 .chosen-container-active .chosen-choices li.search-field input[type="text"] {
   color: #111 !important;
+  outline: none;
 }
 
 /* @end */
