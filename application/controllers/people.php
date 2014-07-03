@@ -233,7 +233,7 @@ class People extends CI_Controller {
         $time = now();
         $datenow = mdate($datestring, $time);
         $datenowdd = mdate($datestring2, $time);
-        
+
         $data['datenow'] = $datenow;
         $data['image'] = $this->People_model->getuserfield('image', $uid);
         $data['name'] = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
@@ -300,17 +300,17 @@ class People extends CI_Controller {
         echo json_encode($arrinterns);
         exit();
     }
-    
-    function showspecializedlawyers($offenseID){
+
+    function showspecializedlawyers($offenseID) {
         $lawyers = $this->People_model->select_specialized($offenseID);
         $count = 0;
         $arrlawyers = array();
-        
-        foreach($lawyers as $l){
+
+        foreach ($lawyers as $l) {
             $arrlawyers[$count] = $i->firstname . ' ' . $i->lastname . ' (' . $i->difficultyLevel . ')';
             $count++;
         }
-        
+
         echo json_encode($arrlawyers);
         exit();
     }
