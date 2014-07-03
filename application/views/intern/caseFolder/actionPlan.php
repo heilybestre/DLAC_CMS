@@ -6,56 +6,56 @@
 
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>
-  <!-- upon submission of intern -->
-  <div id='pendingdiv' class="row">
-    <div class="col-lg-7">
-      <h5>Action Plan Status: <label class="label label-warning">Pending</label></h5>
+    <!-- upon submission of intern -->
+    <div id='pendingdiv' class="row">
+      <div class="col-lg-7">
+        <h5>Action Plan Status: <label class="label label-warning">Pending</label></h5>
+      </div>
     </div>
-  </div>
   <?php } ?>
 
   <!-- Action plan is REJECTED | Must do lawyer's revisions -->
   <?php if ($actionplanstatus == 'rejected') { ?>
-  <div class="row hide">
-    <div class="col-lg-7">
-      <h5>Action Plan Status: <label class="label label-danger">Rejected</label> -
-        <a class ="btn btn-warning" href="#reasonActionPlanModal" data-toggle="modal" style="font-size:13px; height:20px; padding-top:0px; margin-top:0px;">Reasons
-        </a>
-      </h5>
-      <h5>Date Evaluated:<label class="label label-info">(date)</label></h5>
-      <br>
+    <div class="row hide">
+      <div class="col-lg-7">
+        <h5>Action Plan Status: <label class="label label-danger">Rejected</label> -
+          <a class ="btn btn-warning" href="#reasonActionPlanModal" data-toggle="modal" style="font-size:13px; height:20px; padding-top:0px; margin-top:0px;">Reasons
+          </a>
+        </h5>
+        <h5>Date Evaluated:<label class="label label-info">(date)</label></h5>
+        <br>
+      </div>
     </div>
-  </div>
   <?php } ?>
 
   <!-- Action plan is APPROVED  -->
   <?php if ($actionplanstatus == 'approved') { ?>
-  <!--if approved-->
-  <div class="row" id="actionplanapproveddiv">
-    <div class="col-lg-4">
-      <h5>Action Plan Status: <label class="label label-success">Approved</label></h5>
-      <br>
-    </div>
+    <!--if approved-->
+    <div class="row" id="actionplanapproveddiv">
+      <div class="col-lg-4">
+        <h5>Action Plan Status: <label class="label label-success">Approved</label></h5>
+        <br>
+      </div>
 
-    <br>
-    <div class="col-lg-5 pull-right">
-      <div class='pull-right'>
-        <a id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
-        <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
+      <br>
+      <div class="col-lg-5 pull-right">
+        <div class='pull-right'>
+          <a id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
+          <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
+        </div>
       </div>
     </div>
-  </div>
   <?php } ?>
 
   <!-- No action plan yet -->
   <?php if ($actionplanstatus == null) { ?>
-  <div class="row">
-    <button id='btncreateactionplan' class='col-lg-2 btn btn-success'><i class="icon-file" style='margin-right:5px; margin-left:5px;'></i> Create Action Plan</button>
-  </div>
-  <br>
+    <div class="row">
+      <button id='btncreateactionplan' class='col-lg-2 btn btn-success'><i class="icon-file" style='margin-right:5px; margin-left:5px;'></i> Create Action Plan</button>
+    </div>
+    <br>
   <?php } ?>
 
-  <!-- While EDITING Action plan | Collaboration of interns -->
+  <!-- While EDITING Action plan -->
   <div id='editingdiv' class="row hide">
     <div class="col-lg-4">
       <h5>Action Plan Status: <label class="label label-primary">Editing</label></h5>
@@ -68,7 +68,7 @@
       <div class="col-lg-2">
         <select id='newactionstage' name='newactionstage' class='form-control'>
           <?php foreach ($stages as $stage) : ?>
-          <option value='<?= $stage->stageID ?>'><?= $stage->stageName ?></option>
+            <option value='<?= $stage->stageID ?>'><?= $stage->stageName ?></option>
           <?php endforeach; ?>
         </select>
       </div>
@@ -82,7 +82,7 @@
       <div class="col-lg-2">
         <select id='newactiontype' name='newactiontype' class='form-control'>
           <?php foreach ($actioncategory as $category) : ?>
-          <option value='<?= $category->racID ?>'><?= $category->category ?></option>
+            <option value='<?= $category->racID ?>'><?= $category->category ?></option>
           <?php endforeach; ?>
         </select>
       </div>
@@ -93,86 +93,177 @@
     </div>
   </div>
 
-  
-  <!-- ACTION PLAN : CREATE ACTION PLAN -->
-  <?php if ($actionplanstatus == null) { ?>
-  <div id='actionplandiv' class="row disable fadedopp" >
-    <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
+  <!-- ACTION PLAN : APPROVED / PENDING -->
+  <?php if ($actionplanstatus == 'approved' || $actionplanstatus == 'pending') { ?>
+    <div id='actionplandiv' class="row <?php if($actionplanstatus == 'pending') echo 'disable fadedlight'; ?>" >
+      <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
 
-    <div id='actionplanbuttonsdiv' class='hide pull-right' style='margin-right: 50px;'>
-      <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Submit'); ?>
-      <a href="<?= base_url() ?>cases/caseFolder/<?= $case->caseID ?>?tid=actionplan" class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</a>
-    </div>
+      <div id='actionplanbuttonsdiv' class='hide pull-right' style='margin-right: 50px;'>
+        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Submit'); ?>
+        <a href="<?= base_url() ?>cases/caseFolder/<?= $case->caseID ?>?tid=actionplan" class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</a>
+      </div>
 
-    <div id='actionplanbuttonsbrdiv' class='hide'>
-      <br><br><br>
-    </div>
+      <div id='actionplanbuttonsbrdiv' class='hide'>
+        <br><br><br>
+      </div>
 
-    <?php for ($x = 1; $x <= 4; $x++) { ?>
-    <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
-      <h3>
-        <?php
-        if($x==1) echo 'New';
-        else if($x==2) echo 'Preliminary Investigation';
-        else if($x==3) echo 'Pre-Trial';
-        else if($x==4) echo 'Trial Court';
-        
-        ?>
-      </h3>
+      <!-- PER STAGE -->
+      <?php for ($x = 1; $x <= 4; $x++) { ?>
+        <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
+          <h3>
+            <?php
+            if ($x == 1)
+              echo 'New';
+            else if ($x == 2)
+              echo 'Preliminary Investigation';
+            else if ($x == 3)
+              echo 'Pre-Trial';
+            else if ($x == 4)
+              echo 'Trial Court';
+            ?>
+          </h3>
 
-      <ul class="todo-list">
-        <table id="action<?= $x ?>table" class="table table-condensed" style="background-color:white;">
+          <ul class="todo-list">
+            <table id="action<?= $x ?>table" class="table table-condensed" style="background-color:white;">
 
-<?php foreach (${'refactionplan_s' . $x} as $action) : ?>
-          <tr id="actionTableRow_<?= $action->rapID ?>">
-            <td><input id="arrayActionName_<?= $action->rapID ?>" name="action<?= $x ?>[]" class="cbactionstage<?= $x ?>" type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' checked="checked"/></td>
-            <td>
-              <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->rapID ?>">
-              <label class="removeBold" id="actionNameLabel_<?= $action->rapID ?>"> <?= $action->action ?> </label>
-            </td>
-            <td>
-              <a href="#" id="popover-orig_<?= $action->rapID ?>" data-placement="bottom" class="popover-orig btn btn-info pull-right"> <i class="icon-edit"></i> </a>
-              <div id="popover-orig-head_<?= $action->rapID ?>" class="hide"></div>
-              <div id="popover-orig-content_<?= $action->rapID ?>" class="hide">
-                <!-- Action plan POPOVER -->
-                <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
-                  <br>
-                  <!--Edit-->
-                  <div id="actionPlanOption-center-edit_<?= $action->rapID ?>">
-                    <div class="col-lg-3"><h5>Action:</h5></div>
-                    <div class="col-lg-9"><?php echo form_input(array('id' => "editAction_$action->rapID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?></div>
+              <?php foreach (${'actionplan_s' . $x} as $action) : ?>
+                <tr id="actionTableRow_<?= $action->actionplanID ?>">
+                  <td><input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php
+                  if ($action->status == 1) {
+                    echo 'checked';
+                  }
+                  ?> /></td>
+                  <td>
+                    <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
+                    <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                  </td>
+                  <td>
+                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-info pull-right"> <i class="icon-edit"></i> </a>
+                    <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
+                    <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
+                      <!-- Action plan POPOVER -->
+                      <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
+                        <br>
+                        <!--Edit-->
+                        <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>">
+                          <div class="col-lg-3"><h5>Action:</h5></div>
+                          <div class="col-lg-9"><?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?></div>
 
-                    <br><br>
+                          <br><br>
 
-                    <div class="col-lg-3"><h5>Type:</h5></div>
-                    <div class="col-lg-7">
-                      <select id='editactiontype_<?= $action->rapID ?>' name='newactiontype' class='form-control'>
-<?php foreach ($actioncategory as $category) : ?>
-                        <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
-<?php endforeach; ?>
-                      </select>
+                          <div class="col-lg-3"><h5>Type:</h5></div>
+                          <div class="col-lg-7">
+                            <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
+                              <?php foreach ($actioncategory as $category) : ?>
+                                <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+
+                          <div class="col-lg-1">
+                            <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
+                          </div>
+
+                          <br><br><br>
+                        </div>
+                      </div> 
+                      <!-- Action plan POPOVER -->
                     </div>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
 
-                    <div class="col-lg-1">
-                      <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->rapID ?>"> <i class="icon-save"></i> </a>
-                    </div>
-
-                    <br><br><br>
-                  </div>
-                </div> 
-                <!-- Action plan POPOVER -->
-              </div>
-            </td>
-          </tr>
-<?php endforeach; ?>
-
-        </table>
-      </ul>
+            </table>
+          </ul>
+        </div>
+      <?php } ?>
+      <?php echo form_close(); ?>
     </div>
   <?php } ?>
-<?php echo form_close(); ?>
-  </div>
-<?php } ?>
+
+  <!-- ACTION PLAN : CREATE ACTION PLAN -->
+  <?php if ($actionplanstatus == null) { ?>
+    <div id='actionplandiv' class="row disable fadedopp" >
+      <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
+
+      <div id='actionplanbuttonsdiv' class='hide pull-right' style='margin-right: 50px;'>
+        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Submit'); ?>
+        <a href="<?= base_url() ?>cases/caseFolder/<?= $case->caseID ?>?tid=actionplan" class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</a>
+      </div>
+
+      <div id='actionplanbuttonsbrdiv' class='hide'>
+        <br><br><br>
+      </div>
+
+      <!-- PER STAGE -->
+      <?php for ($x = 1; $x <= 4; $x++) { ?>
+        <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
+          <h3>
+            <?php
+            if ($x == 1)
+              echo 'New';
+            else if ($x == 2)
+              echo 'Preliminary Investigation';
+            else if ($x == 3)
+              echo 'Pre-Trial';
+            else if ($x == 4)
+              echo 'Trial Court';
+            ?>
+          </h3>
+
+          <ul class="todo-list">
+            <table id="action<?= $x ?>table" class="table table-condensed" style="background-color:white;">
+
+              <?php foreach (${'refactionplan_s' . $x} as $action) : ?>
+                <tr id="actionTableRow_<?= $action->rapID ?>">
+                  <td><input id="arrayActionName_<?= $action->rapID ?>" name="action<?= $x ?>[]" class="cbactionstage<?= $x ?>" type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' checked="checked"/></td>
+                  <td>
+                    <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->rapID ?>">
+                    <label class="removeBold" id="actionNameLabel_<?= $action->rapID ?>"> <?= $action->action ?> </label>
+                  </td>
+                  <td>
+                    <a href="#" id="popover-orig_<?= $action->rapID ?>" data-placement="bottom" class="popover-orig btn btn-info pull-right"> <i class="icon-edit"></i> </a>
+                    <div id="popover-orig-head_<?= $action->rapID ?>" class="hide"></div>
+                    <div id="popover-orig-content_<?= $action->rapID ?>" class="hide">
+                      <!-- Action plan POPOVER -->
+                      <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
+                        <br>
+                        <!--Edit-->
+                        <div id="actionPlanOption-center-edit_<?= $action->rapID ?>">
+                          <div class="col-lg-3"><h5>Action:</h5></div>
+                          <div class="col-lg-9"><?php echo form_input(array('id' => "editAction_$action->rapID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?></div>
+
+                          <br><br>
+
+                          <div class="col-lg-3"><h5>Type:</h5></div>
+                          <div class="col-lg-7">
+                            <select id='editactiontype_<?= $action->rapID ?>' name='newactiontype' class='form-control'>
+                              <?php foreach ($actioncategory as $category) : ?>
+                                <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+
+                          <div class="col-lg-1">
+                            <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->rapID ?>"> <i class="icon-save"></i> </a>
+                          </div>
+
+                          <br><br><br>
+                        </div>
+                      </div> 
+                      <!-- Action plan POPOVER -->
+                    </div>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+
+            </table>
+          </ul>
+        </div>
+      <?php } ?>
+      <?php echo form_close(); ?>
+    </div>
+  <?php } ?>
 
 
   <!-- START OF MODAL : EDITACTIONPLANMODAL -->

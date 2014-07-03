@@ -872,7 +872,7 @@
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);            
-            cell1.innerHTML = "<input id='arrayActionName_"+actionplanID+"' name='action" + stage + "[]' value='" + action + "' class='cbactionstage" + stage + "' type='checkbox' style='margin: 0px 5px 0px 10px;'>";
+            cell1.innerHTML = "<input id='arrayActionName_"+actionplanID+"' name='action" + stage + "[]' value='" + action + "' class='cbactionstage" + stage + "' type='checkbox' style='margin: 0px 5px 0px 10px;' checked='checked'>";
             cell2.innerHTML = "<input name='actiontype" + stage + "[]' value='" + typeValue + "' class='hide' id='arrayActionType_" + actionplanID + "'>"
                     + "<label id='actionNameLabel_" + actionplanID + "' class='removeBold'>" + action + "</label>";            +action;
             cell3.innerHTML = "<a id='popover-orig_" + actionplanID +"'' data-placement='bottom' class='popover-orig btn btn-info pull-right'> <i class='icon-edit'></i> </a>"
