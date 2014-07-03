@@ -49,7 +49,7 @@
         </div>
         <div class="col-sm-8 control-group">
             <div class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
+                <select  multiple class="chosen-select" tabindex="8" style="" id="createAppClientList">
                     <?php foreach ($clientlist as $client): ?>
                         <option value="<?php echo $client->personID ?>"><?php echo "$client->lastname, $client->firstname $client->lastname" ?></option>
                     <?php endforeach; ?>
@@ -149,7 +149,7 @@
 
         <div class="col-sm-8 control-group">
             <div id='opposingpartydiv' class="controls">
-                <select  multiple class="chosen-select" tabindex="8" style="">
+                <select  multiple class="chosen-select" tabindex="8" style="" id="createAppOpposingPartyList">
                     <?php foreach ($opposingpartylist as $opposing): ?>
                         <option value="<?php echo $opposing->personID ?>"><?php echo "$opposing->lastname, $opposing->firstname $opposing->middlename" ?></option>
                     <?php endforeach; ?>
@@ -312,7 +312,7 @@
 
             <div class="col-sm-6 control-group">
                 <div class="controls">
-                    <select  multiple class="chosen-select" tabindex="8">
+                    <select class="chosen-select" tabindex="8">
                         <?php foreach ($offenses as $off): ?>
                             <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
                         <?php endforeach; ?>
@@ -347,8 +347,10 @@
                 <tr>
                     <th>Offense</th>
                     <th>Offense Stage</th>
+                    <th><a class="btn btn-success" id="createApplicationAddOffense" style="margin-top:0px;"> <i class="icon-plus"></i> </a></th>
                 </tr>
             </table>
+
         </div>
     </div>
 
@@ -359,7 +361,7 @@
         <div class="control-group pull-right">
             <label class="control-label" for="submit"></label>
             <div class="controls">
-                <input type='button' id='btncasefactsnext' value='Next' class='btn btn-success'>
+                <a id='btncasefactsnext' class='btn btn-success' href="#liLegalAdvice">Next</a>
             </div>
         </div>
     </div>
