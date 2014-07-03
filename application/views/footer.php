@@ -861,94 +861,46 @@
             row.id = 'actionTableRow_' + actionplanID;
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            cell1.innerHTML = "<input type='checkbox' name='action" + stage + "[]' value='" + action + "' style='margin: 0px 5px 0px 10px;' />";
-            cell2.innerHTML = "<input name='actionname" + stage + "[]' value='" + action + "' class='hide' id='arrayActionName_" + actionplanID + "'>"
-                    + "<input name='actiontype1" + stage + "[]' value='" + typeValue + "' class='hide' id='arrayActionType_" + actionplanID + "'>"
-                    + "<label id='actionNameLabel_" + actionplanID + "' class='removeBold'>" + action + "</label>";
-            +action;
-            cell3.innerHTML = "<a id='popover-orig_" + actionplanID + "' data-placement='bottom' class='popover-orig btn btn-success pull-right vianica'> <i class='icon-caret-down'></i> </a>"
-                    + "<div id='popover-orig-head_" + actionplanID + "' class='hide'></div>"
-                    + "<div id='popover-orig-content_" + actionplanID + "' class='hide'>"
-                    //  +"<form>"
-                    //<!-- Action plan POPOVER -->
-                    + "<div id='actionPlan_stage1' class='actionPlan_stage1'>"
-
-                    + "<div id='actionPlanOption-top'>"
-                    + "<h5>"
-                    + "<b>Assigned to </b><label class='label label-default'>None</label>"
-                    + "<div id='actionPlanActionButtons_" + actionplanID + "' class='pull-right'>"
-                    //+ "<a class='btn btn-success getActionButton' id='getActionButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
-                    + "<a class='btn btn-info editActionButton' id='editActionButton_" + actionplanID + "'><i class='icon-edit'></i> </a> "
-                    + "<a class='btn btn-danger deleteActionButton' id='deleteActionButton_" + actionplanID + "'><i class='icon-trash'></i> </a> "
-                    + "</div>"
-                    + "</h5>"
-                    + "<h5><b>Type:</b> <label class='removeBold' id='actionTypeLabel_" + actionplanID + "'>None</label></h5>"
-                    + "</div>"
-
-                    + "<div id='actionPlanOption-center-writeNotes_" + actionplanID + "'>"
-                    + "<h5>Notes</b></h5>"
-                    + "<textarea class='diss-form' id='actionWriteNotes_" + actionplanID + "' placeholder='Write comment' style='overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;'></textarea>"
-                    + "<a class='btn btn-success pull-right sendActionNotes' id='sendActionNotes_" + actionplanID + "'>Send</a>"
-                    + "<br><br>"
-                    + "</div>"
-
-                    //<!--Edit-->
-                    + "<div id='actionPlanOption-center-edit_" + actionplanID + "' class='hide'>"
-                    + "<div class='col-lg-3'>"
-                    + "<h5>Action:</h5>"
-                    + "</div>"
-
+            var cell3 = row.insertCell(2);            
+            cell1.innerHTML = "<input id='arrayActionName_"+actionplanID+"' name='action" + stage + "[]' value='" + action + "' class='cbactionstage" + stage + "' type='checkbox' style='margin: 0px 5px 0px 10px;'>";
+            cell2.innerHTML = "<input name='actiontype" + stage + "[]' value='" + typeValue + "' class='hide' id='arrayActionType_" + actionplanID + "'>"
+                    + "<label id='actionNameLabel_" + actionplanID + "' class='removeBold'>" + action + "</label>";            +action;
+            cell3.innerHTML = "<a id='popover-orig_" + actionplanID +"'' data-placement='bottom' class='popover-orig btn btn-info pull-right'> <i class='icon-edit'></i> </a>"
+              + "<div id='popover-orig-head_" + actionplanID +"'' class='hide'></div>"
+              + "<div id='popover-orig-content_" + actionplanID +"'' class='hide'>"
+                //<!-- Action plan POPOVER -->
+                + "<div id='actionPlan_stage" + stage + "'' class='actionPlan_stage" + stage + "''>"
+                  + "<br>"
+                  //<!--Edit-->
+                  + "<div id='actionPlanOption-center-edit_" + actionplanID +"''>"
+                    + "<div class='col-lg-3'><h5>Action:</h5></div>"
                     + "<div class='col-lg-9'>"
-                    + "<input type='text' name='editAction' value='" + action + "' id='editAction_" + actionplanID + "' placeholder='Action' class='form-control'>"
+                        + "<input type='text' name='editAction' value='" + action + "' id='editAction_" + actionplanID + "' placeholder='Action' class='form-control'>"
                     + "</div>"
 
                     + "<br><br>"
 
-                    + "<div class='col-lg-3'>"
-                    + "<h5>Type:</h5>"
+                    + "<div class='col-lg-3'><h5>Type:</h5></div>"
+                    + "<div class='col-lg-7'>"
+                      + "<select id='editactiontype_" + actionplanID +"'' name='newactiontype' class='form-control'>"
+                            + "<option value='1'>None</option>"
+                            + "<option value='2'>Event</option>"
+                            + "<option value='3'>Minutes</option>"
+                            + "<option value='4'>Evidence</option>"
+                            + "<option value='5'>Draft</option>"
+                            + "<option value='6'>Document</option>"                                                
+                      + "</select>"
                     + "</div>"
 
-                    + "<div class='col-lg-5'>"
-                    + "<select id='editactiontype_" + actionplanID + "' name='newactiontype' class='form-control'>"
-                    + "<option value='1'>None</option>"
-                    + "<option value='2'>Event</option>"
-                    + "<option value='3'>Minutes</option>"
-                    + "<option value='4'>Evidence</option>"
-                    + "<option value='5'>Draft</option>"
-                    + "<option value='6'>Document</option>"
-                    + "</select>"
-                    + "</div>"
-
-                    + "<div class='col-lg-3'>"
-                    + "<a class='btn btn-success saveActionButton' id='saveActionButton_" + actionplanID + "'> <i class='icon-save'></i> </a> "
-                    + "<a class='btn btn-danger cancelEditButton' id='cancelEditButton_" + actionplanID + "'> <i class='icon-ban-circle'></i> </a>"
+                    + "<div class='col-lg-1'>"
+                      + "<a class='btn btn-success saveActionButton' id='saveActionButton_" + actionplanID +"''> <i class='icon-save'></i> </a>"
                     + "</div>"
 
                     + "<br><br><br>"
-                    + "</div>"
-
-                    //<!--Delete-->
-                    + "<div id='actionPlanOption-center-delete_" + actionplanID + "' class='hide'>"
-                    + "<h4><center>Are you sure you want to delete this item?</center></h4> "
-                    + "<div class='centerdiv' style='width:20%'>"
-                    + "<a class='btn btn-success okayDeleteButton' id='okayDeleteButton_" + actionplanID + "'> <i class='icon-ok'></i> </a> "
-                    + "<a class='btn btn-danger cancelDeleteButton' id='cancelDeleteButton_" + actionplanID + "'> <i class='icon-remove'></i> </a>"
-                    + "</div>"
-                    + "<br><br>"
-                    + "</div>"
-
-                    + "<div id='actionPlan-bottom-notes_" + actionplanID + "' class='actionPlan-bottom-notes'>"
-                    + "<hr>"
-                    + "<div class='discussions' id='notesThread_" + actionplanID + "'>"
-                    + "<ul></ul>"
-                    + "</div>"
-                    + "<br>"
-                    + "</div>"
-                    + "</div> "
-                    //<!-- Action plan POPOVER -->
-                    // +"</form>"
-                    + "</div>";
+                  + "</div>"
+                + "</div>"
+                //<!-- Action plan POPOVER -->
+              + "</div>";
 
         }
 
@@ -956,9 +908,14 @@
             html: true,
             content: function() {
                 var x = $(this).attr('id').substring(13);
+                
+                var actionName = $('#actionNameLabel_' + x).text();
+                $('#editAction_' + x).attr('value', actionName);
+                
                 var typeValue = $('#arrayActionType_' + x).val();
                 var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
-                $('#actionTypeLabel_' + x).text(typeText);
+                $("#editactiontype_" + x + " option:contains(" + typeText + ")").attr('selected', 'selected');
+                
                 return $("#popover-orig-content_" + x).html();
             }
         });
