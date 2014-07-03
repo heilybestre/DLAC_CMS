@@ -169,7 +169,8 @@
                     <?php foreach ($tags as $tag): ?>
                         <label class="label label-primary">
                             <i class="icon-tag">&nbsp; <?php echo $tag ?></i>
-                        </label><?php endforeach; ?>
+                        </label>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -812,8 +813,14 @@
                     </div>
                     <div class="modal-body">
                         <select  multiple class="chosen-select" tabindex="8">
+
+                            <?php $tags = explode(' #', $case->tags); ?>
+                            <?php foreach ($tags as $tag): ?>
+                                <option selected><?php echo $tag ?></option>
+                            <?php endforeach; ?>
+
                             <?php foreach ($offenses as $off): ?>
-                                <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                                <option  value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
                             <?php endforeach; ?>
                         </select>             
                     </div>
