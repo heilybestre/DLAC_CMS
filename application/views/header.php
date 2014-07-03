@@ -1,8 +1,9 @@
 <!-- Header -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <head><link rel="shorcut icon" href="<?= base_url() ?>assets/images/dlac1.ico">
         <meta charset="utf-8">
+        
         <title>DLAC Case Management System</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

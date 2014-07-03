@@ -34,7 +34,28 @@
                 <?php echo form_close(); ?>
             </div>
         </div><!--/col-->
-
+        <table class="hide" id="offensetableTD">
+            <tbody>
+                <tr>
+                    <td>
+                        <select class="form-control">
+                            <?php foreach ($offenses as $off): ?>
+                                <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                            <?php endforeach; ?>
+                        </select> 
+                    </td>
+                    <td>
+                        <select id="appoffensestagepenal" name="appoffensestagepenal[]" class="form-control">
+                            <option>Attempted</option>
+                            <option>Frustrated</option>
+                            <option>Consummated</option>
+                            <option>N/A</option>
+                        </select>
+                    </td>
+                    <td><button type='button' class="btn btn-danger removerowcreateAppOffense" style="margin-top:0px;"> <i class="icon-minus"></i> </button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
