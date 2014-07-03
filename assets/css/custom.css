@@ -427,6 +427,7 @@ tabletags{
 
 .actionplanwidth{
     width: 23%;
+    margin-left: 10px !important;
 }
 
 .centerdiv{

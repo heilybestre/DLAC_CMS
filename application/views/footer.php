@@ -92,7 +92,6 @@
         $('#actionplanbuttonsbrdiv').removeClass('hide');
         $('.editActionButton').removeClass('hide');
         $('.deleteActionButton').removeClass('hide');
-
     });
 
     $(".btnAssignPerson").live('click', function() {
@@ -134,11 +133,14 @@
             html: true,
             content: function() {
                 var x = $(this).attr('id').substring(13);
+
+                var actionName = $('#actionNameLabel_' + x).text();
+                $('#editAction_' + x).attr('value', actionName);
+                
                 var typeValue = $('#arrayActionType_' + x).val();
                 var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
-                $('#actionTypeLabel_' + x).text(typeText);
-                
-                $('#editAction_' + x).text('hello');
+                $("#editactiontype_" + x + " option:contains(" + typeText + ")").attr('selected', 'selected');
+               
                 return $("#popover-orig-content_" + x).html();
             }
         });
@@ -178,7 +180,7 @@
                 }
             });
         });
-       
+
     });
 
 
