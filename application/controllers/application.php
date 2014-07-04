@@ -90,11 +90,7 @@ class Application extends CI_Controller {
         $data['trc'] = $this->Case_model->select_caselog($cid, 4);
         $data['app'] = $this->Case_model->select_caselog($cid, 5);
 
-        //$data['lawyers'] = $this->People_model->select_lawyers();
         $offense = $this->Case_model->select_caseoffense($cid);
-
-        //$data['specialize'] = array();
-        //$data['nonspecialize'] = array();
 
         $data['specialize'] = array();
         $data['nonspecialize'] = array();
@@ -141,6 +137,7 @@ class Application extends CI_Controller {
         //var_dump($data['nonspecialize']);
 
         $data['interns'] = $this->People_model->select_interns();
+        $data['lawyers'] = $this->People_model->select_lawyers();
 
         $data['case'] = $this->Case_model->select_case($cid);
 
@@ -614,6 +611,18 @@ class Application extends CI_Controller {
 
         /* NOTIFICATION TABLE */
         $this->Notification_model->app_new($uid, 1, $caseID);
+
+
+        /* LOG TABLE */
+        $log = array(
+            'caseID' => $caseID,
+            'action' => 'Application has been created ',
+            'dateTime' => $datetimenow,
+            'stage' => $this->Case_model->select_case($caseID)->stage,
+            'category' => 'APPLICATION'
+        );
+        $this->Case_model->insert_log($log);
+
         redirect('application/index');
     }
 

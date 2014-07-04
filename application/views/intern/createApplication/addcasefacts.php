@@ -358,7 +358,7 @@
 
     <br><br>
 
-    <!-- Button -->
+    <!-- Button-->
     <div class="row">
         <div class="control-group pull-right">
             <label class="control-label" for="submit"></label>
