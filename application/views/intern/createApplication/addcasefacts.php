@@ -49,7 +49,7 @@
         </div>
         <div class="col-sm-8 control-group">
             <div class="controls">
-                <select class="chosen-select" tabindex="8" style="" id="createAppClientList" name="appclient[]">
+                <select multiple class="chosen-select" tabindex="8" style="" id="createAppClientList" name="appclient[]">
                     <?php foreach ($clientlist as $client): ?>
                         <option value="<?php echo $client->personID ?>"><?php echo "$client->lastname, $client->firstname $client->middlename" ?></option>
                     <?php endforeach; ?>
@@ -316,7 +316,7 @@
                         <div class="controls">
                             <select class="chosen-select" tabindex="8">
         <?php foreach ($offenses as $off): ?>
-                                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                                                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
         <?php endforeach; ?>
                             </select>  
                         </div>
@@ -503,6 +503,7 @@
                     <div class="modal-footer">
                         <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Client'); ?>
                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <?php echo form_close(); ?> 
                     </div>
                 </div>
             </div>

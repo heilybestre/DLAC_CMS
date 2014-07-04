@@ -151,7 +151,7 @@ class Case_model extends CI_Model {
 
     function select_caseclient($cid) {
         $query = $this->db->query("SELECT * FROM case_people JOIN people ON `people`.`personID` = `case_people`.`personID` JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side` WHERE caseID = $cid AND `case_people`.`participation` = 6");
-        return $query->row();
+        return $query->result();
     }
 
     function select_caseopposing($cid) {
@@ -159,7 +159,7 @@ class Case_model extends CI_Model {
     		JOIN people ON `people`.`personID` = `case_people`.`personID`
     		JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side`
     		WHERE caseID = $cid AND `case_people`.`participation` = 7");
-        return $query->row();
+        return $query->result();
     }
 
     function select_caseperson($cid, $pid) {
@@ -345,11 +345,11 @@ class Case_model extends CI_Model {
         $this->db->update('case_people', $changes);
     }
 
-    function select_refactions($stage){
+    function select_refactions($stage) {
         $query = $this->db->query("SELECT * FROM ref_actionplan WHERE stage = $stage");
         return $query->result();
     }
-    
+
     // </editor-fold>
     //
     //// <editor-fold defaultstate="collapsed" desc="LEGAL DOCUMENT">
@@ -441,6 +441,11 @@ class Case_model extends CI_Model {
     function select_action_category() {
         $query = $this->db->query("SELECT * FROM ref_action_category");
         return $query->result();
+    }
+
+    function select_stroffense($id) {
+        $query = $this->db->query("SELECT * FROM ref_offense WHERE offenseID = $id");
+        return $query->row();
     }
 
     //</editor-fold>
