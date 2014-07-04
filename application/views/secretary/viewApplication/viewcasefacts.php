@@ -1,170 +1,267 @@
-<div id='view_casefacts' class="container">
-    <br>
+<div id='casefacts_form' class="container">
 
-    <?php echo form_open(base_url() . 'createapplication/addcasefacts', array('class' => 'form-horizontal')); ?>
-
-    <div class="row-fluid">
-
-        <!-- Select Basic -->
-        <div class="control-group">
-            <label class="control-label" for="interviewDate">Date of Interview</label>
+    <div class="row">
+        <div class="col-sm-7 control-group"></div>
+        <div class="col-sm-4 control-group">
+            <div class="controls" style='text-align:right;'>
+                <h5> <b>Interview Date : <?php echo date('F j, Y', strtotime($case->appDateSubmitted)); ?></b></h5>
+            </div>
+        </div>
+        <div class="col-sm-2 control-group">
             <div class="controls">
-                <label class="control-label1">July 03, 2013</label>
+                <div class="input-group date">
+                    <h5> <?php echo ''; ?></h5>
+                </div>
             </div>
         </div>
+        <br><br><br>
+        
+       
 
-
-        <!-- Select Basic -->
-        <div class="control-group">
-            <label class="control-label" for="clientType">Client Type</label>
-            <div class="controls">
-                <label class="control-label1">Complainant</label>
-            </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="control-group">
-            <label class="control-label" for="caseStatus">Current Stage of the Case</label>
-            <div class="controls">
-                <label class="label label-success label-xlarge" for="caseStatus">Pre-information</label>
-           <!-- <select id="caseStatus" name="caseStatus" class="input-xlarge span2">
-              <option></option>
-              <option>Pre-information</option>
-              <option>Information</option>
-              <option>Trial Court</option>
-              
-            </select> -->
-                <br>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label" for="caseTitle">Title</label>
-            <div class="controls">
-                <label class="control-label1">Murder Case</label>    
-            </div>
-        </div>
-
-        <!-- Textarea -->
-        <div class="control-group">
-            <label class="control-label" placeholder="will change size" for="narrative">Narrative</label>
-            <div class="controls">                     
-                <label class="control-label1">(narrative)</label>    
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="caseTags">Tags</label>
-            <div class="controls">
-                <label class="control-label1">Murder</label>    
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row-fluid span12">
-
-        <div class="span6">
-
-            <h4>Incident Details</h4>
-            <hr width='1050px'>
-
-            <!-- Select Basic -->
-            <div class="control-group">
-                <label class="control-label" for="casePlace">Place of Incident</label>
+        <div class="col-sm-5" style='margin-left:10px;'>
+            
+            <div>
+            
+            <div class="col-sm-3 control-group">
                 <div class="controls">
-                    <label class="control-label1">Manila</label>
+                    <h5> <b> Client Name </b> </h5>
+                </div>
+            </div>
+            <div class="col-sm-8 control-group">
+                <div class="controls"><h5>
+                    <?php $index = 0; ?>
+                    <?php foreach ($clientlist as $client) { ?>
+                        <?php if ($index > 0) { ?>
+                            <?php echo ", $client->firstname $client->lastname" ?>
+                        <?php } else { ?>
+                            <?php echo "$client->firstname $client->lastname" ?>
+                        <?php } ?>
+                        <?php $index++; ?>
+                    <?php } ?></h5>
+                </div>
+            </div> 
+                
+            </div>
+
+            <br>
+
+            <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <h5> <b> Stage</b></h5>
+                </div>
+            </div>
+            <div class="col-sm-8 control-group">
+                <div class="controls">
+                    <h5><?php echo $case->stageName ?></h5>
+                </div>
+            </div>    
+            <br> <br>
+
+
+            <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <h5> <b> Client Type </b></h5> 
+                </div>
+            </div>
+            <div class="col-sm-8 control-group">
+                <div class="controls">
+                    <h5><?php echo $clientlist[0]->typeName; ?></h5>
+                </div>
+            </div>
+            <br><br>
+            
+            <div>
+
+            <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <h5> <b> Forum </b> </h5>
+                </div>
+            </div>
+            <div class="col-sm-8 control-group">
+                <div class="controls">
+                    <?php
+                    if ($casecourt != null) {
+                        foreach ($casecourt as $row) {
+                            echo "<h5> $row->court </h5>";
+                        }
+                    } else
+                        echo '-';
+                    ?>
+                </div>
+            </div>
+                
+            </div>
+            
+            <br> <br><br> <br>
+            
+            <div>
+
+            <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <h5> <b> Case No. </b></h5>
+                </div>
+            </div>
+            <div class="col-sm-8 control-group">
+                <div class="controls">
+                    <?php
+                    if ($casecourt != null) {
+                        foreach ($casecourt as $row) {
+                            echo "<h5> $row->casenumber </h5>";
+                        }
+                    } else
+                        echo '-';
+                    ?>
+                </div>
+            </div>
+                
+            </div>
+            
+            <br><br>
+
+
+            <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <h5> <b> Opposing Party </b> </h5> 
                 </div>
             </div>
 
-            <!-- Select Basic -->
-            <div class="control-group">
-                <label class="control-label" for="incidentDate">Date of Incident</label>
+            <div class="col-sm-8 control-group">
                 <div class="controls">
-                    <label class="control-label1">July 01, 2013</label>
+                    <?php $index = 0; ?>
+                    <?php foreach ($opposinglist as $opposing) { ?>
+                        <?php if ($index > 0) { ?>
+                            <h5> <?php echo ", $opposing->firstname $opposing->lastname" ?></h5>
+                        <?php } else { ?>
+                            <h5> <?php echo "$opposing->firstname $opposing->lastname" ?></h5>
+                        <?php } ?>
+                        <?php $index++; ?>
+                    <?php } ?>
                 </div>
             </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="caseTime">Time of Incident</label>
+            <br><br><br><br>
+
+            <div class="col-sm-5 control-group">
                 <div class="controls">
-                    <label class="control-label1">Around 5 PM</label> 
+                    <h7><u>INCIDENT DETAILS</u></h7>
                 </div>
             </div>
+
+            <br>
+
+            <div class="col-sm-5 control-group">
+                <div class="controls">
+                    <h5> <b> Place of Incident</b> </h5> 
+                </div>
+            </div>
+
+            <div class="col-sm-6 control-group">
+                <div class="controls">
+                    <h5>
+                        <?php if ($case->appIncidentPlace != null || $case->appIncidentPlace != '') echo $case->appIncidentPlace . ', '; ?>
+                        <?php echo $case->appIncidentCity ?>
+                    </h5>
+                </div>
+            </div>
+
+            <br><br><br>
+
+
+            <div class="col-sm-5 control-group">
+                <div class="controls">
+                    <h5> <b> Date of Incident </b></h5> 
+                </div>
+            </div>
+
+            <div class="col-sm-6 control-group">
+                <div class="controls">
+                    <h5><?php echo $case->appIncidentDate; ?></h5>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-sm-5 control-group">
+                <div class="controls">
+                    <h5> <b> Time of Incident </b> </h5> 
+                </div>
+            </div>
+
+            <div class="col-sm-6 control-group">
+                <div class="controls">
+                    <h5><?php echo $case->appIncidentTime; ?></h5>
+                </div>
+            </div>
+
+            <br><br><br><br>
+
+            <div class="col-sm-4 control-group">
+                <div class="controls">
+                    <h7><u>OFFENSE</u></h7>
+                </div>
+            </div>
+
+            <br>
+
+            <div id='offensetablediv'>
+
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th></th>
+                        <th>Offense</th>
+                        <th>Offense Stage</th>
+                    </tr>
+                    <?php
+                    $count = 1;
+                    foreach ($caseoffense as $row) :
+                        ?>
+                        <tr>
+                            <td><?php echo $count ?></td>
+                            <td><?php echo $row->offenseName ?></td>
+                            <td><?php echo $row->stage ?></td>
+                        </tr>
+                        <?php
+                        $count++;
+                    endforeach;
+                    ?>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+
+            <div class="col-sm-2 control-group">
+                <div class="controls">
+                    <h5> <b> Title </b> </h5> 
+                </div>
+            </div>
+
+            <div class="col-sm-9 control-group">
+                <div class="controls">
+                    <h5><?php echo $case->caseName ?></h5>
+                </div>
+            </div>
+
+            <br> <br>
+
+            <div class="col-sm-2 control-group">
+                <div class="controls">
+                    <h5> <b> Narrative </b></h5> 
+                </div>
+            </div>
+
+            <div class="col-sm-9 control-group">
+                <div class="controls">
+                    <div class="well" style="margin: 3px; width: 550px; height:500px; overflow:scroll;"><h5 style="line-height:20px;"><?php echo $case->appNarrative; ?></h5></div>
+                </div>
+            </div>
+
+            <br> <br>
 
         </div>
 
     </div>
-
-    <div class="row-fluid">
-
-        <h4>Offense</h4>
-        <hr width='1050px'>
-
-        <table class="table table-striped table-bordered">
-            <tr>
-                <th></th>
-                <th>Offense</th>
-                <th>"specific"</th>
-                <th>Source</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-
-    </div>
-
-    <div class="row-fluid">
-
-        <h4>Action Taken</h4>
-        <hr width='1050px'>
-
-        <table class="table table-striped table-bordered">
-            <tr>
-                <th></th>
-                <th>Action Taken</th>
-                <th>Date</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-
-    </div>
-
-    <div class="row-fluid">
-
-        <h4>Parties</h4>
-        <hr width='1050px'>
-
-        <table class="table table-striped table-bordered">
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Contact Number</th>
-                <th>Possible Location</th>
-                <th>Participation</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>(Client Name)</td>
-                <td> (Client's Contact Number) </td>
-                <td>(Client's Address)</td>
-                <td>(Client's Participation)</td>
-            </tr>
-        </table>
-
-    </div>
-
-
-    <?php echo form_close(); ?>
 
 </div>
+

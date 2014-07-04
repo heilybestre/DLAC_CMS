@@ -1,3 +1,9 @@
+.chosen-select{
+    height: 40px ! important;
+    overflow-y: scroll ! important;
+    
+}
+
 .modal-dialog-addClient
 {
   width: 1200px; /* SET THE WIDTH OF THE MODAL */

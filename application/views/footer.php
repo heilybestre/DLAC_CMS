@@ -329,6 +329,7 @@
         $('#lawyerBirthday').datepicker();
         $('#secretaryBirthday').datepicker();
         $('#director').datepicker();
+        $('#attendancelogdate').datepicker();
     });
 
 

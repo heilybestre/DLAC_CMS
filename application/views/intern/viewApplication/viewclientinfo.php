@@ -1,8 +1,10 @@
 
 <div id='clientinfo_form' class="container">
+    
+  <div style="overflow: scroll; height: 600px;">
 
     <?php foreach ($clientlist as $client) { ?>
-        <div class="row">
+        <div class="row well" style="margin: 5px;">
 
             <div class="col-lg-6">
 
@@ -310,5 +312,7 @@
             </div><!--/col-->
         </div><!--/row-->
     <?php } ?>
+        
+    </div>
 
 </div>

@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <br> <br>
+        <br> <br> <br> <br>
 
         <div class="col-sm-2 control-group">
             <div class="controls">
@@ -165,7 +165,7 @@
                 <sup><a class ="btn btn-success pull-left" href="#addOpposingModal1" data-toggle="modal" style="margin-top:0px;"> <i class="icon-plus"></i> </a></sup>
             </div>
         </div>
-        <br> <br><br>
+        <br> <br><br><br>
 
         <div class="col-sm-2 control-group">
             <div class="controls">
@@ -344,7 +344,7 @@
 
         <!--</div>-->
 
-        <div id='offensetablediv' class="col-lg-8">
+        <div id='offensetablediv' class="col-lg-12">
             <table id='offensetable' class="table table-striped table-bordered">
                 <tr>
                     <th style='width:65%'>Offense</th>
