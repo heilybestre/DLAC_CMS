@@ -75,43 +75,35 @@
     $(selector).chosen(config[selector]);
   }
 
-    $('#createAppClientList').on('change', function(evt, params){
-       var personID = $('#createAppClientList').val();
-       $('#createAppOpposingPartyList option').removeAttr('disabled');
-       if(personID !== null){
-            //$("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled','disabled'); 
-            var str = $('#createAppClientList').val().toString();
-            var str_array = str.split(',');
-            for(var i = 0; i < str_array.length; i++) {
-               var personID = str_array[i];
-               $("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled','disabled');
-            } 
-       }           
-       $('#createAppOpposingPartyList').trigger('chosen:updated');
-    });
+  $('#createAppClientList').on('change', function(evt, params) {
+    var personID = $('#createAppClientList').val();
+    $('#createAppOpposingPartyList option').removeAttr('disabled');
+    if (personID !== null) {
+      //$("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled','disabled'); 
+      var str = $('#createAppClientList').val().toString();
+      var str_array = str.split(',');
+      for (var i = 0; i < str_array.length; i++) {
+        var personID = str_array[i];
+        $("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled', 'disabled');
+      }
+    }
+    $('#createAppOpposingPartyList').trigger('chosen:updated');
+  });
 
-    $('#createAppOpposingPartyList').on('change', function(evt, params){
-        $('#createAppClientList option').removeAttr('disabled');
-        var strCheker = $('#createAppOpposingPartyList').val();
-        if(strCheker !== null){                
-            var str = $('#createAppOpposingPartyList').val().toString();
-            var str_array = str.split(',');
-            for(var i = 0; i < str_array.length; i++) {
-               var personID = str_array[i];
-               $("#createAppClientList option[value=" + personID + "]").attr('disabled','disabled');
-            }                    
-        }        
-        $('#createAppClientList').trigger('chosen:updated');
-    });
+  $('#createAppOpposingPartyList').on('change', function(evt, params) {
+    $('#createAppClientList option').removeAttr('disabled');
+    var strCheker = $('#createAppOpposingPartyList').val();
+    if (strCheker !== null) {
+      var str = $('#createAppOpposingPartyList').val().toString();
+      var str_array = str.split(',');
+      for (var i = 0; i < str_array.length; i++) {
+        var personID = str_array[i];
+        $("#createAppClientList option[value=" + personID + "]").attr('disabled', 'disabled');
+      }
+    }
+    $('#createAppClientList').trigger('chosen:updated');
+  });
 
-    $("#searchtimeline").live('keyup', function() {
-        var word = $('#searchtimeline').val();
-        var $div = $('span.details');
-        var $div2 = $('div.time');
-        $div.removeHighlight();
-        $div2.removeHighlight();
-        $div.highlight(word);
-        $div2.highlight(word);
   $("#searchtimeline").live('keyup', function() {
     var word = $('#searchtimeline').val();
     var $div = $('span.details');
@@ -121,7 +113,7 @@
     $div.highlight(word);
     $div2.highlight(word);
   });
-
+  
   $("#btneditactionplan").live('click', function() {
     $('#actionplanapproveddiv').addClass('hide');
     $('#editingdiv').removeClass('hide');
@@ -130,69 +122,55 @@
     $('.editActionButton').removeClass('hide');
     $('.deleteActionButton').removeClass('hide');
   });
-
+  
   $(".btnAssignPerson").live('click', function() {
     var actionplanID = $(this).attr('id').substring(16);
     var personID = $(this).attr('value');
     var personName = $('#task_' + actionplanID + '_intern_' + personID).val();
     $('#btnAssignPerson_' + actionplanID + '.btnAssignPerson').addClass('hide');
     $('#btnUnassignPerson_' + actionplanID + '.btnUnassignPerson_' + personID).removeClass('hide');
-
     $('#labelAssignPerson_' + actionplanID).text(personName);
     $('#assignedPersonID_' + actionplanID).val(personID);
     $('#assignedPersonName_' + actionplanID).val(personName);
-
   });
-
+  
   $(".btnUnassignPerson").live('click', function() {
     var actionplanID = $(this).attr('id').substring(18);
     $(this).addClass('hide');
     $('#btnAssignPerson_' + actionplanID + '.btnAssignPerson').removeClass('hide');
-
     $('#labelAssignPerson_' + actionplanID).text('None');
     $('#assignedPersonID_' + actionplanID).val("");
     $('#assignedPersonName_' + actionplanID).val("");
   });
-
+  
   // POPOVERS
   $(document).ready(function() {
-
     $('#selectall').click(function() {
       $('.selectedID').prop('checked', this.checked);
     });
-
     $('.selectedID').change(function() {
       var check = ($('.selectedID').filter(":checked").length == $('.selectedID').length);
       $('#selectall').prop("checked", check);
     });
-
     $('.popover-orig').popover({
       html: true,
       content: function() {
         var x = $(this).attr('id').substring(13);
-
         var actionName = $('#actionNameLabel_' + x).text();
         $('#editAction_' + x).attr('value', actionName);
-
         var typeValue = $('#arrayActionType_' + x).val();
         var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
         $("#editactiontype_" + x + " option:contains(" + typeText + ")").attr('selected', 'selected');
-
         return $("#popover-orig-content_" + x).html();
       }
     });
-
     $('.popover-orig-lawyer').popover({
       html: true,
       content: function() {
         var x = $(this).attr('id').substring(13);
-//                var typeValue = $('#arrayActionType_' + x).val();
-//                var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
-//                $('#actionTypeLabel_' + x).text(typeText);
 
         var personID = $('#assignedPersonID_' + x).val();
         var personName = $('#assignedPersonName_' + x).val();
-
         if (personID !== "") {
           $('#labelAssignPerson_' + x).text(personName);
           $('#btnAssignPerson_' + x + '.btnAssignPerson').addClass('hide');
@@ -206,7 +184,7 @@
         return $("#popover-orig-content_" + x).html();
       }
     });
-
+    
     // When clicked outside, popovers will close
 //        $('body').on('click', function(e) {
 //            $('.popover-orig').each(function() {
@@ -219,8 +197,6 @@
 //        });
 
   });
-
-
   //customized datatables
   $(document).ready(function() {
     $("#dashboard-appo").dataTable({
@@ -271,7 +247,6 @@
     $('#casestable').dataTable({
       "aaSorting": [[3, "desc"]]
     });
-
     // Fix datatables pagination in dashboard
     var segment = "<?php echo $this->uri->segment(1) ?>";
     if (segment == 'dashboard') {
@@ -279,8 +254,6 @@
       $('div.dataTables_paginate').css('margin-right', '0px');
     }
   });
-
-
   // Load calendar on Events Tab
   $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -288,8 +261,6 @@
     });
     $('#events a:first').tab('show');
   });
-
-
   // Date and Time Pickers
   $(function() {
     $('#docUpload_dateIssued').datepicker();
@@ -338,12 +309,8 @@
     $('#secretaryBirthday').datepicker();
     $('#director').datepicker();
   });
-
-
   // Make the checkbox unclickable 
   $(".disablethis").bind("click", false);
-
-
   // Show Entry of Appearance (casefolder/documents/newdraft)
   $('#dddoctype').change(function() {
     var doctype = $('#dddoctype').val();
@@ -402,19 +369,14 @@
       $('#liRecommendation').addClass('active');
       $('#recommendation').addClass('active');
     });
-
     $('#createApplicationAddOffense').click(function() {
       var newrow = $('#offensetableTD tbody').html();
       $('#offensetable >tbody:last').append(newrow);
     });
-
     $(".removerowcreateAppOffense").live('click', function() {
       //alert('asd');
       $(this).parent().parent().remove();
     });
-
-
-
   });
   /* Add Offense in Table (PENAL) */
   $('#btnaddoffensepenal').click(function() {
@@ -769,7 +731,6 @@
     $('#btncreateactionplandiv').removeClass('hide');
     $("#actionPlanOption-center-assign_" + x).addClass('hide');
   });
-
   $(".getActionButton").live('click', function() {
     var x = $(this).attr('id').substring(16);
     $('#actionPlanOption-center-writeNotes_' + x).addClass('hide');
@@ -779,7 +740,6 @@
     $(this).addClass('hide');
     $("#backActionButton_" + x).removeClass('hide');
   });
-
   $(".backActionButton").live('click', function() {
     var x = $(this).attr('id').substring(17);
     $('#actionPlanOption-center-writeNotes_' + x).removeClass('hide');
@@ -788,23 +748,18 @@
     $(this).addClass('hide');
     $("#getActionButton_" + x).removeClass('hide');
   });
-
   $(".sendActionNotes").live('click', function() {
     var x = $(this).attr('id').substring(16);
     var message = $('#actionWriteNotes_' + x).val();
     var today = "<?php echo date('m/d/y G:i') ?>";
-
     var html = "<li id='actionPlanNote' class='actionPlanNote'>"
             + "<div class='name'><input name='actionnotes_name_" + x + "[]' class='hide' value='" + $('#useridforaction').text() + "' />" + $('#usernameforaction').text() + "</div>"
             + "<div class='date'><input name='actionnotes_date_" + x + "[]' class='hide' value='" + today + "' />" + today + "</div>"
             + "<div class='message'><input name='actionnotes_message_" + x + "[]' class='hide' value='" + message + "' />" + message + "</div>"
             + "</li>";
     $('#notesThread_' + x + ' ul').append(html);
-
     $('#actionWriteNotes_' + x).val('');
   });
-
-
   //EDIT ACTIONS start
   $(".editActionButton").live('click', function() {
     var x = $(this).attr('id').substring(17);
@@ -865,7 +820,6 @@
   $(".okayDeleteButton").live('click', function() {
     var x = $(this).attr('id').substring(17);
     $('#actionTableRow_' + x).remove();
-
   });
   //end of DELETE ACTIONS
 
@@ -935,38 +889,30 @@
               + "</div>"
               //<!-- Action plan POPOVER -->
               + "</div>";
-
     }
 
     $('.popover-orig').popover({
       html: true,
       content: function() {
         var x = $(this).attr('id').substring(13);
-
         var actionName = $('#actionNameLabel_' + x).text();
         $('#editAction_' + x).attr('value', actionName);
-
         var typeValue = $('#arrayActionType_' + x).val();
         var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
         $("#editactiontype_" + x + " option:contains(" + typeText + ")").attr('selected', 'selected');
-
         return $("#popover-orig-content_" + x).html();
       }
     });
-
     $('#newactionstage').val(1);
     $('#newaction').val('');
     $('#newactiontype').val(1);
   });
-
-
   /* ACTION PLAN (START) ------------------------------------------------------------------------ */
 
   //Appointment attendees change on case change 
   $('#newappt_case').change(function() {
     var cid = $('select[name="newappt_case"]').val();
     var uid = <?php echo $this->session->userdata('userid') ?>;
-
     $.ajax({
       type: "POST",
       url: "<?php echo base_url() ?>calendar/change_attendees/" + cid + '/' + uid,
@@ -975,7 +921,6 @@
       }
     });
   });
-
   //Close view appointment div
   $('.btnapptclose').click(function() {
     $('#viewapptdiv').removeClass('hide');
@@ -984,13 +929,11 @@
     $('#doneapptdiv').addClass('hide');
     $('#deleteapptdiv').addClass('hide');
   });
-
   //Tid general click: refresh page
   $('#tidgeneral').click(function() {
     var cid = "<?php echo $this->session->userdata('cid') ?>";
     window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
   });
-
   //!!popover, actionplan
   $('.popover-orig').click(function() {
     $('#actionPlanOption1').removeClass('hide');
@@ -998,7 +941,6 @@
     $('#actionPlanOption3').addClass('hide');
     $('#actionPlanOption4').addClass('hide');
   });
-
   $('.popover-editing').click(function() {
     //editing
     $('#actionPlanOption1').addClass('hide');
@@ -1006,21 +948,17 @@
     $('#actionPlanOption3').addClass('hide');
     $('#actionPlanOption4').removeClass('hide');
   });
-
-
   $(document).on('click', '.editActionButton', function() {
     $('#editAction').removeClass('hide');
     $('#deleteAction').addClass('hide');
     $('#actionPlanWriteNotes').addClass('hide');
     $('#getActionButton').addClass('hide');
   });
-
   $(document).on('click', '.editActionButton2', function() {
     $('#editAction2').removeClass('hide');
     $('#deleteAction2').addClass('hide');
     $('#actionPlanWriteNotes2').addClass('hide');
   });
-
   $(document).on('click', '.deleteActionButton', function() {
     $('#editAction').addClass('hide');
     $('#deleteAction').removeClass('hide');
@@ -1028,9 +966,7 @@
     $('#getActionButton').addClass('hide');
     $('#editActionButton').addClass('hide');
     $('#deleteActionButton').addClass('hide');
-
   });
-
   $(document).on('click', '.deleteActionButton2', function() {
     $('#editAction2').addClass('hide');
     $('#deleteAction2').removeClass('hide');
@@ -1038,22 +974,18 @@
     $('#getActionButton2').addClass('hide');
     $('#editActionButton2').addClass('hide');
     $('#deleteActionButton2').addClass('hide');
-
   });
-
   $(document).on('click', '.saveActionButton', function() {
     $('#editAction').addClass('hide');
     $('#deleteAction').addClass('hide');
     $('#actionPlanWriteNotes').removeClass('hide');
     $('#getActionButton').removeClass('hide');
   });
-
   $(document).on('click', '.saveActionButton2', function() {
     $('#editAction2').addClass('hide');
     $('#deleteAction2').addClass('hide');
     $('#actionPlanWriteNotes2').removeClass('hide');
   });
-
   $(document).on('click', '.cancelEditButton', function() {
     $('#editAction').addClass('hide');
     $('#deleteAction').addClass('hide');
@@ -1062,7 +994,6 @@
     $('#editActionButton').removeClass('hide');
     $('#deleteActionButton').removeClass('hide');
   });
-
   $(document).on('click', '.cancelEditButton2', function() {
     $('#editAction2').addClass('hide');
     $('#deleteAction2').addClass('hide');
@@ -1071,7 +1002,6 @@
     $('#editActionButton2').removeClass('hide');
     $('#deleteActionButton2').removeClass('hide');
   });
-
   $(document).on('click', '.cancelDeleteButton', function() {
     $('#editAction').addClass('hide');
     $('#deleteAction').addClass('hide');
@@ -1080,7 +1010,6 @@
     $('#editActionButton').removeClass('hide');
     $('#deleteActionButton').removeClass('hide');
   });
-
   $(document).on('click', '.cancelDeleteButton2', function() {
     $('#editAction2').addClass('hide');
     $('#deleteAction2').addClass('hide');
@@ -1088,9 +1017,7 @@
     $('#getActionButton2').removeClass('hide');
     $('#editActionButton2').removeClass('hide');
     $('#deleteActionButton2').removeClass('hide');
-  });
-
-</script>
+  });</script>
 
 <!-- VIANICAAAAAAAAAA ------------------------------------------------------->
 <script type='text/javascript'>

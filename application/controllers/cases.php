@@ -277,7 +277,7 @@ class Cases extends CI_Controller {
     // <editor-fold defaultstate="collapsed" desc="Action Plan">
 
     $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
-    $data['allcaseactionnotes'] = $this->Case_model->select_caseaction_notes($cid);
+//    $data['allcaseactionnotes'] = $this->Case_model->select_caseaction_notes($cid);
     
     //CREATE ACTION PLAN
     for ($x = 1; $x <= 4; $x++) {
