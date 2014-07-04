@@ -75,8 +75,8 @@ class Application extends CI_Controller {
         $data['casecourt'] = $this->Case_model->select_casecourt($cid);
         $data['caseoffense'] = $this->Case_model->select_caseoffense($cid);
         $data['casepeople'] = $this->Case_model->select_casepeople($cid);
-        $data['client'] = $this->Case_model->select_caseclient($cid);
-        $data['opposing'] = $this->Case_model->select_caseopposing($cid);
+        $data['clientlist'] = $this->Case_model->select_caseclient($cid);
+        $data['opposinglist'] = $this->Case_model->select_caseopposing($cid);
         $data['interviewee'] = $this->Case_model->select_caseinterviewee($cid);
         $data['supervising'] = $this->Case_model->select_casesupervising($cid);
 
@@ -421,15 +421,17 @@ class Application extends CI_Controller {
         $caseID = $this->db->insert_id();
 
         /* CASE_PEOPLE TABLE (CLIENT) */
-        $forcasepeopleclient = array(
-            'caseID' => $caseID,
-            'personID' => $appclient,
-            'participation' => 6, //client
-            'condition' => 'current',
-            'side' => $appclienttype,
-            'datestart' => $datetimenow
-        );
-        $this->Case_model->insert_caseperson($forcasepeopleclient);
+        for ($index = 0; $index < count($appclient); $index++) {
+            $forcasepeopleclient = array(
+                'caseID' => $caseID,
+                'personID' => $appclient[$index],
+                'participation' => 6, //client
+                'condition' => 'current',
+                'side' => $appclienttype,
+                'datestart' => $datetimenow
+            );
+            $this->Case_model->insert_caseperson($forcasepeopleclient);
+        }
 
         /* CASE_PEOPLE TABLE (OPPOSING PARTY) */
         $appopptype = 0;
@@ -510,7 +512,7 @@ class Application extends CI_Controller {
                     'stage' => $appoffensestage [$index]
                 );
                 $this->Case_model->insert_offense($data);
-                $tagoffense = $tagoffense . ' #' . $appoffensename[$index];
+                $tagoffense = $tagoffense . ' #' . $this->Case_model->select_stroffense($appoffensename[$index])->offenseName;
             }
         }
 
@@ -602,8 +604,11 @@ class Application extends CI_Controller {
 
         /* TAGS TABLE */
         $strclienttype = $this->Case_model->select_strtype($appclienttype);
-        $strclientname = $this->People_model->getuserfield('firstname', $appclient) . ' ' . $this->People_model->getuserfield('lastname', $appclient);
-        $tags = $apptitle . $tagoffense . ' #' . $strclienttype->typeName . ' #' . $strclientname;
+        $strclientname = '';
+        for ($index = 0; $index < count($appclient); $index++) {
+            $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $appclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $appclient[$index]);
+        }
+        $tags = $apptitle . $tagoffense . ' #' . $strclienttype->typeName . $strclientname;
 
         $this->Case_model->update_casetags($caseID, $tags);
 
