@@ -277,7 +277,8 @@ class Cases extends CI_Controller {
     // <editor-fold defaultstate="collapsed" desc="Action Plan">
 
     $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
-
+//    $data['allcaseactionnotes'] = $this->Case_model->select_caseaction_notes($cid);
+    
     //CREATE ACTION PLAN
     for ($x = 1; $x <= 4; $x++) {
       $data['refactionplan_s' . $x] = $this->Case_model->select_refactions($x);
@@ -964,6 +965,24 @@ class Cases extends CI_Controller {
   }
 
   function approveactionplan($cid) {
+    extract($_POST);
+    $uid = $this->session->userdata('userid');
+    $allactions = $this->Case_model->select_caseactions($cid);
+
+    foreach ($allactions as $action) {
+      if (isset(${'actionnotes_name_' . $action->actionplanID})) {
+        for ($index = 0; $index < count(${'actionnotes_name_' . $action->actionplanID}); $index++) {
+          $actionnotes = array(
+              'actionplanID' => $action->actionplanID,
+              'note' => ${'actionnotes_message_' . $action->actionplanID}[$index],
+              'by' => ${'actionnotes_name_' . $action->actionplanID}[$index],
+              'dateTime' => ${'actionnotes_date_' . $action->actionplanID}[$index]
+          );
+          $this->Case_model->insert_actionplan_notes($actionnotes);
+        }
+      }
+    }
+
     $this->Case_model->update_case($cid, array('actionplanstatus' => 'approved'));
 
     $datestring = "%Y-%m-%d %H:%i:%s";
@@ -971,13 +990,6 @@ class Cases extends CI_Controller {
     $datetimenow = mdate($datestring, $time);
 
     $uid = $this->session->userdata('userid');
-    $data['case'] = $this->Case_model->select_case($cid);
-    $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
-    $data['actionplan_stage1'] = $this->Case_model->select_actionplan($cid, 1);
-    $data['actionplan_stage2'] = $this->Case_model->select_actionplan($cid, 2);
-    $data['actionplan_stage3'] = $this->Case_model->select_actionplan($cid, 3);
-    $data['actionplan_stage4'] = $this->Case_model->select_actionplan($cid, 4);
-    $data['actionplan_stage5'] = $this->Case_model->select_actionplan($cid, 5);
 
     /* NOTIFICATION TABLE */
     $interns = $this->Case_model->select_caseinterns($cid);
@@ -995,7 +1007,7 @@ class Cases extends CI_Controller {
     );
     $this->Case_model->insert_log($log);
 
-    $this->load->view('lawyer/caseFolder/actionPlan', $data);
+    redirect("cases/caseFolder/$cid?tid=actionplan");
   }
 
   function changeactionstatus($apid) {

@@ -4,6 +4,10 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
 
+  <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
+    View Narrative
+  </a>
+
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>
     <!-- upon submission of intern -->
@@ -49,7 +53,7 @@
 
   <!-- No action plan yet -->
   <?php if ($actionplanstatus == null) { ?>
-    <div class="row">
+    <div id='btncreateactionplandiv' class="row">
       <button id='btncreateactionplan' class='col-lg-2 btn btn-success'><i class="icon-file" style='margin-right:5px; margin-left:5px;'></i> Create Action Plan</button>
     </div>
     <br>
@@ -95,7 +99,7 @@
 
   <!-- ACTION PLAN : APPROVED / PENDING -->
   <?php if ($actionplanstatus == 'approved' || $actionplanstatus == 'pending') { ?>
-    <div id='actionplandiv' class="row <?php if($actionplanstatus == 'pending') echo 'disable fadedlight'; ?>" >
+    <div id='actionplandiv' class="row <?php if ($actionplanstatus == 'pending') echo 'disable fadedlight'; ?>" >
       <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
 
       <div id='actionplanbuttonsdiv' class='hide pull-right' style='margin-right: 50px;'>
@@ -111,16 +115,10 @@
       <?php for ($x = 1; $x <= 4; $x++) { ?>
         <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
           <h3>
-            <?php
-            if ($x == 1)
-              echo 'New';
-            else if ($x == 2)
-              echo 'Preliminary Investigation';
-            else if ($x == 3)
-              echo 'Pre-Trial';
-            else if ($x == 4)
-              echo 'Trial Court';
-            ?>
+            <?php if ($x == 1) { ?> New <?php } ?>
+            <?php if ($x == 2) { ?> Preliminary Investigation <?php } ?>
+            <?php if ($x == 3) { ?> Pre-Trial <?php } ?>
+            <?php if ($x == 4) { ?> Trial Court <?php } ?>
           </h3>
 
           <ul class="todo-list">
@@ -128,11 +126,9 @@
 
               <?php foreach (${'actionplan_s' . $x} as $action) : ?>
                 <tr id="actionTableRow_<?= $action->actionplanID ?>">
-                  <td><input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php
-                  if ($action->status == 1) {
-                    echo 'checked';
-                  }
-                  ?> /></td>
+                  <td>
+                    <input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
+                  </td>
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
@@ -192,6 +188,14 @@
       </div>
 
       <div id='actionplanbuttonsbrdiv' class='hide'>
+        <div style='margin: 20px 0 0 10px;'>
+          <div class='col-sm-4'>
+            <h3>ACTION PLAN FOR EACH STAGE</h3>
+          </div>
+          <div id='actionplancheckboxdiv' class='col-sm-2' style='margin-top: 5px'>
+            <input type="checkbox" id="selectall" checked="checked"> <b>Select all</b> </input>
+          </div>
+        </div>
         <br><br><br>
       </div>
 
@@ -199,16 +203,10 @@
       <?php for ($x = 1; $x <= 4; $x++) { ?>
         <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
           <h3>
-            <?php
-            if ($x == 1)
-              echo 'New';
-            else if ($x == 2)
-              echo 'Preliminary Investigation';
-            else if ($x == 3)
-              echo 'Pre-Trial';
-            else if ($x == 4)
-              echo 'Trial Court';
-            ?>
+            <?php if ($x == 1) { ?> New <?php } ?>
+            <?php if ($x == 2) { ?> Preliminary Investigation <?php } ?>
+            <?php if ($x == 3) { ?> Pre-Trial <?php } ?>
+            <?php if ($x == 4) { ?> Trial Court <?php } ?>
           </h3>
 
           <ul class="todo-list">
@@ -216,7 +214,7 @@
 
               <?php foreach (${'refactionplan_s' . $x} as $action) : ?>
                 <tr id="actionTableRow_<?= $action->rapID ?>">
-                  <td><input id="arrayActionName_<?= $action->rapID ?>" name="action<?= $x ?>[]" class="cbactionstage<?= $x ?>" type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' checked="checked"/></td>
+                  <td><input id="arrayActionName_<?= $action->rapID ?>" name="action<?= $x ?>[]" class="cbactionstage<?= $x ?> selectedID" type='checkbox' value="<?= $action->action ?>" style='margin: 0px 5px 0px 10px;' checked="checked"/></td>
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->rapID ?>">
                     <label class="removeBold" id="actionNameLabel_<?= $action->rapID ?>"> <?= $action->action ?> </label>
@@ -345,5 +343,26 @@
 
   </div>
   <!-- END OF MODAL : REASONACTIONPLANMODAL --> 
+
+  <!-- START OF MODAL : VIEWNARRATIVEMODAL -->
+  <div class="row">
+    <div class="modal fade" id="viewNarrativeInActionPlanModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="myModalLabel"> Narrative : </h3>
+          </div>
+          <div class="modal-body">
+            <?php echo $case->appNarrative ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
+  <!-- END OF MODAL : VIEWNARRATIVEMODAL --> 
 
 </div> 

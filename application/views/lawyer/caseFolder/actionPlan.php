@@ -4,6 +4,10 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
 
+  <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
+    View Narrative
+  </a>
+
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>
     <!-- upon submission of intern -->
@@ -11,16 +15,7 @@
       <div class="col-lg-7">
         <h5>Action Plan Status: <label class="label label-warning">Pending</label></h5>
       </div>
-      <div class='col-lg-2 pull-right'>
-        <div class='col-lg-5'>
-          <a href='' id='btnacceptactionplan' class='btn btn-success'>Accept</a>
-        </div>
-        <div class='col-lg-5'>
-          <a href='' id='btnrejectactionplan' class='btn btn-danger'>Reject</a>
-        </div>
-      </div>
     </div>
-    <br>
   <?php } ?>
 
   <!-- Action plan is REJECTED | Must do lawyer's revisions -->
@@ -52,7 +47,7 @@
   <!-- No action plan yet -->
   <?php if ($actionplanstatus == null) { ?>
     <div class="row">
-      <button id='btncreateactionplan' class='col-lg-2 btn btn-success'><i class="icon-file" style='margin-right:5px; margin-left:5px;'></i> Create Action Plan</button>
+      There is no Action Plan yet.
     </div>
     <br>
   <?php } ?>
@@ -60,22 +55,32 @@
   <!-- ACTION PLAN : APPROVED / PENDING -->
   <?php if ($actionplanstatus == 'approved' || $actionplanstatus == 'pending') { ?>
     <div id='actionplandiv' class="row" >
-      <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
+      <?php echo form_open(base_url() . "cases/approveactionplan/$case->caseID"); ?>
+
+      <?php if ($actionplanstatus == 'pending') { ?>
+        <div id='actionplanbuttonsdiv' class='pull-right' style='margin-right: 50px;'>
+          <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Accept'); ?>
+          <a href="" class="btn btn-medium btn-danger" style="margin-bottom:10px">Reject</a>
+        </div>
+      <?php } ?>
+
+      <div id='actionplanbuttonsbrdiv' class=''>
+        <div>
+          <div class='col-sm-4'>
+            <h3>ACTION PLAN FOR EACH STAGE</h3>
+          </div>
+        </div>
+        <br><br><br>
+      </div>
 
       <!-- PER STAGE -->
       <?php for ($x = 1; $x <= 4; $x++) { ?>
         <div class="well todo col-lg-1 actionplanwidth" style="padding:10px; margin-left:2px;">
           <h3>
-            <?php
-            if ($x == 1)
-              echo 'New';
-            else if ($x == 2)
-              echo 'Preliminary Investigation';
-            else if ($x == 3)
-              echo 'Pre-Trial';
-            else if ($x == 4)
-              echo 'Trial Court';
-            ?>
+            <?php if ($x == 1) { ?> New <?php } ?>
+            <?php if ($x == 2) { ?> Preliminary Investigation <?php } ?>
+            <?php if ($x == 3) { ?> Pre-Trial <?php } ?>
+            <?php if ($x == 4) { ?> Trial Court <?php } ?>
           </h3>
 
           <ul class="todo-list">
@@ -83,11 +88,11 @@
 
               <?php foreach (${'actionplan_s' . $x} as $action) : ?>
                 <tr id="actionTableRow_<?= $action->actionplanID ?>">
-                  <td><input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php
-                    if ($action->status == 1) {
-                      echo 'checked';
-                    }
-                    ?> /></td>
+                  <td>
+                    <?php if ($actionplanstatus == 'approved') { ?>
+                      <input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
+                    <?php } ?>
+                  </td>
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
@@ -98,7 +103,7 @@
                     <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                       <!-- Action plan POPOVER -->
                       <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
-                        
+
                         <!-- Add notes -->
                         <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
                           <h5>Notes</b></h5>
@@ -106,7 +111,7 @@
                           <a class="btn btn-success pull-right sendActionNotes" id="sendActionNotes_<?= $action->actionplanID ?>" style="margin: 5px 15px -10px 0">Send</a>
                         </div>
                         <br><br>
-                        
+
                         <!-- Notes -->
                         <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
                           <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
@@ -114,7 +119,7 @@
                           </div>
                           <br>
                         </div>
-                        
+
                       </div> 
                       <!-- Action plan POPOVER -->
                     </div>
@@ -209,5 +214,26 @@
 
   </div>
   <!-- END OF MODAL : REASONACTIONPLANMODAL --> 
+
+  <!-- START OF MODAL : VIEWNARRATIVEMODAL -->
+  <div class="row">
+    <div class="modal fade" id="viewNarrativeInActionPlanModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="myModalLabel"> Narrative : </h3>
+          </div>
+          <div class="modal-body">
+            <?php echo $case->appNarrative ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
+  <!-- END OF MODAL : VIEWNARRATIVEMODAL --> 
 
 </div> 

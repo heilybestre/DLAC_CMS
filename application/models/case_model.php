@@ -311,6 +311,21 @@ class Case_model extends CI_Model {
         $query = $this->db->query("SELECT * FROM actionplan WHERE actionplanID = $apid");
         return $query->row();
     }
+    
+    function select_caseactions($cid){
+      $query = $this->db->query("SELECT * FROM actionplan WHERE caseID = $cid");
+      return $query->result();
+    }
+    
+    function select_caseaction_notes($cid){
+      $query = $this->db->query("SELECT * FROM actionplan_notes WHERE caseID = $cid");
+      return $query->result();
+    }
+    
+    function select_action_notes($actionplanID){
+      $query = $this->db->query("SELECT * FROM actionplan_notes WHERE actionplanID = $actionplanID");
+      return $query->result();
+    }
 
     function update_action($apid, $changes) {
         $this->db->where('actionplanID', $apid);
@@ -319,6 +334,10 @@ class Case_model extends CI_Model {
 
     function insert_actionplan($data) {
         $this->db->insert('actionplan', $data);
+    }
+    
+    function insert_actionplan_notes($data){
+      $this->db->insert('actionplan_notes', $data);
     }
 
     function update_casepeople($cid, $changes) {
