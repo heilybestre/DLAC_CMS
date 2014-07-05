@@ -1,7 +1,7 @@
 <div id='casefacts_form' class="container">
 
     <div class="row">
-        <div class="col-sm-6 control-group"></div>
+        <div class="col-sm-7 control-group"></div>
         <div class="col-sm-4 control-group">
             <div class="controls" style='text-align:right;'>
                 <h5> <b>Interview Date : <?php echo date('F j, Y', strtotime($case->appDateSubmitted)); ?></b></h5>
@@ -14,29 +14,36 @@
                 </div>
             </div>
         </div>
-        <br><br>
+        <br><br><br>
+        
+       
 
-        <div class="col-sm-4" style='margin-left:40px;'>
+        <div class="col-sm-5" style='margin-left:10px;'>
+            
+            <div>
+            
             <div class="col-sm-3 control-group">
                 <div class="controls">
                     <h5> <b> Client Name </b> </h5>
                 </div>
             </div>
             <div class="col-sm-8 control-group">
-                <div class="controls">
+                <div class="controls"><h5>
                     <?php $index = 0; ?>
                     <?php foreach ($clientlist as $client) { ?>
                         <?php if ($index > 0) { ?>
-                            <h5><?php echo ", $client->firstname $client->lastname" ?></h5>
+                            <?php echo ", $client->firstname $client->lastname" ?>
                         <?php } else { ?>
-                            <h5><?php echo "$client->firstname $client->lastname" ?></h5>
+                            <?php echo "$client->firstname $client->lastname" ?>
                         <?php } ?>
                         <?php $index++; ?>
-                    <?php } ?>
+                    <?php } ?></h5>
                 </div>
             </div> 
+                
+            </div>
 
-            <br><br><br>
+            <br>
 
             <div class="col-sm-3 control-group">
                 <div class="controls">
@@ -62,7 +69,8 @@
                 </div>
             </div>
             <br><br>
-
+            
+            <div>
 
             <div class="col-sm-3 control-group">
                 <div class="controls">
@@ -81,8 +89,12 @@
                     ?>
                 </div>
             </div>
-            <br> <br>
-
+                
+            </div>
+            
+            <br> <br><br> <br>
+            
+            <div>
 
             <div class="col-sm-3 control-group">
                 <div class="controls">
@@ -101,6 +113,9 @@
                     ?>
                 </div>
             </div>
+                
+            </div>
+            
             <br><br>
 
 
@@ -238,7 +253,7 @@
 
             <div class="col-sm-9 control-group">
                 <div class="controls">
-                    <div class="well" style="height:500px; overflow:scroll;"><h5 style="line-height:20px;"><?php echo $case->appNarrative; ?></h5></div>
+                    <div class="well" style="margin: 3px; width: 550px; height:500px; overflow:scroll;"><h5 style="line-height:20px;"><?php echo $case->appNarrative; ?></h5></div>
                 </div>
             </div>
 

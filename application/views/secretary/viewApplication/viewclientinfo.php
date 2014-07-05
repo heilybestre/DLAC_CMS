@@ -1,143 +1,318 @@
-<div id='view_clientinfo' class="container">
-    <br>
-    <?php echo form_open(base_url() . 'viewapplication/clientinfo', array('class' => 'form-horizontal')); ?>
 
-    <div class="row-fluid span12">
+<div id='clientinfo_form' class="container">
+    
+  <div style="overflow: scroll; height: 600px;">
 
-        <div class="span6">
+    <?php foreach ($clientlist as $client) { ?>
+        <div class="row well" style="margin: 5px;">
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="appFormNum">Application Form Number</label>
-                <div class="controls">
-                    <label class="control-label1">A0001</label>
+            <div class="col-lg-6">
+
+                <div class="row">
+                    <div class="col-sm-2 control-group">
+                        <div class="controls">
+                            <center> <h5><b> Client's Photo</b> </h5> </center>
+                        </div>
+                    </div>
+                    <div class="form-horizontal col-lg-4 col-sm-6">
+                        <div class="controls">
+                            <?php
+                            if ($client->image == null)
+                                echo '<img src="' . base_url() . '/assets/img/initialphoto.jpg"></img>';
+                            else
+                                echo '<img src="' . base_url() . $client->image . '" height="100px;""></img>';
+                            ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- photo -->
-            <div class="controls">
-                <img src="<?= base_url() ?>assets/img/clientphoto.jpg">
-            </div>
-            <br>
+                <br>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientFirstName">Name</label>
-                <div class="controls">
-                    <label class="control-label1">Indiongco, Nicole</label>
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Name </b></h5> </center>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input from http://stackoverflow.com/questions/1318367/best-way-to-input-mailing-property-address -->
-            <div class="control-group">
-                <label class="control-label" for="clientAddress">Address</label>
-                <div class="controls">
-
-                    <label class="control-label1 span12">36 Jonah St., Metrogate Complex, Meycauayan City, Bulacan</label>
-
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5><?php echo $client->firstname . ' ' . $client->middlename . ' ' . $client->lastname ?></h5>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientCN">Contact No.</label>
-                <div class="controls">
-                    <label class="control-label1">(Mobile) 09172077950</label>
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5><b> Address </b></h5> </center>
+                    </div>
                 </div>
-            </div>
 
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5>
+                            <?php echo $client->addrhouse . ' ' . $client->addrstreet . ' St., ' . $client->addrtown ?>
+                            <?php
+                            if ($client->addrdistrict != '')
+                                echo ' | District ' . $client->addrdistrict;
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientEmail">E-mail Address</label>
-                <div class="controls">
-                    <label class="control-label1">gaw@yahoo.com</label>
+                            if ($client->addrpostalcode != '')
+                                echo ' (' . $client->addrpostalcode . ')';
+                            ?>
+                        </h5>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientFb">Facebook Username</label>
-                <div class="controls">
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5><b> Contact #</b></h5> </center>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientReferredBy">Referred by</label>
-                <div class="controls">
-                    <label class="control-label1">(Mobile) 09172077950</label>    
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5>
+                            <?php
+                            if ($client->contacthome != null) {
+                                echo $client->contacthome . ' (Home) | ';
+                            }
+                            ?>
+                            <?php
+                            if ($client->contactoffice != null) {
+                                echo $client->contactoffice . ' (Office) | ';
+                            }
+                            ?>
+                            <?php
+                            if ($client->contactmobile != null) {
+                                echo $client->contactmobile;
+                            }
+                            ?>
+                        </h5>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+                <br> <br> <br>
 
-        <div class="span5">
-
-            <!-- Form Name -->
-            <h4>Personal Circumstances</h4>
-            <hr width='450px'>
-
-            <!-- Multiple Radios -->
-            <div class="control-group">
-                <label class="control-label" for="clientSex">Sex</label>
-                <div class="controls">
-                    <label class="control-label1">Male</label>
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Email </b></h5> </center>
+                    </div>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="clientCivilStatus">Civil Status</label>
-                <div class="controls">
-                    <label class="control-label1">Single</label>
+                <div class="col-sm-9 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->emailaddr == '' || $client->emailaddr == NULL)
+                                echo '-';
+                            else
+                                echo $client->emailaddr;
+                            ?></h5>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Select Basic -->
-            <div class="control-group">
-                <label class="control-label" for="clientBirthDateMonth">Birthday</label>
-                <div class="controls">
-                    <label class="control-label1">January 01, 1985</label>
+                <br> <br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Facebook Email</b> </h5> </center>
+                    </div>
                 </div>
-            </div>
 
-
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientBirthPlace">Place of Birth</label>
-                <div class="controls">
-                    <label class="control-label1">Nueva Ecija</label>    
+                <div class="col-sm-9 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->fbemailaddr == '' || $client->fbemailaddr == NULL)
+                                echo '-';
+                            else
+                                echo $client->fbemailaddr;
+                            ?></h5>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientOccupation">Work/Occupation</label>
-                <div class="controls">
-                    <label class="control-label1">Taxi Driver</label>      
+                <br> <br> <br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5><b> Referred by</b> </h5> </center>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientOrganization">Organization</label>
-                <div class="controls">
-                    <label class="control-label1">(Somewhere)</label>    
+                <div class="col-sm-9 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->referredby == '' || $client->referredby == NULL)
+                                echo '-';
+                            else
+                                echo $client->referredby;
+                            ?></h5>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="control-group">
-                <label class="control-label" for="clientOrganizationAddress">Address</label>
-                <div class="controls">
-                    <label class="control-label1">Caloocan City</label> 
+                <br> <br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Contact No.</b> </h5> </center>
+                    </div>
                 </div>
-            </div>
 
-        </div>  
+                <div class="col-sm-9 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->rbcontact == '' || $client->rbcontact == NULL)
+                                echo '-';
+                            else
+                                echo $client->rbcontact;
+                            ?></h5>
+                    </div>
+                </div>
+
+            </div><!--/col-->
+
+            <div class="col-lg-6">
+
+                <h3>Personal Circumstances</h3>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5><b> Sex </b></h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 control-group">
+                    <div class="controls">
+                        <h5><?php echo $client->sex ?></h5>   
+                    </div>
+                </div>
+
+                <br> <br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Civil Status</b> </h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 control-group">
+                    <div class="controls">
+                        <h5><?php echo $client->civilstatus ?></h5> 
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Birthday </b></h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5><?php echo date("F j, Y", strtotime($client->birthdate)) ?></h5>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Birthplace </b></h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->birthplace == '' || $client->birthplace == NULL)
+                                echo '-';
+                            else
+                                echo $client->birthplace;
+                            ?></h5>
+                    </div>
+                </div>
+
+                <br><br>
+                <hr>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Salary </b></h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 control-group">
+                    <div class="controls">
+                        <h5><?php echo $client->salary ?> (per month)</h5>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5><b> Occupation</b> </h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->occupation == '' || $client->occupation == NULL)
+                                echo '-';
+                            else
+                                echo $client->occupation;
+                            ?></h5>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Organization </b></h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5>&nbsp;<?php
+                            if ($client->organization == '' || $client->organization == NULL)
+                                echo '-';
+                            else
+                                echo $client->organization;
+                            ?></h5>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="col-sm-2 control-group">
+                    <div class="controls">
+                        <center> <h5> <b>Address</b> </h5> </center>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 control-group">
+                    <div class="controls">
+                        <h5><?php
+                            if ($client->organizationaddr == '' || $client->organizationaddr == NULL)
+                                echo '-';
+                            else
+                                echo $client->organizationaddr;
+                            ?></h5>
+                    </div>
+                </div>
+
+                <br><br>
+
+
+            </div><!--/col-->
+        </div><!--/row-->
+    <?php } ?>
+        
     </div>
-
-
-    <?php echo form_close(); ?>
 
 </div>

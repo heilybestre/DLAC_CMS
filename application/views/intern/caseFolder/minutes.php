@@ -37,11 +37,8 @@
                         <h4 class="modal-title">Add New Minutes</h4>
                     </div>
                     <div class="modal-body" style="height:300px; overflow-y: scroll;">
-
-                  	<div class="col-lg-6">
-                            
-
-                        <div class="col-sm-4 control-group">
+                        
+                      <div class="col-sm-3 control-group">
                             <div class="controls">
                                 <center> <h5> Related Action Plan Item: </h5> </center>
                             </div>
@@ -49,11 +46,15 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('class' => 'form-control')); ?>
+                                <select class="form-control">
+                                    <option></option>
+                                </select>
                             </div>
                         </div>
                             
                             <br><br><br>
+
+                  	<div class="col-lg-6">
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
