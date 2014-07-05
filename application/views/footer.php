@@ -3472,11 +3472,15 @@
                 + "<td width='30%'></td>"
                 + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
+        
+                + "<tr>"
+                + "<td'>Related Action Plan Item:</td>"
+                + "<td> <select class=""> <option></option>  </select> </td>"
+                + "</tr>"
+        
                 + "<tr>"
                 + "<td>File Name:</td>"
                 + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docname[]' value='" + rawName + "'/> ." + fileExt + " </td>"
-                + "<td>Purpose:</td>"
-                + "<td rowspan='2'> <textarea id='textarea_purpose' class='form-control' name='docpurpose[]'></textarea> </td>"
                 + "</tr>"
 
                 + "<tr>"
