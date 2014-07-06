@@ -195,8 +195,8 @@ class Application extends CI_Controller {
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
+        /* FOR INTERNS */      
         $interns = $this->input->post('intern');
-
         foreach ($interns as $int) {
             $assign = array(
                 'caseID' => $cid,
@@ -211,6 +211,7 @@ class Application extends CI_Controller {
             $this->Notification_model->app_assigned($int, $cid);
         }
 
+        /* FOR LAWYERS */
         $lawyers = $this->input->post('lawyer');
         foreach ($lawyers as $law) {
             $assign = array(
@@ -234,7 +235,6 @@ class Application extends CI_Controller {
         }
 
         /* LOG TABLE */
-
         $logaccept = array(
             'caseID' => $cid,
             'action' => 'Case accepted in the Clinic.',

@@ -25,7 +25,17 @@
                         </tr>
                         <tr>
                             <th>Client Name:</th>
-                            <td><?php echo "$client->firstname $client->middlename $client->lastname" ?></td>
+                            <td>
+                                <?php $index = 0; ?>
+                                <?php foreach ($caseclient as $client) { ?>
+                                    <?php if ($index > 0) { ?>
+                                        <?php echo ", $client->firstname $client->lastname" ?>
+                                    <?php } else { ?>
+                                        <?php echo "$client->firstname $client->lastname" ?>
+                                    <?php } ?>
+                                    <?php $index++; ?>
+                                <?php } ?>
+                            </td>
                         </tr>
                         <tr>
                             <th>Offense:</th>
@@ -45,7 +55,7 @@
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
-                            <td><?php echo $client->typeName ?></td>
+                            <td><?php echo $caseclient[0]->typeName; ?></td>
                         </tr>
                         <tr>
                             <th>Supervising Lawyer:</th>
