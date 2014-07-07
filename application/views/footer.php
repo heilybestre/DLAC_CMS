@@ -773,6 +773,7 @@
             + "</li>";
     $('#notesThread_' + x + ' ul').append(html);
     $('#actionWriteNotes_' + x).val('');
+    $('#actionPlan-bottom-notes_' + x).removeClass('hide');
   });
   //EDIT ACTIONS start
   $(".editActionButton").live('click', function() {
