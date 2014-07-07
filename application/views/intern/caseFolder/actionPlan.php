@@ -7,6 +7,9 @@
   <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
     View Narrative
   </a>
+  <a class ="btn btn-link pull-right" style='' href="#viewAllNotesModal" data-toggle="modal">
+    View All Notes
+  </a>
 
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>
@@ -41,8 +44,7 @@
         <br>
       </div>
 
-      <br>
-      <div class="col-lg-5 pull-right">
+      <div class="col-lg-5 pull-right" style="margin: 13px;">
         <div class='pull-right'>
           <a id='btneditactionplan' class="btn btn-success btn-primary" style="margin-top:0px;">Edit Action Plan</a>
           <a href="" class="btn btn-warning btn-small" style="margin-top:0px;">Appeal</a>
@@ -100,7 +102,7 @@
   <!-- ACTION PLAN : APPROVED / PENDING -->
   <?php if ($actionplanstatus == 'approved' || $actionplanstatus == 'pending') { ?>
     <div id='actionplandiv' class="row <?php if ($actionplanstatus == 'pending') echo 'disable fadedlight'; ?>" >
-      <?php echo form_open(base_url() . "cases/createactionplan/$case->caseID"); ?>
+      <?php echo form_open(base_url() . "cases/editactionplan/$case->caseID"); ?>
 
       <div id='actionplanbuttonsdiv' class='hide pull-right' style='margin-right: 50px;'>
         <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Submit'); ?>
@@ -132,11 +134,12 @@
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
+                    <?= $this->Case_model->select_action_notes_count($action->actionplanID)->count ?>
                   </td>
-                  <td>
-                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-info pull-right"> <i class="icon-edit"></i> </a>
-                    <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
-                    <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
+                  <td class='editpopover hide'>
+                    <a href="#" id="popover-edit_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-edit btn btn-info pull-right"> <i class="icon-edit"></i> </a>
+                    <div id="popover-edit-head_<?= $action->actionplanID ?>" class="hide"></div>
+                    <div id="popover-edit-content_<?= $action->actionplanID ?>" class="hide">
                       <!-- Action plan POPOVER -->
                       <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
                         <br>
@@ -155,13 +158,71 @@
                               <?php endforeach; ?>
                             </select>
                           </div>
-
                           <div class="col-lg-1">
                             <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
                           </div>
-
-                          <br><br><br>
+                          <br><br>
+                          <div class='col-lg-12'>
+                            <button class='btn btn-danger' style='width:100%'><i class="icon-trash"></i> Delete this action</button>
+                          </div>
                         </div>
+                      </div> 
+                      <!-- Action plan POPOVER -->
+                    </div>
+                  </td>
+                  <td class='origpopover'>
+                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?> btn-info <?php } else { ?> btn-default <? } ?> pull-right"> <i class="icon-comment"></i> </a>
+                    <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
+                    <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
+                      <!-- Action plan POPOVER -->
+                      <div id="actionPlan_stage1" class="actionPlan_stage1">
+
+                        <div id="actionPlanOption-top">
+                          <h5>
+                            <b>Assigned to </b>
+                            <label class="label label-default">
+                              <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo); ?>
+                              <?php if ($action->assignedTo == null) echo 'None'; ?>
+                            </label>
+                          </h5>
+
+                          <h5><b>Type: </b>
+                            <label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>">
+                              <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?>
+                            </label>
+                          </h5>
+                        </div>
+
+                        <!-- Add notes -->
+                        <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
+                          <h5>Notes</b></h5>
+                          <textarea class="diss-form" id="actionWriteNotes_<?= $action->actionplanID ?>" placeholder="Write comment" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px; width:280px;"></textarea>
+                          <a class="btn btn-success pull-right sendActionNotes" id="sendActionNotes_<?= $action->actionplanID ?>" style="margin: 5px 15px -10px 0">Send</a>
+                        </div>
+                        <br><br>
+
+                        <!-- Notes -->
+                        <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?>
+                          <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
+                            <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
+                              <ul>
+                                <?php foreach ($allcaseactionnotes as $notes) { ?>
+                                  <?php if ($action->actionplanID == $notes->actionplanID) { ?>
+                                    <li id = "actionPlanNote" class = "actionPlanNote">
+                                      <div class = "name"> <?= $notes->by ?> </div>
+                                      <div class = "date"> <?= $notes->dateTime ?> </div>
+                                      <div class = "message">
+                                        <?= $notes->note ?>
+                                      </div>	
+                                    </li>
+                                  <?php } ?>
+                                <?php } ?>
+                              </ul>   
+                            </div>
+                            <br>
+                          </div>
+                        <?php } ?>
+
                       </div> 
                       <!-- Action plan POPOVER -->
                     </div>
@@ -344,14 +405,14 @@
   </div>
   <!-- END OF MODAL : REASONACTIONPLANMODAL --> 
 
-  <!-- START OF MODAL : VIEWNARRATIVEMODAL -->
+  <!-- START OF MODAL : VIEWNARRATIVEINACTIONPLANMODAL -->
   <div class="row">
     <div class="modal fade" id="viewNarrativeInActionPlanModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 id="myModalLabel"> Narrative : </h3>
+            <h3 id="myModalLabel"> Narrative</h3>
           </div>
           <div class="modal-body">
             <?php echo $case->appNarrative ?>
@@ -363,6 +424,44 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
   </div>
-  <!-- END OF MODAL : VIEWNARRATIVEMODAL --> 
+  <!-- END OF MODAL : VIEWNARRATIVEINACTIONPLANMODAL --> 
 
+  <!-- START OF MODAL : VIEWALLNOTESMODAL -->
+  <div class="row">
+    <div class="modal fade" id="viewAllNotesModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="myModalLabel"> All Case Notes </h3>
+          </div>
+          <div class="modal-body">
+            <?php foreach ($allcaseactions as $action) { ?>
+              <?php $actionnotes = $this->Case_model->select_action_notes($action->actionplanID); ?>
+              <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?>
+                <h5><b><?= $action->action ?></b></h5>
+                <div class="actionPlan-bottom-notes" style='width: 100% !important; max-height: none !important'>
+                  <div class="discussions">
+                    <ul>
+                      <?php foreach ($actionnotes as $notes) { ?>
+                        <li style='margin: 0 10px 5px 10px'>
+                          <div class = "name"> <?= $this->People_model->getuserfield('firstname', $notes->by) . ' ' . $this->People_model->getuserfield('lastname', $notes->by) ?> </div>
+                          <div class = "date"> <?= $notes->dateTime ?> </div>
+                          <div class = "message">
+                            <?= $notes->note ?>
+                          </div>	
+                        </li>
+                      <?php } ?>
+                    </ul>   
+                  </div>
+                  <br>
+                </div>
+              <?php } ?>
+            <?php } ?>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
+  <!-- END OF MODAL : VIEWALLNOTESMODAL --> 
 </div> 

@@ -7,6 +7,9 @@
   <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
     View Narrative
   </a>
+  <a class ="btn btn-link pull-right" style='' href="#viewAllNotesModal" data-toggle="modal">
+    View All Notes
+  </a>
 
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>
@@ -98,11 +101,58 @@
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                   </td>
                   <td>
-                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn btn-info pull-right"> <i class="icon-edit"></i> </a>
+                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?> btn-info <?php } else { ?> btn-default <? } ?> pull-right"> <i class="icon-comment"></i> </a>
                     <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                     <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                       <!-- Action plan POPOVER -->
                       <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
+
+                        <div id="actionPlanOption-top">
+                          <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
+                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                            <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
+                          </div>
+
+                          <h5>
+                            <b>Assigned to </b>
+                            <label id="labelAssignPerson_<?= $action->actionplanID ?>" class="label label-default">
+                              <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo); ?>
+                              <?php if ($action->assignedTo == null) echo 'None'; ?>
+                            </label>
+                          </h5>
+
+                          <h5><b>Type: </b>
+                            <label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>">
+                              <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?>
+                            </label>
+                          </h5>
+                        </div>
+
+                        <!--Assign-->
+                        <div id="actionPlanOption-center-assign_<?= $action->actionplanID ?>" class="hide">
+                          <hr>
+                          <div id="assignAction">
+
+                            <h5><b>Assign to: </b></h5>
+                            <table class="table table-striped">
+                              <tr>
+                                <th>Intern</th>
+                                <th>Experience</th>
+                                <th></th>
+                              </tr>
+                              <?php foreach ($caseinterns as $intern) { ?>
+                                <tr>
+                                  <td><?= "$intern->firstname $intern->lastname" ?></td>
+                                  <td>(##)</td>
+                                  <td><button type="button" class="btn btn-success btnAssignPerson" id="btnAssignPerson_<?= $action->actionplanID ?>" value="<?= $intern->personID ?>"> <i class="icon-ok"></i> </button>
+                                    <button type="button" class="btn btn-danger hide btnUnassignPerson btnUnassignPerson_<?= $intern->personID ?>" id="btnUnassignPerson_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </button>                                                                    
+                                    <input type="hidden" value="<?= "$intern->firstname $intern->lastname" ?>" id="task_<?= $action->actionplanID ?>_intern_<?= $intern->personID ?>">
+                                  </td>
+                                </tr>
+                              <?php } ?>
+                            </table>
+                          </div>
+                        </div>
 
                         <!-- Add notes -->
                         <div id="actionPlanOption-center-writeNotes_<?= $action->actionplanID ?>">
@@ -113,13 +163,26 @@
                         <br><br>
 
                         <!-- Notes -->
-                        <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
-                          <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
-                            <ul></ul>   
+                        <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?>
+                          <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
+                            <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
+                              <ul>
+                                <?php foreach ($allcaseactionnotes as $notes) { ?>
+                                  <?php if ($action->actionplanID == $notes->actionplanID) { ?>
+                                    <li id = "actionPlanNote" class = "actionPlanNote">
+                                      <div class = "name"> <?= $this->People_model->getuserfield('firstname', $notes->by) . ' ' . $this->People_model->getuserfield('lastname', $notes->by) ?> </div>
+                                      <div class = "date"> <?= $notes->dateTime ?> </div>
+                                      <div class = "message">
+                                        <?= $notes->note ?>
+                                      </div>	
+                                    </li>
+                                  <?php } ?>
+                                <?php } ?>
+                              </ul>   
+                            </div>
+                            <br>
                           </div>
-                          <br>
-                        </div>
-
+                        <?php } ?>
                       </div> 
                       <!-- Action plan POPOVER -->
                     </div>
@@ -215,14 +278,14 @@
   </div>
   <!-- END OF MODAL : REASONACTIONPLANMODAL --> 
 
-  <!-- START OF MODAL : VIEWNARRATIVEMODAL -->
+  <!-- START OF MODAL : VIEWNARRATIVEINACTIONPLANMODAL -->
   <div class="row">
     <div class="modal fade" id="viewNarrativeInActionPlanModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 id="myModalLabel"> Narrative : </h3>
+            <h3 id="myModalLabel"> Narrative</h3>
           </div>
           <div class="modal-body">
             <?php echo $case->appNarrative ?>
@@ -234,6 +297,44 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
   </div>
-  <!-- END OF MODAL : VIEWNARRATIVEMODAL --> 
+  <!-- END OF MODAL : VIEWNARRATIVEINACTIONPLANMODAL --> 
 
+  <!-- START OF MODAL : VIEWALLNOTESMODAL -->
+  <div class="row">
+    <div class="modal fade" id="viewAllNotesModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="myModalLabel"> All Case Notes </h3>
+          </div>
+          <div class="modal-body">
+            <?php foreach ($allcaseactions as $action) { ?>
+              <?php $actionnotes = $this->Case_model->select_action_notes($action->actionplanID); ?>
+              <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?>
+                <h5><b><?= $action->action ?></b></h5>
+                <div class="actionPlan-bottom-notes" style='width: 100% !important; max-height: none !important'>
+                  <div class="discussions">
+                    <ul>
+                      <?php foreach ($actionnotes as $notes) { ?>
+                        <li style='margin: 0 10px 5px 10px'>
+                          <div class = "name"> <?= $this->People_model->getuserfield('firstname', $notes->by) . ' ' . $this->People_model->getuserfield('lastname', $notes->by) ?> </div>
+                          <div class = "date"> <?= $notes->dateTime ?> </div>
+                          <div class = "message">
+                            <?= $notes->note ?>
+                          </div>	
+                        </li>
+                      <?php } ?>
+                    </ul>   
+                  </div>
+                  <br>
+                </div>
+              <?php } ?>
+            <?php } ?>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  </div>
+  <!-- END OF MODAL : VIEWALLNOTESMODAL -->
 </div> 

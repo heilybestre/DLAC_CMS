@@ -16,7 +16,7 @@
 }
 .actionPlan-bottom-notes{
   width: 280px ! important;
-  max-height: 200px ! important;
+  max-height: 190px ! important;
   overflow: auto;
   margin-top: 10px;
   background-color: rgb(240, 240, 240);
@@ -456,4 +456,12 @@ tabletags{
 
 .removeBold{
   font-weight:normal !important;    
+}
+
+.allcasenotes{
+  width: 100% !important;
+}
+
+.onecasenote{
+  margin: 0 10px 5px 10px;
 }

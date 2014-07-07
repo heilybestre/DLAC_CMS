@@ -113,16 +113,18 @@
     $div.highlight(word);
     $div2.highlight(word);
   });
-  
+
   $("#btneditactionplan").live('click', function() {
     $('#actionplanapproveddiv').addClass('hide');
     $('#editingdiv').removeClass('hide');
-    $('#actionplanbuttonseditdiv').removeClass('hide');
+    $('#actionplanbuttonsdiv').removeClass('hide');
     $('#actionplanbuttonsbrdiv').removeClass('hide');
     $('.editActionButton').removeClass('hide');
     $('.deleteActionButton').removeClass('hide');
+    $('.editpopover').removeClass('hide');
+    $('.origpopover').addClass('hide');
   });
-  
+
   $(".btnAssignPerson").live('click', function() {
     var actionplanID = $(this).attr('id').substring(16);
     var personID = $(this).attr('value');
@@ -133,7 +135,7 @@
     $('#assignedPersonID_' + actionplanID).val(personID);
     $('#assignedPersonName_' + actionplanID).val(personName);
   });
-  
+
   $(".btnUnassignPerson").live('click', function() {
     var actionplanID = $(this).attr('id').substring(18);
     $(this).addClass('hide');
@@ -142,7 +144,7 @@
     $('#assignedPersonID_' + actionplanID).val("");
     $('#assignedPersonName_' + actionplanID).val("");
   });
-  
+
   // POPOVERS
   $(document).ready(function() {
     $('#selectall').click(function() {
@@ -152,7 +154,7 @@
       var check = ($('.selectedID').filter(":checked").length == $('.selectedID').length);
       $('#selectall').prop("checked", check);
     });
-    $('.popover-orig').popover({
+    $('.popover-edit').popover({
       html: true,
       content: function() {
         var x = $(this).attr('id').substring(13);
@@ -161,9 +163,20 @@
         var typeValue = $('#arrayActionType_' + x).val();
         var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
         $("#editactiontype_" + x + " option:contains(" + typeText + ")").attr('selected', 'selected');
+        return $("#popover-edit-content_" + x).html();
+      }
+    });
+    $('.popover-orig').popover({
+      html: true,
+      content: function() {
+        var x = $(this).attr('id').substring(13);
+        var typeValue = $('#arrayActionType_' + x).val();
+        var typeText = $("#editactiontype_" + x + " option[value=" + typeValue + "]").text();
+//        $('#actionTypeLabel_' + x).text(typeText);
         return $("#popover-orig-content_" + x).html();
       }
     });
+    
     $('.popover-orig-lawyer').popover({
       html: true,
       content: function() {
@@ -184,7 +197,7 @@
         return $("#popover-orig-content_" + x).html();
       }
     });
-    
+
     // When clicked outside, popovers will close
 //        $('body').on('click', function(e) {
 //            $('.popover-orig').each(function() {
