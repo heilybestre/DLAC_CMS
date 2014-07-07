@@ -3,7 +3,8 @@
   <!--  -->
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
-
+  <label id='actionplanstatusforaction' class='hide'><?= $actionplanstatus ?></label>
+  
   <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
     View Narrative
   </a>
@@ -134,7 +135,6 @@
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
-                    <?= $this->Case_model->select_action_notes_count($action->actionplanID)->count ?>
                   </td>
                   <td class='editpopover hide'>
                     <a href="#" id="popover-edit_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-edit btn btn-info pull-right"> <i class="icon-edit"></i> </a>
@@ -202,12 +202,13 @@
                         <br><br>
 
                         <!-- Notes -->
-                        <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count == 0) echo 'hide'; ?> ">                            <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
+                        <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count == 0) echo 'hide'; ?> ">
+                          <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
                             <ul>
                               <?php foreach ($allcaseactionnotes as $notes) { ?>
                                 <?php if ($action->actionplanID == $notes->actionplanID) { ?>
                                   <li id = "actionPlanNote" class = "actionPlanNote">
-                                    <div class = "name"> <?= $notes->by ?> </div>
+                                    <div class = "name"> <?= $this->People_model->getuserfield('firstname', $notes->by) . ' ' . $this->People_model->getuserfield('lastname', $notes->by) ?> </div>
                                     <div class = "date"> <?= $notes->dateTime ?> </div>
                                     <div class = "message">
                                       <?= $notes->note ?>
