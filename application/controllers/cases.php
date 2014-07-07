@@ -276,6 +276,8 @@ class Cases extends CI_Controller {
 
     $data['actionplanstatus'] = $this->Case_model->select_case($cid)->actionplanstatus;
     $data['allcaseactionnotes'] = $this->Case_model->select_caseaction_notes($cid);
+    $data['allcaseactions'] = $this->Case_model->select_caseactions($cid);
+
     //CREATE ACTION PLAN
     for ($x = 1; $x <= 4; $x++) {
       $data['refactionplan_s' . $x] = $this->Case_model->select_refactions($x);
