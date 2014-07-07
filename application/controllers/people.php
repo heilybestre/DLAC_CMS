@@ -201,11 +201,18 @@ class People extends CI_Controller {
         if (empty($uid)) {
             redirect('login/index');
         }
+
         $datestring = "%F %j, %Y";
         $datestring2 = "%Y-%m-%d";
         $time = now();
         $datenow = mdate($datestring, $time);
         $datenowdd = mdate($datestring2, $time);
+        extract($_POST);
+        if (!isset($attendancelogdate)) {
+            $inputdate = $datenowdd;
+        } else {
+            $inputdate = $attendancelogdate;
+        }
 
         $data['datenow'] = $datenow;
         $data['datenowdd'] = $datenowdd;
@@ -216,6 +223,7 @@ class People extends CI_Controller {
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
         $data['interns'] = $this->People_model->select_interns();
+        $data['residency'] = $this->People_model->select_residency($inputdate);
 
         $this->load->view('header');
         $this->load->view('secretary/menubar', $data);
@@ -241,7 +249,7 @@ class People extends CI_Controller {
         $data['notifs'] = $this->Notification_model->select_notifs($uid);
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
-        $data['residency'] = $this->People_model->select_residency('2014-06-28');
+        $data['residency'] = $this->People_model->select_residency('2014-07-06');
 
         $this->load->view('header');
         $this->load->view('secretary/menubar', $data);
