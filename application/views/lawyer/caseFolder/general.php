@@ -171,7 +171,7 @@
             <div class="box">
                 <div class="box-header"><h2><i class="icon-tags"></i>Tags</h2>
                     <div class="box-icon">
-                        <a href="#addTagsModal" data-toggle="modal"><i class="icon-plus"></i></a>
+                        <a href="#addTagsModal" data-toggle="modal"><i class="icon-edit"></i></a>
                     </div>
                 </div>
                 <div class="box-content" id="boxcontent">
@@ -179,9 +179,11 @@
                     <?php foreach ($tags as $tag): ?>
                         <label class="label label-primary">
                             <i class="icon-tag">&nbsp; <?php echo $tag ?></i>
-                        </label><?php endforeach; ?>
+                        </label>
+                    <?php endforeach; ?>
                 </div>
             </div>
+       
         </div>
 
         <div class="col-lg-1"></div>
@@ -809,28 +811,36 @@
     </div>
     <!-- END OF MODAL : addCaseNumberModal --> 
 
-    <!-- START OF MODAL : addTagsModal -->
+     <!-- START OF MODAL : addTagsModal -->
     <div class="row">
 
         <div class="modal fade" id="addTagsModal">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <?php echo form_open(base_url() . "cases/EditCaseTags/", array('class' => 'form-horizontal')); ?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 id="myModalLabel">Add Tags</h3>
+                        <h3 id="myModalLabel">Edit Tags</h3>
                     </div>
                     <div class="modal-body">
-                        <div class="col-sm-12 control-group">
-                            <div class="controls">
-                                <?php echo form_textarea(array('id' => 'caseTags', 'placeholder' => 'Separate tags with comma', 'name' => 'caseTags', 'type' => 'text', 'class' => 'form-control', 'style' => 'height:200px;')); ?>
-                            </div>
-                        </div>
-                        <br>                    
+                        <select  multiple class="chosen-select" tabindex="8">
+
+                            <?php $tags = explode(' #', $case->tags); ?>
+                            <?php foreach ($tags as $tag): ?>
+                                <option selected><?php echo $tag ?></option>
+                            <?php endforeach; ?>
+
+                            <?php foreach ($offenses as $off): ?>
+                                <option  value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                            <?php endforeach; ?>
+                        </select>             
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" name="caseID" value="<?php echo $case->caseID ?>">
                         <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Tags'); ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
+                    <?php echo form_close(); ?>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->

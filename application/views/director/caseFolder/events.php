@@ -165,9 +165,7 @@ $(document).ready(function() {
 
                             <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                    <select id='newappt_case' name='newappt_case' class='form-control'>
-                                        <option value="<?= $case->caseID ?>"><?php echo "$case->caseName ($case->caseNum)"?></option>
-                                    </select>
+                                    <h5><?php echo "$case->caseName ($case->caseNum)"?></h5>
                                 </div>
                             </div>
 

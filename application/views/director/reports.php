@@ -4,10 +4,10 @@
         <div class="box">
             <div class="box-header">
                 <h2>
-                    <i class="icon-list"></i>Report
+                    <i class="icon-list"></i>Reports
                 </h2>
             </div>
-
+          
             <div class="box-content">
                 <br>
                 <div>
@@ -117,6 +117,12 @@
                 <div class="">
                     {iframe}
                 </div>
+               
+                <div id="donutchart" style="height: 300px;">
+                    <canvas class="flot-overlay" width="550" height="300" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 550px; height: 300px;"></canvas>
+                    <div style="font-size:x-small;text-align:center;padding:2px;color:rgb(47,171,233);">Mobile<br>7%</div>
+                </div>
+                
             </div>
 <!--             <div class="box">
 
@@ -146,7 +152,8 @@
                     <?php echo $multi; ?>
                 </div>
             </div> -->
-        </div>
+
     </div>
+</div>
 </div>
 

@@ -170,7 +170,7 @@
             <div class="box">
                 <div class="box-header"><h2><i class="icon-tags"></i>Tags</h2>
                     <div class="box-icon">
-                        <a href="#addTagsModal" data-toggle="modal"><i class="icon-plus"></i></a>
+                        <a href="#addTagsModal" data-toggle="modal"><i class="icon-edit"></i></a>
                     </div>
                 </div>
                 <div class="box-content" id="boxcontent">
@@ -818,7 +818,7 @@
                     <?php echo form_open(base_url() . "cases/EditCaseTags/", array('class' => 'form-horizontal')); ?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 id="myModalLabel">Add Tags</h3>
+                        <h3 id="myModalLabel">Edit Tags</h3>
                     </div>
                     <div class="modal-body">
                         <select  multiple class="chosen-select" tabindex="8">

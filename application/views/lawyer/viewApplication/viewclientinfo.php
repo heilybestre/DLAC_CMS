@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group">
+                <div class="col-sm-8 control-group" style="max-height: 40px;">
                     <div class="controls">
                         <h5>
                             <?php echo $client->addrhouse . ' ' . $client->addrstreet . ' St., ' . $client->addrtown ?>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <br><br>
+                <br><br><br>
 
                 <div class="col-sm-2 control-group">
                     <div class="controls">
