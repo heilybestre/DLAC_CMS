@@ -147,7 +147,7 @@ class People_model extends CI_Model {
     }
 
     function select_interns() {
-        $query = $this->db->query("SELECT * FROM interns");
+        $query = $this->db->query("SELECT * FROM interns ORDER BY `caseload` ASC");
         return $query->result();
     }
 
