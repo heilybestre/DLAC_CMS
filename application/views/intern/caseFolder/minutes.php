@@ -40,7 +40,7 @@
                         
                       <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Related Action Plan Item: </h5> </center>
+                                <center> <h5> <b> Related Action Plan Item: </b> </h5> </center>
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Appointment </h5> </center>
+                                <center> <h5> <b> Appointment </b> </h5> </center>
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Date </h5> </center>
+                                <center> <h5> <b> Date </b> </h5> </center>
                             </div>
                         </div>
 
@@ -89,7 +89,7 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Time </h5> </center>
+                                <center> <h5> <b> Time </b> </h5> </center>
                             </div>
                         </div>
 
@@ -121,7 +121,7 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Location </h5> </center>
+                                <center> <h5> <b> Location </b> </h5> </center>
                             </div>
                         </div>
 
@@ -135,13 +135,13 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Attendees </h5> </center>
+                                <center> <h5> <b>Attendees</b> </h5> </center>
                             </div>
                         </div>
 
                         <div class="col-sm-9 control-group">
                             <div class="controls">
-                                <?php echo form_input(array('class' => 'form-control')); ?>
+                                <h5>(Attendees' Names; separated by comma)</h5>
                             </div>
                         </div>
 
@@ -152,23 +152,20 @@
 
                         <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <center> <h5> Report </h5> </center>
+                                <center> <h5> <b> Report </h5> </b> </center>
                             </div>
                         </div>
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <?php echo form_textarea(array('id' => 'minutesReport', 'name' => 'minutesReport', 'type' => 'text', 'class' => 'form-control' )); ?>
+                                <?php echo form_textarea(array('id' => 'minutesReport', 'name' => 'minutesReport', 'type' => 'text', 'class' => 'form-control')); ?>
                             </div>
                         </div>
 
                         <br><br>
                     </div>
 
-                    <br><br><br><hr>
-                    <div class="row"></div>
-
-                    <h2>Attachments</h2>
+                    <br><br>
 
                     </div>
                     <div class="modal-footer">

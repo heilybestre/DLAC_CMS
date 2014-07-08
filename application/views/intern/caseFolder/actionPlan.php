@@ -5,12 +5,15 @@
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
   <label id='actionplanstatusforaction' class='hide'><?= $actionplanstatus ?></label>
   
-  <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
-    View Narrative
+  <br>
+  <div class="col-lg-9"></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a class ="btn-small btn-warning" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
+    <i class="icon-book"></i> View Narrative
+  </a> &nbsp;
+  <a class ="btn-small btn-warning" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
+      <i class="icon-comments"></i>  View All Notes
   </a>
-  <a class ="btn btn-link pull-right" style='' href="#viewAllNotesModal" data-toggle="modal">
-    View All Notes
-  </a>
+
 
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>

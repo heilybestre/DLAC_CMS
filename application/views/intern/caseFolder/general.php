@@ -25,7 +25,8 @@
                         </tr>
                         <tr>
                             <th>Client Name:</th>
-                            <td><?php $index = 0; ?>
+                            <td>
+                                <?php $index = 0; ?>
                                 <?php foreach ($caseclient as $client) { ?>
                                     <?php if ($index > 0) { ?>
                                         <?php echo ", $client->firstname $client->lastname" ?>
@@ -50,7 +51,7 @@
                         </tr>
                         <tr>
                             <th>Present Stage:</th>
-                            <td><?php echo $case->stageName ?> <?php if ($this->Case_model->select_actionplancomplete($case->caseID, $case->stage)->count == 0) echo '(with decision)'; ?></td>
+                            <td><?php echo $case->stageName ?></td>
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
@@ -182,6 +183,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
+       
         </div>
 
         <div class="col-lg-1"></div>
@@ -531,86 +533,23 @@
                     <?php echo form_open('cases/addOffense', array('class' => 'form-horizontal')); ?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 id="myModalLabel">Add Offense </h3>
+                        <h3 id="myModalLabel">Edit Offense </h3>
                     </div>
                     <div class="modal-body">
+                        
                         <div class="col-sm-3 control-group">
-                            <div class="controls">
-                                <h5><center> <b>Source</b></center></h5>
-                            </div>
-                        </div>
-
-                        <div class="form-inline">
-                            <div class="controls">
-                                <center>
-                                    <label class="radio" for="offenseSource-1">
-                                        <input type="radio" name="offenseSource" value="Revised Penal Code" onclick="location.href = 'javascript:toggleRPC();';">
-                                        Revised Penal Code
-                                    </label>
-                                    <label class="radio" for="offenseSource-0">
-                                        <input type="radio" name="offenseSource" value="Special Penal Law"  onclick="location.href = 'javascript:toggleSpecial();';">
-                                        Special Penal Law
-                                    </label> &nbsp;
-                                </center>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="caseOffensePenal" style="display: none">
-
-                            <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <h5> <center><b>Offense</b></center></h5>
+                               <center>     <h5> <b>Offense</b></h5></center>
                                 </div>
                             </div>
+                                             
 
                             <div class="col-sm-6 control-group">
                                 <div class="controls">
-                                    <select id="caseOffensePenal" name="caseOffensePenal" class="form-control"> 
-                                        <optgroup label="Penal Code">
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Public Order"> 
-                                            <option>Inciting to rebellion or insurrection</option>
-                                            <option>Sedition</option>                    
-                                        </optgroup>
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Public Interest">
-                                            <option>Illegal use of uniforms & insignia</option>
-                                            <option>Falsification of legislative documents</option>
-                                            <option>Forgery</option>
-                                            <option>Offering false testimony in evidence</option>
-                                            <option>Sedition</option>                    
-                                        </optgroup>
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Persons">
-                                            <option>Homicide</option>
-                                            <option>Murder</option>
-                                            <option>Parricide</option>
-                                            <option>Rape</option>
-                                            <option>Serious Physical Injuries</option>
-                                            <option>Sexual Assault, Acts of Lasciviousness & Rape</option>                    
-                                        </optgroup>
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Personal Liberty and Security">
-                                            <option>Exploitation of minors</option>
-                                            <option>Kidnapping and Serious Illegal Detention</option>                   
-                                        </optgroup>
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Property">
-                                            <option>Bouncing Checks</option>  
-                                            <option>Carnapping</option>
-                                            <option>Robbery</option>
-                                            <option>Robbery with Homicide</option>
-                                            <option>Robbery with Rape</option>
-                                            <option>Sqindling (Estafa)</option>
-                                            <option>Theft</option>
-                                        </optgroup>
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Chastity">
-                                            <option>Acts of Lasciviousness</option>
-                                            <option>Adultery</option>  
-                                            <option>Sexual Harrasment</option>
-                                        </optgroup>
-                                        <optgroup label="&nbsp;&nbsp;&nbsp;Crimes Against Honor">
-                                            <option>Libel</option>  
-                                            <option>Libelous Remarks</option>           
-                                            <option>Slander</option>
-                                        </optgroup>
-                                        </optgroup> 
-                                    </select>
+                                    <select class="form-control">
+                                    <?php foreach ($offenses as $off): ?>
+                                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                                    <?php endforeach; ?></select>
                                 </div>
                             </div>
 
@@ -618,7 +557,7 @@
 
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <h5> <center><b>Offense Stage</b></center></h5>
+                              <center>      <h5> <b>Offense Stage</b></h5></center>
                                 </div>
                             </div>
 
@@ -635,64 +574,10 @@
 
                             &nbsp; <button id='btneditoffensepenal' class="btn btn-success" type='button' style="margin-top:0px;"> Add</button>
 
-                        </div>
-
-                        <div id="caseOffenseSpecial" style="display: none">
-
-                            <div class="col-sm-3 control-group">
-                                <div class="controls">
-                                    <h5> <center><b>Offense</b></center></h5>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 control-group">
-                                <div class="controls">
-                                    <select name="caseOffenseSpecial" class="form-control">
-                                        <optgroup label="Special Laws">
-                                            <option>Anti-Carnapping Act of 1972</option>
-                                            <option>Anti-Child Pornography Act of 2009</option>
-                                            <option>Anti-Hazing Law</option>
-                                            <option>Anti-Photo and Video Voyeurism Act of 2009</option>
-                                            <option>Anti-Sexual Harrassment Act of 1995</option> 
-                                            <option>Anti-Violence Against Women and Their Children Act of 2004</option>
-                                            <option>Anti-Violence Against Women and their Children Act of 2004</option>
-                                            <option>Anti-Wire Tapping Act</option>
-                                            <option>Bouncing Checks Law</option>
-                                            <option>Human Security Act of 2007</option>
-                                            <option>Juvenile Justice and Welfare Act of 2006</option>
-                                            <option>Special Protection of Children Against Child Abuse, Exploitation and Discrimination Act</option>
-                                            <option>The Comprehensive Dangerous Drugs Act of 2002</option>
-                                        </optgroup>  
-                                    </select>
-                                </div>
-                            </div>
-
-                            <br><br>
-
-                            <div class="col-sm-3 control-group">
-                                <div class="controls">
-                                    <h5> <center><b>Offense Stage</b></center></h5>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 control-group">
-                                <div class="controls">
-                                    <select id="caseoffensestagespecial" name="caseoffensestagespecial" class="form-control">
-                                        <option>N/A</option>
-                                        <option>Attempted</option>
-                                        <option>Frustrated</option>
-                                        <option>Consumated</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            &nbsp; <button id='btneditoffensespecial' class="btn btn-success" type='button' style="margin-top:0px;"> Add</button>
-
-                        </div>
+                        
 
                         <br>
                         <hr>
-                        <br>
 
                         <table id='offensetable' class="table table-striped table-bordered">
 
@@ -716,7 +601,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name='cid' value='<?php echo $case->caseID ?>'>
-                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Offense'); ?>
+                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Save'); ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     <?php echo form_close(); ?>
@@ -809,7 +694,7 @@
     </div>
     <!-- END OF MODAL : addCaseNumberModal --> 
 
-    <!-- START OF MODAL : addTagsModal -->
+     <!-- START OF MODAL : addTagsModal -->
     <div class="row">
 
         <div class="modal fade" id="addTagsModal">
