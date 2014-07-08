@@ -150,7 +150,7 @@
                     </div>
                 </div>
 
-                <br> <br>
+                <br><br><br>
 
                 <div class="col-sm-2 control-group">
                     <div class="controls">
@@ -175,7 +175,7 @@
 
                 <h3>Personal Circumstances</h3>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5><b> Sex </b></h5> </center>
                     </div>
@@ -189,7 +189,7 @@
 
                 <br> <br>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5> <b>Civil Status</b> </h5> </center>
                     </div>
@@ -201,9 +201,9 @@
                     </div>
                 </div>
 
-                <br><br>
+                <br><br><br>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5> <b>Birthday </b></h5> </center>
                     </div>
@@ -217,7 +217,7 @@
 
                 <br><br>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5> <b>Birthplace </b></h5> </center>
                     </div>
@@ -237,13 +237,13 @@
                 <br><br>
                 <hr>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5> <b>Salary </b></h5> </center>
                     </div>
                 </div>
 
-                <div class="col-sm-5 control-group">
+                <div class="col-sm-8 control-group">
                     <div class="controls">
                         <h5><?php echo $client->salary ?> (per month)</h5>
                     </div>
@@ -251,7 +251,7 @@
 
                 <br><br>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5><b> Occupation</b> </h5> </center>
                     </div>
@@ -270,7 +270,7 @@
 
                 <br><br>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5> <b>Organization </b></h5> </center>
                     </div>
@@ -289,7 +289,7 @@
 
                 <br><br>
 
-                <div class="col-sm-2 control-group">
+                <div class="col-sm-3 control-group">
                     <div class="controls">
                         <center> <h5> <b>Address</b> </h5> </center>
                     </div>
