@@ -263,6 +263,9 @@ class Cases extends CI_Controller {
 
         $data['image'] = $this->People_model->getuserfield('image', $uid);
         $data['name'] = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
+        
+        $data['notifs'] = $this->Notification_model->select_notifs($uid);
+        $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
         $data['casecourt'] = $this->Case_model->select_casecourt($cid);
         $data['caseoffense'] = $this->Case_model->select_caseoffense($cid);
@@ -305,6 +308,8 @@ class Cases extends CI_Controller {
         $data['casepeople'] = $this->Case_model->select_casepeople($cid);
         $data['caseinterns'] = $this->Case_model->select_caseinterns($cid);
         $data['caselawyers'] = $this->Case_model->select_caselawyers($cid);
+        $data['casecloseclient'] = $this->Case_model->select_closeclient($cid);
+        $data['casecloseopposing'] = $this->Case_model->select_closeopposing($cid);
         $data['casecloseinterns'] = $this->Case_model->select_closecaseinterns($cid);
         $data['casecloselawyers'] = $this->Case_model->select_closecaselawyers($cid);
         // </editor-fold>

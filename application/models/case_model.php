@@ -180,7 +180,12 @@ class Case_model extends CI_Model {
     }
 
     function select_caseclient($cid) {
-        $query = $this->db->query("SELECT * FROM case_people JOIN people ON `people`.`personID` = `case_people`.`personID` JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side` WHERE caseID = $cid AND `case_people`.`participation` = 6");
+        $query = $this->db->query("SELECT * FROM case_people JOIN people ON `people`.`personID` = `case_people`.`personID` JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side` WHERE caseID = $cid AND `case_people`.`participation` = 6 AND `condition` = 'current'");
+        return $query->result();
+    }
+
+    function select_closeclient($cid) {
+        $query = $this->db->query("SELECT * FROM case_people JOIN people ON `people`.`personID` = `case_people`.`personID` JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side` WHERE caseID = $cid AND `case_people`.`participation` = 6 AND `condition` = 'expired'");
         return $query->result();
     }
 
@@ -189,6 +194,14 @@ class Case_model extends CI_Model {
     		JOIN people ON `people`.`personID` = `case_people`.`personID`
     		JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side`
     		WHERE caseID = $cid AND `case_people`.`participation` = 7");
+        return $query->result();
+    }
+
+    function select_closeopposing($cid) {
+        $query = $this->db->query("SELECT * FROM case_people
+    		JOIN people ON `people`.`personID` = `case_people`.`personID`
+    		JOIN `ref_type` ON `ref_type`.`typeID` = `case_people`.`side`
+    		WHERE caseID = $cid AND `case_people`.`participation` = 7 and `condition` = 'expired'");
         return $query->result();
     }
 

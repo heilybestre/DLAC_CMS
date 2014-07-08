@@ -55,7 +55,13 @@
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
-                            <td><?php echo $caseclient[0]->typeName; ?></td>
+                            <td><?php
+                                if ($case->status == 5) {
+                                    echo $casecloseclient[0]->typeName; 
+                                } else {
+                                    echo $caseclient[0]->typeName;
+                                }
+                                ?></td>
                         </tr>
                         <tr>
                             <th>Supervising Lawyer:</th>
@@ -183,7 +189,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-       
+
         </div>
 
         <div class="col-lg-1"></div>
@@ -536,45 +542,45 @@
                         <h3 id="myModalLabel">Edit Offense </h3>
                     </div>
                     <div class="modal-body">
-                        
-                        <div class="col-sm-3 control-group">
-                                <div class="controls">
-                               <center>     <h5> <b>Offense</b></h5></center>
-                                </div>
-                            </div>
-                                             
 
-                            <div class="col-sm-6 control-group">
-                                <div class="controls">
-                                    <select class="form-control">
+                        <div class="col-sm-3 control-group">
+                            <div class="controls">
+                                <center>     <h5> <b>Offense</b></h5></center>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6 control-group">
+                            <div class="controls">
+                                <select class="form-control">
                                     <?php foreach ($offenses as $off): ?>
                                         <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
                                     <?php endforeach; ?></select>
-                                </div>
                             </div>
+                        </div>
 
-                            <br><br>
+                        <br><br>
 
-                            <div class="col-sm-3 control-group">
-                                <div class="controls">
-                              <center>      <h5> <b>Offense Stage</b></h5></center>
-                                </div>
+                        <div class="col-sm-3 control-group">
+                            <div class="controls">
+                                <center>      <h5> <b>Offense Stage</b></h5></center>
                             </div>
+                        </div>
 
-                            <div class="col-sm-6 control-group">
-                                <div class="controls">
-                                    <select id="caseoffensestagepenal" name="caseoffensestagepenal" class="form-control">
-                                        <option>Attempted</option>
-                                        <option>Frustrated</option>
-                                        <option>Consumated</option>
-                                        <option>N/A</option>
-                                    </select>
-                                </div>
+                        <div class="col-sm-6 control-group">
+                            <div class="controls">
+                                <select id="caseoffensestagepenal" name="caseoffensestagepenal" class="form-control">
+                                    <option>Attempted</option>
+                                    <option>Frustrated</option>
+                                    <option>Consumated</option>
+                                    <option>N/A</option>
+                                </select>
                             </div>
+                        </div>
 
-                            &nbsp; <button id='btneditoffensepenal' class="btn btn-success" type='button' style="margin-top:0px;"> Add</button>
+                        &nbsp; <button id='btneditoffensepenal' class="btn btn-success" type='button' style="margin-top:0px;"> Add</button>
 
-                        
+
 
                         <br>
                         <hr>
@@ -694,7 +700,7 @@
     </div>
     <!-- END OF MODAL : addCaseNumberModal --> 
 
-     <!-- START OF MODAL : addTagsModal -->
+    <!-- START OF MODAL : addTagsModal -->
     <div class="row">
 
         <div class="modal fade" id="addTagsModal">
