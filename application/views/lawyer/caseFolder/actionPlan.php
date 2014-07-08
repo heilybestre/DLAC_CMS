@@ -4,11 +4,13 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
 
-  <a class ="btn btn-link pull-right" style='' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
-    View Narrative
-  </a>
-  <a class ="btn btn-link pull-right" style='' href="#viewAllNotesModal" data-toggle="modal">
-    View All Notes
+  <br>
+  <div class="col-lg-9"></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a class ="btn-small btn-warning" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
+    <i class="icon-book"></i> View Narrative
+  </a> &nbsp;
+  <a class ="btn-small btn-warning" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
+      <i class="icon-comments"></i>  View All Notes
   </a>
 
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
