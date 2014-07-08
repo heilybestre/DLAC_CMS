@@ -49,6 +49,36 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
+    function count_ongoing($startyear, $endyear) {
+        if ($startyear == NULL AND $endyear == NULL) {
+            $query = $this->db->query('SELECT COUNT(*) AS `count` FROM caseongoing');
+        } else {
+            if ($startyear == NULL) {
+                $startyear = '';
+            }
+            if ($endyear == NULL) {
+                $endyear = '';
+            }
+            $query = $this->db->query("SELECT COUNT(*) AS `count` FROM caseongoing WHERE dateReceived LIKE '$startyear%' AND dateReceived LIKE '$endyear%'");
+        }
+        return $query->row();
+    }
+
+    function count_closed($startyear, $endyear) {
+        if ($startyear == NULL AND $endyear == NULL) {
+            $query = $this->db->query('SELECT COUNT(*) AS `count` FROM caseclosed');
+        } else {
+            if ($startyear == NULL) {
+                $startyear = '';
+            }
+            if ($endyear == NULL) {
+                $endyear = '';
+            }
+            $query = $this->db->query("SELECT COUNT(*) AS `count` FROM caseclosed WHERE dateReceived LIKE '$startyear%' AND dateReceived LIKE '$endyear%'");
+        }
+        return $query->row();
+    }
+
     function select_usercases($uid) {
         $type = $this->People_model->getuserfield('type', $uid);
 
@@ -458,8 +488,8 @@ class Case_model extends CI_Model {
     // </editor-fold>
     //
     // <editor-fold defaultstate="collapsed" desc="For Report">
-    function select_weekly_log($cid, $stage, $date) {
-        $query = $this->db->query("SELECT * FROM log WHERE caseID = $cid AND stage = $stage AND date(`dateTime`) >= date_sub(date($date), INTERVAL 3 day) AND date(`dateTime`) <= date_sub(date($date), INTERVAL - 3 day) ORDER BY dateTime DESC , logID DESC");
+    function select_weekly_log($cid, $stage) {
+        $query = $this->db->query("SELECT * FROM log WHERE caseID = $cid  AND $stage = 1 AND`dateTime` BETWEEN DATE_SUB((select `dateTime` from log ORDER BY `dateTime` DESC , logID DESC LIMIT 1), INTERVAL 4 day) AND (select `dateTime` from log ORDER BY `dateTime` DESC , logID DESC LIMIT 1) having DAYOFWEEK(`dateTime`) >= 2 AND DAYOFWEEK(`dateTime`) <= 6");
         return $query->result();
     }
 
