@@ -195,6 +195,8 @@ class Report extends CI_Controller {
     }
 
     function casesReport() {
+        $datestart = 2013; // Parameter
+        $dateend = $datestart + 1;
         define('FPDF_FONTPATH', APPPATH . 'plugins/fpdf/font/');
         require(APPPATH . 'plugins/fpdf/fpdf.php');
 
@@ -223,7 +225,7 @@ class Report extends CI_Controller {
 
         $pdf->SetFont('Times', '', 12); // TIMES REGULAR 8
         $pdf->Cell(81);
-        $pdf->Cell(30, 5, 'AY 2013-2014', 0, 1);
+        $pdf->Cell(30, 5, "AY $datestart-$dateend", 0, 1);
         $pdf->Ln(20);
         // </editor-fold>
         //
@@ -233,8 +235,8 @@ class Report extends CI_Controller {
         $pdf->Cell(30, 5, 'Ongoing and Closed Cases', 0, 1);
         $pdf->Ln(20);
 
-        $countOngoing = $this->Case_model->count_ongoing();
-        $countClosed = $this->Case_model->count_closed();
+        $countOngoing = $this->Case_model->count_ongoing($datestart, $dateend);
+        $countClosed = $this->Case_model->count_closed($datestart, $dateend);
 
         $pdf->Cell(30);
         $pdf->SetFont('Times', 'B', 10); // TIMES Bold 10

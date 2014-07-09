@@ -59,7 +59,7 @@ class Case_model extends CI_Model {
             if ($endyear == NULL) {
                 $endyear = '';
             }
-            $query = $this->db->query("SELECT COUNT(*) AS `count` FROM caseongoing WHERE dateReceived LIKE '$startyear%' AND dateReceived LIKE '$endyear%'");
+            $query = $this->db->query("SELECT COUNT(*) AS `count` FROM caseongoing WHERE dateReceived LIKE '$startyear%' OR dateReceived LIKE '$endyear%'");
         }
         return $query->row();
     }
@@ -74,7 +74,7 @@ class Case_model extends CI_Model {
             if ($endyear == NULL) {
                 $endyear = '';
             }
-            $query = $this->db->query("SELECT COUNT(*) AS `count` FROM caseclosed WHERE dateReceived LIKE '$startyear%' AND dateReceived LIKE '$endyear%'");
+            $query = $this->db->query("SELECT COUNT(*) AS `count` FROM caseclosed WHERE dateReceived LIKE '$startyear%' OR dateReceived LIKE '$endyear%'");
         }
         return $query->row();
     }
