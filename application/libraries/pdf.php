@@ -11,7 +11,7 @@ class pdf {
     }
 
     function load($param = NULL) {
-        include_once APPPATH . 'third_party/mpdf57/mpdf.php';
+        include_once APPPATH . 'third_party/mpdf/mpdf.php';
 
         if ($params == NULL) {
             $param = '"en-GB-x","Letter","12","Arial",20,20,10,20,9,9';
