@@ -4,14 +4,14 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
 
-    <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
-        <i class="icon-book"></i> View Narrative
-    </a> &nbsp;
-    <a class ="btn-small btn-primary" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
-        <i class="icon-comments"></i>  View All Notes
-    </a>
-    
+  <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
+    <i class="icon-book"></i> View Narrative
+  </a> &nbsp;
+  <a class ="btn-small btn-primary" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
+    <i class="icon-comments"></i>  View All Notes
+  </a>
+
   <!-- Action plan is PENDING | Waiting for lawyer's response -->
   <?php if ($actionplanstatus == 'pending') { ?>
     <!-- upon submission of intern -->
@@ -102,7 +102,14 @@
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                   </td>
                   <td>
-                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?> btn-info <?php } else { ?> btn-default <? } ?> pull-right"> <i class="icon-comment"></i> </a>
+                    <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn 
+                    <?php
+                    if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) {
+                      echo 'btn-info';
+                    } else if ($this->Case_model->select_action_notes_count($action->actionplanID)->count == 0) {
+                      echo 'btn-default';
+                    }
+                    ?> pull-right"> <i class="icon-comment"></i> </a>
                     <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                     <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                       <!-- Action plan POPOVER -->
@@ -165,23 +172,23 @@
 
                         <!-- Notes -->
                         <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count == 0) echo 'hide'; ?> ">
-                            <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
-                              <ul>
-                                <?php foreach ($allcaseactionnotes as $notes) { ?>
-                                  <?php if ($action->actionplanID == $notes->actionplanID) { ?>
-                                    <li id = "actionPlanNote" class = "actionPlanNote">
-                                      <div class = "name"> <?= $this->People_model->getuserfield('firstname', $notes->by) . ' ' . $this->People_model->getuserfield('lastname', $notes->by) ?> </div>
-                                      <div class = "date"> <?= $notes->dateTime ?> </div>
-                                      <div class = "message">
-                                        <?= $notes->note ?>
-                                      </div>	
-                                    </li>
-                                  <?php } ?>
+                          <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
+                            <ul>
+                              <?php foreach ($allcaseactionnotes as $notes) { ?>
+                                <?php if ($action->actionplanID == $notes->actionplanID) { ?>
+                                  <li id = "actionPlanNote" class = "actionPlanNote">
+                                    <div class = "name"> <?= $this->People_model->getuserfield('firstname', $notes->by) . ' ' . $this->People_model->getuserfield('lastname', $notes->by) ?> </div>
+                                    <div class = "date"> <?= $notes->dateTime ?> </div>
+                                    <div class = "message">
+                                      <?= $notes->note ?>
+                                    </div>	
+                                  </li>
                                 <?php } ?>
-                              </ul>   
-                            </div>
-                            <br>
+                              <?php } ?>
+                            </ul>   
                           </div>
+                          <br>
+                        </div>
                       </div> 
                       <!-- Action plan POPOVER -->
                     </div>
