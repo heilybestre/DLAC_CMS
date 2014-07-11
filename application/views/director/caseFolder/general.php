@@ -659,7 +659,7 @@
                                         </select>
                                     </div>
                                 </div>
-
+                            </table>        
                         </div>
                     </div>
                     <div class="modal-footer">

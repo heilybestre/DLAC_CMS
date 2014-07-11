@@ -137,12 +137,12 @@ class People_model extends CI_Model {
     }
 
     function select_specialized($offenseID) {
-        $query = $this->db->query("SELECT * FROM `lawyers` WHERE `specialization` = $offenseID AND (`difficultyLevel` < '10' OR  `difficultyLevel` IS NULL)");
+        $query = $this->db->query("SELECT * FROM `lawyers` WHERE `specialization` = $offenseID AND (`difficultyLevel` < '10' OR  `difficultyLevel` IS NULL) ORDER BY caseload ASC");
         return $query->result();
     }
 
     function select_non_specialized($offenseID) {
-        $query = $this->db->query("SELECT * FROM `lawyers` WHERE `specialization` != $offenseID AND (`difficultyLevel` < '10' OR  `difficultyLevel` IS NULL)");
+        $query = $this->db->query("SELECT * FROM `lawyers` WHERE `specialization` != $offenseID AND (`difficultyLevel` < '10' OR  `difficultyLevel` IS NULL) ORDER BY caseload ASC");
         return $query->result();
     }
 
