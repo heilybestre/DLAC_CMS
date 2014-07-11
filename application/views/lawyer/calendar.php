@@ -57,6 +57,15 @@
             editable: true,
                     eventClick: function(calEvent, jsEvent, view) {
                         $('#viewAppointmentModal').modal('show');
+                            $('#editapptdiv').addClass('hide');
+                            $('#deleteapptdiv').addClass('hide');
+                            $('#cantattendapptdiv').addClass('hide');
+                            $('#doneapptdiv').addClass('hide');
+
+                            $('#actionEventsDiv').removeClass('hide');
+                            $('#actionEventTopDiv').removeClass('hide');
+                            $('#viewapptdiv').removeClass('hide');
+                            
 
                         //For view div
                         $.ajax({
@@ -138,52 +147,63 @@
                         <div id='calendar'></div>
                     </div>
                 </div>
+            </div>
 
-
-                <div class="box">
-                    <div class="box-header">
-                        <h2><i class="icon-check"></i>Things To-Do</h2>
-                        <div class="box-icon">
-                            <a href="#addTaskModal" data-toggle="modal"><i class="icon-plus"></i></a>
-                        </div>
-                    </div>
-                    <div class="box-content">
-                        <table class="table table-striped table-bordered bootstrap-datatable datatable">
-                            <thead>
-                                <tr>
-                                    <th width="15%">Due Date</th>
-                                    <th width="40%">Task</th>
-                                    <th width="20%">Assigned by</th>
-                                    <th width="15%"></th>
-                                </tr>
-                            </thead>   
-                            <tbody>
-                                <?php foreach ($thingstodo as $row) : ?>
-                                    <tr>
-                                        <td class="center"><?php echo $row->dateDue . "<br>(" . $row->daysLeft . " days left)" ?></td>
-                                        <td class="center"><?php echo $row->task ?></td>
-                                        <td class="center"><?php
-                                            if ($this->session->userdata('userid') != $row->assignedBy) {
-                                                echo $row->bfirstName . " " . $row->blastName;
-                                            } else {
-                                                echo "You";
-                                            }
-                                            ?></td>
-                                        <td class="center">
-                                            <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal">
-                                                <i class="icon-ok"></i>  
-                                            </a>
-                                            <a class="btn btn-danger" tite="Delete" href="#deleteTaskModal" data-toggle="modal">
-                                                <i class="icon-trash"></i> 
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table> 
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="icon-check"></i>Things To-Do</h2>
+                    <div class="box-icon">
+                        <a href="#addTaskModal" data-toggle="modal"><i class="icon-plus"></i></a>
                     </div>
                 </div>
-
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                        <thead>
+                            <tr>
+                                <th width="15%">Due Date</th>
+                                <th width="40%">Task</th>
+                                <th width="20%">Assigned by</th>
+                                <th width="15%"></th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($thingstodo as $row) : ?>
+                                <tr>
+                                    <td class="center">
+                                        <?php
+                                        echo $row->dateDue . "<br>";
+                                        if ($row->daysLeft > 0) {
+                                            echo "(" . $row->daysLeft . " days left)";
+                                        }
+                                        if ($row->daysLeft == 0) {
+                                            echo "(Today)";
+                                        }
+                                        if ($row->daysLeft < 0) {
+                                            
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="center"><?php echo $row->task ?></td>
+                                    <td class="center"><?php
+                                        if ($this->session->userdata('userid') != $row->assignedBy) {
+                                            echo $row->bfirstname . " " . $row->blastname;
+                                        } else {
+                                            echo "You";
+                                        }
+                                        ?></td>
+                                    <td class="center">
+                                        <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal">
+                                            <i class="icon-ok"></i>  
+                                        </a>
+                                        <a class="btn btn-danger" tite="Delete" href="#deleteTaskModal" data-toggle="modal">
+                                            <i class="icon-trash"></i> 
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table> 
+                </div>
             </div>
         </div>
         <!-- end: CALENDAR DIV -->
@@ -374,7 +394,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close btnapptclose" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Appointment</h4>
+                            <h4 class="modal-title">Appointment
+                            <label id="actionEventTopDiv">
+                                <a id="btneditapptshow"><i class="icon-pencil"></i></a>
+                                <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
+                            </label>
+                            </h4>
                         </div>
 
                         <div class="modal-body">
@@ -461,34 +486,7 @@
 
                             <br><br>
 
-                            <div class="col-sm-4 control-group">
-                                <div class="controls">
-                                    <center> <h5> Assign To</h5> </center>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-7 control-group">
-                                <div class="controls">
-                                    <div id='internsdiv' class="tbl-attendees">
-                                        <table class='table table-striped'>
-                                            <?php foreach ($caseinterns as $row) { ?>
-                                                <tr>
-                                                    <td align='center'>
-                                                        <input name='apptattendees[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>"
-                                                        <?php if ($this->session->userdata('userid') == $row->personID) echo 'checked'; ?>
-                                                               />
-                                                    </td>
-                                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <br><br><br><br><br><br>
-
-
+                            <br>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
