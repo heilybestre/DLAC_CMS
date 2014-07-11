@@ -1,21 +1,29 @@
 <div id="content" class="col-lg-10 col-sm-11">
     <!-- CASE FOLDER -->
     <div class="row">
-   
+        <!-- https://github.com/sathomas/responsive-tabs -->
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
                     <h2>
                         <?php echo "$case->caseName ($case->caseNum)"; ?>
+                        <div style='display: inline-block; margin-left:10px;' class="hide">
+                            <?php if ($case->difficultyLevel >= 7 && $case->difficultyLevel <= 10) { ?>
+                                <label class='label label-danger'> Difficulty Level: <?php echo $case->difficultyLevel ?></label>
+                            <?php } ?>
+                            <?php if ($case->difficultyLevel >= 4 && $case->difficultyLevel <= 6) { ?>
+                                <label class='label label-warning'> Difficulty Level: <?php echo $case->difficultyLevel ?></label>
+                            <?php } ?>
+                            <?php if ($case->difficultyLevel >= 1 && $case->difficultyLevel <= 3) { ?>
+                                <label class='label label-primary'>Difficulty Level: <?php echo $case->difficultyLevel ?></label>
+                            <?php } ?>
+                        </div>
                     </h2>
 
                     <!-- start: Tabs -->
                     <ul class="nav casetabs tab-menu nav-tabs">
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'class="active"'; ?> >
                             <a href="#research" data-toggle="tab">Research</a>
-                        </li>
-                        <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
-                            <a href="#minutes" data-toggle="tab">Minutes</a>
                         </li>
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'class="active"'; ?> >
                             <a href="#events" data-toggle="tab">Events</a>
@@ -28,6 +36,9 @@
                         </li>
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'evidence') echo 'class="active"'; ?> >
                             <a href="#evidence" data-toggle="tab">Evidence</a>
+                        </li>
+                        <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
+                            <a href="#minutes" data-toggle="tab">Minutes</a>
                         </li>
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'class="active"'; ?>>
                             <a href="#actionPlan" data-toggle="tab">Action Plan</a>
@@ -53,7 +64,7 @@
 
                             <?php if ($case->status != 4 && $case->status != 5) { ?>
                                 <a class ="btn btn-medium btn-danger" style='margin-bottom: 10px' href="#applyToCloseModal2" data-toggle="modal">
-                                    &nbsp;Apply to Close
+                                    &nbsp;Close Case
                                 </a> &nbsp;&nbsp;
                             <?php } ?>
                         </div>
@@ -61,7 +72,7 @@
 
                     <?php if ($case->status == 4) { ?>
                         <div class="row" style="background-color:#F67B8F;" id="appliedForClosing">
-                            <h5 style="margin-left:15px;">This case was applied for closing. To view the details, click <a class ="" style='margin-bottom: 10px' href="#viewApplyCloseModal" data-toggle="modal" style="color:black;">here</a>. </h5>
+                            <h5 style="margin-left:15px;">This case was applied for closing. To view the details, click <a class ="" style='margin-bottom: 10px; color:black;' href="#viewApplyCloseModal" data-toggle="modal">here</a>. </h5>
                         </div>
                         <br>
                     <?php } ?>
@@ -69,7 +80,7 @@
                     <?php if (!in_array($case->status, array('5', '6'))) { ?>
                         <?php if ($caseperson->condition == 'applytotransfer') { ?>
                             <div class="row" style="background-color:#90C9E4;" id="appliedForTransfer">
-                                <h5 style="margin-left:15px;">This case was applied for transferring. To view the details, click <a class ="" style='margin-bottom: 10px' href="#viewApplyTransferModal" data-toggle="modal" style="color:black;">here</a>. </h5>
+                                <h5 style="margin-left:15px;">This case was applied for transferring. To view the details, click <a class ="" style='margin-bottom: 10px; color:black;' href="#viewApplyTransferModal" data-toggle="modal">here</a>. </h5>
                             </div>
                             <br>
                         <?php } ?>
@@ -83,7 +94,7 @@
                             <br>
                         <?php } else { ?>
                             <div class="row" style="background-color:#CCD5C8;" id="viewAssessment">
-                                <h5 style="margin-left:15px;">This case is closed. View assessment <a class ="" style='margin-bottom: 10px' href="#viewAssessmentModal" data-toggle="modal" style="color:black;">here</a>. </h5>
+                                <h5 style="margin-left:15px;">This case is closed. View assessment <a class ="" style='margin-bottom: 10px; color:black;' href="#viewAssessmentModal" data-toggle="modal">here</a>. </h5>
                             </div>
                             <br>
                         <?php } ?>

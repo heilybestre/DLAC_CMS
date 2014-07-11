@@ -56,62 +56,62 @@
             },
             editable: true,
                     eventClick: function(calEvent, jsEvent, view) {
-                $('#viewAppointmentModal').modal('show');
+                        $('#viewAppointmentModal').modal('show');
 
-                //For view div
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>calendar/view/" + calEvent.id,
-                    success: function(result) {
-                        $('#viewapptdiv').html(result);
-                    }
-                });
+                        //For view div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view/" + calEvent.id,
+                            success: function(result) {
+                                $('#viewapptdiv').html(result);
+                            }
+                        });
 
-                //For done div
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/cases',
-                    success: function(result) {
-                        $('#doneapptdiv').html(result);
-                    }
-                });
+                        //For done div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/cases',
+                            success: function(result) {
+                                $('#doneapptdiv').html(result);
+                            }
+                        });
 
-                //For edit div
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>calendar/view_edit/" + calEvent.id,
-                    success: function(result) {
-                        $('#editapptdiv').html(result);
-                    }
-                });
+                        //For edit div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_edit/" + calEvent.id,
+                            success: function(result) {
+                                $('#editapptdiv').html(result);
+                            }
+                        });
 
-                //For cant attend div
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/cases',
-                    success: function(result) {
-                        $('#cantattendapptdiv').html(result);
-                    }
-                });
+                        //For cant attend div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/cases',
+                            success: function(result) {
+                                $('#cantattendapptdiv').html(result);
+                            }
+                        });
 
-                //For delete attend div
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>calendar/view_delete/" + calEvent.id,
-                    success: function(result) {
-                        $('#deleteapptdiv').html(result);
-                    }
-                });
+                        //For delete attend div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_delete/" + calEvent.id,
+                            success: function(result) {
+                                $('#deleteapptdiv').html(result);
+                            }
+                        });
 
-                //For footer div
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>calendar/view_modalfooter/" + calEvent.id,
-                    success: function(result) {
-                        $('#modalfooterdiv').html(result);
+                        //For footer div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_modalfooter/" + calEvent.id,
+                            success: function(result) {
+                                $('#modalfooterdiv').html(result);
+                            }
+                        });
                     }
-                });
-            }
         });
     });
 </script>
@@ -152,19 +152,29 @@
                                 <tr>
                                     <th>Task</th>
                                     <th>Notes</th>
-                                    <th>Assigned To</th>
+                                    <th>Due Date</th>
+                                    <th>Assigned by</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>   
                             <tbody>
-                                <?php foreach ($thingstodo as $row) : ?>
+                                <?php foreach ($thingstodo as $row): ?>
                                     <tr>
                                         <td class="center"><?php echo $row->task ?></td>
                                         <td class="center"><?php echo $row->notes ?></td>
-                                        <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
+                                        <td class="center"><?php echo $row->dateDue ?></td>
+                                        <td class="center"><?php
+                                            if ($row->assignedBy == $this->session->userdata('userid')) {
+                                                echo "Me";
+                                            } else {
+                                                echo $row->firstname . ' ' . $row->lastname;
+                                            }
+                                            ?></td>
                                         <td class="center">
                                             <?php if ($row->summary == NULL) { ?>
-                                                <label class='label label-warning'>In Progress</label>
+                                                <a class="btn btn-success" title="Done" href="<?php $this->load->view('intern/caseFolder/minutes'); ?> " data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
+                                                    <i class="icon-ok"></i>  
+                                                </a>
                                             <?php } else { ?>
                                                 <label class='label label-default'>Completed</label>
                                             <?php } ?>
@@ -200,7 +210,9 @@
 
                             <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                    <h5><?php echo "$case->caseName ($case->caseNum)"?></h5>
+                                    <select id='newappt_case' name='newappt_case' class='form-control'>
+                                        <option value="<?= $case->caseID ?>"><?php echo "$case->caseName ($case->caseNum)" ?></option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -400,7 +412,7 @@
 
             <div class="modal fade" id="addTaskModal">
                 <div class="modal-dialog">
-                    <?php echo form_open(base_url() . 'cases/addTask/' . $case->caseID); ?>
+                    <?php echo form_open(base_url() . 'cases/addMyTask/' . $case->caseID); ?>
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -434,34 +446,7 @@
                                 </div>
                             </div>
 
-                            <br><br>
-
-                            <div class="col-sm-4 control-group">
-                                <div class="controls">
-                                    <center> <h5> Assign To</h5> </center>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-7 control-group">
-                                <div class="controls">
-                                    <div id='internsdiv' class="tbl-attendees">
-                                        <table class='table table-striped'>
-                                            <?php foreach ($caseinterns as $row) { ?>
-                                                <tr>
-                                                    <td align='center'>
-                                                        <input name='assignedTo[]' type='checkbox' class='case' name='case' value="<?php echo $row->personID ?>";
-                                                        <?php if ($this->session->userdata('userid') == $row->personID) echo 'checked'; ?>
-                                                               />
-                                                    </td>
-                                                    <td><?php echo "$row->firstname $row->lastname" ?></td>
-                                                </tr>
-                                            <?php } ?>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <br><br><br><br><br><br><br><br><br><br><br>
+                            <br><br><br><br><br>
 
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
@@ -480,13 +465,12 @@
 
                             <br><br>
 
-
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" class="btn btn-success">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <input type="hidden" name="assignedBy" value="<?php echo $this->session->userdata('userid') ?>">
-                            
+                            <input type="hidden" name="cid" value="<?php echo $case->caseID ?>">
+                            <input type="submit" class="btn btn-success">
                         </div>
                     </div><!-- /.modal-content -->
                     <?php echo form_close(); ?>

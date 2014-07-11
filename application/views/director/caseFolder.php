@@ -5,17 +5,29 @@
 		<div class="col-md-12">
 			<div class="box">
 				<div class="box-header">
-                                    <h2> 
-                                            <?php echo "$case->caseName ($case->caseNum)"; ?>
+					<h2> 
+						<?php echo "$case->caseName ($case->caseNum)"; ?>
 
-                                    </h2>
+						<div style='display: inline-block; margin-left:10px;' class="hide">
+							<?php if ($case->difficultyLevel >= 7 && $case->difficultyLevel <= 10) { ?>
+							<label class='label label-danger'> Difficulty Level: <?php echo $case->difficultyLevel ?></label>
+							<?php } ?>
+							<?php if ($case->difficultyLevel >= 4 && $case->difficultyLevel <= 6) { ?>
+							<label class='label label-warning'> Difficulty Level: <?php echo $case->difficultyLevel ?></label>
+							<?php } ?>
+							<?php if ($case->difficultyLevel >= 1 && $case->difficultyLevel <= 3) { ?>
+							<label class='label label-primary'> Difficulty Level: <?php echo $case->difficultyLevel ?></label>
+							<?php } ?>
+						</div>
+
+					</h2>
 
 					<!-- start: Tabs -->
 					<ul class="nav casetabs tab-menu nav-tabs">
                                                 <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'class="active"'; ?> >
 							<a href="#research" data-toggle="tab">Research</a>
 						</li>
-                                                <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
+                                                 <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
 							<a href="#minutes" data-toggle="tab">Minutes</a>
 						</li>
 						<li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'class="active"'; ?> >

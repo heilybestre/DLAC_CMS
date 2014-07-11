@@ -299,10 +299,10 @@
                     </div>
 
                     <div class="col-sm-7 control-group">
-                                <div class="controls">
-                                    <h5><?php echo "$case->caseName ($case->caseNum)"?></h5>
-                                </div>
-                            </div>
+                        <div class="controls">
+                            <?php echo form_input(array('class' => 'form-control')); ?>
+                        </div>
+                    </div>
 
                     <br><br>
                     <div class="col-sm-3 control-group">

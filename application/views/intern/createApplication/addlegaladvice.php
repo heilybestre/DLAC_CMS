@@ -34,8 +34,7 @@
                                 }
                                 ?>
                             </div>
-                        </b></h5>
-                </center>
+                        </b></h5> </center>
             </div>
         </div>
 

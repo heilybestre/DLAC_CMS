@@ -210,22 +210,7 @@
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
                                     <td><?php echo $row->dateReceived ?></td>
-                                    <td>
-
-                                        <?php
-                                        $offenses = explode(",", $row->offense);
-                                        if ($offenses != NULL) {
-                                            $offensename = '';
-                                            for ($index = 0; $index < count($offenses); $index++) {
-                                                if ($index > 0) {
-                                                    echo $offensename . ', ' . $this->Case_model->select_stroffense($offenses[$index])->offenseName;
-                                                } else {
-                                                    echo $offensename . $this->Case_model->select_stroffense($offenses[$index])->offenseName;
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </td>
+                                    <td><?php echo $row->offense ?></td>
                                     <td><?php echo "$row->firstname $row->lastname" ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -570,4 +555,3 @@
     <!-- END OF MODAL : DELETE Task --> 
 
 </div>
-</div><!-- end: Content -->

@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group" style="max-height: 40px;">
+                <div class="col-sm-8 control-group" style="height:50px;">
                     <div class="controls">
                         <h5>
                             <?php echo $client->addrhouse . ' ' . $client->addrstreet . ' St., ' . $client->addrtown ?>
@@ -150,7 +150,7 @@
                     </div>
                 </div>
 
-                <br><br><br>
+                <br> <br> <br>
 
                 <div class="col-sm-2 control-group">
                     <div class="controls">
@@ -201,7 +201,7 @@
                     </div>
                 </div>
 
-                <br><br><br>
+                <br><br>
 
                 <div class="col-sm-3 control-group">
                     <div class="controls">
@@ -209,7 +209,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group">
+                <div class="col-sm-9 control-group">
                     <div class="controls">
                         <h5><?php echo date("F j, Y", strtotime($client->birthdate)) ?></h5>
                     </div>
@@ -237,13 +237,13 @@
                 <br><br>
                 <hr>
 
-                <div class="col-sm-3 control-group">
+                <div class="col-sm-2 control-group">
                     <div class="controls">
                         <center> <h5> <b>Salary </b></h5> </center>
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group">
+                <div class="col-sm-9 control-group">
                     <div class="controls">
                         <h5><?php echo $client->salary ?> (per month)</h5>
                     </div>
@@ -251,13 +251,13 @@
 
                 <br><br>
 
-                <div class="col-sm-3 control-group">
+                <div class="col-sm-2 control-group">
                     <div class="controls">
                         <center> <h5><b> Occupation</b> </h5> </center>
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group">
+                <div class="col-sm-9 control-group">
                     <div class="controls">
                         <h5><?php
                             if ($client->occupation == '' || $client->occupation == NULL)
@@ -270,13 +270,13 @@
 
                 <br><br>
 
-                <div class="col-sm-3 control-group">
+                <div class="col-sm-2 control-group">
                     <div class="controls">
                         <center> <h5> <b>Organization </b></h5> </center>
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group">
+                <div class="col-sm-9 control-group">
                     <div class="controls">
                         <h5>&nbsp;<?php
                             if ($client->organization == '' || $client->organization == NULL)
@@ -289,13 +289,13 @@
 
                 <br><br>
 
-                <div class="col-sm-3 control-group">
+                <div class="col-sm-2 control-group">
                     <div class="controls">
                         <center> <h5> <b>Address</b> </h5> </center>
                     </div>
                 </div>
 
-                <div class="col-sm-8 control-group">
+                <div class="col-sm-9 control-group">
                     <div class="controls">
                         <h5><?php
                             if ($client->organizationaddr == '' || $client->organizationaddr == NULL)

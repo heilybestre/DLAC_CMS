@@ -10,7 +10,7 @@
                 <li><a href="#currentResearch<?php echo $row->caseID ?>" data-toggle="tab" ><?php echo $row->caseName ?></a></li>
             <?php endforeach; ?>
         </ul>
-        <div class="tab-content" style="height:400px; overflow:scroll ! important;">
+        <div class="tab-content" style="height:450px; overflow:scroll;">
             <div class="tab-pane active" id="newResearch">
                 <?php $this->load->view('intern/research/newResearch'); ?>
             </div>

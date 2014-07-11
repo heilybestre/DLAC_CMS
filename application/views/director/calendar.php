@@ -129,7 +129,7 @@ $(document).ready(function() {
 <div id="content" class="col-lg-10 col-sm-12">
     <div id="content-calendar">
 
-        <!-- start: CALENDAR DIV -->
+         <!-- start: CALENDAR DIV -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="box">
@@ -140,6 +140,63 @@ $(document).ready(function() {
                         <br/>
                         <div id='calendar'></div>
                     </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="icon-check"></i>Things To-Do</h2>
+                    <div class="box-icon">
+                        <a href="#addTaskModal" data-toggle="modal"><i class="icon-plus"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                        <thead>
+                            <tr>
+                                <th width="15%">Due Date</th>
+                                <th width="40%">Task</th>
+                                <th width="20%">Assigned by</th>
+                                <th width="15%"></th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($thingstodo as $row) : ?>
+                                <tr>
+                                    <td class="center">
+                                        <?php
+                                        echo $row->dateDue . "<br>";
+                                        if ($row->daysLeft > 0) {
+                                            echo "(" . $row->daysLeft . " days left)";
+                                        }
+                                        if ($row->daysLeft == 0) {
+                                            echo "(Today)";
+                                        }
+                                        if ($row->daysLeft < 0) {
+                                            
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="center"><?php echo $row->task ?></td>
+                                    <td class="center"><?php
+                                        if ($this->session->userdata('userid') != $row->assignedBy) {
+                                            echo $row->bfirstname . " " . $row->blastname;
+                                        } else {
+                                            echo "You";
+                                        }
+                                        ?></td>
+                                    <td class="center">
+                                        <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal">
+                                            <i class="icon-ok"></i>  
+                                        </a>
+                                        <a class="btn btn-danger" tite="Delete" href="#deleteTaskModal" data-toggle="modal">
+                                            <i class="icon-trash"></i> 
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table> 
                 </div>
             </div>
         </div>

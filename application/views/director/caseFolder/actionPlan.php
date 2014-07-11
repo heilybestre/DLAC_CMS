@@ -1,18 +1,5 @@
 <div class="container" style='margin-left:25px;'>
 
-      <label id="usernameforaction" class="hide"><?= $name; ?></label>
-  <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
-  <label id='actionplanstatusforaction' class='hide'><?= $actionplanstatus ?></label>
-  
-  <br>
-  <div class="col-lg-9"></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a class ="btn-small btn-warning" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
-    <i class="icon-book"></i> View Narrative
-  </a> &nbsp;
-  <a class ="btn-small btn-warning" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
-      <i class="icon-comments"></i>  View All Notes
-  </a>
-    
     <?php echo form_open(base_url() . 'director/actionPlan', array('class' => 'form-horizontal')); ?>
 
     <!-- before anything else; hide tasks-->

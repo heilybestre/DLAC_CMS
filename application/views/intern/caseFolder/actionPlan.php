@@ -6,14 +6,14 @@
     <label id='actionplanstatusforaction' class='hide'><?= $actionplanstatus ?></label>
 
     <br>
-    <div class="col-lg-9"></div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a class ="btn-small btn-warning" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
+    <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
         <i class="icon-book"></i> View Narrative
     </a> &nbsp;
-    <a class ="btn-small btn-warning" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
+    <a class ="btn-small btn-primary" style='padding:5px;' href="#viewAllNotesModal" data-toggle="modal">
         <i class="icon-comments"></i>  View All Notes
     </a>
-
+    
 
     <!-- Action plan is PENDING | Waiting for lawyer's response -->
     <?php if ($actionplanstatus == 'pending') { ?>

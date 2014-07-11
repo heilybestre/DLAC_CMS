@@ -159,7 +159,7 @@
                                 <tbody>
                                     <?php $count = 0; ?>
                                     <?php foreach ($interns as $intern): ?>
-                                        <tr <?php if ($count <= 1) echo 'style="background-color:#e8f1da;"'; ?>>
+                                        <tr <?php if ($count == 0) echo 'style="background-color:#e8f1da;"'; ?>>
                                             <td align="center"><input type="checkbox" class="case" name="intern[]" value="<?php echo $intern->personID ?>"/></td>
                                             <td><?php echo "$intern->firstname $intern->lastname" ?></td>
                                             <td><?php echo "$intern->caseload" ?></td>
