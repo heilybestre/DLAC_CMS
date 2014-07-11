@@ -11,7 +11,7 @@
 
 					<div>Today is <?= $datenow ?>
 						<br>
-                                                <a class="btn btn-default pull-right" style="background-color:#CBF7D7; margin-top:0px; margin-right:10px;" href="<?= base_url() ?>people/internAttendance"> View Attendance Log</a>
+                                                <a class="btn btn-default pull-right" style="background-color:#CBF7D7; margin-top:0px; margin-right:10px;" href="<?= base_url() ?>people/attendanceLogs"> View Attendance Log</a>
 						
 					</div>
 

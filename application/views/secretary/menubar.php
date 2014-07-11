@@ -94,8 +94,8 @@
                         <li <?php if ($this->uri->segment(1) == "dashboard") echo ' class="active"' ?>>
                             <a href="<?= base_url() ?>dashboard"><i class="icon-th-large"></i>Dashboard</a>
                         </li>
-                        <li <?php if ($this->uri->segment(2) == "internAttendance") echo ' class="active"' ?>>
-                            <a href="<?= base_url() ?>people/internAttendance"><i class="icon-reorder"></i>Intern Attendance</a>
+                        <li <?php if ($this->uri->segment(2) == "attendanceLogs") echo ' class="active"' ?>>
+                            <a href="<?= base_url() ?>people/attendanceLogs"><i class="icon-reorder"></i>Intern Attendance</a>
                         </li>
               <!--           <li <?php if ($this->uri->segment(2) == "application" || $this->uri->segment(2) == "viewApplication") echo ' class="active"' ?>>
                             <a href="<?= base_url() ?>application/index"><i class="icon-inbox"></i>Application </a>
