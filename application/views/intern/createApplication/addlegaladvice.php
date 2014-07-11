@@ -18,23 +18,12 @@
 
         <div class="col-sm-3 control-group">
             <div class="controls">
-                <center> <h5> <b>
-                            <div class="clientnamediv">
-                                <?php
-                                $newclientid = $this->session->userdata('newclientid');
-                                if (isset($newclientid))
-                                    echo $this->People_model->getuserfield('lastname', $newclientid) . ', ' . $this->People_model->getuserfield('firstname', $newclientid) . ' ' . substr($this->People_model->getuserfield('middlename', $newclientid), 0, 1) . '.';
-                                else {
-                                    $first = 0;
-                                    foreach ($clientlist as $row) {
-                                        if ($first == 0)
-                                            echo $row->lastname . ', ' . $row->firstname . ' ' . substr($row->middlename, 0, 1) . '.';
-                                        $first++;
-                                    }
-                                }
-                                ?>
+                <h5> 
+                    <b>
+                        <div class="clientnamediv" sytle="text-align:left" id="addlegaladviceDiv">                                
                             </div>
-                        </b></h5> </center>
+                    </b>
+                </h5>                
             </div>
         </div>
 

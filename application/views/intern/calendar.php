@@ -57,6 +57,15 @@
             editable: true,
                     eventClick: function(calEvent, jsEvent, view) {
                         $('#viewAppointmentModal').modal('show');
+                            $('#editapptdiv').addClass('hide');
+                            $('#deleteapptdiv').addClass('hide');
+                            $('#cantattendapptdiv').addClass('hide');
+                            $('#doneapptdiv').addClass('hide');
+
+                            $('#actionEventsDiv').removeClass('hide');
+                            $('#actionEventTopDiv').removeClass('hide');
+                            $('#viewapptdiv').removeClass('hide');
+                            
 
                         //For view div
                         $.ajax({
@@ -385,7 +394,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close btnapptclose" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Appointment</h4>
+                            <h4 class="modal-title">Appointment
+                            <label id="actionEventTopDiv">
+                                <a id="btneditapptshow"><i class="icon-pencil"></i></a>
+                                <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
+                            </label>
+                            </h4>
                         </div>
 
                         <div class="modal-body">

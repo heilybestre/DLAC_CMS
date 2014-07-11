@@ -78,6 +78,7 @@
   $('#createAppClientList').on('change', function(evt, params) {
     var personID = $('#createAppClientList').val();
     $('#createAppOpposingPartyList option').removeAttr('disabled');
+    $('#addlegaladviceDiv').html('');
     if (personID !== null) {
       //$("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled','disabled'); 
       var str = $('#createAppClientList').val().toString();
@@ -85,6 +86,8 @@
       for (var i = 0; i < str_array.length; i++) {
         var personID = str_array[i];
         $("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled', 'disabled');
+        var personName = $("#createAppOpposingPartyList option[value=" + personID + "]").text();
+        $('#addlegaladviceDiv').append( personName +'<br/>');
       }
     }
     $('#createAppOpposingPartyList').trigger('chosen:updated');
@@ -950,10 +953,8 @@
   //Close view appointment div
   $('.btnapptclose').click(function() {
     $('#viewapptdiv').removeClass('hide');
-    $('#cantattendapptdiv').addClass('hide');
-    $('#editapptdiv').addClass('hide');
-    $('#doneapptdiv').addClass('hide');
-    $('#deleteapptdiv').addClass('hide');
+    $('#actionEventsDiv').removeClass('hide');
+    $('#actionEventTopDiv').removeClass('hide');    
   });
   //Tid general click: refresh page
   $('#tidgeneral').click(function() {
@@ -1132,46 +1133,42 @@
         var fileExt = fileName.split('.').pop();
         var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
         var tableHTML = '';
-        tableHTML += "<table class='table-condensed'>"
+        tableHTML += "<table class='table-condensed' width='100%'>"
                 + "<tr>"
-                + "<td width='15%'></td>"
-                + "<td width='38%'></td>"
                 + "<td width='10%'></td>"
-                + "<td width='30%'></td>"
-                + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
+                + "<td></td>"
+                + "<td width='5%' rowspan='5' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
+                
+                + "<tr>"
+                + "<td>Related Action Plan Item:</td>"
+                + "<td></td>"
+                + "</tr>"
+                
                 + "<tr>"
                 + "<td>File Name:</td>"
-                + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docname[]' value='" + rawName + "'/> ." + fileExt + " </td>"
-                + "<td>Purpose:</td>"
-                + "<td rowspan='2'> <textarea id='textarea_purpose' class='form-control' name='docpurpose[]'></textarea> </td>"
+                + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docname[]' value='" + rawName + "'/><h5> ." + fileExt + " </h5></td>"
                 + "</tr>"
 
                 + "<tr>"
-                + "<td>Date Issued:</td>"
+                + "<td>Title:</td>"
+                + "<td> <input class='text form-control col-sm-3' id='tb_title' name='doctitle[]' value=''/></td>"
+                + "</tr>"
+
+                + "<tr>"
+                + "<td>Date Filed:</td>"
                 + "<td class='col-sm-3'>"
-                + "<div class='input-group date'>"
+                + "<div class='input-group date col-sm-5'>"
                 + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
                 + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_client' name='datefiled[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-
-                + "<tr>"
-                + "<td>Date Received:</td>"
-                + "<td class='col-sm-3'>"
-                + "<div class='input-group date'>"
-                + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_client' name='datereceived[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
-                + "</div>"
-                + "</td>"
-                + "</tr>"
+              
                 + "</table><br><br>";
         tableFileClientID.innerHTML += tableHTML;
       }
-
       $('#docUpload_dateIssued_client').datepicker();
-      $('#docUpload_dateReceived_client').datepicker();
     });
     $('#inputFileByCourt').change(function() {
       var files = document.getElementById("inputFileByCourt").files;
@@ -1187,47 +1184,127 @@
         var tableHTML = '';
         tableHTML += "<table class='table-condensed'>"
                 + "<tr>"
-                + "<td width='15%'></td>"
+                + "<td width='12%'></td>"
                 + "<td width='38%'></td>"
-                + "<td width='10%'></td>"
-                + "<td width='30%'></td>"
-                + "<td width='5%' rowspan='4' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
+                + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
+        
+                + "<tr>"
+                + "<td>Related Action Plan Item:</td>"
+                + "<td></td>"
+                + "</tr>"
+        
                 + "<tr>"
                 + "<td>File Name:</td>"
-                + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameCourt[]' value='" + rawName + "'/> ." + fileExt + " </td>"
-                + "<td>Order:</td>"
-                + "<td rowspan='2'> <textarea id='textarea_order' class='form-control' name='docpurposeCourt[]'></textarea> </td>"
+                + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameCourt[]' value='" + rawName + "'/><h5> ." + fileExt + " </h5></td>"
                 + "</tr>"
 
                 + "<tr>"
-                + "<td >Date Issued:</td>"
-                + "<td>"
-                + "<div class='input-group date'>"
-                + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_court' name='datefiledCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
-                + "</div>"
-                + "</td>"
+                + "<td>Title:</td>"
+                + "<td> <input class='text form-control' style='width:300px;' name='doctitleCourt[]'/></td>"
                 + "</tr>"
 
                 + "<tr>"
                 + "<td>Date Received:</td>"
                 + "<td class='col-sm-3'>"
-                + "<div class='input-group date'>"
+                + "<div class='input-group date col-sm-5'>"
                 + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
                 + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_court' name='datereceivedCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
                 + "</div>"
                 + "</td>"
-                + "<td>Needed Action: </td>"
-                + "<td> <input type='text' class='form-control' id='textarea_action' name='neededActionCourt[]'/> </td>"
                 + "</tr>"
+
+                + "<tr>"
+                + "<td colspan=2>"
+                + "<input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadline[]'> Add New Document Deadline"
+                + "<br/><br/>"
+                + "<div class='form-inline addnewdocDiv hide' style='padding-left:30px'>"
+                + "Document Title : <input class='text form-control' style='width:300px;'/>"
+                +"<br><br>"
+                + "Deadline in : <select class='form-control' style='width:100px;'/> <option>5</option><option>10</option> </select> days"
+                + "</div>"
+                + "</td>"
+                + "</tr>"
+        
                 + "</table><br><br>";
         tableFileCourt.innerHTML += tableHTML;
       }
 
       $('#docUpload_dateReceived_court').datepicker();
-      $('#docUpload_dateIssued_court').datepicker();
     });
+    
+    $('#inputFileByOpposingParty').change(function() {
+      var files = document.getElementById("inputFileByOpposingParty").files;
+      $('#tableFileOpposingParty').css('background-color', '#E4ECD9');
+      var tableFileCourt = document.getElementById("tableFileOpposingParty");
+      tableFileCourt.innerHTML = '';
+      for (var i = 0; i < files.length; i++) {
+
+        var fileName = files[i].name;
+        var fileSize = files[i].size;
+        var fileExt = fileName.split('.').pop();
+        var rawName = fileName.substr(0, files[i].name.lastIndexOf('.'));
+        var tableHTML = '';
+        tableHTML += "<table class='table-condensed'>"
+                + "<tr>"
+                + "<td width='12%'></td>"
+                + "<td width='38%'></td>"
+                + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
+                + "</tr>"
+        
+                + "<tr>"
+                + "<td>Related Action Plan Item:</td>"
+                + "<td></td>"
+                + "</tr>"
+        
+                + "<tr>"
+                + "<td>File Name:</td>"
+                + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameOpposingParty[]' value='" + rawName + "'/><h5> ." + fileExt + " </h5></td>"
+                + "</tr>"
+        
+                + "<tr>"
+                + "<td>Title:</td>"
+                + "<td> <input class='text form-control' style='width:300px;' name='doctitleOpposingParty[]'/></td>"
+                + "</tr>"
+
+                + "<tr>"
+                + "<td>Date Received:</td>"
+                + "<td class='col-sm-3'>"
+                + "<div class='input-group date col-sm-5'>"
+                + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_opposingParty' name='datereceivedOpposingParty[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                + "</div>"
+                + "</td>"
+                + "</tr>"
+        
+                + "<tr>"
+                + "<td colspan=2>"
+                + "<input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadlineOpposingParty[]'> Add New Document Deadline"
+                + "<br/><br/>"
+                + "<div class='form-inline addnewdocDiv hide' style='padding-left:30px'>"
+                + "Document Title : <input class='text form-control' style='width:300px;'/>"
+                +"<br><br>"
+                + "Deadline in : <select class='form-control' style='width:100px;'/> <option>5</option><option>10</option> </select> days"
+                + "</div>"
+                + "</td>"
+                + "</tr>"
+        
+                + "</table><br><br>";
+        tableFileCourt.innerHTML += tableHTML;
+      }
+
+      $('#docUpload_dateReceived_opposingParty').datepicker();
+    });
+    
+    $('.addnewdoccheckbox').live('click', function() {
+        if(this.checked){
+            $(this).nextAll('div.addnewdocDiv').removeClass('hide');
+        }else{
+            $(this).nextAll('div.addnewdocDiv').addClass('hide');
+            
+        }
+    });
+    
     $("body").on("click", "#remove_row", function() {
       $(this).parent().parent().remove();
     });
