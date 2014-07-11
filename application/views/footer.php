@@ -134,6 +134,12 @@
     $('#labelAssignPerson_' + actionplanID).text(personName);
     $('#assignedPersonID_' + actionplanID).val(personID);
     $('#assignedPersonName_' + actionplanID).val(personName);
+
+    /* Assign action to intern (lawyer) */
+    $.ajax({
+      type: "POST",
+      url: "<?php echo base_url() ?>cases/assignAction/" + actionplanID + '/' + personID + '/'
+    });
   });
 
   $(".btnUnassignPerson").live('click', function() {
@@ -176,7 +182,7 @@
         return $("#popover-orig-content_" + x).html();
       }
     });
-    
+
     $('.popover-orig-lawyer').popover({
       html: true,
       content: function() {
@@ -773,6 +779,7 @@
             + "</li>";
     $('#notesThread_' + x + ' ul').append(html);
     $('#actionWriteNotes_' + x).val('');
+    $('#actionPlan-bottom-notes_' + x).removeClass('hide');
   });
   //EDIT ACTIONS start
   $(".editActionButton").live('click', function() {
@@ -863,7 +870,12 @@
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
-      cell1.innerHTML = "<input id='arrayActionName_" + actionplanID + "' name='action" + stage + "[]' value='" + action + "' class='cbactionstage" + stage + " selectedID' type='checkbox' style='margin: 0px 5px 0px 10px;' checked='checked'>";
+      if ($('#actionplanstatusforaction').text() == 'approved') {
+        cell1.innerHTML = "<input id='arrayActionName_" + actionplanID + "' name='action" + stage + "[]' value='" + action + "' class='cbactionstage" + stage + " selectedID' type='checkbox' style='margin: 0px 5px 0px 10px;'>";
+      }
+      else {
+        cell1.innerHTML = "<input id='arrayActionName_" + actionplanID + "' name='action" + stage + "[]' value='" + action + "' class='cbactionstage" + stage + " selectedID' type='checkbox' style='margin: 0px 5px 0px 10px;' checked='checked'>";
+      }
       cell2.innerHTML = "<input name='actiontype" + stage + "[]' value='" + typeValue + "' class='hide' id='arrayActionType_" + actionplanID + "'>"
               + "<label id='actionNameLabel_" + actionplanID + "' class='removeBold'>" + action + "</label>";
       +action;

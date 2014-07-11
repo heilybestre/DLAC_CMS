@@ -117,7 +117,7 @@
                           <h5>
                             <b>Assigned to </b>
                             <label id="labelAssignPerson_<?= $action->actionplanID ?>" class="label label-default">
-                              <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo); ?>
+                              <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo) . ' ' . $this->People_model->getuserfield('lastname', $action->assignedTo); ?>
                               <?php if ($action->assignedTo == null) echo 'None'; ?>
                             </label>
                           </h5>
@@ -164,8 +164,7 @@
                         <br><br>
 
                         <!-- Notes -->
-                        <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) { ?>
-                          <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes">
+                        <div id="actionPlan-bottom-notes_<?= $action->actionplanID ?>" class="actionPlan-bottom-notes <?php if ($this->Case_model->select_action_notes_count($action->actionplanID)->count == 0) echo 'hide'; ?> ">
                             <div class="discussions" id="notesThread_<?= $action->actionplanID ?>">
                               <ul>
                                 <?php foreach ($allcaseactionnotes as $notes) { ?>
@@ -183,7 +182,6 @@
                             </div>
                             <br>
                           </div>
-                        <?php } ?>
                       </div> 
                       <!-- Action plan POPOVER -->
                     </div>

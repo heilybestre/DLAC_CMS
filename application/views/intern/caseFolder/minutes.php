@@ -17,10 +17,12 @@
                     </tr>
                 </thead>   
                 <tbody>
+          <?php foreach ($minutes as $minute) { ?>
                         <tr>
-                        <td></td>
-                        <td></td>
+              <td><?= $minute->title ?></td>
+              <td><?= $minute->date ?></td> <!-- //HERE -->
                         </tr>
+          <?php } ?>
                 </tbody>
             </table> 
         </div>

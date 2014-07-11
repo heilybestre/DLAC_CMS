@@ -147,7 +147,7 @@ class People_model extends CI_Model {
     }
 
     function select_interns() {
-        $query = $this->db->query("SELECT * FROM interns");
+        $query = $this->db->query("SELECT * FROM interns ORDER BY `caseload` ASC");
         return $query->result();
     }
 
@@ -175,7 +175,7 @@ class People_model extends CI_Model {
     }
 
     function select_residency($date) {
-        $query = $this->db->query("SELECT * FROM residency JOIN people ON people.personID = residency.userID WHERE `date` = '$date'");
+        $query = $this->db->query("SELECT *, sec_to_time(sum(time_to_sec(timediff(`residency`.`timeEnded`, `residency`.`timeStarted`)))) AS `residency` FROM (`residency` JOIN `people` ON ((`people`.`personID` = `residency`.`userID`))) WHERE `date` = '$date' GROUP BY `residency`.`userID`");
         return $query->result();
     }
 
