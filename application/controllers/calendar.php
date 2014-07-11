@@ -428,6 +428,21 @@ class Calendar extends CI_Controller {
     echo "<div class='controls'>";
     echo form_textarea(array('class' => 'form-control', 'name' => 'summary', 'style' => 'height:100px;'));
     echo "</div>";
+    
+    $cid = $this->Calendar_model->select_appointment($sid)->caseID;
+    $currentstage = $this->Case_model->select_case($cid)->stage;
+    $actionplanforminutes = $this->Case_model->select_action_percategory($cid, $currentstage, 3);
+    
+    echo "<br>"
+    . "<div class='col-sm-2'>Action plan: </div>"
+    . "<div class='col-sm-5'>"
+    . "<select id='actionplanforminutes' name='actionplanforminutes' class='form-control'>";
+    foreach($actionplanforminutes as $action){
+      echo "<option value='$action->actionplanID'>$action->action</option>";
+    }
+    echo "</select>"
+    . "</div>";
+    
     echo "<div class='pull-right'>";
     echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Confirm');
     echo "&nbsp;

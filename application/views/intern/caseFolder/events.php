@@ -254,7 +254,6 @@
                 </div>
               </div>
 
-              <!--NEX-->
               <div class="col-sm-3 control-group">
                 <div class="controls">
                   <div class="input-group bootstrap-timepicker">
@@ -278,7 +277,6 @@
                   </div>
                 </div>
               </div>
-              <!--NEX-->
 
               <br><br>
 
@@ -341,7 +339,25 @@
                   </div>
                 </div>
               </div>
-              <br><br><br><br><br><br><br>
+
+              <br><br><br><br><br><br><br><br>
+              
+              <div class="col-sm-3 control-group">
+                <div class="controls">
+                  <center> <h5> Action plan </h5> </center>
+                </div>
+              </div>
+
+              <div class="col-sm-7 control-group">
+                <div class="controls">
+                  <select id="actionplanforevent" name="actionplanforevent" class="form-control">
+                    <?php foreach($actionplanforevent as $action) : ?>
+                    <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <br>
             </div>
 
             <div class="modal-footer">

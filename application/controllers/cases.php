@@ -289,6 +289,14 @@ class Cases extends CI_Controller {
     for ($x = 1; $x <= 4; $x++) {
       $data['actionplan_s' . $x] = $this->Case_model->select_actionplan($cid, $x);
     }
+    
+    //For action plan connections
+    $currentstage = $this->Case_model->select_case($cid)->stage;
+    $data['actionplanfordraft'] = $this->Case_model->select_action_percategory($cid, $currentstage, 5);
+    $data['actionplanfordocument'] = $this->Case_model->select_action_percategory($cid, $currentstage, 6);
+    $data['actionplanforevent'] = $this->Case_model->select_action_percategory($cid, $currentstage, 2);
+    $data['actionplanforevidence'] = $this->Case_model->select_action_percategory($cid, $currentstage, 4);
+      
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Evidence">
