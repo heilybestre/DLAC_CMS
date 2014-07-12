@@ -196,7 +196,7 @@ class People extends CI_Controller {
         $this->load->view('intern/createApplication/dropdowns', $data);
     }
 
-    function internAttendance() {
+    function attendanceLogs() {
         $uid = $this->session->userdata('userid');
         if (empty($uid)) {
             redirect('login/index');
@@ -208,9 +208,10 @@ class People extends CI_Controller {
         $datenowdd = mdate($datestring2, $time);
         extract($_POST);
         if (!isset($attendancelogdate)) {
-            $inputdate = $datenowdd;
+            $data['residency'] = $this->People_model->select_all_residency();
         } else {
             $inputdate = $attendancelogdate;
+            $data['residency'] = $this->People_model->select_residency($inputdate);
         }
 
         $data['datenow'] = $datenow;
@@ -222,7 +223,6 @@ class People extends CI_Controller {
         $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
         $data['interns'] = $this->People_model->select_interns();
-        $data['residency'] = $this->People_model->select_residency($inputdate);
 
         $this->load->view('header');
         $this->load->view('secretary/menubar', $data);
@@ -230,7 +230,7 @@ class People extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function attendancelogs() {
+    function internmgt() {
         $uid = $this->session->userdata('userid');
         if (empty($uid)) {
             redirect('login/index');
@@ -277,12 +277,12 @@ class People extends CI_Controller {
                 );
                 $this->People_model->insert_residency($changes);
             } else {
-                $error = "An intern was not logged properly. Please <a href='people/internAttendance'>try again.</a>";
+                $error = "An intern was not logged properly. Please <a href='people/attendanceLogs'>try again.</a>";
             }
         }
 
         if ($error = 'blank') {
-            redirect('people/internAttendance?recorded=yes');
+            redirect('people/attendanceLogs?recorded=yes');
         } else {
             echo $error;
         }

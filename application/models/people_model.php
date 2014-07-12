@@ -179,6 +179,11 @@ class People_model extends CI_Model {
         return $query->result();
     }
 
+    function select_all_residency() {
+        $query = $this->db->query("SELECT *, sec_to_time(sum(time_to_sec(timediff(`residency`.`timeEnded`, `residency`.`timeStarted`)))) AS `residency` FROM (`residency` JOIN `people` ON ((`people`.`personID` = `residency`.`userID`))) GROUP BY `residency`.`userID`");
+        return $query->result();
+    }
+
     function insert_residency($data) {
         $this->db->insert('residency', $data);
     }

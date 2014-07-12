@@ -2,7 +2,15 @@
 
     <?php
     $residencyword = '';
-    $residency = explode(":", $person->residency);
+    $remainderword = '';
+    if (empty($person->residency)) {
+        $residency = explode(":", '00:00:00');
+        $remainder = explode(":", '150:00:00');
+    } else {
+        $residency = explode(":", $person->residency);
+        $remainder = explode(":", $person->remainder);
+    }
+
     if ($residency[0] != 00) {
         $residencyword .= $residency[0];
         if ($residency[0] > 1) {
@@ -29,8 +37,7 @@
             $residencyword .= ' second';
         }
     }
-    $remainderword = '';
-    $remainder = explode(":", $person->remainder);
+
     if ($remainder[0] != 00) {
         $remainderword .= $remainder[0];
         if ($remainder[0] > 1) {
@@ -63,6 +70,11 @@
         $percentage = 100;
         $remainderword = '0 hour';
         $residencyword = '150 hours';
+    }
+    if ($percentage <= 0) {
+        $percentage = 0;
+        $remainderword = '150 hour';
+        $residencyword = '0 hours';
     }
     ?>
 
@@ -210,7 +222,21 @@
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
                                     <td><?php echo $row->dateReceived ?></td>
-                                    <td><?php echo $row->offense ?></td>
+                                    <td>
+                                        <?php
+                                        $offenses = explode(",", $row->offense);
+                                        if ($offenses != NULL) {
+                                            $offensename = '';
+                                            for ($index = 0; $index < count($offenses); $index++) {
+                                                if ($index > 0) {
+                                                    echo $offensename . ', ' . $this->Case_model->select_stroffense($offenses[$index])->offenseName;
+                                                } else {
+                                                    echo $offensename . $this->Case_model->select_stroffense($offenses[$index])->offenseName;
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </td>
                                     <td><?php echo "$row->firstname $row->lastname" ?></td>
                                 </tr>
                             <?php endforeach; ?>
