@@ -208,7 +208,7 @@ class People extends CI_Controller {
         $datenowdd = mdate($datestring2, $time);
         extract($_POST);
         if (!isset($attendancelogdate)) {
-            $data['residency'] = $this->People_model->select_today_residency();
+            $data['residency'] = $this->People_model->select_all_residency();
         } else {
             $inputdate = $attendancelogdate;
             $data['residency'] = $this->People_model->select_residency($inputdate);

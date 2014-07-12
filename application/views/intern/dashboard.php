@@ -2,7 +2,15 @@
 
     <?php
     $residencyword = '';
-    $residency = explode(":", $person->residency);
+    $remainderword = '';
+    if (empty($person->residency)) {
+        $residency = explode(":", '00:00:00');
+        $remainder = explode(":", '150:00:00');
+    } else {
+        $residency = explode(":", $person->residency);
+        $remainder = explode(":", $person->remainder);
+    }
+
     if ($residency[0] != 00) {
         $residencyword .= $residency[0];
         if ($residency[0] > 1) {
@@ -29,8 +37,7 @@
             $residencyword .= ' second';
         }
     }
-    $remainderword = '';
-    $remainder = explode(":", $person->remainder);
+
     if ($remainder[0] != 00) {
         $remainderword .= $remainder[0];
         if ($remainder[0] > 1) {
@@ -63,6 +70,11 @@
         $percentage = 100;
         $remainderword = '0 hour';
         $residencyword = '150 hours';
+    }
+    if ($percentage <= 0) {
+        $percentage = 0;
+        $remainderword = '150 hour';
+        $residencyword = '0 hours';
     }
     ?>
 
