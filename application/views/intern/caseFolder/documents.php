@@ -213,6 +213,7 @@
 
             <br/>
             <table id='adddrafttable' class="table table-condensed table-striped">
+              
             </table> 
 
           </div>
