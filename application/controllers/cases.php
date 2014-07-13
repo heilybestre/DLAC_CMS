@@ -133,8 +133,8 @@ class Cases extends CI_Controller {
                 'applyToCloseBy' => $pid,
                 'status' => '4',
                 'closereason' => $closereason,
-                'closedecision' => $closedecision, //H's
-                'closenotes' => $closenotes //H's
+                'closedecision' => $closedecision,
+                'closenotes' => $closenotes
             );
         } else {
             $changes = array(
@@ -191,7 +191,7 @@ class Cases extends CI_Controller {
 
         // For Director
         $this->Notification_model->applytotransfer($uid, 1, $cid);
-        //H's start
+
         //For Intern/s
         foreach ($interns as $intern) {
             if ($intern->personID != $uid)
@@ -200,7 +200,6 @@ class Cases extends CI_Controller {
         //For Lawyer
         foreach ($lawyers as $lawyer)
             $this->Notification_model->applytotransfer($uid, $lawyer->personID, $cid);
-        //H's end
 
         redirect("cases/caseFolder/$cid");
     }
@@ -515,14 +514,12 @@ class Cases extends CI_Controller {
             $interns = $this->Case_model->select_caseinterns($cid);
             $lawyers = $this->Case_model->select_caselawyers($cid);
 
-            //H's start
             foreach ($interns as $intern) {
                 if ($intern->personID != $new)
                     $this->Notification_model->case_transfer($uid, $intern->personID, $cid, 0, $new);
             }
             foreach ($lawyers as $lawyer)
                 $this->Notification_model->case_transfer($uid, $lawyer->personID, $cid, 0, $new);
-            //H's end
 
             /* NOTIFICATION TABLE (to new intern) */
             $this->Notification_model->case_transfer($uid, $new, $cid, $row, $new);
@@ -671,6 +668,7 @@ class Cases extends CI_Controller {
 
             $multi = $this->upload->get_multi_upload_data();
             $rawName = $_POST['rawName'];
+            $selectactionplanfordraft = $_POST['selectactionplanfordraft'];
             $count = 0;
             foreach ($multi as $file) {
 
@@ -685,7 +683,8 @@ class Cases extends CI_Controller {
                     'file_path ' => 'uploads/' . $file['file_name'], //$file['full_path'],
                     'file_ext' => $file['file_ext'],
                     'file_size' => $file['file_size'],
-                    'status' => 'pending'
+                    'status' => 'pending',
+                    'actionplanID' => $selectactionplanfordraft[$count]
                 );
                 $this->Case_model->insert_casedocument($cid, $changes);
                 $count++;
@@ -697,7 +696,6 @@ class Cases extends CI_Controller {
             $interns = $this->Case_model->select_caseinterns($cid);
             $lawyers = $this->Case_model->select_caselawyers($cid);
 
-            //H's start
             foreach ($interns as $intern) {
                 if ($intern->personID != $uid)
                     $this->Notification_model->draft_new($uid, $intern->personID, $cid, $did);
@@ -706,7 +704,6 @@ class Cases extends CI_Controller {
                 if ($lawyer->personID != $uid)
                     $this->Notification_model->draft_new($uid, $lawyer->personID, $cid, $did);
             }
-            //H's end
 
             redirect("cases/caseFolder/$cid?tid=documents");
         }
@@ -718,7 +715,7 @@ class Cases extends CI_Controller {
         $datetimenow = mdate($datestring, $time);
 
         $config['upload_path'] = 'uploads';
-        $config['allowed_types'] = 'gif|jpg|png|doc|docx|pdf|txt'; //H's
+        $config['allowed_types'] = 'gif|jpg|png|doc|docx|pdf|txt';
         $config['max_size'] = '999999';
         $config['max_width'] = '999999';
         $config['max_height'] = '999999';
@@ -767,9 +764,8 @@ class Cases extends CI_Controller {
                 $count++;
             }
 
-            redirect("cases/caseFolder/$cid?tid=documents"); //H's
+            redirect("cases/caseFolder/$cid?tid=documents");
         }
-        //H's
     }
 
     function attachByOpposing($cid, $sid) {
@@ -826,9 +822,8 @@ class Cases extends CI_Controller {
 
                 $count++;
             }
-            redirect("cases/caseFolder/$cid?tid=documents"); //H's
+            redirect("cases/caseFolder/$cid?tid=documents");
         }
-        //H's
     }
 
     function attachByCourt($cid, $sid) {
@@ -837,7 +832,7 @@ class Cases extends CI_Controller {
         $datetimenow = mdate($datestring, $time);
 
         $config['upload_path'] = 'uploads';
-        $config['allowed_types'] = 'gif|jpg|png|doc|docx|pdf|txt'; //H's
+        $config['allowed_types'] = 'gif|jpg|png|doc|docx|pdf|txt';
         $config['max_size'] = '999999';
         $config['max_width'] = '999999';
         $config['max_height'] = '999999';
@@ -845,17 +840,19 @@ class Cases extends CI_Controller {
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
 
-        if (!$this->upload->do_multi_upload("myfileCourt")) { //H's
+        $did = 0;
+
+        if (!$this->upload->do_multi_upload("myfileCourt")) {
             echo $data['error'] = $this->upload->display_errors();
             echo 'error';
         } else {
             $multi = $this->upload->get_multi_upload_data();
 
             $docnamecourt = $_POST['docnameCourt'];
-            $docpurposecourt = $_POST['docpurposeCourt'];
-            $datefiledcourt = $_POST['datefiledCourt'];
             $datereceivedcourt = $_POST['datereceivedCourt'];
-            $neededActionCourt = $_POST['neededActionCourt']; //H's
+            $selectactionplanfordocument = $_POST['selectactionplanfordocument'];
+            $doctitlecourt = $_POST['doctitleCourt'];
+            $addnewdocdeadline = $_POST['addNewDocDeadline'];
 
             $count = 0;
             foreach ($multi as $file) {
@@ -864,17 +861,18 @@ class Cases extends CI_Controller {
                     'caseID' => $cid,
                     'doctype' => 4,
                     'stage' => $sid,
-                    'dateReceived' => $datereceivedcourt[$count], //H's
-                    'dateIssued' => $datefiledcourt[$count], //H's
+                    'dateReceived' => $datereceivedcourt[$count],
                     'file_type' => $file['file_type'],
                     'file_path' => $file['full_path'],
                     'file_name' => $docnamecourt[$count],
                     'file_ext' => $file['file_ext'],
                     'file_size' => $file['file_size'],
-                    'actionneeded' => $neededActionCourt[$count],
-                    'order' => $docpurposecourt[$count],
+                    'title' => $doctitlecourt[$count],
+                    'actionplanID' => $selectactionplanfordocument[$count]
                 );
-                $this->Case_model->insert_casedocument($cid, $changes); //H's
+
+                $this->Case_model->insert_casedocument($cid, $changes);
+                $did = $this->db->insert_id(); //last id inserted
 
                 /* LOG TABLE */
                 $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
@@ -887,12 +885,47 @@ class Cases extends CI_Controller {
                 );
                 $this->Case_model->insert_log($log);
 
+                // ADD NEW DEADLINE
+                if ($addnewdocdeadline[$count] == 'on') {
+                    $newdocumenttitle = $_POST['newDocumentTitle'];
+                    $newdocumentdeadline = $_POST['newDocumentDeadline'];
+                    $datenow = date("Y-m-d", now());
+                    $uid = $this->session->userdata('userid');
+
+                    $deadline = date('Y-m-d', strtotime("+$newdocumentdeadline[$count] days"));
+
+                    $newdeadline = array(
+                        'caseID' => $cid,
+                        'title' => "Deadline for document: $newdocumenttitle[$count]",
+                        'date' => $deadline,
+                        'start' => $deadline . ' 00:00:00',
+                        'end' => $deadline . ' 00:00:00',
+                        'type' => 'External',
+                        'place' => 'Court',
+                        'createdBy' => $uid,
+                    );
+                    $this->Calendar_model->insert_schedule($newdeadline);
+
+                    /* NOTIFICATION TABLE */
+                    $lawyers = $this->Case_model->select_caselawyers($cid);
+                    foreach ($lawyers as $lawyer) {
+                        $this->Notification_model->documentdeadline_new($uid, $lawyer->personID, $cid);
+                    }
+                }
+
                 $count++;
             }
 
-            redirect("cases/caseFolder/$cid?tid=documents"); //H's
+            /* ACTION PLAN TABLE */
+            $apID = $this->Case_model->select_legaldocument($did)->actionplanID;
+            $doneaction = array(
+                'status' => 1
+            );
+            $this->Case_model->update_action($apID, $doneaction);
+
+
+            redirect("cases/caseFolder/$cid?tid=documents");
         }
-        //H's
     }
 
     function addDocuEvidence() {
@@ -1016,6 +1049,7 @@ class Cases extends CI_Controller {
         extract($_POST);
         $uid = $this->session->userdata('userid');
         $allactions = $this->Case_model->select_caseactions($cid);
+        $withnotes = false;
 
         foreach ($allactions as $action) {
             if (isset(${'actionnotes_name_' . $action->actionplanID})) {
@@ -1028,6 +1062,7 @@ class Cases extends CI_Controller {
                     );
                     $this->Case_model->insert_actionplan_notes($actionnotes);
                 }
+                $withnotes = true;
             }
         }
 
@@ -1042,7 +1077,7 @@ class Cases extends CI_Controller {
         /* NOTIFICATION TABLE */
         $interns = $this->Case_model->select_caseinterns($cid);
         foreach ($interns as $intern) {
-            $this->Notification_model->actionplan_approved($uid, $intern->personID, $cid);
+            $this->Notification_model->actionplan_approved($uid, $intern->personID, $cid, $withnotes);
         }
 
         /* LOG TABLE */
@@ -1227,21 +1262,12 @@ class Cases extends CI_Controller {
             echo $data['error'] = $this->upload->display_errors();
         } else {
             $file = $this->upload->data();
-            if ($utype == 5) {
-                $status = 'pending';
-            }
-            if ($utype == 4) {
-                $status = 'revision';
-            }
-            if ($utype != 5 && $utype != 4) {
-                $status = 'pending/revision';
-            }
             $changes = array(
                 'file_type' => $file['file_type'],
                 'file_path ' => $file['full_path'],
                 'file_ext' => $file['file_ext'],
                 'file_size' => $file['file_size'],
-                'status' => $status
+                'status' => 'approved'
             );
 
             $this->Case_model->update_legaldocument($did, $changes);
@@ -1250,17 +1276,15 @@ class Cases extends CI_Controller {
             $interns = $this->Case_model->select_caseinterns($cid);
             $lawyers = $this->Case_model->select_caselawyers($cid);
 
-            //H's start
             foreach ($interns as $intern) {
                 if ($intern->personID != $uid)
-                    $this->Notification_model->draft_revise($uid, $intern->personID, $cid, $did);
+                    $this->Notification_model->draft_final($uid, $intern->personID, $cid, $did);
             }
             echo '<br><br>';
             foreach ($lawyers as $lawyer) {
                 if ($lawyer->personID != $uid)
-                    $this->Notification_model->draft_revise($uid, $lawyer->personID, $cid, $did);
+                    $this->Notification_model->draft_final($uid, $lawyer->personID, $cid, $did);
             }
-            //H's end
 
             redirect("cases/caseFolder/$cid?tid=documents");
         }
@@ -1277,7 +1301,6 @@ class Cases extends CI_Controller {
         $interns = $this->Case_model->select_caseinterns($cid);
         $lawyers = $this->Case_model->select_caselawyers($cid);
 
-        //H's start
         foreach ($interns as $intern) {
             if ($intern->personID != $uid)
                 $this->Notification_model->draft_approve($uid, $intern->personID, $cid, $did);
@@ -1287,7 +1310,6 @@ class Cases extends CI_Controller {
             if ($lawyer->personID != $uid)
                 $this->Notification_model->draft_approve($uid, $lawyer->personID, $cid, $did);
         }
-        //H's end
 
         redirect("cases/caseFolder/$cid?tid=documents");
     }
@@ -1310,12 +1332,19 @@ class Cases extends CI_Controller {
         $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
         $log = array(
             'caseID' => $cid,
-            'action' => 'New document by the client: ' . $document->file_name,
+            'action' => 'Document by the client: ' . $document->file_name,
             'dateTime' => $datetimenow,
             'stage' => $this->Case_model->select_case($cid)->stage,
             'category' => 'DOCUMENT'
         );
         $this->Case_model->insert_log($log);
+
+        /* ACTION PLAN TABLE */
+        $apID = $document->actionplanID;
+        $doneaction = array(
+            'status' => 1
+        );
+        $this->Case_model->update_action($apID, $doneaction);
 
         redirect("cases/caseFolder/$caseID?tid=documents");
     }
@@ -2218,6 +2247,8 @@ class Cases extends CI_Controller {
         $section->addText('___________', 'rStyle', null);
         $section->addTextBreak(4);
 
+
+
         $textrun = $section->createTextRun();
 
         $sentence = 'SUBSCRIBED AND SWORN to before me this ____________ at _____________ , Affiant exhibiting to me (his/her) _________ . ';
@@ -2245,8 +2276,7 @@ class Cases extends CI_Controller {
 
 
                 default:
-                    $textrun->addText($word_arr[$i] . ' ', $styleFont2
-                    );
+                    $textrun->addText($word_arr[$i] . ' ', $styleFont2);
                     break;
             }
         }
@@ -2615,8 +2645,7 @@ class Cases extends CI_Controller {
         header('Cache-Control: max-age=0'); //no cache
 
         $objWriter = PHPWord_IOFactory::createWriter($this->word, 'Word2007');
-        $objWriter->save
-                ('php://output');
+        $objWriter->save('php://output');
     }
 
 // </editor-fold>
