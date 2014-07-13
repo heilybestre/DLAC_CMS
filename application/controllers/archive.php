@@ -101,13 +101,59 @@ class Archive extends CI_Controller {
         $data['bycourt'] = $this->Case_model->select_casedocuments($cid, 4);
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="People">
-        $data['caseclient'] = $this->Case_model->select_caseclient($cid);
-        $data['casecloseclient'] = $this->Case_model->select_closeclient($cid);
-        $data['caseopposing'] = $this->Case_model->select_caseopposing($cid);
-        $data['casecloseopposing'] = $this->Case_model->select_closeopposing($cid);
+        $data['caseclient'] = $this->Case_model->select_closeclient($cid);
+        $data['caseopposing'] = $this->Case_model->select_closeopposing($cid);
         $data['casepeople'] = $this->Case_model->select_casepeople($cid);
-        $data['casecloseinterns'] = $this->Case_model->select_closecaseinterns($cid);
-        $data['casecloselawyers'] = $this->Case_model->select_closecaselawyers($cid);
+        $data['caseinterns'] = $this->Case_model->select_closecaseinterns($cid);
+        $data['caselawyers'] = $this->Case_model->select_closecaselawyers($cid);
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Research">
+        $case = $this->Case_model->select_case($cid);
+        $tags = explode(" #", $case->tags);
+        foreach ($tags as $tag) {
+            $suggestedresearch = $this->Case_model->select_suggestedresearch($cid, $tag);
+            foreach ($suggestedresearch as $row) {
+                $research[$row->caseID] = $row;
+            }
+        }
+
+        if (!empty($research)) {
+            $data['researchlist'] = $research;
+        } else {
+            $data['researchlist'] = 'empty';
+        }
+
+        $data['caseresearch'] = $this->Case_model->select_caseresearch($cid);
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Non Case Related">
+        $data['clientlist'] = $this->People_model->clientlist();
+        $data['opposingpartylist'] = $this->People_model->opposingpartylist();
+        $data['externals'] = $this->People_model->select_external();
+        $data['lawyerlist'] = $this->People_model->lawyerlist();
+        $data['internlist'] = $this->People_model->internlist();
+        $data['clientid'] = $this->People_model->select_firstclient();
+        // </editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Case Log">
+        $data['caselog_stage1'] = $this->Case_model->select_caselog($cid, 1);
+        $data['caselog_stage2'] = $this->Case_model->select_caselog($cid, 2);
+        $data['caselog_stage3'] = $this->Case_model->select_caselog($cid, 3);
+        $data['caselog_stage4'] = $this->Case_model->select_caselog($cid, 4);
+        $data['caselog_stage5'] = $this->Case_model->select_caselog($cid, 5);
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Notification">
+        $data['notifs'] = $this->Notification_model->select_notifs($uid);
+        $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
+        // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="Minutes">
+        $data['minutes'] = $this->Case_model->select_minutes($cid);
+        // </editor-fold>
+        $datestring = "%Y-%m-%d"; //"%m/%d/%Y";
+        $timestring = "%h:%i %a";
+        $time = now();
+        $datenow = mdate($datestring, $time);
+        $timenow = mdate($timestring, $time);
+        $data['datenow'] = $datenow;
+        $data['timenow'] = $timenow;
 
         $this->load->view('header');
         switch ($utype) {
@@ -141,7 +187,6 @@ class Archive extends CI_Controller {
                 break;
         }
         $this->load->view('footer');
-        // </editor-fold>
     }
 
 }

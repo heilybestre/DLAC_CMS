@@ -1077,6 +1077,7 @@
     });
     $('#btneditoffensepenal').click(function() {
       var caseOffensePenal = $('select[name="caseOffensePenal"]').val();
+      var caseOffensePenalText = $("#caseOffensePenal option[value=" + caseOffensePenal + "]").text();
       var caseoffensestagepenal = $('select[name="caseoffensestagepenal"]').val();
       var table = document.getElementById("offensetable");
       {
@@ -1084,7 +1085,7 @@
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
-        cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenal;
+        cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenalText;
         cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagepenal + '" style="display:none;" readonly>' + caseoffensestagepenal;
         cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
       }

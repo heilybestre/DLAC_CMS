@@ -149,7 +149,17 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo "$client->firstname $client->lastname" ?></h5>
+                                <h5>
+                                    <?php $index = 0; ?>
+                                    <?php foreach ($caseclient as $client) { ?>
+                                        <?php if ($index > 0) { ?>
+                                            <?php echo ", $client->firstname $client->lastname" ?>
+                                        <?php } else { ?>
+                                            <?php echo "$client->firstname $client->lastname" ?>
+                                        <?php } ?>
+                                        <?php $index++; ?>
+                                    <?php } ?>
+                                </h5>
                             </div>
                         </div>
                         <br><br>
@@ -162,7 +172,7 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo $client->typeName ?></h5>
+                                <h5><?php echo $caseclient[0]->typeName ?></h5>
                             </div>
                         </div>
                         <br><br>
@@ -283,7 +293,17 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo "$client->firstname $client->lastname" ?></h5>
+                                <h5>
+                                    <?php $index = 0; ?>
+                                    <?php foreach ($caseclient as $client) { ?>
+                                        <?php if ($index > 0) { ?>
+                                            <?php echo ", $client->firstname $client->lastname" ?>
+                                        <?php } else { ?>
+                                            <?php echo "$client->firstname $client->lastname" ?>
+                                        <?php } ?>
+                                        <?php $index++; ?>
+                                    <?php } ?>
+                                </h5>
                             </div>
                         </div>
                         <br><br>
@@ -296,7 +316,7 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo $client->typeName ?></h5>
+                                <h5><?php echo $caseclient[0]->typeName ?></h5>
                             </div>
                         </div>
                         <br><br>

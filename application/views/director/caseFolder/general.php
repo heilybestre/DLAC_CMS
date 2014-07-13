@@ -61,29 +61,16 @@
                             <th>Supervising Lawyer:</th>
                             <?php $count = 1 ?>
                             <td>
-                                <?php if ($case->status == 5) { ?>
-                                    <?php foreach ($casecloselawyers as $row): ?>
-                                        <?php
-                                        if ($count > 1) {
-                                            echo ' ,';
-                                        }
-                                        ?>
-                                        <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
-                                        <?php echo "$row->firstname $row->lastname"; ?>
-                                        <?php $count++ ?>
-                                    <?php endforeach; ?>
-                                <?php } else { ?>
-                                    <?php foreach ($caselawyers as $row): ?>
-                                        <?php
-                                        if ($count > 1) {
-                                            echo ' ,';
-                                        }
-                                        ?>
-                                        <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
-                                        <?php echo "$row->firstname $row->lastname"; ?>
-                                        <?php $count++ ?>
-                                    <?php endforeach; ?>
-                                <?php } ?>
+                                <?php foreach ($caselawyers as $row): ?>
+                                    <?php
+                                    if ($count > 1) {
+                                        echo ' ,';
+                                    }
+                                    ?>
+                                    <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
+                                    <?php echo "$row->firstname $row->lastname"; ?>
+                                    <?php $count++ ?>
+                                <?php endforeach; ?>
                             </td>
                         </tr>
                         <tr>
@@ -146,21 +133,12 @@
                             </tr>
                         </thead>   
                         <tbody>
-                            <?php if ($case->status == 5) { ?>
-                                <?php foreach ($casecloseinterns as $row) : ?>
-                                    <tr>
-                                        <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"> </td>
-                                        <td><?php echo $row->firstname . " " . $row->lastname ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php } else { ?>
-                                <?php foreach ($caseinterns as $row) : ?>
-                                    <tr>
-                                        <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></td>
-                                        <td><?php echo $row->firstname . " " . $row->lastname ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php } ?>
+                            <?php foreach ($caseinterns as $row) : ?>
+                                <tr>
+                                    <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></td>
+                                    <td><?php echo $row->firstname . " " . $row->lastname ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

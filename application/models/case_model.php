@@ -341,9 +341,7 @@ class Case_model extends CI_Model {
   }
 
   function update_casetags($cid, $tags) {
-    $this->db->query("UPDATE `case` SET `tags` = CONCAT_WS(' #', `tags`, '
-
-    $tags') WHERE caseID = $cid");
+    $this->db->query("UPDATE `case` SET `tags` = CONCAT_WS(' #', `tags`, '$tags') WHERE caseID = $cid");
   }
 
   //</editor-fold>
@@ -452,7 +450,7 @@ class Case_model extends CI_Model {
 
   function delete_offense($cid) {
     $this->db->where('caseID', $cid);
-    $this->db->delete('offense');
+    $this->db->delete('case_offense');
   }
 
   //</editor-fold>
