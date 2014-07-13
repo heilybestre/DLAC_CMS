@@ -576,53 +576,55 @@ class Cases extends CI_Controller {
 
     function addOffense() {
         $caseID = $_POST['cid'];
+        extract($_POST);
         $offenseforlog = '';
 
         $tagoffense = '';
-        if (isset($inputoffensestage)) {
-            $this->Case_model->delete_offense($caseID);
-            for ($index = 0; $index < count($inputoffensestage); $index++) {
 
-                $data = array(
-                    'caseID' => $caseID,
-                    'offense' => $inputoffense [$index],
-                    'stage' => $inputoffensestage [$index]
-                );
+        $this->Case_model->delete_offense($caseID);
+        for ($index = 0; $index < count($inputoffensestage); $index++) {
 
-                $this->Case_model->insert_offense($data);
-                $tagoffense = $tagoffense . ' #' . $this->Case_model->select_stroffense($appoffensename[$index])->offenseName;
-
-                if ($index == 0)
-                    $offenseforlog = $inputoffense[$index] . ' (' . $inputoffensestage[$index] . ') ';
-                else
-                //$offenseforlog = $offenseforlog + ', ' . $inputoffense[$index] . '( ' . $inputoffensestage[$index] . ') '
-                    echo '';
-            }
-
-            /* TAGS TABLE */
-            // client type
-            $strclienttype = $this->Case_model->select_strtype($appclienttype);
-
-            // client/s name
-            $strclientname = '';
-            for ($index = 0; $index < count($appclient); $index++) {
-                $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $appclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $appclient[$index]);
-            }
-
-            // tags 
-            $tags = $apptitle . $tagoffense . ' #' . $strclienttype->typeName . $strclientname;
-            $this->Case_model->update_casetags($caseID, $tags);
-
-            /* LOG TABLE */
-            $log = array(
-                'caseID' => $cid,
-                'action' => 'Offense has been updated. ' . $edit_caseTitle,
-                'dateTime' => $datetimenow,
-                'stage' => $this->Case_model->select_case($cid)->stage,
-                'category' => 'CASE'
+            $data = array(
+                'caseID' => $caseID,
+                'offenseID' => $inputoffense[$index],
+                'stage' => $inputoffensestage[$index]
             );
-            $this->Case_model->insert_log($log);
+
+            $offensename = $this->Case_model->select_stroffense($inputoffense[$index])->offenseName;
+            $this->Case_model->insert_offense($data);
+            $tagoffense = $tagoffense . ' #' . $offensename;
+
+            if ($index == 0)
+                $offenseforlog = $inputoffense[$index] . ' (' . $inputoffensestage[$index] . ') ';
+            else
+            //$offenseforlog = $offenseforlog + ', ' . $inputoffense[$index] . '( ' . $inputoffensestage[$index] . ') '
+                echo '';
         }
+
+        /* TAGS TABLE */
+        // client type
+        $caseclient = $this->Case_model->select_caseclient($caseID);
+        $strclienttype = $caseclient[0]->typeName;
+        //$this->Case_model->select_strtype($appclienttype);
+        // client/s name
+        $strclientname = '';
+        for ($index = 0; $index < count($caseclient); $index++) {
+            $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $caseclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $caseclient[$index]);
+        }
+
+        // Tags 
+        $tags = $apptitle . $tagoffense . ' #' . $strclienttype . $strclientname;
+        $this->Case_model->update_casetags($caseID, $tags);
+
+        /* LOG TABLE */
+        $log = array(
+            'caseID' => $cid,
+            'action' => 'Offense has been updated. ' . $edit_caseTitle,
+            'dateTime' => $datetimenow,
+            'stage' => $this->Case_model->select_case($cid)->stage,
+            'category' => 'CASE'
+        );
+        $this->Case_model->insert_log($log);
 
         redirect("cases/caseFolder/$caseID");
     }
