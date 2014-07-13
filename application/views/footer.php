@@ -1108,6 +1108,22 @@
       var files = document.getElementById("inputFileDraft").files;
       var table = document.getElementById("adddrafttable");
       table.innerHTML = '';
+      
+      jQuery.fn.toHtmlString = function(){
+        return $(this).get()[0].outerHTML;       
+      };
+      var htmlSelect = $('#selectactionplanfordraft').toHtmlString();
+      
+        var rows = table.insertRow(table.rows.length);
+        var cell1s = rows.insertCell(0);
+        var cell2s = rows.insertCell(1);
+        var cell3s = rows.insertCell(2);
+        var cell4s = rows.insertCell(3);
+        cell1s.innerHTML = "Document";
+        cell2s.innerHTML = "Related Action Plan";
+        cell3s.innerHTML = "Size";
+        cell4s.innerHTML = "";
+                
       for (var i = 0; i < files.length; i++) {
         var fileName = files[i].name;
         var fileSize = files[i].size;
@@ -1117,9 +1133,11 @@
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
         cell1.innerHTML = "<input type='text' name='rawName[]' value='" + rawName + "' /> ." + fileExt;
-        cell2.innerHTML = fileSize + 'KB';
-        cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
+        cell2.innerHTML = htmlSelect;
+        cell3.innerHTML = fileSize + 'KB';
+        cell4.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
       }
     });
     $('#inputFileByClient').change(function() {
@@ -1127,6 +1145,12 @@
       $('#tableFileClientID').css('background-color', '#E4ECD9');
       var tableFileClientID = document.getElementById("tableFileClientID");
       tableFileClientID.innerHTML = '';
+      
+      jQuery.fn.toHtmlString = function(){
+        return $(this).get()[0].outerHTML;       
+      };
+      var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
+      
       for (var i = 0; i < files.length; i++) {
 
         var fileName = files[i].name;
@@ -1143,7 +1167,7 @@
                 
                 + "<tr>"
                 + "<td>Related Action Plan Item:</td>"
-                + "<td></td>"
+                + "<td>"+htmlSelect+"</td>"
                 + "</tr>"
                 
                 + "<tr>"
@@ -1176,6 +1200,14 @@
       $('#tableFileCourt').css('background-color', '#E4ECD9');
       var tableFileCourt = document.getElementById("tableFileCourt");
       tableFileCourt.innerHTML = '';
+      
+      
+      jQuery.fn.toHtmlString = function(){
+        return $(this).get()[0].outerHTML;       
+      };
+      var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
+      
+      
       for (var i = 0; i < files.length; i++) {
 
         var fileName = files[i].name;
@@ -1192,7 +1224,7 @@
         
                 + "<tr>"
                 + "<td>Related Action Plan Item:</td>"
-                + "<td></td>"
+                + "<td>"+htmlSelect+"</td>"
                 + "</tr>"
         
                 + "<tr>"
@@ -1239,6 +1271,13 @@
       $('#tableFileOpposingParty').css('background-color', '#E4ECD9');
       var tableFileCourt = document.getElementById("tableFileOpposingParty");
       tableFileCourt.innerHTML = '';
+      
+      jQuery.fn.toHtmlString = function(){
+        return $(this).get()[0].outerHTML;       
+      };
+      var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
+      
+      
       for (var i = 0; i < files.length; i++) {
 
         var fileName = files[i].name;
@@ -1255,7 +1294,7 @@
         
                 + "<tr>"
                 + "<td>Related Action Plan Item:</td>"
-                + "<td></td>"
+                + "<td>"+htmlSelect+"</td>"
                 + "</tr>"
         
                 + "<tr>"
