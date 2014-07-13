@@ -580,7 +580,7 @@ class Cases extends CI_Controller {
     function addOffense() {
         $caseID = $_POST['cid'];
         $offenseforlog = '';
-        
+
         $tagoffense = '';
         if (isset($inputoffensestage)) {
             $this->Case_model->delete_offense($caseID);
@@ -604,14 +604,14 @@ class Cases extends CI_Controller {
 
             /* TAGS TABLE */
             // client type
-            $strclienttype = $this->Case_model->select_strtype($appclienttype); 
-            
+            $strclienttype = $this->Case_model->select_strtype($appclienttype);
+
             // client/s name
-            $strclientname = ''; 
+            $strclientname = '';
             for ($index = 0; $index < count($appclient); $index++) {
                 $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $appclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $appclient[$index]);
             }
-            
+
             // tags 
             $tags = $apptitle . $tagoffense . ' #' . $strclienttype->typeName . $strclientname;
             $this->Case_model->update_casetags($caseID, $tags);
@@ -1391,22 +1391,30 @@ class Cases extends CI_Controller {
 
         //lewin
         $client = $this->Case_model->select_caseclient($cid);
-        $clientfullname = "$client->firstname $client->middlename $client->lastname";
-
+        $clientfullname = $client[0]->firstname . ' ' . $client[0]->middlename . ' ' . $client[0]->lastname;
+        $clientaddress = $client[0]->addrtown;
+//        $clientaddress = $client[0]->addrhouse . ' ' . $client[0]->addrstreet . ' St., ' . $client[0]->addrtown;
+//        if ($client[0]->addrdistrict != '' || $client[0]->addrdistrict != NULL) {
+//            $clientaddress = $clientaddress . ' | District ' . $client[0]->addrdistrict;
+//        }
+//        if ($client[0]->addrpostalcode != '' || $client[0]->addrdistrict != NULL) {
+//            $clientaddress = $clientaddress . ' (' . $client[0]->addrpostalcode . ')';
+//        }
         $opposing = $this->Case_model->select_caseopposing($cid);
-        $opposingfullname = "$opposing->firstname $opposing->middlename $opposing->lastname";
-        $opposingaddress = "$client->addrhouse $client->addrstreet St., $client->addrtown";
-
-        if ($client->addrdistrict != '')
-            $opposingaddress = $opposingaddress . ' | District ' . $client->addrdistrict;
-
-        if ($client->addrpostalcode != '')
-            $opposingaddress = $opposingaddress . ' (' . $client->addrpostalcode . ')';
-
+        $opposingfullname = $opposing[0]->firstname . ' ' . $opposing[0]->middlename . ' ' . $opposing[0]->lastname;
+        $opposingaddress = $opposing[0]->addrtown;
+//        $opposingaddress = $opposing[0]->addrhouse . ' ' . $opposing[0]->addrstreet . ' St., ' . $opposing[0]->addrtown;
+//        if ($opposing[0]->addrdistrict != '' || $opposing[0]->addrdistrict != NULL) {
+//            $opposingaddress = $opposingaddress . ' | District ' . $opposing[0]->addrdistrict;
+//        }
+//        if ($opposing[0]->addrpostalcode != '' || $opposing[0]->addrdistrict != NULL) {
+//            $opposingaddress = $opposingaddress . ' (' . $opposing[0]->addrpostalcode . ')';
+//        }
 
         $this->load->library('word');
 
-//our docx will have 'lanscape' paper orientation
+        // <editor-fold defaultstate="collapsed" desc="Word file content">
+        //our docx will have 'lanscape' paper orientation
         $section = $this->word->createSection(array('orientation' => 'portrait'));
 
         $section->addTextBreak(1);
@@ -1422,7 +1430,7 @@ class Cases extends CI_Controller {
         $section->addTextBreak(4);
 
         $textrun = $section->createTextRun();
-        $sentence = "I, $clientfullname , Filipino, of legal age, (single / married / widow), and a resident of $client->addrtown , Philippines, after being sworn to in accordance with law, depose and state: ";
+        $sentence = "I, $clientfullname, Filipino, of legal age, (single / married / widow), and a resident of $clientaddress, Philippines, after being sworn to in accordance with law, depose and state: ";
         $word_arr = explode(' ', $sentence);
         $styleFont = array('bold' => true, 'align' => 'center', 'size' => 12, 'name' => 'Times New Roman');
         $styleFont2 = array('bold' => false, 'size' => 12, 'name' => 'Times New Roman');
@@ -1441,6 +1449,9 @@ class Cases extends CI_Controller {
                 case '4':
                     $textrun->addText($word_arr[$i] . ' ', $understyle);
                     break;
+                case '18':
+                    $textrun->addText($word_arr[$i] . ' ', $understyle);
+                    break;
                 case '19':
                     $textrun->addText($word_arr[$i] . ' ', $understyle);
                     break;
@@ -1454,7 +1465,8 @@ class Cases extends CI_Controller {
         $section->addTextBreak(4);
 
         $textrun = $section->createTextRun();
-        $sentence = "1. That I know the person of $opposingfullname , who is a resident of $opposing->addrtown , Philippines; ";
+        $sentence = "1. That I know the person of $opposingfullname, who is a resident of $opposingaddress, Philippines;
+                ";
         $word_arr = explode(' ', $sentence);
 
 
@@ -1469,6 +1481,9 @@ class Cases extends CI_Controller {
                     $textrun->addText($word_arr[$i] . ' ', $understyle);
                     break;
                 case '10':
+                    $textrun->addText($word_arr[$i] . ' ', $understyle);
+                    break;
+                case '16':
                     $textrun->addText($word_arr[$i] . ' ', $understyle);
                     break;
                 case '17':
@@ -1486,7 +1501,7 @@ class Cases extends CI_Controller {
         $section->addTextBreak(1);
 
         $textrun = $section->createTextRun();
-        $sentence = "Batas Pambansa Bilang 22 against the said $opposingfullname , who may be served with";
+        $sentence = "Batas Pambansa Bilang 22 against the said $opposingfullname, who may be served with";
         $word_arr = explode(' ', $sentence);
 
 
@@ -1538,7 +1553,6 @@ class Cases extends CI_Controller {
         $textrun = $section->createTextRun();
         $sentence = "$opposingaddress, Philippines;";
         $word_arr = explode(' ', $sentence);
-
 
         $c = 0;
         for ($i = 0; $i < count($word_arr); $i++) {
@@ -1595,7 +1609,7 @@ class Cases extends CI_Controller {
         $styleFont2 = array('bold' => false, 'size' => 12, 'name' => 'Times New Roman');
 
         $c = 0;
-        for ($i = 0; $i < count($word_arr); $i++) {
+        for ($i = 0; $i < count($word_arr); $i ++) {
             $c++;
             switch ($c) {
                 case '1':
@@ -1628,9 +1642,11 @@ class Cases extends CI_Controller {
         $section->addTextBreak(6);
         $section->addText('Administering Officer', 'rStyle', 'dStyle');
 
+        // </editor-fold>
+
         $filename = 'Complaint Affidavit.docx'; //save our document as this file name
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'); //mime type
-        header('Content-Disposition: attachment; filename = "' . $filename . '"'); //tell browser what's the file name
+        header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name
         header('Cache-Control: max-age=0'); //no cache
 
         $objWriter = PHPWord_IOFactory::createWriter($this->word, 'Word2007');
@@ -1638,9 +1654,11 @@ class Cases extends CI_Controller {
     }
 
     function MotionToBail() {
+
+
         $this->load->library('word');
 
-//our docx will have 'lanscape' paper orientation
+        //our docx will have 'lanscape' paper orientation
         $section = $this->word->createSection(array('orientation' => 'portrait'));
 
         $section->addTextBreak(1);
@@ -2200,8 +2218,6 @@ class Cases extends CI_Controller {
         $section->addText('___________', 'rStyle', null);
         $section->addTextBreak(4);
 
-
-
         $textrun = $section->createTextRun();
 
         $sentence = 'SUBSCRIBED AND SWORN to before me this ____________ at _____________ , Affiant exhibiting to me (his/her) _________ . ';
@@ -2229,7 +2245,8 @@ class Cases extends CI_Controller {
 
 
                 default:
-                    $textrun->addText($word_arr[$i] . ' ', $styleFont2);
+                    $textrun->addText($word_arr[$i] . ' ', $styleFont2
+                    );
                     break;
             }
         }
@@ -2598,7 +2615,8 @@ class Cases extends CI_Controller {
         header('Cache-Control: max-age=0'); //no cache
 
         $objWriter = PHPWord_IOFactory::createWriter($this->word, 'Word2007');
-        $objWriter->save('php://output');
+        $objWriter->save
+                ('php://output');
     }
 
 // </editor-fold>
