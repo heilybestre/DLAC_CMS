@@ -52,7 +52,7 @@
           var fullCalendarEnd = $.fullCalendar.formatDate(fullCalendarEnd_FC, "yyyy-MM-dd HH:mm");
 
         });
-        //
+
       },
       editable: true,
               eventClick: function(calEvent, jsEvent, view) {
@@ -341,7 +341,7 @@
               </div>
 
               <br><br><br><br><br><br><br><br>
-              
+
               <div class="col-sm-3 control-group">
                 <div class="controls">
                   <center> <h5> Action plan </h5> </center>
@@ -351,8 +351,8 @@
               <div class="col-sm-7 control-group">
                 <div class="controls">
                   <select id="actionplanforevent" name="actionplanforevent" class="form-control">
-                    <?php foreach($actionplanforevent as $action) : ?>
-                    <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
+                    <?php foreach ($actionplanforevent as $action) : ?>
+                      <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -380,8 +380,8 @@
               <button type="button" class="close btnapptclose" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title">Appointment
                 <label id="actionEventTopDiv">
-                    <a id="btneditapptshow"><i class="icon-pencil"></i></a>
-                    <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
+                  <a id="btneditapptshow"><i class="icon-pencil"></i></a>
+                  <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
                 </label>
               </h4>
             </div>
