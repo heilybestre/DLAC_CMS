@@ -3,7 +3,7 @@
     <!-- start: Content -->
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="box">
                 <div class="box-header">
                     <h2><i class="icon-calendar"></i>Today's Appointments</h2>
@@ -63,8 +63,51 @@
                 </div>
             </div>
         </div><!--/col-->
+        
+        <div class="col-lg-4">
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="icon-calendar"></i>Important Dates</h2>
+                </div>
+                <div class="box-content box-dashboard">
 
-        <div class="col-lg-6">
+                    <br>
+                    <table class="table table-striped table-bordered datatable" id="dashboard-importantdates">
+                        <thead>
+                            <tr>
+                                <th id="hi" width="25%">Date</th>
+                                <th width="50%">Activity</th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($appointments as $row): ?>
+                                <tr>
+                                    <td class="center"><?php echo date('h:i a', strtotime($row->start)) . '-' . date('h:i a', strtotime($row->end)) ?></td>
+                                    <td class="center">
+                            <tabletitle><?php echo $row->title ?></tabletitle><br>
+                            <tabledesc>
+                                <?php
+                                $attendees = $this->Calendar_model->select_attendees($row->scheduleID);
+                                $count = 0;
+                                foreach ($attendees as $attendee) {
+                                    if ($count != 0)
+                                        echo ', ' . $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
+                                    else
+                                        echo $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
+                                    $count++;
+                                }
+                                ?>
+                            </tabledesc>
+                            </td>
+                        <?php endforeach; ?>
+                        </tr>
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div><!--/col-->
+
+        <div class="col-lg-4">
             <div class="box span4" onTablet="span6" onDesktop="span4">
                 <div class="box-header">
                     <h2><i class="icon-check"></i>Things To-Do</h2>
@@ -80,34 +123,91 @@
                             <tr>
                                 <th>Task</th>
                                 <th>Case Number</th>
-                                <th>Notes</th>
-                                <th>Assigned To</th>
-                                <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>   
                         <tbody>
-                            <?php foreach ($thingstodo as $row) : ?>
+                            <?php foreach ($thingstodo as $row): ?>
                                 <tr>
-                                    <td class="center"><?php echo $row->task ?></td>
-                                    <td class="center"><?php if ($row->caseID != NULL)
-                                echo $this->Case_model->select_case($row->caseID)->caseNum
-                                    ?></td>
-                                    <td class="center"><?php echo $row->notes ?></td>
-                                    <td class="center"><?php echo "$row->tfirstname $row->tlastname" ?></td>
+                                    <td class="center"><a href="#taskDetailsModal" data-toggle="modal" class="btn btn-link" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
+                                    </td>
+                                    <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
                                     <td class="center">
                                         <?php if ($row->summary == NULL) { ?>
-                                            <label class='label label-warning'>In Progress</label>
+                                            <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
+                                                <i class="icon-ok"></i>  
+                                            </a>
                                         <?php } else { ?>
                                             <label class='label label-default'>Completed</label>
-    <?php } ?>
+                                        <?php } ?>
                                     </td>
                                 </tr>
-<?php endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table> 
                 </div>
             </div>
         </div><!--/col-->
+        
+        <!-- START OF MODAL : Task Details -->
+    <div class="row">
+
+        <div class="modal fade" id="taskDetailsModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Task Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5> <b>Task: </b> <?php echo $row->task ?></h5>
+                        <h5> <b>Case Number: </b> <?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></h5>
+                        <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
+                        <h5> <b>Assigned by: </b> <?php
+                      if ($row->assignedBy == $this->session->userdata('userid')) {
+                        echo "Me";
+                      } else {
+                        echo $row->firstname . ' ' . $row->lastname;
+                      }
+                      ?></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="hidden" id="taskID" name="taskID" value="">
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    </div>
+    <!-- END OF MODAL :  Task Details--> 
+        
+         <!-- START OF MODAL : Task Details -->
+    <div class="row">
+
+        <div class="modal fade" id="taskDetailsModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Task Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5> <b>Task: </b> <?php echo $row->task ?></h5>
+                        <h5> <b>Case Number: </b> <?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></h5>
+                        <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
+                        <h5> <b>Assigned by: </b> <?php echo "$row->tfirstname $row->tlastname" ?></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="hidden" id="taskID" name="taskID" value="">
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    </div>
+    <!-- END OF MODAL :  Task Details--> 
 
     </div><!--/row--> 
 

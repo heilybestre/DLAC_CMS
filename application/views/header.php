@@ -31,10 +31,8 @@
 <!--<link href="<?= base_url() ?>assets/css/style-prism.css" rel="stylesheet">-->
         <link href="<?= base_url() ?>assets/css/prism.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/css/chosen.css" rel="stylesheet">
-              
+        
         <link href="<?= base_url() ?>assets/css/bootstrapValidator.css" rel="stylesheet">
-        <link href="<?= base_url() ?>assets/css/bootstrapValidator.min.css" rel="stylesheet">
-       
 
         <style type="text/css" media="all">
             /* fix rtl for demo */

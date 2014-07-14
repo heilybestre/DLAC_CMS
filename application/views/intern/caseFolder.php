@@ -25,6 +25,9 @@
             <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'class="active"'; ?> >
               <a href="#research" data-toggle="tab">Research</a>
             </li>
+           <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
+              <a href="#minutes" data-toggle="tab">Minutes</a>
+            </li>
             <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'class="active"'; ?> >
               <a href="#events" data-toggle="tab">Events</a>
             </li>
@@ -36,9 +39,6 @@
             </li>
             <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'evidence') echo 'class="active"'; ?> >
               <a href="#evidence" data-toggle="tab">Evidence</a>
-            </li>
-            <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
-              <a href="#minutes" data-toggle="tab">Minutes</a>
             </li>
             <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'class="active"'; ?>>
               <a href="#actionPlan" data-toggle="tab">Action Plan</a>
@@ -57,7 +57,7 @@
               <?php if ($case->status != 5) { ?>
                 <?php if ($caseperson->condition != 'applytotransfer') { ?>
                   <a class ="btn btn-medium btn-info" style='margin-bottom: 10px' href="#applyToTransferModal2" data-toggle="modal">
-                    &nbsp;Apply to Transfer
+                    &nbsp;Request to Transfer
                   </a>
                 <?php } ?>
               <?php } ?>
@@ -110,9 +110,6 @@
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'active'; ?>" id="actionPlan">
               <?php $this->load->view('intern/caseFolder/actionPlan'); ?>
             </div>
-            <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
-              <?php $this->load->view('intern/caseFolder/minutes'); ?>
-            </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'evidence') echo 'active'; ?>" id="evidence">
               <?php $this->load->view('intern/caseFolder/evidence'); ?>
             </div>
@@ -124,6 +121,9 @@
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'active'; ?>" id="events">
               <?php $this->load->view('intern/caseFolder/events'); ?>
+            </div>
+             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
+              <?php $this->load->view('intern/caseFolder/minutes'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'active'; ?>" id="research">
               <?php $this->load->view('intern/caseFolder/research'); ?>
@@ -236,7 +236,7 @@
           <?php echo form_open(base_url() . "cases/caseApplytotransfer", array('class' => 'form-horizontal')); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Apply to Transfer Case</h4>
+            <h4 class="modal-title">Request to Transfer Case</h4>
           </div>
           <div class="modal-body">
 
@@ -489,7 +489,7 @@
           <?php echo form_open(base_url() . "cases/caseApplytoclose", array('class' => 'form-horizontal')); ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Apply to Close Case</h4>
+            <h4 class="modal-title">Close Case</h4>
           </div>
           <div class="modal-body">
             <div class="col-sm-2 control-group">

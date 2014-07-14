@@ -320,11 +320,9 @@ class Report extends CI_Controller {
             }
         }
     }
-    
-    
 
     function generate_weekly_report() {
-        
+
         $uid = $this->session->userdata('userid');
         if (empty($uid)) {
             redirect('login/index');
@@ -335,9 +333,9 @@ class Report extends CI_Controller {
         $time = now();
         $datenow = mdate($datestring, $time);
 
-       
+
         $this->load->library('pdf');
-            $pdf = $this->pdf->load();
+        $pdf = $this->pdf->load();
         $pdf->AddPage();
 
         // <editor-fold defaultstate="collapsed" desc="Logo">
@@ -462,18 +460,204 @@ class Report extends CI_Controller {
         // Line break
         $pdf->Ln(20);
         $pdf->Output();
-        
+
         if (file_exists($pdfFilePath) == FALSE) {
             $data['cases'] = $this->Case_model->select_mycaseaccepted($uid);
             $html = $this->load->view("intern/cases", $data, true);
-            
+
 
             $pdf->SetTitle('cases');
             $pdf->SetFooter($footNote . '|{PAGENO}|' . date("Y-m-d H:i:s")); // Add a footer for good measure <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley lastChild">
             $pdf->WriteHTML($html); // write the HTML into the PDF
-            $pdf->Output(); // save to file 
+            //$pdf->Output(); // save to file 
             exit;
         }
+    }
+
+    function activeCases_Monthly() {
+
+        $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
+        $utype = $this->People_model->getuserfield('type', $uid);
+        $username = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
+        $datestring = "%m/%d/%Y";
+        $time = now();
+        $datenow = mdate($datestring, $time);
+
+
+        $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+        $pdf->AddPage();
+
+        // <editor-fold defaultstate="collapsed" desc="Logo">
+        $pdf->Image(base_url() . '/assets/img/logo.png', 78, 10, 50);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Prepared by and Date">
+        $pdf->SetFont('Times', '', 8);  // TIMES REGULAR 8
+        $pdf->Cell(140);
+        $pdf->Cell(18, 5, 'Prepared By:');
+        $pdf->Cell(20, 5, $username, 0, 1);
+
+        $pdf->Cell(140);
+        $pdf->Cell(10, 5, 'Date:');
+        $pdf->Cell(20, 5, $datenow, 0, 1);
+        $pdf->Ln(5);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Report Header">
+        $pdf->SetFont('Times', 'B', 14); // TIMES BOLD 8
+        $pdf->Cell(70);
+        $pdf->Cell(18, 10, 'ACTIVE CASES', 0, 1);
+
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(74);
+        $pdf->Cell(20, 5, 'January 2014', 0, 1);
+
+        // </editor-fold>
+        // 
+        //$css = file_get_contents(base_url() . "assets/css/sample.css");
+
+        //$html = $this->load->view('header', $test, true);
+        $html2 = $this->load->view('director/reports/activeCases_Monthly', $test, true);
+        //$html3 = $this->load->view('footer', $test, true);
+
+        $pdf->WriteHTML($html2, 1);
+        
+        
+        $pdf->WriteHTML($html2, 2);
+        //$pdf->WriteHTML($html2);// write the HTML into the PDF
+        //$pdf->WriteHTML($html3);
+
+        $pdf->Output(); // save to file
+
+        exit;
+    }
+    
+    function acceptedCases_Monthly() {
+
+        $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
+        $utype = $this->People_model->getuserfield('type', $uid);
+        $username = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
+        $datestring = "%m/%d/%Y";
+        $time = now();
+        $datenow = mdate($datestring, $time);
+
+
+        $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+        $pdf->AddPage();
+
+        // <editor-fold defaultstate="collapsed" desc="Logo">
+        $pdf->Image(base_url() . '/assets/img/logo.png', 78, 10, 50);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Prepared by and Date">
+        $pdf->SetFont('Times', '', 8);  // TIMES REGULAR 8
+        $pdf->Cell(140);
+        $pdf->Cell(18, 5, 'Prepared By:');
+        $pdf->Cell(20, 5, $username, 0, 1);
+
+        $pdf->Cell(140);
+        $pdf->Cell(10, 5, 'Date:');
+        $pdf->Cell(20, 5, $datenow, 0, 1);
+        $pdf->Ln(5);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Report Header">
+        $pdf->SetFont('Times', 'B', 14); // TIMES BOLD 8
+        $pdf->Cell(65);
+        $pdf->Cell(18, 10, 'ACCEPTED CASES', 0, 1);
+
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(74);
+        $pdf->Cell(20, 5, 'January 2014', 0, 1);
+
+        // </editor-fold>
+        // 
+        //$css = file_get_contents(base_url() . "assets/css/sample.css");
+
+        //$html = $this->load->view('header', $test, true);
+        $html2 = $this->load->view('director/reports/acceptedCases_Monthly', $test, true);
+        //$html3 = $this->load->view('footer', $test, true);
+
+        $pdf->WriteHTML($html2, 1);
+        
+        
+        $pdf->WriteHTML($html2, 2);
+        //$pdf->WriteHTML($html2);// write the HTML into the PDF
+        //$pdf->WriteHTML($html3);
+
+        $pdf->Output(); // save to file
+
+        exit;
+    }
+    
+    function closedCases_Monthly() {
+
+        $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
+        $utype = $this->People_model->getuserfield('type', $uid);
+        $username = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
+        $datestring = "%m/%d/%Y";
+        $time = now();
+        $datenow = mdate($datestring, $time);
+
+
+        $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+        $pdf->AddPage();
+
+        // <editor-fold defaultstate="collapsed" desc="Logo">
+        $pdf->Image(base_url() . '/assets/img/logo.png', 78, 10, 50);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Prepared by and Date">
+        $pdf->SetFont('Times', '', 8);  // TIMES REGULAR 8
+        $pdf->Cell(140);
+        $pdf->Cell(18, 5, 'Prepared By:');
+        $pdf->Cell(20, 5, $username, 0, 1);
+
+        $pdf->Cell(140);
+        $pdf->Cell(10, 5, 'Date:');
+        $pdf->Cell(20, 5, $datenow, 0, 1);
+        $pdf->Ln(5);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Report Header">
+        $pdf->SetFont('Times', 'B', 14); // TIMES BOLD 8
+        $pdf->Cell(68);
+        $pdf->Cell(18, 10, 'CLOSED CASES', 0, 1);
+
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(74);
+        $pdf->Cell(20, 5, 'January 2014', 0, 1);
+
+        // </editor-fold>
+        // 
+        //$css = file_get_contents(base_url() . "assets/css/sample.css");
+
+        //$html = $this->load->view('header', $test, true);
+        $html2 = $this->load->view('director/reports/closedCases_Monthly', $test, true);
+        //$html3 = $this->load->view('footer', $test, true);
+
+        $pdf->WriteHTML($html2, 1);
+        
+        
+        $pdf->WriteHTML($html2, 2);
+        //$pdf->WriteHTML($html2);// write the HTML into the PDF
+        //$pdf->WriteHTML($html3);
+
+        $pdf->Output(); // save to file
+
+        exit;
     }
 
 }

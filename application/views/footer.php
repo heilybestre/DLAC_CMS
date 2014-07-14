@@ -226,6 +226,11 @@
       "iDisplayLength": 4,
       "bDestroy": true
     });
+    $("#dashboard-importantdates").dataTable({
+      "sDom": 'tipr',
+      "iDisplayLength": 4,
+      "bDestroy": true
+    });
     $("#dashboard-tasks").dataTable({
       "sDom": 'tipr',
       "iDisplayLength": 4,

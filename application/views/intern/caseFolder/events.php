@@ -118,7 +118,7 @@
 
 <style>
   #calendar {
-    width: 700px;
+    width: 600px;
     margin: 0 auto;
   }
 </style>
@@ -128,17 +128,19 @@
 
     <!-- start: CALENDAR DIV -->
     <div class="row">
-      <div class="col-lg-9" style='float:none; margin: 0 auto;'>
+      <div class="col-lg-7" style='margin: 0 auto;'>
         <div class="box">
           <div class="box-header">
             <h2><i class="icon-calendar"></i>Calendar</h2>
           </div>              
           <div class="box-content">
             <br/>
-            <div id='calendar'></div>
+            <div id='calendar' style="margin:1px;"></div>
           </div>
         </div>
+       </div>
 
+        <div class="col-lg-5">
         <div class="box">
           <div class="box-header">
             <h2><i class="icon-check"></i>Things To-Do</h2>
@@ -147,45 +149,37 @@
             </div>
           </div>
           <div class="box-content">
-            <table class="table table-striped table-bordered bootstrap-datatable datatable">
-              <thead>
-                <tr>
-                  <th>Task</th>
-                  <th>Notes</th>
-                  <th>Due Date</th>
-                  <th>Assigned by</th>
-                  <th>Status</th>
-                </tr>
-              </thead>   
-              <tbody>
-                <?php foreach ($thingstodo as $row): ?>
-                  <tr>
-                    <td class="center"><?php echo $row->task ?></td>
-                    <td class="center"><?php echo $row->notes ?></td>
-                    <td class="center"><?php echo $row->dateDue ?></td>
-                    <td class="center"><?php
-                      if ($row->assignedBy == $this->session->userdata('userid')) {
-                        echo "Me";
-                      } else {
-                        echo $row->firstname . ' ' . $row->lastname;
-                      }
-                      ?></td>
-                    <td class="center">
-                      <?php if ($row->summary == NULL) { ?>
-                        <a class="btn btn-success" title="Done" href="<?php $this->load->view('intern/caseFolder/minutes'); ?> " data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
-                          <i class="icon-ok"></i>  
-                        </a>
-                      <?php } else { ?>
-                        <label class='label label-default'>Completed</label>
-                      <?php } ?>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table> 
+            <table class="table table-striped table-bordered datatable">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Case Number</th>
+                                <th></th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($thingstodo as $row): ?>
+                                <tr>
+                                    <td class="center"><a href="#taskDetailsModal" data-toggle="modal" class="btn btn-link" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
+                                    </td>
+                                    <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
+                                    <td class="center">
+                                        <?php if ($row->summary == NULL) { ?>
+                                            <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
+                                                <i class="icon-ok"></i>  
+                                            </a>
+                                        <?php } else { ?>
+                                            <label class='label label-default'>Completed</label>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table> 
           </div>
         </div>
-      </div>
+        </div>
+
 
     </div>
     <!-- end: CALENDAR DIV -->
@@ -201,10 +195,10 @@
               <h4 class="modal-title">Add New Appointment</h4>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" style='height:465px ! important; overflow-y: scroll;'>
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Case Title </h5> </center>
+                    <center> <h5> <b> Case Title </b></h5> </center>
                 </div>
               </div>
 
@@ -214,12 +208,27 @@
                   <input type="hidden" name="newappt_case" value="<?= $case->caseID ?>"/>
                 </div>
               </div>
+                
+                <br><br>
+                
+                <div class="col-sm-3 control-group">
+                <div class="controls">
+                    <center> <h5> <b> Client Name </b></h5> </center>
+                </div>
+              </div>
+
+              <div class="col-sm-7 control-group">
+                <div class="controls">
+                  <h5> (Client) </h5>
+                  <input type="hidden" name="newappt_case" value="<?= $case->caseID ?>"/>
+                </div>
+              </div>
 
               <br><br><br>
 
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Appointment </h5> </center>
+                  <center> <h5> <b> Appointment </b></h5> </center>
                 </div>
               </div>
 
@@ -233,7 +242,7 @@
 
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Date </h5> </center>
+                  <center> <h5><b> Date</b> </h5> </center>
                 </div>
               </div>
 
@@ -250,7 +259,7 @@
 
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Time </h5> </center>
+                  <center> <h5> <b>Time</b> </h5> </center>
                 </div>
               </div>
 
@@ -282,7 +291,7 @@
 
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Location </h5> </center>
+                  <center> <h5> <b>Location</b> </h5> </center>
                 </div>
               </div>
 
@@ -307,7 +316,7 @@
 
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Attendees </h5> </center>
+                  <center> <h5> <b>Attendees</b> </h5> </center>
                 </div>
               </div>
 
@@ -344,7 +353,7 @@
               
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> Action plan </h5> </center>
+                    <center> <h5> <b>Action plan </b></h5> </center>
                 </div>
               </div>
 
@@ -361,8 +370,9 @@
             </div>
 
             <div class="modal-footer">
+                <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
+              
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -437,7 +447,7 @@
 
               <div class="col-sm-4 control-group">
                 <div class="controls">
-                  <center> <h5> Task </h5> </center>
+                    <center> <h5> <b> Task </b></h5> </center>
                 </div>
               </div>
 
@@ -451,7 +461,7 @@
 
               <div class="col-sm-4 control-group">
                 <div class="controls">
-                  <center> <h5> Notes </h5> </center>
+                    <center> <h5><b> Notes </b></h5> </center>
                 </div>
               </div>
 
@@ -465,7 +475,7 @@
 
               <div class="col-sm-4 control-group">
                 <div class="controls">
-                  <center> <h5> Due Date </h5> </center>
+                  <center> <h5><b> Due Date </b></h5> </center>
                 </div>
               </div>
 
@@ -479,13 +489,15 @@
               </div>
 
               <br><br>
+              
 
             </div>
             <div class="modal-footer">
+                 <input type="submit" class="btn btn-success">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <input type="hidden" name="assignedBy" value="<?php echo $this->session->userdata('userid') ?>">
               <input type="hidden" name="cid" value="<?php echo $case->caseID ?>">
-              <input type="submit" class="btn btn-success">
+             
             </div>
           </div><!-- /.modal-content -->
           <?php echo form_close(); ?>

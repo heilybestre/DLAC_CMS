@@ -3,7 +3,8 @@
     <!-- start: Content -->
 
     <div class="row">
-        <div class="col-lg-6">
+        
+        <div class="col-lg-4">
             <div class="box">
                 <div class="box-header">
                     <h2><i class="icon-calendar"></i>Today's Appointments</h2>
@@ -12,13 +13,14 @@
                     </div>
                 </div>
                 <div class="box-content box-dashboard">
+
                     <br>
-                    <table id="dashboard-appo" class="table table-striped table-bordered datatable">
+                    <table class="table table-striped table-bordered datatable" id="dashboard-appo">
                         <thead>
                             <tr>
-                                <th width="20%">Time</th>
+                                <th id="hi" width="25%">Time</th>
                                 <th width="50%">Appointment</th>
-                                <th width="30%"></th>
+                                <th width="25%"></th>
                             </tr>
                         </thead>   
                         <tbody>
@@ -55,16 +57,58 @@
                                     <i class="icon-trash" title="Delete"></i> 
                                 </a>
                             </td>
-                            </tr>
                         <?php endforeach; ?>
+                        </tr>
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div><!--/col-->
+        
+        <div class="col-lg-4">
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="icon-calendar"></i>Important Dates</h2>
+                </div>
+                <div class="box-content box-dashboard">
 
+                    <br>
+                    <table class="table table-striped table-bordered datatable" id="dashboard-importantdates">
+                        <thead>
+                            <tr>
+                                <th id="hi" width="25%">Date</th>
+                                <th width="50%">Activity</th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($appointments as $row): ?>
+                                <tr>
+                                    <td class="center"><?php echo date('h:i a', strtotime($row->start)) . '-' . date('h:i a', strtotime($row->end)) ?></td>
+                                    <td class="center">
+                            <tabletitle><?php echo $row->title ?></tabletitle><br>
+                            <tabledesc>
+                                <?php
+                                $attendees = $this->Calendar_model->select_attendees($row->scheduleID);
+                                $count = 0;
+                                foreach ($attendees as $attendee) {
+                                    if ($count != 0)
+                                        echo ', ' . $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
+                                    else
+                                        echo $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
+                                    $count++;
+                                }
+                                ?>
+                            </tabledesc>
+                            </td>
+                        <?php endforeach; ?>
+                        </tr>
                         </tbody>
                     </table>    
                 </div>
             </div>
         </div><!--/col-->
 
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="box">
                 <div class="box-header">
                     <h2><i class="icon-list"></i>Application</h2>
@@ -130,7 +174,7 @@
                                 <tr>
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
-                                    <td>Apply to Transfer (<?php echo "$row->firstname $row->lastname" ?>)</td>
+                                    <td>Request to Transfer (<?php echo "$row->firstname $row->lastname" ?>)</td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

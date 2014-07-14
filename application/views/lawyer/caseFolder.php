@@ -25,6 +25,9 @@
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'class="active"'; ?> >
                             <a href="#research" data-toggle="tab">Research</a>
                         </li>
+                        <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'class="active"'; ?> >
+                            <a href="#minutes" data-toggle="tab">Minutes</a>
+                        </li>
                         <li <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'class="active"'; ?> >
                             <a href="#events" data-toggle="tab">Events</a>
                         </li>
@@ -86,6 +89,9 @@
                         </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'active'; ?>" id="actionPlan">
                             <?php $this->load->view('lawyer/caseFolder/actionplan'); ?>
+                        </div>
+                        <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
+                            <?php $this->load->view('lawyer/caseFolder/minutes'); ?>
                         </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'evidence') echo 'active'; ?>" id="evidence">
                             <?php $this->load->view('lawyer/caseFolder/evidence'); ?>

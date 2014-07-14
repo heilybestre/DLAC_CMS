@@ -726,7 +726,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="caseID" value="<?php echo $case->caseID ?>">
-                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Tags'); ?>
+                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Save'); ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     <?php echo form_close(); ?>

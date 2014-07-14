@@ -55,7 +55,13 @@
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
-                            <td><?php echo $caseclient[0]->typeName; ?></td>
+                            <td><?php
+                                if ($case->status == 5) {
+                                    echo $casecloseclient[0]->typeName; 
+                                } else {
+                                    echo $caseclient[0]->typeName;
+                                }
+                                ?></td>
                         </tr>
                         <tr>
                             <th>Supervising Lawyer:</th>
@@ -127,7 +133,8 @@
                                     <td><?php echo $row->court ?></td>
                                     <td><?php echo $row->casenumber ?></td>
                                     <td><?php echo $row->statusName ?></td>
-                                </tr><?php endforeach; ?>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -182,6 +189,7 @@
                     <?php endforeach; ?>
                 </div>
             </div>
+
         </div>
 
         <div class="col-lg-1"></div>
@@ -514,10 +522,9 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div><!-- /.modal-content -->
-
+                <?php echo form_close(); ?>
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        <?php echo form_close(); ?>
 
     </div>
     <!-- END OF MODAL : EDITCASESUMMARYMODAL --> 
@@ -535,137 +542,72 @@
                         <h3 id="myModalLabel">Edit Offense </h3>
                     </div>
                     <div class="modal-body">
-                        <div class="col-sm-2 control-group">
+
+                        <div class="col-sm-3 control-group">
                             <div class="controls">
-                                <h5> <center><b>Source</b></center></h5>
+                                <center>     <h5> <b>Offense</b></h5></center>
                             </div>
                         </div>
 
-                        <div class="form-inline">
+
+                        <div class="col-sm-6 control-group">
                             <div class="controls">
-                                <center>
-                                    <label class="radio" for="offenseSource-1">
-                                        <input type="radio" name="offenseSource" value="Revised Penal Code" onclick="location.href = 'javascript:toggleRPC();';">
-                                        Revised Penal Code
-                                    </label>
-                                    <label class="radio" for="offenseSource-0">
-                                        <input type="radio" name="offenseSource" value="Special Penal Law"  onclick="location.href = 'javascript:toggleSpecial();';">
-                                        Special Penal Law
-                                    </label> &nbsp;
-                                </center>
+                                <select class="form-control">
+                                    <?php foreach ($offenses as $off): ?>
+                                        <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
+                                    <?php endforeach; ?></select>
                             </div>
                         </div>
+
+                        <br><br>
+
+                        <div class="col-sm-3 control-group">
+                            <div class="controls">
+                                <center>      <h5> <b>Offense Stage</b></h5></center>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 control-group">
+                            <div class="controls">
+                                <select id="caseoffensestagepenal" name="caseoffensestagepenal" class="form-control">
+                                    <option>Attempted</option>
+                                    <option>Frustrated</option>
+                                    <option>Consumated</option>
+                                    <option>N/A</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        &nbsp; <button id='btneditoffensepenal' class="btn btn-success" type='button' style="margin-top:0px;"> Add</button>
+
+
+
                         <br>
-                        <div id="caseOffensePenal" style="display: none">
+                        <hr>
 
-                            <div class="col-sm-3 control-group">
-                                <div class="controls">
-                                    <h5><center><b>Offense</b></center></h5>
-                                </div>
-                            </div>
+                        <table id='offensetable' class="table table-striped table-bordered">
 
-                            <div class="col-sm-6 control-group">
-                                <div class="controls">
-                                    <select class="form-control">
-                                        <?php foreach ($offenses as $off): ?>
-                                            <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
+                            <tr>
+                                <th>Offense</th>
+                                <th>Offense Stage</th>
+                                <th></th>
+                            </tr>
 
-                            <br><br>
 
-                            <div class="col-sm-3 control-group">
-                                <div class="controls">
-                                    <center><h5><b>Offense Stage</b></h5></center>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6 control-group">
-                                <div class="controls">
-                                    <select id="caseoffensestagepenal" name="caseoffensestagepenal" class="form-control">
-                                        <option>Attempted</option>
-                                        <option>Frustrated</option>
-                                        <option>Consumated</option>
-                                        <option>N/A</option>
-                                    </select>
-                                </div>
-                            </div>
-                            &nbsp; <button id='btneditoffensepenal' class="btn btn-success" type='button' style="margin-top:0px;"> Add</button>
-                        </div>
-
-                        <div id="caseOffenseSpecial" style="display: none">
-                            <br>
-                            <hr>
-                            <table id='offensetable' class="table table-striped table-bordered">
-                                <div class="col-sm-3 control-group">
-                                    <div class="controls">
-                                        <h5> <center><b>Offense</b></center></h5>
-                                    </div>
-                                </div>
-
+                            <?php foreach ($caseoffense as $row): ?>
                                 <tr>
-                                    <th>Offense</th>
-                                    <th>Offense Stage</th>
-                                    <th></th>
+                                    <td><?php echo $row->offenseName ?></td>
+                                    <td><?php echo $row->stage ?></td>
+                                    <td><button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i> </button> </td>
                                 </tr>
+                            <?php endforeach; ?>
 
-                                <div class="col-sm-6 control-group">
-                                    <div class="controls">
-                                        <select name="caseOffenseSpecial" class="form-control">
-                                            <optgroup label="Special Laws">
-                                                <option>Anti-Carnapping Act of 1972</option>
-                                                <option>Anti-Child Pornography Act of 2009</option>
-                                                <option>Anti-Hazing Law</option>
-                                                <option>Anti-Photo and Video Voyeurism Act of 2009</option>
-                                                <option>Anti-Sexual Harrassment Act of 1995</option> 
-                                                <option>Anti-Violence Against Women and Their Children Act of 2004</option>
-                                                <option>Anti-Violence Against Women and their Children Act of 2004</option>
-                                                <option>Anti-Wire Tapping Act</option>
-                                                <option>Bouncing Checks Law</option>
-                                                <option>Human Security Act of 2007</option>
-                                                <option>Juvenile Justice and Welfare Act of 2006</option>
-                                                <option>Special Protection of Children Against Child Abuse, Exploitation and Discrimination Act</option>
-                                                <option>The Comprehensive Dangerous Drugs Act of 2002</option>
-                                            </optgroup>  
-                                        </select>
-                                    </div>
-                                </div>
+                        </table>
 
-                                <br><br>
-
-                                <?php foreach ($caseoffense as $row): ?>
-                                    <tr>
-                                        <td><?php echo $row->offenseName ?></td>
-                                        <td><?php echo $row->stage ?></td>
-                                        <td><button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i> </button> </td>
-                                    </tr>
-                                <?php endforeach; ?>
-
-                                <div class="col-sm-3 control-group">
-                                    <div class="controls">
-                                        <h5> <center><b>Offense Stage</b></center></h5>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6 control-group">
-                                    <div class="controls">
-                                        <select id="appoffensestage" name="appoffensestage" class="form-control">
-                                            <option>N/A</option>
-                                            <option>Attempted</option>
-                                            <option>Frustrated</option>
-                                            <option>Consumated</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </table>        
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name='cid' value='<?php echo $case->caseID ?>'>
                         <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Save'); ?>
-                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Offense'); ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     <?php echo form_close(); ?>
@@ -736,15 +678,16 @@
                         <div class="col-sm-7 control-group">
                             <div class="controls">
                                 <select id="appforum" name="caseStatus" class="form-control">
-                                    -                                    <option value='3'>Active</option>
-                                    -                                    <option value='8'>Inactive</option>
-                                    -                                    <option value='9'>Dismissed</option>
+                                    <option value='3'>Active</option>
+                                    <option value='8'>Inactive</option>
+                                    <option value='9'>Dismissed</option>
                                 </select>
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
+
                         <input type="hidden" name="caseID" value="<?php echo $case->caseID ?>">
                         <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Case Number'); ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -779,12 +722,11 @@
                             <?php foreach ($offenses as $off): ?>
                                 <option  value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
                             <?php endforeach; ?>
-                        </select>
-                        <br>                    
+                        </select>             
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="caseID" value="<?php echo $case->caseID ?>">
-                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Tags'); ?>
+                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Save'); ?>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                     <?php echo form_close(); ?>

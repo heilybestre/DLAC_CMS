@@ -219,10 +219,10 @@
                             <h4 class="modal-title">Add New Appointment</h4>
                         </div>
 
-                        <div class="modal-body">
+                        <div class="modal-body" style='height:465px ! important; overflow-y: scroll;'>
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <center> <h5> Case Title </h5> </center>
+                                    <center> <h5> <b> Case Title </b> </h5> </center>
                                 </div>
                             </div>
 
@@ -237,11 +237,25 @@
                                 </div>
                             </div>
 
+                            <br><br>
+                            
+                            <div class="col-sm-3 control-group">
+                                <div class="controls">
+                                    <center> <h5> <b>Client Name</b> </h5> </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                    <h5>'Client Name'</h5> </center>
+                                </div>
+                            </div>
+                            
                             <br><br><br>
 
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <center> <h5> Appointment </h5> </center>
+                                    <center> <h5> <b>Appointment</b> </h5> </center>
                                 </div>
                             </div>
 
@@ -255,7 +269,7 @@
 
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <center> <h5> Date </h5> </center>
+                                    <center> <h5> <b>Date</b> </h5> </center>
                                 </div>
                             </div>
 
@@ -272,7 +286,7 @@
 
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <center> <h5> Time </h5> </center>
+                                    <center> <h5> <b> Time </b> </h5> </center>
                                 </div>
                             </div>
 
@@ -306,7 +320,7 @@
 
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <center> <h5> Location </h5> </center>
+                                    <center> <h5> <b> Location </b> </h5> </center>
                                 </div>
                             </div>
 
@@ -331,7 +345,7 @@
 
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
-                                    <center> <h5> Attendees </h5> </center>
+                                    <center> <h5> <b> Attendees </b> </h5> </center>
                                 </div>
                             </div>
 
@@ -373,12 +387,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <br><br><br><br><br><br><br>
+                            <br><br><br><br><br><br><br><br>
+                            
+                            <div class="col-sm-3 control-group">
+                                <div class="controls">
+                                    <center> <h5> <b>Action plan </b></h5> </center>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                  <select id="actionplanforevent" name="actionplanforevent" class="form-control">
+                                    <?php foreach($actionplanforevent as $action) : ?>
+                                    <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
+                                    <?php endforeach; ?>
+                                  </select>
+                                </div>
+                              </div>
+                              <br>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -457,7 +489,7 @@
 
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
-                                    <center> <h5> Task </h5> </center>
+                                    <center> <h5><b> Task</b> </h5> </center>
                                 </div>
                             </div>
 
@@ -468,10 +500,24 @@
                             </div>
 
                             <br><br>
+                            
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5><b> Notes </b></h5> </center>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                  <?php echo form_textarea(array('style' => 'height: 80px', 'name' => 'notes', 'type' => 'text', 'class' => 'form-control')); ?>
+                                </div>
+                              </div>
+
+                              <br><br><br><br><br>
 
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
-                                    <center> <h5> Due Date </h5> </center>
+                                    <center> <h5> <b> Due Date </b></h5> </center>
                                 </div>
                             </div>
 
@@ -484,13 +530,12 @@
                                 </div>
                             </div>
 
-                            <br><br>
-
                             <br>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-success">Add Task</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success">Confirm</button>
+                            
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -512,12 +557,13 @@
                         <div class="modal-body">
                             <p>To confirm this action, please briefly discuss what you did for the task:</p>
                             <div class="controls">
-                                <textarea id="limit" rows="6" style="width:100%"></textarea>
+                                <textarea class="form-control" id="limit" rows="6" style="width:100%"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-success">Confirm</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

@@ -1,0 +1,31 @@
+table{
+    border:1px solid black;
+    width:700px;
+    text-align: center;
+    font-size:12px;
+    //border-width: 20px;
+    //background-color: pink ! important;
+}
+
+td, tr, th{
+    border:1px solid black;
+    text-align: center;
+    //border-width: 20px;
+    //background-color: pink ! important;
+}
+
+h1{
+    color:pink;
+}
+/*
+ 
+ 
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07 12, 14, 11:14:35 AM
+    Author     : Nex
+*/
+

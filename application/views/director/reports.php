@@ -4,32 +4,12 @@
         <div class="box">
             <div class="box-header">
                 <h2>
-                    <i class="icon-list"></i>Reports
+                    <i class="icon-list"></i>Report
                 </h2>
             </div>
-          
+
             <div class="box-content">
                 <br>
-                <div>
-                    <div class="col-sm-2 control-group">
-                            <div class="controls">
-                                <center> <h5> <b>Type of Report:</b> </h5> </center>
-                            </div>
-                    </div>
-
-                    <div class="col-sm-5 control-group">
-                        <div class="controls">
-                            <select class="form-control" name="sub"> 
-                                <option></option> 
-                                <option>Opened Cases</option> 
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-
-                <br><br>
-
                 <div>
                     <div class="col-sm-2 control-group">
                             <div class="controls">
@@ -40,7 +20,7 @@
                         <div class="controls">
                             <div class="form-inline"> 
                                 <label class="radio" for="report-1"> <input type="radio" name="report" id="report-2" value="Monthly" onclick="location.href = 'javascript:toggleReportMonthly();';"> Monthly </label>
-                                <label class="radio" for="report-1"> <input type="radio" name="report" id="report-3" value="Yearly" onclick="location.href = 'javascript:toggleReportYearly();';"> Yearly </label>
+                                <label class="radio" for="report-1"> <input type="radio" name="report" id="report-3" value="Yearly" onclick="location.href = 'javascript:toggleReportYearly();';"> Annually </label>
                             </div>
                         </div>
                     </div>
@@ -48,9 +28,32 @@
                 </div>
 
                 <br><br>
+                
 
                 <!--MONTH -->
                 <div id="reportsMonthly" style="display:none;">
+                    
+                    <div>
+                    <div class="col-sm-2 control-group">
+                            <div class="controls">
+                                <center> <h5> <b>Type of Report:</b> </h5> </center>
+                            </div>
+                    </div>
+
+                    <div class="col-sm-5 control-group">
+                        <div class="controls">
+                            <select class="form-control" name="sub"> 
+                                <option></option> 
+                                <option>Active Cases Summary</option> 
+                                <option>Closed Cases Summary</option> 
+                                <option>Accepted Cases Summary</option> 
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                    
+                    <br><br>
 
                     <div class="col-sm-2 control-group">
                             <div class="controls">
@@ -69,7 +72,7 @@
                         </div>
                     </div>
 
-                   <div class="col-sm-2 control-group">
+                   <div class="col-sm-1 control-group">
                             <div class="controls">
                                 <center> <h5> <b>Year:</b> </h5> </center>
                             </div>
@@ -91,6 +94,30 @@
                 <!--YEAR -->
 
                 <div id="reportsYearly" style="display:none;">
+                    
+                    <div>
+                    <div class="col-sm-2 control-group">
+                            <div class="controls">
+                                <center> <h5> <b>Type of Report:</b> </h5> </center>
+                            </div>
+                    </div>
+
+                    <div class="col-sm-5 control-group">
+                        <div class="controls">
+                            <select class="form-control" name="sub"> 
+                                <option></option> 
+                                <option>Active Cases Summary</option> 
+                                <option>Closed Cases Summary</option> 
+                                <option>Accepted Cases Summary</option>
+                                <option>Closed Cases Summary (Result)</option>
+                                <option>Most Common Type of Offense</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                    
+                    <br><br>
 
                     <div class="col-sm-2 control-group">
                             <div class="controls">
@@ -117,12 +144,6 @@
                 <div class="">
                     {iframe}
                 </div>
-               
-                <div id="donutchart" style="height: 300px;">
-                    <canvas class="flot-overlay" width="550" height="300" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 550px; height: 300px;"></canvas>
-                    <div style="font-size:x-small;text-align:center;padding:2px;color:rgb(47,171,233);">Mobile<br>7%</div>
-                </div>
-                
             </div>
 <!--             <div class="box">
 
@@ -152,8 +173,7 @@
                     <?php echo $multi; ?>
                 </div>
             </div> -->
-
+        </div>
     </div>
-</div>
 </div>
 

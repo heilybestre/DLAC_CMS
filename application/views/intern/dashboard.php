@@ -76,7 +76,7 @@
     <!-- start: Content -->
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="box">
                 <div class="box-header">
                     <h2><i class="icon-calendar"></i>Today's Appointments</h2>
@@ -136,8 +136,54 @@
                 </div>
             </div>
         </div><!--/col-->
+        
+        <div class="col-lg-4">
+            <div class="box">
+                <div class="box-header">
+                    <h2><i class="icon-calendar"></i>Important Dates</h2>
+                    <div class="box-icon hide">
+                        <a href="<?= base_url() ?>calendar" data-toggle="modal"><i class="icon-plus"></i></a>
+                    </div>
+                </div>
+                <div class="box-content box-dashboard">
 
-        <div class="col-lg-6">
+                    <br>
+                    <table class="table table-striped table-bordered datatable" id="dashboard-importantdates">
+                        <thead>
+                            <tr>
+                                <th id="hi" width="25%">Date</th>
+                                <th width="50%">Activity</th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($appointments as $row): ?>
+                                <tr>
+                                    <td class="center"><?php echo date('h:i a', strtotime($row->start)) . '-' . date('h:i a', strtotime($row->end)) ?></td>
+                                    <td class="center">
+                            <tabletitle><?php echo $row->title ?></tabletitle><br>
+                            <tabledesc>
+                                <?php
+                                $attendees = $this->Calendar_model->select_attendees($row->scheduleID);
+                                $count = 0;
+                                foreach ($attendees as $attendee) {
+                                    if ($count != 0)
+                                        echo ', ' . $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
+                                    else
+                                        echo $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
+                                    $count++;
+                                }
+                                ?>
+                            </tabledesc>
+                            </td>
+                        <?php endforeach; ?>
+                        </tr>
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+        </div><!--/col-->
+
+        <div class="col-lg-4">
             <div class="box span4" onTablet="span6" onDesktop="span4">
                 <div class="box-header">
                     <h2><i class="icon-check"></i>Things To-Do</h2>
@@ -153,18 +199,15 @@
                             <tr>
                                 <th>Task</th>
                                 <th>Case Number</th>
-                                <th>Notes</th>
-                                <th>Assigned by</th>
                                 <th></th>
                             </tr>
                         </thead>   
                         <tbody>
                             <?php foreach ($thingstodo as $row): ?>
                                 <tr>
-                                    <td class="center"><?php echo $row->task ?></td>
+                                    <td class="center"><a href="#taskDetailsModal" data-toggle="modal" class="btn btn-link" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
+                                    </td>
                                     <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
-                                    <td class="center"><?php echo $row->notes ?></td>
-                                    <td class="center"><?php echo $row->bfirstname . ' ' . $row->blastname ?></td>
                                     <td class="center">
                                         <?php if ($row->summary == NULL) { ?>
                                             <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
@@ -181,6 +224,39 @@
                 </div>
             </div>
         </div><!--/col-->
+        
+  <!-- START OF MODAL : Task Details -->
+    <div class="row">
+
+        <div class="modal fade" id="taskDetailsModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Task Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5> <b>Task: </b> <?php echo $row->task ?></h5>
+                        <h5> <b>Case Number: </b> <?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></h5>
+                        <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
+                        <h5> <b>Assigned by: </b> <?php
+                      if ($row->assignedBy == $this->session->userdata('userid')) {
+                        echo "Me";
+                      } else {
+                        echo $row->firstname . ' ' . $row->lastname;
+                      }
+                      ?></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="hidden" id="taskID" name="taskID" value="">
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    </div>
+    <!-- END OF MODAL :  Task Details--> 
 
     </div><!--/row--> 
 
@@ -272,8 +348,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-success">Confirm</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -530,13 +607,14 @@
                     <div class="modal-body">
                         <p>To confirm this action, please briefly discuss what you did for the task:</p>
                         <div class="controls">
-                            <textarea id="limit" name="summary" rows="6" style="width:100%"></textarea>
+                            <textarea class="form-control" id="limit" name="summary" rows="6" style="width:100%; height:40px;"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <input type="submit" name="submit" value="Confirm" class="btn btn-success">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="hidden" id="taskID" name="taskID" value="">
-                        <input type="submit" name="submit" value="Confirm" class="btn btn-success">
+                        
                     </div>
                 </div><!-- /.modal-content -->
                 <?php echo form_close(); ?>
