@@ -56,7 +56,51 @@
                                 <?php foreach ($residency as $row) : ?>
                                     <tr>
                                         <td><?php echo $row->firstname . ' ' . $row->lastname ?></td>
-                                        <td><?php echo $row->residency ?></td>
+                                        <?php
+                                        $reside = $this->People_model->select_person($row->personID)->residency;
+                                        $remain = $this->People_model->select_person($row->personID)->remainder;
+
+                                        $residencyword = '';
+                                        $residency = explode(":", $reside);
+                                        if ($residency[0] != 00) {
+                                            $residencyword .= $residency[0];
+                                            if ($residency[0] > 1) {
+                                                $residencyword .= ' hours';
+                                            } else {
+                                                $residencyword .= ' hour';
+                                            }
+                                        }
+
+                                        if ($residency[1] != 00) {
+                                            $residencyword .= ' and ' . $residency[1];
+                                            if ($residency[1] > 1) {
+                                                $residencyword .= ' minutes';
+                                            } else {
+                                                $residencyword .= ' minute';
+                                            }
+                                        }
+
+                                        if ($residency[2] != 00) {
+                                            $residencyword .= ' and ' . $residency[2];
+                                            if ($residency[2] > 1) {
+                                                $residencyword .= ' seconds';
+                                            } else {
+                                                $residencyword .= ' second';
+                                            }
+                                        }
+
+                                        $percentage = ($residency[0]) / (150) * 100;
+                                        if ($percentage >= 100) {
+                                            $percentage = 100;
+                                            $residencyword = '150 hours';
+                                        }
+                                        if ($percentage <= 0) {
+                                            $percentage = 0;
+                                            $residencyword = '0 hours';
+                                        }
+                                        $percentage = substr($percentage, 0, 2)
+                                        ?>
+                                        <td><?php echo "$residencyword ($percentage %)" ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

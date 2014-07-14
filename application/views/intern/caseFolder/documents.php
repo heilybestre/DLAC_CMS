@@ -2,15 +2,15 @@
   <div class="row">
 
     <div class="col-sm-3 hide">
-      <select id='selectactionplanfordraft' name='selectactionplanfordraft' class='form-control'>
+      <select id='selectactionplanfordraft' name='selectactionplanfordraft[]' class='form-control'>
         <?php foreach ($actionplanfordraft as $action) : ?>
           <option value='<?= $action->actionplanID ?>'><?= $action->action ?></option>
         <?php endforeach; ?>
       </select>
 
-      <select id='selectactionplanfordocument' name='selectactionplanfordocument' class='form-control'>
+      <select id='selectactionplanfordocument' name='selectactionplanfordocument[]' class='form-control'>
         <?php foreach ($actionplanfordocument as $action) : ?>
-          <option value"<?= $action->actionplanID ?>"><?= $action->action ?></option>
+          <option value='<?= $action->actionplanID ?>'><?= $action->action ?></option>
         <?php endforeach; ?>
       </select>
     </div>
@@ -213,6 +213,7 @@
 
             <br/>
             <table id='adddrafttable' class="table table-condensed table-striped">
+
             </table> 
 
           </div>
@@ -287,12 +288,6 @@
 
                 <input class="hidden" id="documentID" name="documentID"/> <!-- H's -->
                 <table class="table-condensed" style="font-size:11px;">
-                  <tr>
-                    <th>Related Action Plan Item:</th>
-                    <td> <select class="form-control">
-                        <option>1</option>
-                      </select> </td>
-                  </tr>
                   <tr>
                     <th width='20%'>Name:</th>
                     <td width='35%'> <input class="text form-control" id="tb_title_draftasdoc" name="documentname"/> </td>

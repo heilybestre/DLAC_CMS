@@ -26,7 +26,7 @@
                                 <tbody>
                                     <?php foreach ($archives as $row) : ?>
                                         <tr>
-                                            <td><a href="cases/caseFolder/<?php echo $row->caseID ?>"> <?php echo $row->caseNum ?></a></td>
+                                            <td><a href="archive/view/<?php echo $row->caseID ?>"> <?php echo $row->caseNum ?></a></td>
                                             <td><?php echo '<tabletitle>' . $row->caseName . '</tabletitle><br><tabledesc>' . $row->caseDesc . '</tabledesc>' ?></td>
                                             <td><?php echo $row->dateClosed ?></td>
                                             <td><?php echo $row->firstname . ' ' . $row->lastname ?></td>

@@ -87,7 +87,7 @@
         var personID = str_array[i];
         $("#createAppOpposingPartyList option[value=" + personID + "]").attr('disabled', 'disabled');
         var personName = $("#createAppOpposingPartyList option[value=" + personID + "]").text();
-        $('#addlegaladviceDiv').append( personName +'<br/>');
+        $('#addlegaladviceDiv').append(personName + '<br/>');
       }
     }
     $('#createAppOpposingPartyList').trigger('chosen:updated');
@@ -959,7 +959,7 @@
   $('.btnapptclose').click(function() {
     $('#viewapptdiv').removeClass('hide');
     $('#actionEventsDiv').removeClass('hide');
-    $('#actionEventTopDiv').removeClass('hide');    
+    $('#actionEventTopDiv').removeClass('hide');
   });
   //Tid general click: refresh page
   $('#tidgeneral').click(function() {
@@ -1082,6 +1082,7 @@
     });
     $('#btneditoffensepenal').click(function() {
       var caseOffensePenal = $('select[name="caseOffensePenal"]').val();
+      var caseOffensePenalText = $("#caseOffensePenal option[value=" + caseOffensePenal + "]").text();
       var caseoffensestagepenal = $('select[name="caseoffensestagepenal"]').val();
       var table = document.getElementById("offensetable");
       {
@@ -1089,7 +1090,7 @@
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
-        cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenal;
+        cell1.innerHTML = '<input type="text" name="inputoffense[]" value="' + caseOffensePenal + '" style="display:none;" readonly>' + caseOffensePenalText;
         cell2.innerHTML = '<input type="text" name="inputoffensestage[]" value="' + caseoffensestagepenal + '" style="display:none;" readonly>' + caseoffensestagepenal;
         cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'> <i class='icon-trash'></i></button>";
       }
@@ -1112,6 +1113,22 @@
       var files = document.getElementById("inputFileDraft").files;
       var table = document.getElementById("adddrafttable");
       table.innerHTML = '';
+
+      jQuery.fn.toHtmlString = function() {
+        return $(this).get()[0].outerHTML;
+      };
+      var htmlSelect = $('#selectactionplanfordraft').toHtmlString();
+
+      var rows = table.insertRow(table.rows.length);
+      var cell1s = rows.insertCell(0);
+      var cell2s = rows.insertCell(1);
+      var cell3s = rows.insertCell(2);
+      var cell4s = rows.insertCell(3);
+      cell1s.innerHTML = "Document";
+      cell2s.innerHTML = "Related Action Plan";
+      cell3s.innerHTML = "Size";
+      cell4s.innerHTML = "";
+
       for (var i = 0; i < files.length; i++) {
         var fileName = files[i].name;
         var fileSize = files[i].size;
@@ -1121,9 +1138,11 @@
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
         cell1.innerHTML = "<input type='text' name='rawName[]' value='" + rawName + "' /> ." + fileExt;
-        cell2.innerHTML = fileSize + 'KB';
-        cell3.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
+        cell2.innerHTML = htmlSelect;
+        cell3.innerHTML = fileSize + 'KB';
+        cell4.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
       }
     });
     $('#inputFileByClient').change(function() {
@@ -1131,6 +1150,12 @@
       $('#tableFileClientID').css('background-color', '#E4ECD9');
       var tableFileClientID = document.getElementById("tableFileClientID");
       tableFileClientID.innerHTML = '';
+
+      jQuery.fn.toHtmlString = function() {
+        return $(this).get()[0].outerHTML;
+      };
+      var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
+
       for (var i = 0; i < files.length; i++) {
 
         var fileName = files[i].name;
@@ -1144,12 +1169,12 @@
                 + "<td></td>"
                 + "<td width='5%' rowspan='5' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
-                
+
                 + "<tr>"
                 + "<td>Related Action Plan Item:</td>"
-                + "<td></td>"
+                + "<td>" + htmlSelect + "</td>"
                 + "</tr>"
-                
+
                 + "<tr>"
                 + "<td>File Name:</td>"
                 + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docname[]' value='" + rawName + "'/><h5> ." + fileExt + " </h5></td>"
@@ -1169,7 +1194,7 @@
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-              
+
                 + "</table><br><br>";
         tableFileClientID.innerHTML += tableHTML;
       }
@@ -1180,6 +1205,14 @@
       $('#tableFileCourt').css('background-color', '#E4ECD9');
       var tableFileCourt = document.getElementById("tableFileCourt");
       tableFileCourt.innerHTML = '';
+
+
+      jQuery.fn.toHtmlString = function() {
+        return $(this).get()[0].outerHTML;
+      };
+      var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
+
+
       for (var i = 0; i < files.length; i++) {
 
         var fileName = files[i].name;
@@ -1193,12 +1226,12 @@
                 + "<td width='38%'></td>"
                 + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td>Related Action Plan Item:</td>"
-                + "<td></td>"
+                + "<td>" + htmlSelect + "</td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td>File Name:</td>"
                 + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameCourt[]' value='" + rawName + "'/><h5> ." + fileExt + " </h5></td>"
@@ -1224,25 +1257,32 @@
                 + "<input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadline[]'> Add New Document Deadline"
                 + "<br/><br/>"
                 + "<div class='form-inline addnewdocDiv hide' style='padding-left:30px'>"
-                + "Document Title : <input class='text form-control' style='width:300px;'/>"
-                +"<br><br>"
-                + "Deadline in : <select class='form-control' style='width:100px;'/> <option>5</option><option>10</option> </select> days"
+                + "Document Title : <input name='newDocumentTitle[]' class='text form-control' style='width:300px;'/>"
+                + "<br><br>"
+                + "Deadline in : <select name='newDocumentDeadline[]' class='form-control' style='width:100px;'/> <option>5</option><option>10</option> </select> days"
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-        
+
                 + "</table><br><br>";
         tableFileCourt.innerHTML += tableHTML;
       }
 
       $('#docUpload_dateReceived_court').datepicker();
     });
-    
+
     $('#inputFileByOpposingParty').change(function() {
       var files = document.getElementById("inputFileByOpposingParty").files;
       $('#tableFileOpposingParty').css('background-color', '#E4ECD9');
       var tableFileCourt = document.getElementById("tableFileOpposingParty");
       tableFileCourt.innerHTML = '';
+
+      jQuery.fn.toHtmlString = function() {
+        return $(this).get()[0].outerHTML;
+      };
+      var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
+
+
       for (var i = 0; i < files.length; i++) {
 
         var fileName = files[i].name;
@@ -1256,17 +1296,17 @@
                 + "<td width='38%'></td>"
                 + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td>Related Action Plan Item:</td>"
-                + "<td></td>"
+                + "<td>" + htmlSelect + "</td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td>File Name:</td>"
                 + "<td> <input class='text form-control col-sm-3' id='tb_title' name='docnameOpposingParty[]' value='" + rawName + "'/><h5> ." + fileExt + " </h5></td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td>Title:</td>"
                 + "<td> <input class='text form-control' style='width:300px;' name='doctitleOpposingParty[]'/></td>"
@@ -1281,35 +1321,35 @@
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td colspan=2>"
                 + "<input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadlineOpposingParty[]'> Add New Document Deadline"
                 + "<br/><br/>"
                 + "<div class='form-inline addnewdocDiv hide' style='padding-left:30px'>"
                 + "Document Title : <input class='text form-control' style='width:300px;'/>"
-                +"<br><br>"
+                + "<br><br>"
                 + "Deadline in : <select class='form-control' style='width:100px;'/> <option>5</option><option>10</option> </select> days"
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-        
+
                 + "</table><br><br>";
         tableFileCourt.innerHTML += tableHTML;
       }
 
       $('#docUpload_dateReceived_opposingParty').datepicker();
     });
-    
+
     $('.addnewdoccheckbox').live('click', function() {
-        if(this.checked){
-            $(this).nextAll('div.addnewdocDiv').removeClass('hide');
-        }else{
-            $(this).nextAll('div.addnewdocDiv').addClass('hide');
-            
-        }
+      if (this.checked) {
+        $(this).nextAll('div.addnewdocDiv').removeClass('hide');
+      } else {
+        $(this).nextAll('div.addnewdocDiv').addClass('hide');
+
+      }
     });
-    
+
     $("body").on("click", "#remove_row", function() {
       $(this).parent().parent().remove();
     });
