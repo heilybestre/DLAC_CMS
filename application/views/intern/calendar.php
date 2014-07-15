@@ -486,6 +486,21 @@
                             <h4 class="modal-title">Add New Task</h4>
                         </div>
                         <div class="modal-body">
+                            
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5> <b> Case Title </b></h5> </center>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                  <h5><?php echo "$case->caseName ($case->caseNum)" ?></h5>
+                                  <input type="hidden" name="newappt_case" value="<?= $case->caseID ?>"/>
+                                </div>
+                              </div>
+
+                                <br><br><br>
 
                             <div class="col-sm-4 control-group">
                                 <div class="controls">

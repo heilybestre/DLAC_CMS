@@ -153,9 +153,6 @@
         <div class="box">
           <div class="box-header">
             <h2><i class="icon-check"></i>Things To-Do</h2>
-            <div class="box-icon">
-              <a href="#addTaskModal" data-toggle="modal"><i class="icon-plus"></i></a>
-            </div>
           </div>
           <div class="box-content">
             <table class="table table-striped table-bordered datatable">

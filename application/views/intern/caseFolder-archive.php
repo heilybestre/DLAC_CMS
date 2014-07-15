@@ -44,14 +44,26 @@
               <a href="#actionPlan" data-toggle="tab">Action Plan</a>
             </li>
             <li <?php if (!isset($_GET['tid'])) echo 'class="active"'; ?>>
-              <a href="#general" id='tidgeneral' data-toggle="tab">General</a>
+              <a href="#general" id='tidgeneral-archive' data-toggle="tab">General</a>
             </li>
           </ul>
           <!-- end: Tabs -->
 
        </div>
         <div class="box-content" id="boxcontent">
-            
+
+          <div class="row">
+            <div class="pull-right">
+              <?php if ($case->status != 5) { ?>
+                <?php if ($caseperson->condition != '') { ?>
+                  <a class ="btn btn-medium btn-info" style='margin-bottom: 10px' href="#" data-toggle="modal">
+                    &nbsp;Apply to Reopen
+                  </a>
+                <?php } ?>
+              <?php } ?>
+            </div>
+          </div>
+
           <?php if ($case->status == 4) { ?>
             <div class="row" style="background-color:#F67B8F;" id="appliedForClosing">
               <h5 style="margin-left:15px;">This case was applied for closing. To view the details, click <a class ="" style='margin-bottom: 10px; color:black;' href="#viewApplyCloseModal" data-toggle="modal">here</a>. </h5>
@@ -83,36 +95,32 @@
           <?php } ?>
 
           <br>
-          
-                    <a class ="btn btn-medium btn-info" style='margin-bottom: 10px' href="#applyToTransferModal2" data-toggle="modal">
-                    &nbsp;Apply to Reopen
-                  </a>
 
           <!-- start: Tab contents -->
           <div id="myTabContent" class="tab-content" style='padding: 10px;'>
             <div class="tab-pane <?php if (!isset($_GET['tid'])) echo 'active'; ?>" id="general">
-              <?php $this->load->view('intern/caseFolder/general'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/general'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'active'; ?>" id="actionPlan">
-              <?php $this->load->view('intern/caseFolder/actionPlan'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/actionPlan'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'evidence') echo 'active'; ?>" id="evidence">
-              <?php $this->load->view('intern/caseFolder/evidence'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/evidence'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'linkedpeople') echo 'active'; ?>" id="linkedPeople">
-              <?php $this->load->view('intern/caseFolder/linkedPeople'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/linkedPeople'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'documents') echo 'active'; ?>" id="documents">
-              <?php $this->load->view('intern/caseFolder/documents'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/documents'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'active'; ?>" id="events">
-              <?php $this->load->view('intern/caseFolder/events'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/events'); ?>
             </div>
              <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
-              <?php $this->load->view('intern/caseFolder/minutes'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/minutes'); ?>
             </div>
             <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'active'; ?>" id="research">
-              <?php $this->load->view('intern/caseFolder/research'); ?>
+              <?php $this->load->view('intern/caseFolder-archive/research'); ?>
             </div>
           </div>
           <!-- end: Tab contents -->

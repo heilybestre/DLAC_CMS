@@ -161,29 +161,29 @@ class Archive extends CI_Controller {
                 $data['casecondition'] = $this->Case_model->select_condition($cid);
 
                 $this->load->view('director/menubar', $data);
-                $this->load->view('director/caseFolder', $data);
+                $this->load->view('director/caseFolder-archive', $data);
                 break;
             case 2 :
                 $this->load->view('assistant/menubar', $data);
-                $this->load->view('assistant/caseFolder', $data);
+                $this->load->view('assistant/caseFolder-archive', $data);
                 break;
             case 3 :
                 $this->load->view('secretary/menubar', $data);
-                $this->load->view('secretary/caseFolder', $data);
+                $this->load->view('secretary/caseFolder-archive', $data);
                 break;
             case 4 :
                 $data['casecondition'] = $this->Case_model->select_condition($cid);
                 $data['thingstodo'] = $this->Task_model->select_theircasetask($cid, $uid);
 
                 $this->load->view('lawyer/menubar', $data);
-                $this->load->view('lawyer/caseFolder', $data);
+                $this->load->view('lawyer/caseFolder-archive', $data);
                 break;
             case 5 :
                 $data['caseperson'] = $this->Case_model->select_caseperson($cid, $uid);
                 $data['thingstodo'] = $this->Task_model->select_mycasetask($cid, $uid);
 
                 $this->load->view('intern/menubar', $data);
-                $this->load->view('intern/caseFolder', $data);
+                $this->load->view('intern/caseFolder-archive', $data);
                 break;
         }
         $this->load->view('footer');
