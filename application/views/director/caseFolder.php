@@ -70,6 +70,13 @@
                         <br>
                     <?php } ?>
 
+                    <?php if ($case->status == 6) { ?>
+                        <div class="row" style="background-color:#CCD5C8;" id="appliedForClosing">
+                            <h5 style="margin-left:15px;">This case was applied for re-opening. To view the details, click <a class ="" style='margin-bottom: 10px' href="#" data-toggle="modal" style="color:black;">here</a>. </h5>
+                        </div>
+                        <br>
+                    <?php } ?>
+
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane <?php if (!isset($_GET['tid'])) echo 'active'; ?>" id="general">
                             <?php $this->load->view('director/caseFolder/general'); ?>

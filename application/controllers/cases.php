@@ -167,7 +167,22 @@ class Cases extends CI_Controller {
     }
 
     function caseApplytoreopen($cid) {
-        
+        $uid = $this->session->userdata('userid');
+        $reason = $this->input->post('');
+        $notes = $this->input->post('');
+
+        $changes = array(
+            'applyToReopenBy' => $uid,
+            'status' => '6',
+            'reopenreason' => "$reason, $notes"
+        );
+
+        $this->Case_model->update_case($cid, $changes);
+
+        /* NOTIFICATION TABLE */
+        // For Director
+        $this->Notification_model->applytoreopen($uid, 1, $cid);
+        redirect("cases/caseFolder/$cid");
     }
 
     function caseApplytotransfer() {
@@ -575,17 +590,20 @@ class Cases extends CI_Controller {
     }
 
     function addOffense() {
-        $caseID = $_POST['cid'];
+
         extract($_POST);
+        $case = $this->Case_model->select_case($cid);
         $offenseforlog = '';
-
         $tagoffense = '';
+        $datestring = "%Y-%m-%d %H:%i:%s";
+        $time = now();
+        $datetimenow = mdate($datestring, $time);
 
-        $this->Case_model->delete_offense($caseID);
-        for ($index = 0; $index < count($inputoffensestage); $index++) {
+        $this->Case_model->delete_offense($cid);
+        for ($index = 0; $index < count($inputoffense); $index++) {
 
             $data = array(
-                'caseID' => $caseID,
+                'caseID' => $cid,
                 'offenseID' => $inputoffense[$index],
                 'stage' => $inputoffensestage[$index]
             );
@@ -594,39 +612,40 @@ class Cases extends CI_Controller {
             $this->Case_model->insert_offense($data);
             $tagoffense = $tagoffense . ' #' . $offensename;
 
-            if ($index == 0)
+            if ($index == 0) {
                 $offenseforlog = $inputoffense[$index] . ' (' . $inputoffensestage[$index] . ') ';
-            else
-            //$offenseforlog = $offenseforlog + ', ' . $inputoffense[$index] . '( ' . $inputoffensestage[$index] . ') '
-                echo '';
+            } else {
+                $offenseforlog = $offenseforlog + ', ' . $inputoffense[$index] . '( ' . $inputoffensestage[$index] . ') ';
+            }
         }
 
         /* TAGS TABLE */
         // client type
-        $caseclient = $this->Case_model->select_caseclient($caseID);
-        $strclienttype = $caseclient[0]->typeName;
+        $caseclient = $this->Case_model->select_caseclient($cid);
+
         //$this->Case_model->select_strtype($appclienttype);
         // client/s name
         $strclientname = '';
         for ($index = 0; $index < count($caseclient); $index++) {
-            $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $caseclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $caseclient[$index]);
+            $strclienttype = $caseclient[$index]->typeName;
+            $strclientname = $strclientname . ' #' . $caseclient[$index]->firstname . ' ' . $caseclient[$index]->lastname;
         }
 
         // Tags 
-        $tags = $apptitle . $tagoffense . ' #' . $strclienttype . $strclientname;
-        $this->Case_model->update_casetags($caseID, $tags);
+        $tags = $case->caseName . $tagoffense . ' #' . $strclienttype . $strclientname;
+        $this->Case_model->delete_casetags($cid);
+        $this->Case_model->update_casetags($cid, $tags);
 
         /* LOG TABLE */
         $log = array(
             'caseID' => $cid,
-            'action' => 'Offense has been updated. ' . $edit_caseTitle,
+            'action' => 'Offense has been updated to: ' . $offenseforlog,
             'dateTime' => $datetimenow,
             'stage' => $this->Case_model->select_case($cid)->stage,
             'category' => 'CASE'
         );
         $this->Case_model->insert_log($log);
-
-        redirect("cases/caseFolder/$caseID");
+        redirect("cases/caseFolder/$cid");
     }
 
     function addEvidence() {

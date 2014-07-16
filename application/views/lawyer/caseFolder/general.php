@@ -55,30 +55,13 @@
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
-                            <td><?php
-                                if ($case->status == 5) {
-                                    echo $casecloseclient[0]->typeName; 
-                                } else {
-                                    echo $caseclient[0]->typeName;
-                                }
-                                ?></td>
+                            <td><?php echo $caseclient[0]->typeName; ?></td>
                         </tr>
                         <tr>
                             <th>Supervising Lawyer:</th>
                             <?php $count = 1 ?>
                             <td>
-                                <?php if ($case->status == 5) { ?>
-                                    <?php foreach ($casecloselawyers as $row): ?>
-                                        <?php
-                                        if ($count > 1) {
-                                            echo ' ,';
-                                        }
-                                        ?>
-                                        <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
-                                        <?php echo "$row->firstname $row->lastname"; ?>
-                                        <?php $count++ ?>
-                                    <?php endforeach; ?>
-                                <?php } else { ?>
+
                                     <?php foreach ($caselawyers as $row): ?>
                                         <?php
                                         if ($count > 1) {
@@ -89,12 +72,17 @@
                                         <?php echo "$row->firstname $row->lastname"; ?>
                                         <?php $count++ ?>
                                     <?php endforeach; ?>
-                                <?php } ?>
+
                             </td>
                         </tr>
                         <tr>
+                            <?php if ($case->status == 5) { ?>
                             <th>Date Opened:</th>
                             <td><?= date("F j, Y  h:i a", strtotime($case->dateReceived)) ?></td>
+                            <?php } else { ?>
+                                <th>Date Closed:</th>
+                                <td><?= date("F j, Y  h:i a", strtotime($case->dateClosed)) ?></td>
+                            <?php } ?>
                         </tr>
                         <tr>
                             <th> Case Description:</th>
@@ -153,21 +141,12 @@
                             </tr>
                         </thead>   
                         <tbody>
-                            <?php if ($case->status == 5) { ?>
-                                <?php foreach ($casecloseinterns as $row) : ?>
-                                    <tr>
-                                        <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"> </td>
-                                        <td><?php echo $row->firstname . " " . $row->lastname ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php } else { ?>
                                 <?php foreach ($caseinterns as $row) : ?>
                                     <tr>
                                         <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></td>
                                         <td><?php echo $row->firstname . " " . $row->lastname ?></td>
                                     </tr>
                                 <?php endforeach; ?>
-                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -549,13 +528,13 @@
                             </div>
                         </div>
 
-
                         <div class="col-sm-6 control-group">
                             <div class="controls">
                                 <select class="form-control">
                                     <?php foreach ($offenses as $off): ?>
                                         <option value="<?php echo $off->offenseID ?>"><?php echo $off->offenseName ?></option>
-                                    <?php endforeach; ?></select>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
 

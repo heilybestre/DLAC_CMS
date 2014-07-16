@@ -90,9 +90,6 @@
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'actionplan') echo 'active'; ?>" id="actionPlan">
                             <?php $this->load->view('lawyer/caseFolder/actionplan'); ?>
                         </div>
-                        <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
-                            <?php $this->load->view('lawyer/caseFolder/minutes'); ?>
-                        </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'evidence') echo 'active'; ?>" id="evidence">
                             <?php $this->load->view('lawyer/caseFolder/evidence'); ?>
                         </div>
@@ -104,6 +101,9 @@
                         </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'events') echo 'active'; ?>" id="events">
                             <?php $this->load->view('lawyer/caseFolder/events'); ?>
+                        </div>
+                        <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'minutes') echo 'active'; ?>" id="minutes">
+                            <?php $this->load->view('lawyer/caseFolder/minutes'); ?>
                         </div>
                         <div class="tab-pane <?php if (isset($_GET['tid']) && $_GET['tid'] == 'research') echo 'active'; ?>" id="research">
                             <?php $this->load->view('lawyer/caseFolder/research'); ?>
