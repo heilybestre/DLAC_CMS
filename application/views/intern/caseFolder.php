@@ -64,7 +64,7 @@
 
                             <?php if ($case->status != 4 && $case->status != 5 && $case->status != 6) { ?>
                                 <a class ="btn btn-medium btn-danger" style='margin-bottom: 10px' href="#applyToCloseModal2" data-toggle="modal">
-                                    &nbsp;Apply to Close
+                                    &nbsp;Close Case
                                 </a>
                             <?php } ?>
 
