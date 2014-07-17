@@ -144,7 +144,6 @@
 
     </div>
 
-    <?php // <editor-fold defaultstate="collapsed" desc="Extra MODAL">?>
     <!-- START OF APPLYTOTRANSFER NA KELANGAN PARA AYOS-->
     <div class="row hide">
 
@@ -231,12 +230,9 @@
         </div> <!--modal -->
     </div> 
     <!-- END OF APPLYTOTRANSFER NA KELANGAN PARA AYOS-->
-    <?php // </editor-fold>?>
-
 
     <!-- START OF APPLYTOTRANSFER NA AYOS TALAGA -->
     <div class="row">
-
         <div class="modal fade" id="applyToTransferModal2">
             <div class="modal-dialog-applyToTransfer">
                 <div class="modal-content">
@@ -357,9 +353,6 @@
     </div>
     <!-- END OF APPLYTOTRANSFER  NA AYOS TALAGA-->
 
-
-
-    <?php // <editor-fold defaultstate="collapsed" desc="Extra MODAL">?>
     <!-- START OF APPLYTOCLOSEMODAL NA KELANGAN PARA AYOS-->
     <div class="row hide">
         <div class="modal fade" id="applyToCloseModal">
@@ -494,12 +487,9 @@
         </div><!-- /.modal -->
     </div>
     <!-- END OF APPLYTOCLOSEMODAL NA KELANGAN PARA AYOS-->
-    <?php //</editor-fold>?>
-
 
     <!-- START OF APPLYTOCLOSEMODAL NA AYOS TALAGA-->
     <div class="row">
-
         <div class="modal fade" id="applyToCloseModal2">
             <div class="modal-dialog-applyToClose">
                 <div class="modal-content">
@@ -545,7 +535,17 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo "$client->firstname $client->lastname" ?></h5>
+                                <h5>
+                                    <?php $index = 0; ?>
+                                    <?php foreach ($caseclient as $client) { ?>
+                                        <?php if ($index > 0) { ?>
+                                            <?php echo ", $client->firstname $client->lastname" ?>
+                                        <?php } else { ?>
+                                            <?php echo "$client->firstname $client->lastname" ?>
+                                        <?php } ?>
+                                        <?php $index++; ?>
+                                    <?php } ?>
+                                </h5>
                             </div>
                         </div>
                         <br><br>
@@ -558,7 +558,7 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo $client->typeName ?></h5>
+                                <h5><?php echo $caseclient[]->typeName ?></h5>
                             </div>
                         </div>
                         <br><br>
@@ -632,7 +632,6 @@
         </div><!-- /.modal -->
 
     </div>
-
     <!-- END OF APPLYTOCLOSEMODAL NA AYOS TALAGA-->
 
     <!-- START OF VIEWAPPLYTRANSFERMODAL -->
@@ -793,7 +792,17 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo "$client->firstname $client->lastname" ?></h5>
+                                <h5>
+                                    <?php $index = 0; ?>
+                                    <?php foreach ($caseclient as $client) { ?>
+                                        <?php if ($index > 0) { ?>
+                                            <?php echo ", $client->firstname $client->lastname" ?>
+                                        <?php } else { ?>
+                                            <?php echo "$client->firstname $client->lastname" ?>
+                                        <?php } ?>
+                                        <?php $index++; ?>
+                                    <?php } ?>
+                                </h5>
                             </div>
                         </div>
                         <br><br>
@@ -806,7 +815,7 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo $client->typeName ?></h5>
+                                <h5><?php echo $caseclient[0]->typeName ?></h5>
                             </div>
                         </div>
                         <br><br>
