@@ -1039,7 +1039,7 @@
 
                             <div class="col-sm-5">
 
-                                <div class="col-sm-3 control-group">
+                                <div class="col-sm-4 control-group">
                                     <div class="controls">
                                         <center> <h5> <b> Case Title: </b></h5> </center>
                                     </div>
