@@ -3,12 +3,14 @@
 
     <div class="col-sm-3 hide">
       <select id='selectactionplanfordraft' name='selectactionplanfordraft[]' class='form-control'>
+        <option value="0">None</option>
         <?php foreach ($actionplanfordraft as $action) : ?>
           <option value='<?= $action->actionplanID ?>'><?= $action->action ?></option>
         <?php endforeach; ?>
       </select>
 
       <select id='selectactionplanfordocument' name='selectactionplanfordocument[]' class='form-control'>
+        <option value='0'>None</option>
         <?php foreach ($actionplanfordocument as $action) : ?>
           <option value='<?= $action->actionplanID ?>'><?= $action->action ?></option>
         <?php endforeach; ?>
