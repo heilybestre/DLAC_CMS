@@ -1,4 +1,6 @@
 <div id="content" class="col-lg-10 col-sm-11">
+    
+    <div class="hide"><h1>Application for Reopening</h1></div>
 
     <div class="row hide">
         <!--																																										ERROR ERROR ERROR

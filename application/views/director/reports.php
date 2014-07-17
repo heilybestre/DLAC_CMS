@@ -139,11 +139,8 @@
                 
 <!--                 <a href="report/viewpdf" >Save as pdf file</a><br>
                 <a href="report/viewdoc" >Save as doc file</a><br> -->
-                <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success', 'style'=>"margin-left: 200px; width:200px"), 'Generate'); ?>
+                <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success', 'style'=>"margin-left: 182px; width:200px"), 'Generate'); ?>
                 <br>
-                <div class="">
-                    {iframe}
-                </div>
             </div>
 <!--             <div class="box">
 

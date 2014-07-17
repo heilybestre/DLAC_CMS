@@ -253,7 +253,7 @@
 
             <div class="col-sm-9 control-group">
                 <div class="controls">
-                    <div class="well" style="margin: 3px; width: 550px; height:500px; overflow:scroll;"><h5 style="line-height:20px;"><?php echo $case->appNarrative; ?></h5></div>
+                    <div class="well" style="margin: 3px; width: 480px; height:500px; overflow:scroll;"><h5 style="line-height:20px;"><?php echo $case->appNarrative; ?></h5></div>
                 </div>
             </div>
 

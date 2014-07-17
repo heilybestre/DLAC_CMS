@@ -1,6 +1,6 @@
 <div class="container">
 
-<?php echo form_open(base_url() . 'director/documents', array('class' => 'form-horizontal')); ?>
+<?php echo form_open(base_url() . 'secretary/documents', array('class' => 'form-horizontal')); ?>
 
 <div class="row">
     <!-- Button to trigger modal -->

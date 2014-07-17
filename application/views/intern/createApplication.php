@@ -1,6 +1,8 @@
 <div id="content" class="col-lg-10 col-sm-12">
 
     <!-- start: Content -->
+    <div class="hide"><h1>Application for Reopening</h1></div>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="box">

@@ -1,6 +1,18 @@
 <div class="container" style="margin-top:10px;">
+    
+          <div class="pull-right">
+          
+     <a class ="btn btn-medium btn-info" style='margin-bottom: 10px' href="#chooseDocTemplateModal" data-toggle="modal">
+      <i class="icon-download"></i>&nbsp;Document Template
+    </a>
+      
+     <a class ="btn btn-medium btn-success" style='margin-bottom: 10px' href="#showAllDocumentsModal" data-toggle="modal">
+      <i class="icon-briefcase"></i>&nbsp;Show All Documents
+    </a>    
+      </div>
 
     <?php echo form_open(base_url() . 'caseFolder/documents', array('class' => 'form-horizontal')); ?>
+    
 
     <div class="row">
 
@@ -1215,6 +1227,95 @@
         </div>
 
     </div> 
+    
+    <div class="row">
+    <div class="modal fade" id="showAllDocumentsModal">
+      <div class="modal-dialog-documents">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">All Documents</h4>
+          </div>
+          <div class="modal-body" style="max-height:300px; overflow: scroll;">
+            
+            <table class="table table-condensed datatable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date Filed/Date Issued</th>
+              <th></th>
+            </tr>
+          </thead>   
+          <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <a href="" class="btn btn-info" title="Download" data-rel="tooltip"><i class="icon-download"></i></a>  <a href="" class="btn btn-danger" title="Delete" data-rel="tooltip"> <i class="icon-trash"></i> </a>
+                </td>
+              </tr>
+          </tbody>
+        </table> 
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+          <?php echo form_close(); ?>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 
 </div>
