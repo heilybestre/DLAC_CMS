@@ -558,7 +558,7 @@
 
                         <div class="col-sm-8 control-group">
                             <div class="controls">
-                                <h5><?php echo $caseclient[]->typeName ?></h5>
+                                <h5><?php echo $caseclient[0]->typeName ?></h5>
                             </div>
                         </div>
                         <br><br>
@@ -1039,7 +1039,7 @@
 
                             <div class="col-sm-5">
 
-                                <div class="col-sm-3 control-group">
+                                <div class="col-sm-4 control-group">
                                     <div class="controls">
                                         <center> <h5> <b> Case Title: </b></h5> </center>
                                     </div>

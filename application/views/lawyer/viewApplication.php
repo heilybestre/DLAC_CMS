@@ -1,5 +1,142 @@
 <div id="content" class="col-lg-10 col-sm-11">
        <div class="hide"><h1>Application for Reopening</h1></div>
+       
+           <a class ="btn btn-medium btn-warning pull-right hide" style='margin-bottom: 10px' href="#viewApplyToReopenModal" data-toggle="modal">
+        &nbsp;View Reason for Reopening
+    </a>
+    
+     <!-- START OF VIEWAPPLYTOREOPENMODAL -->
+        <div class="row">
+            <div class="modal fade" id="viewApplyToReopenModal">
+                <div class="modal-dialog-applyToReopen">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">View Reason for Reopening</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+
+                                <div class="col-sm-5">
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b> Case Title: </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <h5><?php echo $case->caseName ?></h5>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Offense: </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <h5>
+                                                <?php
+                                                $count = 1;
+                                                foreach ($caseoffense as $row) {
+                                                    if ($count > 1) {
+                                                        echo ', ';
+                                                    }
+                                                    echo $row->offenseName;
+                                                    $count++;
+                                                }
+                                                ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-5">
+
+                                    <div class="col-sm-5 control-group">
+                                        <div class="controls">
+                                            <center> <h5> <b>Client's Stand: </b></h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <h5>
+                                                <?php echo $caseclient[0]->typeName ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    <div class="col-sm-5 control-group">
+                                        <div class="controls">
+                                            <center> <h5><b> Court's Verdict:</b> </h5> </center>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-7 control-group">
+                                        <div class="controls">
+                                            <h5></h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            <br><br>
+
+                            <div class="row">
+                                
+                                <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                            <center> <h5><b> Reason for Reopening:</b> </h5> </center>
+                                        </div>
+                                </div>
+
+                                <div class="col-sm-5 control-group">
+                                    <div class="controls">
+                                         <center> <h5></h5> </center>
+                                    </div>
+                                </div>
+                                
+                                <br><br>
+                                
+                                <div class="col-sm-4 control-group">
+                                        <div class="controls">
+                                           
+                                        </div>
+                                </div>
+
+                                <div class="col-sm-6 control-group">
+                                    <div class="controls">
+                                        <center> <h5></h5> </center>
+                                    </div>
+                                </div>
+                                
+                             </div>
+                                
+                            </div>
+
+                       
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                         </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            
+        <!-- END OF APPLYTOREOPENMODAL -->
     
     <div class="row">
         <div class="col-md-12">

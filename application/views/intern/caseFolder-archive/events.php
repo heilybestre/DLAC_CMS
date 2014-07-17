@@ -22,7 +22,7 @@
             },
             //Shows appoinments
             events: "<?php echo base_url() ?>calendar/userschedules/" + <?php echo $this->session->userdata('userid') ?>,
-            selectable: true,
+            selectable: false,
             selectHelper: true,
             //Shows Add Appointment modal
             select: function(start, end, allDay) {
@@ -127,7 +127,7 @@
 
 <style>
     #calendar {
-        width: 600px;
+        width: 580px;
         margin: 0 auto;
     }
 </style>
