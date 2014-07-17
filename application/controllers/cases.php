@@ -330,10 +330,12 @@ class Cases extends CI_Controller {
         $data['casepeople'] = $this->Case_model->select_casepeople($cid);
         $data['caseinterns'] = $this->Case_model->select_caseinterns($cid);
         $data['caselawyers'] = $this->Case_model->select_caselawyers($cid);
-        $data['casecloseclient'] = $this->Case_model->select_closeclient($cid);
-        $data['casecloseopposing'] = $this->Case_model->select_closeopposing($cid);
-        $data['casecloseinterns'] = $this->Case_model->select_closecaseinterns($cid);
-        $data['casecloselawyers'] = $this->Case_model->select_closecaselawyers($cid);
+        if ($data['case']->status == 6 || ($data['case']->status == 5 && $data['case']->strength == NULL && $data['case']->weakness == NULL && $data['case']->opportunity == NULL && $data['case']->threat == NULL && $data['case']->strategy == NULL)) {
+            $data['caseclient'] = $this->Case_model->select_closeclient($cid);
+            $data['caseopposing'] = $this->Case_model->select_closeopposing($cid);
+            $data['caseinterns'] = $this->Case_model->select_closecaseinterns($cid);
+            $data['caselawyers'] = $this->Case_model->select_closecaselawyers($cid);
+        }
         // </editor-fold>
         // <editor-fold defaultstate="collapsed" desc="Research">
         $case = $this->Case_model->select_case($cid);
@@ -388,6 +390,7 @@ class Cases extends CI_Controller {
         switch ($utype) {
             case 1 :
                 $data['casecondition'] = $this->Case_model->select_condition($cid);
+                $data['thingstodo'] = $this->Task_model->select_theircasetask($cid, $uid);
 
                 $this->load->view('director/menubar', $data);
                 $this->load->view('director/caseFolder', $data);

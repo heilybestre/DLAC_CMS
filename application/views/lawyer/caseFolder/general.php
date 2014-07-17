@@ -62,23 +62,23 @@
                             <?php $count = 1 ?>
                             <td>
 
-                                    <?php foreach ($caselawyers as $row): ?>
-                                        <?php
-                                        if ($count > 1) {
-                                            echo ' ,';
-                                        }
-                                        ?>
-                                        <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
-                                        <?php echo "$row->firstname $row->lastname"; ?>
-                                        <?php $count++ ?>
-                                    <?php endforeach; ?>
+                                <?php foreach ($caselawyers as $row): ?>
+                                    <?php
+                                    if ($count > 1) {
+                                        echo ' ,';
+                                    }
+                                    ?>
+                                    <img style="height: 20px" src="<?php echo base_url() . $row->image ?>">
+                                    <?php echo "$row->firstname $row->lastname"; ?>
+                                    <?php $count++ ?>
+                                <?php endforeach; ?>
 
                             </td>
                         </tr>
                         <tr>
                             <?php if ($case->status == 5) { ?>
-                            <th>Date Opened:</th>
-                            <td><?= date("F j, Y  h:i a", strtotime($case->dateReceived)) ?></td>
+                                <th>Date Opened:</th>
+                                <td><?= date("F j, Y  h:i a", strtotime($case->dateReceived)) ?></td>
                             <?php } else { ?>
                                 <th>Date Closed:</th>
                                 <td><?= date("F j, Y  h:i a", strtotime($case->dateClosed)) ?></td>
@@ -141,12 +141,12 @@
                             </tr>
                         </thead>   
                         <tbody>
-                                <?php foreach ($caseinterns as $row) : ?>
-                                    <tr>
-                                        <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></td>
-                                        <td><?php echo $row->firstname . " " . $row->lastname ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
+                            <?php foreach ($caseinterns as $row) : ?>
+                                <tr>
+                                    <td><img style="height: 20px" src="<?php echo base_url() . $row->image ?>"></td>
+                                    <td><?php echo $row->firstname . " " . $row->lastname ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

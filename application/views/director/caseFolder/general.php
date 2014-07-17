@@ -55,13 +55,9 @@
                         </tr>
                         <tr>
                             <th>Client's Stand:</th>
-                            <td><?php
-                                if ($case->status == 5) {
-                                    echo $casecloseclient[0]->typeName; 
-                                } else {
-                                    echo $caseclient[0]->typeName;
-                                }
-                                ?></td>
+                            <td>
+                                <?php echo $caseclient[0]->typeName; ?>
+                            </td>
                         </tr>
                         <tr>
                             <th>Supervising Lawyer:</th>
@@ -80,8 +76,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Date Opened:</th>
-                            <td><?= date("F j, Y  h:i a", strtotime($case->dateReceived)) ?></td>
+                            <?php if ($case->status == 5) { ?>
+                                <th>Date Closed:</th>
+                                <td><?= date("F j, Y  h:i a", strtotime($case->dateClosed)) ?></td>
+                            <?php } else { ?>
+                                <th>Date Opened:</th>
+                                <td><?= date("F j, Y  h:i a", strtotime($case->dateReceived)) ?></td>
+                            <?php } ?>
                         </tr>
                         <tr>
                             <th> Case Description:</th>

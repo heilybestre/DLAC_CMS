@@ -68,7 +68,7 @@
                                 </a>
                             <?php } ?>
 
-                            <?php if ($case->status != 6 && $case->status != 4 && $case->status != 3 && $case->status != 7 && $case->status != 8) { ?>
+                            <?php if ($case->status == 5) { ?>
                                 <a class ="btn btn-medium btn-info" style='margin-bottom: 10px' href="#applyToTransferModal2" data-toggle="modal">
                                     &nbsp;Apply to Reopen
                                 </a>
@@ -1095,7 +1095,9 @@
 
                                 <div class="col-sm-6 control-group">
                                     <div class="controls">
-                                        <h5></h5>
+                                        <h5>
+                                            <?php echo $case->closedecision; ?>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
