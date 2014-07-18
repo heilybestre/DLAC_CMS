@@ -188,13 +188,15 @@
                       <div id="actionPlan_stage1" class="actionPlan_stage1">
 
                         <div id="actionPlanOption-top">
-                          <h5>
-                            <b>Assigned to </b>
-                            <label class="label label-default">
-                              <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo); ?>
-                              <?php if ($action->assignedTo == null) echo 'None'; ?>
-                            </label>
-                          </h5>
+                          <?php if($action->category == 5) { ?>
+                            <h5>
+                              <b>Assigned to </b>
+                              <label class="label label-default">
+                                <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo) . ' ' . $this->People_model->getuserfield('lastname', $action->assignedTo); ?>
+                                <?php if ($action->assignedTo == null) echo 'None'; ?>
+                              </label>
+                            </h5>
+                          <?php } ?>
 
                           <h5><b>Type: </b>
                             <label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>">

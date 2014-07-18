@@ -116,18 +116,21 @@
                       <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
 
                         <div id="actionPlanOption-top">
-                          <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
-                            <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
-                            <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
-                          </div>
 
-                          <h5>
-                            <b>Assigned to </b>
-                            <label id="labelAssignPerson_<?= $action->actionplanID ?>" class="label label-default">
-                              <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo) . ' ' . $this->People_model->getuserfield('lastname', $action->assignedTo); ?>
-                              <?php if ($action->assignedTo == null) echo 'None'; ?>
-                            </label>
-                          </h5>
+                          <?php if ($action->category == 5) { ?>
+                            <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
+                              <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                              <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
+                            </div>
+
+                            <h5>
+                              <b>Assigned to </b>
+                              <label id="labelAssignPerson_<?= $action->actionplanID ?>" class="label label-default">
+                                <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo) . ' ' . $this->People_model->getuserfield('lastname', $action->assignedTo); ?>
+                                <?php if ($action->assignedTo == null) echo 'None'; ?>
+                              </label>
+                            </h5>
+                          <?php } ?>
 
                           <h5><b>Type: </b>
                             <label class="removeBold" id="actionTypeLabel_<?= $action->actionplanID ?>">
