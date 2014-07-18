@@ -3,7 +3,7 @@
     <!-- start: Content -->
 
     <div class="row">
-        
+
         <div class="col-lg-4">
             <div class="box">
                 <div class="box-header">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div><!--/col-->
-        
+
         <div class="col-lg-4">
             <div class="box">
                 <div class="box-header">
@@ -164,7 +164,12 @@
                         <tbody>
                             <?php foreach ($requests as $row): ?>
                                 <tr>
-                                    <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
+                                    <?php if ($row->status == 6) { ?>
+                                        <td class="center"><a href="archive/view/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
+                                    <?php } else { ?>
+                                        <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
+                                    <?php } ?>
+
                                     <td class="center"><?php echo $row->caseName ?></td>
                                     <td><?php echo $row->statusName ?></td>
                                 </tr>

@@ -26,7 +26,11 @@
                                     <td><a href="view/<?php echo $row->caseID ?>"> <?php echo $row->caseNum ?></a></td>
                                     <td><?php echo $row->caseName ?></td>
                                     <td class="center"><?php echo $row->appDateSubmitted ?></td>
-                                    <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
+                                    <?php if ($row->applyToReopenBy == NULL) { ?>
+                                        <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
+                                    <?php } else { ?>
+                                        <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
+                                    <?php } ?>
                                     <td class="center"><?php echo $row->statusName ?></td>
                                 </tr>
                             <?php endforeach; ?>

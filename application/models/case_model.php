@@ -491,6 +491,13 @@ class Case_model extends CI_Model {
         return $query->result();
     }
 
+    function return_case_people($cid, $data) {
+        $this->db->where('participation !=', 5);
+        $this->db->where('participation !=', 4);
+        $this->db->where('caseID', $cid);
+        $this->db->update('case_people', $data);
+    }
+
     //</editor-fold>
     //
     // <editor-fold defaultstate="collapsed" desc="REFERENCE ID">

@@ -70,13 +70,23 @@
                         <br>
                     <?php } ?>
 
-                    <?php if ($case->status == 6) { ?>
-                        <div class="row" style="background-color:#CCD5C8;" id="appliedForClosing">
-                            <h5 style="margin-left:15px;">This case was applied for re-opening. To view the details, click <a class ="" style='margin-bottom: 10px' href="#" data-toggle="modal" style="color:black;">here</a>. </h5>
-                        </div>
-                        <br>
+                    <?php if ($case->status == 5) { ?>
+                        <?php if ($case->strength == NULL && $case->weakness == NULL && $case->opportunity == NULL && $case->threat == NULL && $case->strategy == NULL) { ?>
+                            <div class="row" style="background-color:#EEA4A4;" id="forAssessment">
+                                <h5 style="margin-left:15px;">This case has been closed. Please assess it <a class ="" style='margin-bottom: 10px' href="#addAssessmentModal" data-toggle="modal" style="color:black;">here</a>. </h5>
+                            </div>
+                            <br>
+                        <?php } else { ?>
+                            <div class="row" style="background-color:#CCD5C8;" id="viewAssessment">
+                                <h5 style="margin-left:15px;">This case is closed. View assessment <a class ="" style='margin-bottom: 10px; color:black;' href="#viewAssessmentModal" data-toggle="modal">here</a>. </h5>
+                            </div>
+                            <br>
+                        <?php } ?>
                     <?php } ?>
 
+                    <br>
+
+                    <!-- start: Tab contents -->    
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane <?php if (!isset($_GET['tid'])) echo 'active'; ?>" id="general">
                             <?php $this->load->view('director/caseFolder/general'); ?>
@@ -103,6 +113,8 @@
                             <?php $this->load->view('director/caseFolder/research'); ?>
                         </div>
                     </div>
+                    <!-- end: Tab contents -->
+                        
                 </div>
             </div>
         </div><!--/col-->
