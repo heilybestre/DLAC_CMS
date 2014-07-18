@@ -52,14 +52,13 @@
                 </div>
                 <div class="box-content" id="boxcontent">
 
-                    <div class="row">
-                        <div class="pull-right">
-                            <a class ="btn btn-medium btn-info" style='margin-bottom: 10px' href="#" data-toggle="modal">
-                                &nbsp;Reopen&nbsp;
-                            </a>
-                            &nbsp;&nbsp;
+                    <br>
+                    <?php if ($case->status == 6) { ?>
+                        <div class="row" style="background-color:#CCD5C8;" id="appliedForReopening">
+                            <h5 style="margin-left:15px;">This case was applied for re-opening. To view the details, click <a class ="" style='margin-bottom: 10px' href="#viewApplyToReopenModal" data-toggle="modal" style="color:black;">here</a>. </h5>
                         </div>
-                    </div>
+                        <br>
+                    <?php } ?>
 
                     <?php if (!in_array($case->status, array('5', '6'))) { ?>
                         <?php if ($caseperson->condition == 'applytotransfer') { ?>
@@ -118,149 +117,288 @@
                 </div>
             </div>
         </div><!--/col-->
-
-
-        <!-- START OF VIEWASSESSMENTMODAL -->
-        <div class="row">
-            <div class="modal fade" id="viewAssessmentModal">
-                <div class="modal-dialog-assessment">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Case Assessment</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row">
-
-                                <div class="col-sm-5">
-
-                                    <div class="col-sm-3 control-group">
-                                        <div class="controls">
-                                            <center> <h5> <b> Case Title: </b></h5> </center>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-7 control-group">
-                                        <div class="controls">
-                                            <h5><?php echo $case->caseName ?></h5>
-                                        </div>
-                                    </div>
-
-                                    <br><br>
-
-                                    <div class="col-sm-3 control-group">
-                                        <div class="controls">
-                                            <center> <h5> <b>Offense: </b></h5> </center>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-7 control-group">
-                                        <div class="controls">
-                                            <h5>
-                                                <?php
-                                                $count = 1;
-                                                foreach ($caseoffense as $row) {
-                                                    if ($count > 1) {
-                                                        echo ', ';
-                                                    }
-                                                    echo $row->offenseName;
-                                                    $count++;
-                                                }
-                                                ?>
-                                            </h5>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-sm-5">
-
-                                    <div class="col-sm-4 control-group">
-                                        <div class="controls">
-                                            <center> <h5> <b>Client's Stand: </b></h5> </center>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 control-group">
-                                        <div class="controls">
-                                            <h5>
-                                                <?php echo $caseclient[0]->typeName ?>
-                                            </h5>
-                                        </div>
-                                    </div>
-
-                                    <br><br>
-
-                                    <div class="col-sm-4 control-group">
-                                        <div class="controls">
-                                            <center> <h5><b> Court's Verdict:</b> </h5> </center>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 control-group">
-                                        <div class="controls">
-                                            <h5>
-                                                <?php echo $case->closedecision; ?>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div style="overflow:scroll; height:400px; border-width:4px;">
-
-                                <table class="table table-striped table-bordered">
-                                    <tr>
-                                        <td>
-                                            <b>Strategy</b>
-                                            <br><br>
-                                            <p><?php echo $case->strategy ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Strengths</b>
-                                            <br><br>
-                                            <p><?php echo $case->strength ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Weaknesses</b>
-                                            <br><br>
-                                            <p><?php echo $case->weakness ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Opportunities</b>
-                                            <br><br>
-                                            <p><?php echo $case->opportunity ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Threats</b>
-                                            <br><br>
-                                            <p><?php echo $case->threat ?></p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-        </div>
-        <!-- END OF VIEWASSESSMENTMODAL -->
-
     </div>
+
+
+    <!-- START OF VIEWASSESSMENTMODAL -->
+    <div class="row">
+        <div class="modal fade" id="viewAssessmentModal">
+            <div class="modal-dialog-assessment">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Case Assessment</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-sm-5">
+
+                                <div class="col-sm-3 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b> Case Title: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5><?php echo $case->caseName ?></h5>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="col-sm-3 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b>Offense: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php
+                                            $count = 1;
+                                            foreach ($caseoffense as $row) {
+                                                if ($count > 1) {
+                                                    echo ', ';
+                                                }
+                                                echo $row->offenseName;
+                                                $count++;
+                                            }
+                                            ?>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-5">
+
+                                <div class="col-sm-4 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b>Client's Stand: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php echo $caseclient[0]->typeName ?>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="col-sm-4 control-group">
+                                    <div class="controls">
+                                        <center> <h5><b> Court's Verdict:</b> </h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php echo $case->closedecision; ?>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div style="overflow:scroll; height:400px; border-width:4px;">
+
+                            <table class="table table-striped table-bordered">
+                                <tr>
+                                    <td>
+                                        <b>Strategy</b>
+                                        <br><br>
+                                        <p><?php echo $case->strategy ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Strengths</b>
+                                        <br><br>
+                                        <p><?php echo $case->strength ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Weaknesses</b>
+                                        <br><br>
+                                        <p><?php echo $case->weakness ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Opportunities</b>
+                                        <br><br>
+                                        <p><?php echo $case->opportunity ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Threats</b>
+                                        <br><br>
+                                        <p><?php echo $case->threat ?></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- END OF VIEWASSESSMENTMODAL -->
+
+    <a class ="btn btn-medium btn-warning pull-right hide" style='margin-bottom: 10px' href="#viewApplyToReopenModal" data-toggle="modal">
+        &nbsp;View Reason for Reopening
+    </a>
+
+    <!-- START OF VIEWAPPLYTOREOPENMODAL -->
+    <div class="row">
+        <div class="modal fade" id="viewApplyToReopenModal">
+            <div class="modal-dialog-applyToReopen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">View Reason for Reopening</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-sm-5">
+
+                                <div class="col-sm-4 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b> Case Title: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5><?php echo $case->caseName ?></h5>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="col-sm-4 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b>Offense: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php
+                                            $count = 1;
+                                            foreach ($caseoffense as $row) {
+                                                if ($count > 1) {
+                                                    echo ', ';
+                                                }
+                                                echo $row->offenseName;
+                                                $count++;
+                                            }
+                                            ?>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-5">
+
+                                <div class="col-sm-5 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b>Client's Stand: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php echo $caseclient[0]->typeName ?>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="col-sm-5 control-group">
+                                    <div class="controls">
+                                        <center> <h5><b> Court's Verdict:</b> </h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5></h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br><br>
+
+                        <div class="row">
+
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5><b> Reason for Reopening:</b> </h5> </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-5 control-group">
+                                <div class="controls">
+                                    <center>
+                                        <h5>
+                                            <?php echo $case->reopenreason; ?>
+                                        </h5>
+                                    </center>
+                                </div>
+                            </div>
+
+                            <br><br>
+
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 control-group">
+                                <div class="controls">
+                                    <center> <h5></h5> </center>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <a href="<?php echo base_url() . "cases/caseReopen/$case->caseID" ?>" class="btn btn-success" data-dismiss="modal">Submit</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END OF APPLYTOREOPENMODAL -->
 </div>
 
 <!-- CASE FOLDER -->

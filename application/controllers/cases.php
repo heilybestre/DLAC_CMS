@@ -64,15 +64,24 @@ class Cases extends CI_Controller {
     }
 
     function caseReopen($cid) {
+        $uid = $this->session->userdata('userid');
+        $datestring = "%Y-%m-%d %H:%i:%s";
+        $time = now();
+        $datetimenow = mdate($datestring, $time);
 
-        $changes = array(
-            'status' => 1
+        $casechanges = array(
+            'status' => 2,
+            'appSubmittedby' => $uid,
+            'appDateSubmitted' => $datetimenow
+        );
+        $case_peoplechanges = array(
+            'condition' => 'current',
+            'datestart' => $datetimenow,
         );
 
-        $this->Case_model->change_casestatus($casenum, $changes);
-        $this->Case_model->delete_interns($casenum);
-        $this->Case_model->delete_lawyers($casenum);
-        redirect("director/openCase/$cid?ref=caseReopen");
+        $this->Case_model->update_case($cid, $casechanges);
+        $this->Case_model->return_case_people($cid, $case_peoplechanges);
+        redirect("application/view/$cid?ref=caseReopen");
     }
 
     function caseClose($cid) {
@@ -168,8 +177,8 @@ class Cases extends CI_Controller {
 
     function caseApplytoreopen($cid) {
         $uid = $this->session->userdata('userid');
-        $reason = $this->input->post('');
-        $notes = $this->input->post('');
+        $reason = $this->input->post('reasonForReopening');
+        $notes = $this->input->post('notes');
 
         $changes = array(
             'applyToReopenBy' => $uid,
@@ -182,7 +191,7 @@ class Cases extends CI_Controller {
         /* NOTIFICATION TABLE */
         // For Director
         $this->Notification_model->applytoreopen($uid, 1, $cid);
-        redirect("cases/caseFolder/$cid");
+        redirect("archive/view/$cid");
     }
 
     function caseApplytotransfer() {
