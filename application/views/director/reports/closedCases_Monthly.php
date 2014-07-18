@@ -32,7 +32,7 @@
                             ?>
                         </td>
                         <td><?php echo $row->caseName; ?></td>
-                        <td>(span)</td>
+                        <td><?php echo $row->lifespan . ' days'; ?></td>
                         <td>
                             <?php
                             $offenses = explode(",", $row->offense);

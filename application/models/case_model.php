@@ -535,7 +535,7 @@ class Case_model extends CI_Model {
     }
 
     function select_monthly_active_cases($month, $year) {
-        $query = $this->db->query("SELECT `case`.*, group_concat(distinct ' ', `case_offense`.`offenseID` separator ',') AS `offense`, `people`.* FROM `case` left join `case_people` ON ((`case_people`.`caseID` = `case`.`caseID`))
+        $query = $this->db->query("SELECT `case`.*, group_concat(distinct ' ', `case_offense`.`offenseID` separator ',') AS `offense`, `people`.*, (to_days(now()) - to_days(`case`.`appDateSubmitted`)) AS `lifespan` FROM `case` left join `case_people` ON ((`case_people`.`caseID` = `case`.`caseID`))
         left join `people` ON ((`people`.`personID` = `case_people`.`personID`))
         left join `case_offense` ON ((`case_offense`.`caseID` = `case`.`caseID`)) WHERE `people`.`type` = 4 AND (appDateSubmitted < '$year-$month-01 00:00:00' + INTERVAL 1 MONTH AND (dateClosed > '$year-$month-01 00:00:00') OR dateClosed IS NULL) OR (appDateSubmitted LIKE '$year-$month%') group by `case`.`caseID`");
         return $query->result();
