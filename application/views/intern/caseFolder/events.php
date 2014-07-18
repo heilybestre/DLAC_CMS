@@ -169,7 +169,7 @@
               <tbody>
                 <?php foreach ($thingstodo as $row): ?>
                   <tr>
-                    <td class="center"><a href="#taskDetailsModal" data-toggle="modal" class="btn btn-link" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
+                    <td class="center"><a href="#taskDetailsModal_<?= $row->taskID ?>" data-toggle="modal" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
                     </td>
                     <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
                     <td class="center">
@@ -564,5 +564,41 @@
     </div>
     <!-- END OF MODAL : DONE Task -->
 
+    <!-- START OF MODAL : Task Details -->
+    <?php foreach ($thingstodo as $row) { ?>
+      <div class="row">
+        <div class="modal fade" id="taskDetailsModal_<?= $row->taskID ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Task Details</h4>
+              </div>
+              <div class="modal-body">
+                <h5> <b>Task: </b> <?php echo $row->task ?></h5>
+                <h5> <b>Case Number: </b> <?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></h5>
+                <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
+                <?php if ($row->assignedBy != NULL) { ?>
+                  <h5> <b>Assigned by: </b> <?php
+                    if ($row->assignedBy == $this->session->userdata('userid')) {
+                      echo "Me";
+                    } else {
+                      echo $row->firstname . ' ' . $row->lastname;
+                    }
+                    ?>
+                  </h5>
+                <?php } ?>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="hidden" id="taskID" name="taskID" value="">
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </div>
+    <? } ?>
+    <!-- END OF MODAL :  Task Details--> 
+    
   </div>
 </div>

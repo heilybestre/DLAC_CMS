@@ -463,7 +463,8 @@ class Calendar extends CI_Controller {
         echo "<br>"
         . "<div class='col-sm-2'>Action plan: </div>"
         . "<div class='col-sm-5'>"
-        . "<select id='actionplanforminutes' name='actionplanforminutes' class='form-control'>";
+        . "<select id='actionplanforminutes' name='actionplanforminutes' class='form-control'>"
+        . "<option value='0'>None</option>";
         foreach ($actionplanforminutes as $action) {
             echo "<option value='$action->actionplanID'>$action->action</option>";
         }
