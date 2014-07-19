@@ -94,7 +94,7 @@
                 <tr id="actionTableRow_<?= $action->actionplanID ?>">
                   <td>
                     <?php if ($actionplanstatus == 'approved') { ?>
-                      <input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
+                      <input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null || $action->category != 1 || $action->category != 4) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
                     <?php } ?>
                   </td>
                   <td>
