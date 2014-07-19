@@ -1211,7 +1211,8 @@
         return $(this).get()[0].outerHTML;
       };
       var htmlSelect = $('#selectactionplanfordocument').toHtmlString();
-
+      
+      var datetoday = "<?php echo date("Y-m-d", now()); ?>";
 
       for (var i = 0; i < files.length; i++) {
 
@@ -1247,7 +1248,7 @@
                 + "<td class='col-sm-3'>"
                 + "<div class='input-group date col-sm-5'>"
                 + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_court' name='datereceivedCourt[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_court' name='datereceivedCourt[]' data-date-format='yyyy-mm-dd' value='" + datetoday + "'>"
                 + "</div>"
                 + "</td>"
                 + "</tr>"
