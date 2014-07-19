@@ -74,6 +74,7 @@ class People extends CI_Controller {
         $this->load->view('header');
         switch ($utype) {
             case 1 :
+                $data['cases'] = $this->Case_model->select_caseaccepted();
                 $this->load->view('director/menubar', $data);
                 $this->load->view('director/profile', $data);
                 break;
@@ -86,6 +87,7 @@ class People extends CI_Controller {
                 $this->load->view('secretary/profile', $data);
                 break;
             case 4 :
+                $data['cases'] = $this->Case_model->select_mycases($uid);
                 $this->load->view('lawyer/menubar', $data);
                 $this->load->view('lawyer/profile', $data);
                 break;
