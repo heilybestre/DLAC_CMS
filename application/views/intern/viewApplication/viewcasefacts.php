@@ -130,9 +130,9 @@
                     <?php $index = 0; ?>
                     <?php foreach ($opposinglist as $opposing) { ?>
                         <?php if ($index > 0) { ?>
-                            <h5> <?php echo ", $opposing->firstname $opposing->lastname" ?></h5>
-                        <?php } else { ?>
                             <h5> <?php echo "$opposing->firstname $opposing->lastname" ?></h5>
+                        <?php } else { ?>
+                            <h5> <?php echo "$opposing->firstname $opposing->lastname," ?></h5>
                         <?php } ?>
                         <?php $index++; ?>
                     <?php } ?>
