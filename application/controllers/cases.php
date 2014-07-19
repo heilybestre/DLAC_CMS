@@ -1084,6 +1084,10 @@ class Cases extends CI_Controller {
         $allactions = $this->Case_model->select_caseactions($cid);
         $withnotes = false;
 
+        $datestring = "%Y-%m-%d %H:%i:%s";
+        $time = now();
+        $datetimenow = mdate($datestring, $time);
+        
         foreach ($allactions as $action) {
             if (isset(${'actionnotes_name_' . $action->actionplanID})) {
                 for ($index = 0; $index < count(${'actionnotes_name_' . $action->actionplanID}); $index++) {
@@ -1091,7 +1095,7 @@ class Cases extends CI_Controller {
                         'actionplanID' => $action->actionplanID,
                         'note' => ${'actionnotes_message_' . $action->actionplanID}[$index],
                         'by' => ${'actionnotes_name_' . $action->actionplanID}[$index],
-                        'dateTime' => ${'actionnotes_date_' . $action->actionplanID}[$index]
+                        'dateTime' => $datetimenow
                     );
                     $this->Case_model->insert_actionplan_notes($actionnotes);
                 }
@@ -1101,9 +1105,6 @@ class Cases extends CI_Controller {
 
         $this->Case_model->update_case($cid, array('actionplanstatus' => 'approved'));
 
-        $datestring = "%Y-%m-%d %H:%i:%s";
-        $time = now();
-        $datetimenow = mdate($datestring, $time);
 
         $uid = $this->session->userdata('userid');
 
