@@ -1581,39 +1581,48 @@
       }
     });
   });
+  
   /* Adds opposing party */
-  $('#btnaddopposingparty').click(function() {
+  $('#formaddnewopposingparty').on('submit', function(e) {
+    e.preventDefault();
     $.ajax({
-      type: "POST",
-      url: "<?php echo base_url() ?>people/addexternal",
-      data: {use: 'opposingparty', lastname: $('#partyLastName').val(),
-        firstname: $('#partyFirstName').val(),
-        middlename: $('#partyMiddleName').val(),
-        addrhouse: $('#partyAddressHouseNo').val(),
-        addrstreet: $('#partyAddressStreet').val(),
-        addrtown: $('#partyAddressTown').val(),
-        addrdistrict: $('#partyAddressDistrict').val(),
-        addrpostalcode: $('#partyAddressPostalCode').val(),
-        contacthome: $('#partyCNHome').val(),
-        contactoffice: $('#partyCNOffice').val(),
-        contactmobile: $('#partyCNMobile').val()},
+      type: 'post',
+      url: "<?php echo base_url() ?>people/addnewopposingparty",
+      data: $('#formaddnewopposingparty').serialize(),
       success: function(result) {
-        $("#opposingpartydiv").html(result);
+        $('#opposingpartydiv').html(result);
+        $('#addOpposingModal1').modal('hide');
+        $("#createAppOpposingPartyList").chosen({max_selected_options: 5});
       }
     });
-    //Removes textfield values
-    $('#partyFirstName').val('');
-    $('#partyLastName').val('');
-    $('#partyMiddleName').val('');
-    $('#partyAddressHouseNo').val('');
-    $('#partyAddressStreet').val('');
-    $('#partyAddressTown').val('');
-    $('#partyAddressDistrict').val('');
-    $('#partyAddressPostalCode').val('');
-    $('#partyCNHome').val('');
-    $('#partyCNOffice').val('');
-    $('#partyCNMobile').val('');
-  });</script>
+  });
+
+  /* Auto select newly added client */
+  $('#formaddnewclient').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'post',
+      url: "<?php echo base_url() ?>people/addnewclient",
+      data: $('#formaddnewclient').serialize(),
+      success: function(result) {
+        $('#clientdiv').html(result);
+        $('#addClientModal1').modal('hide');
+        $("#createAppClientList").chosen({max_selected_options: 5});
+        $('.newclientfield').val('');
+      }
+    });
+
+    $.ajax({
+      type: 'post',
+      url: "<?php echo base_url() ?>people/changeopposing",
+      success: function(result) {
+        $('#opposingpartydiv').html(result);
+        $("#createAppOpposingPartyList").chosen({max_selected_options: 5});
+      }
+    });
+  });
+
+</script>
 
 
 <!-- JAVASCRIPT FUNCTIONS -->

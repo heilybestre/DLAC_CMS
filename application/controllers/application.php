@@ -431,6 +431,11 @@ class Application extends CI_Controller {
 
         $data['userphoto'] = $this->People_model->getuserfield('image', $uid);
 
+        $clients = array();
+        $opposingparties = array();
+        $this->session->set_userdata('clients', $clients);
+        $this->session->set_userdata('opposingparties', $opposingparties);
+        
         $this->load->view('header');
         $this->load->view('intern/menubar', $data);
         $this->load->view('intern/createApplication', $data);

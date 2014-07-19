@@ -164,10 +164,53 @@ class People extends CI_Controller {
         $this->add($data);
 
         $clientid = $this->db->insert_id();
-        $this->session->set_userdata('newclientid', $clientid);
 
-        redirect('application/createApplication');
+    $clients = $this->session->userdata('clients');
+    array_push($clients, $clientid);
+    $this->session->set_userdata('clients', $clients);
+
+    $data['clientlist'] = $this->People_model->externallist();
+    $data['addedclients'] = $this->session->userdata('clients');
+    $this->load->view('intern/createApplication/divclients', $data);
     }
+
+  function changeopposing() {
+    $data['addedclients'] = $this->session->userdata('clients');
+    $data['addedopposing'] = $this->session->userdata('opposingparties');
+    $data['opposingpartylist'] = $this->People_model->externallist();
+    $this->load->view('intern/createApplication/divopposingparty', $data);
+  }
+
+  function addnewopposingparty() {
+    extract($_POST);
+    $data = array(
+        'type' => 14, //14 = external
+        'lastname' => $partyLastName,
+        'firstname' => $partyFirstName,
+        'middlename' => $partyMiddleName,
+        'addrhouse' => $partyAddressHouseNo,
+        'addrstreet' => $partyAddressStreet,
+        'addrtown' => $partyAddressTown,
+        'addrdistrict' => $partyAddressDistrict,
+        'addrpostalcode' => $partyAddressPostalCode,
+        'contacthome' => $partyCNHome,
+        'contactoffice' => $partyCNOffice,
+        'contactmobile' => $partyCNMobile
+    );
+
+    $this->add($data);
+
+    $opposingID = $this->db->insert_id();
+
+    $opposingparties = $this->session->userdata('opposingparties');
+    array_push($opposingparties, $opposingID);
+    $this->session->set_userdata('opposingparties', $opposingparties);
+
+    $data['opposinglist'] = $this->People_model->externallist();
+    $data['addedopposing'] = $this->session->userdata('opposingparties');
+    $data['addedclients'] = $this->session->userdata('clients');
+    $this->load->view('intern/createApplication/divclients', $data);
+  }
 
     function addexternal() {
         $data = array(
