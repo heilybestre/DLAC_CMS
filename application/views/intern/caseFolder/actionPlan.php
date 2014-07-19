@@ -4,7 +4,8 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
   <label id='actionplanstatusforaction' class='hide'><?= $actionplanstatus ?></label>
-
+  <label id='currentstage' class='hide'><?= $case->stage ?></label>
+  
   <br>
   <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
@@ -133,7 +134,7 @@
               <?php foreach (${'actionplan_s' . $x} as $action) : ?>
                 <tr id="actionTableRow_<?= $action->actionplanID ?>">
                   <td>
-                    <input name='action1[]' class='cbactionstage1 <?php if ($actionplanstatus == null || $action->category != 1 || $action->category != 4) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
+                    <input name='action1[]' class='cbactionstage<?= $x ?> <?php if ($actionplanstatus == null || $action->category == 2 || $action->category == 3 || $action->category == 5 || $action->category == 6) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
                   </td>
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
