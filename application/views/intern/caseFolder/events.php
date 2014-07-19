@@ -597,7 +597,7 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
       </div>
-    <? } ?>
+    <?php } ?>
     <!-- END OF MODAL :  Task Details--> 
     
   </div>

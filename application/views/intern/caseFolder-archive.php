@@ -70,7 +70,7 @@
                 <?php } ?>
                 <?php if ($case->status == 6) { ?>
                     <div class="row" style="background-color:#CCD5C8;" id="appliedForReopening">
-                        <h5 style="margin-left:15px;">This case was applied for re-opening. To view the details, click <a class ="" style='margin-bottom: 10px' href="#" data-toggle="modal" style="color:black;">here</a>. </h5>
+                        <h5 style="margin-left:15px;">This case was applied for re-opening. To view the details, click <a class ="" style='margin-bottom: 10px' href="#viewApplyToReopenModal" data-toggle="modal" style="color:black;">here</a>. </h5>
                     </div>
                     <br>
                 <?php } ?>
@@ -527,5 +527,133 @@
         <?php echo form_close(); ?>
     </div><!-- /.modal -->
     <!-- END OF APPLYTOREOPENMODAL NA AYOS TALAGA-->
+
+    <!-- START OF VIEWAPPLYTOREOPENMODAL -->
+    <div class="row">
+        <div class="modal fade" id="viewApplyToReopenModal">
+            <div class="modal-dialog-applyToReopen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">View Reason for Reopening</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="col-sm-4 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b> Case Title: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5><?php echo $case->caseName ?></h5>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="col-sm-4 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b>Offense: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php
+                                            $count = 1;
+                                            foreach ($caseoffense as $row) {
+                                                if ($count > 1) {
+                                                    echo ', ';
+                                                }
+                                                echo $row->offenseName;
+                                                $count++;
+                                            }
+                                            ?>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-5">
+
+                                <div class="col-sm-5 control-group">
+                                    <div class="controls">
+                                        <center> <h5> <b>Client's Stand: </b></h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5>
+                                            <?php echo $caseclient[0]->typeName ?>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <br><br>
+
+                                <div class="col-sm-5 control-group">
+                                    <div class="controls">
+                                        <center> <h5><b> Court's Verdict:</b> </h5> </center>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7 control-group">
+                                    <div class="controls">
+                                        <h5><?php echo $case->closedecision; ?></h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br><br>
+
+                        <div class="row">
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+                                    <center> <h5><b> Reason for Reopening:</b> </h5> </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-5 control-group">
+                                <div class="controls">
+                                    <center>
+                                        <h5>
+                                            <?php echo $case->reopenreason; ?>
+                                        </h5>
+                                    </center>
+                                </div>
+                            </div>
+
+                            <br><br>
+
+                            <div class="col-sm-4 control-group">
+                                <div class="controls">
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 control-group">
+                                <div class="controls">
+                                    <center> <h5></h5> </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END OF APPLYTOREOPENMODAL -->
 </div>
 <!-- CASE FOLDER -->

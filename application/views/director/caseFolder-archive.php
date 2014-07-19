@@ -344,7 +344,7 @@
 
                                 <div class="col-sm-7 control-group">
                                     <div class="controls">
-                                        <h5></h5>
+                                        <h5><?php echo $case->closedecision; ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -391,7 +391,7 @@
 
 
                     <div class="modal-footer">
-                        <a href="<?php echo base_url() . "cases/caseReopen/$case->caseID" ?>" class="btn btn-success" data-dismiss="modal">Submit</a>
+                        <a href="<?php echo base_url() . "cases/caseReopen/$case->caseID" ?>" class="btn btn-success">Reopen</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
