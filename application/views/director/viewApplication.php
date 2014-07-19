@@ -88,7 +88,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="alert alert-warning">
+                    <div class="alert alert-warning" style='height:100px'>
                         <h5><b>Title:</b> <?php echo $case->caseName ?></h5>
                         <h5><b>Current Stage:</b> <?php echo $case->stageName ?></h5>
                         <h5><b>Offense:</b>
@@ -98,8 +98,6 @@
                             <?php endforeach; ?>
                         </h5>
                     </div>
-
-                    <br>
 
                     <div class="row">
 
@@ -185,7 +183,6 @@
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                 </div>
                 <?php echo form_close() ?>
-
             </div>
         </div>
     </div>

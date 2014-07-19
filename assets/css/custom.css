@@ -164,7 +164,7 @@
 }
 
 .modal-dialog-assign {
-  width: 1000px; /* SET THE WIDTH OF THE MODAL */
+  width: 1250px; /* SET THE WIDTH OF THE MODAL */
   margin: 0 auto; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
 }
 
