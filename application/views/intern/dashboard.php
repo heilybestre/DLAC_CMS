@@ -168,27 +168,43 @@
                             </tr>
                         </thead>   
                         <tbody>
-                            <?php foreach ($appointments as $row): ?>
+                            <?php foreach ($IDevents as $event): ?>
                                 <tr>
-                                    <td class="center"><?php echo date('h:i a', strtotime($row->start)) . '-' . date('h:i a', strtotime($row->end)) ?></td>
-                                    <td class="center">
-                            <tabletitle><?php echo $row->title ?></tabletitle><br>
-                            <tabledesc>
-                                <?php
-                                $attendees = $this->Calendar_model->select_attendees($row->scheduleID);
-                                $count = 0;
-                                foreach ($attendees as $attendee) {
-                                    if ($count != 0)
-                                        echo ', ' . $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
-                                    else
-                                        echo $this->People_model->getuserfield('firstname', $attendee->userID) . ' ' . $this->People_model->getuserfield('lastname', $attendee->userID);
-                                    $count++;
-                                }
-                                ?>
-                            </tabledesc>
-                            </td>
-                        <?php endforeach; ?>
-                        </tr>
+                                    <td>
+                                        <?php
+                                        $date = DateTime::createFromFormat("Y-m-d", $event->date);
+                                        echo $date->format("M d, Y");
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $event->title; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <?php foreach ($IDtasks as $task): ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $task->dateDue; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $task->task; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <?php foreach ($IDdocuments as $document): ?>
+                                <tr>
+                                    <td>
+                                        <?php
+                                        $date = DateTime::createFromFormat("Y-m-d H:i:s", $document->datereceived);
+                                        date_add($date,date_interval_create_from_date_string("14 days"));
+                                        echo $date->format("M d, Y");
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $document->file_name; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>    
                 </div>

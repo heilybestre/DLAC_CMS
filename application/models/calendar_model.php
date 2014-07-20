@@ -13,7 +13,7 @@ class Calendar_model extends CI_Model {
         $query = $this->db->query("SELECT *
 			FROM `schedule`
 			JOIN schedule_attendee ON `schedule`.scheduleID = schedule_attendee.scheduleID
-			WHERE userID = $uid");
+			WHERE `date` > CURDATE() AND userID = $uid");
         return $query->result();
     }
 

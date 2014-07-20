@@ -66,7 +66,10 @@ class Dashboard extends CI_Controller {
                 $data['cases'] = $this->Case_model->select_mycaseaccepted($uid);
                 $data['thingstodo'] = $this->Task_model->select_mytask($uid);
                 $data['person'] = $this->People_model->select_person($uid);
-                
+                $data['IDevents'] = $this->Calendar_model->select_userschedule($uid);
+                $data['IDtasks'] = $this->Task_model->select_mytask($uid);
+                $data['IDdocuments'] = $this->Case_model->select_duedocuments($uid);
+
                 $this->load->view('intern/menubar', $data);
                 $this->load->view('intern/dashboard', $data);
                 break;

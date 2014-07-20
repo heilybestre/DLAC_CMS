@@ -448,6 +448,11 @@ class Case_model extends CI_Model {
         $this->db->update('legaldocument', $changes);
     }
 
+    function select_duedocuments($pid) { // NO COLUMNS FOR DUE DATE. temporary due date is 14 days from date received 
+        $query = $this->db->query("SELECT `legaldocument`.*, `case`.`caseNum` FROM `legaldocument` JOIN `case_people` ON `case_people`.`caseID` = `legaldocument`.`caseID` JOIN `case` ON `case`.`caseID` = `case_people`.`caseID`WHERE `case_people`.`personID` = $pid AND dateissued > 0 AND CURDATE() <= ADDDATE(date(legaldocument.datereceived) , 14)");
+        return $query->result();
+    }
+
     //</editor-fold>
     //
     // <editor-fold defaultstate="collapsed" desc="OFFENSE">
