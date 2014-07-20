@@ -229,7 +229,8 @@
         $("#dashboard-importantdates").dataTable({
             "sDom": 'tipr',
             "iDisplayLength": 4,
-            "bDestroy": true
+            "bDestroy": true,
+            "aaSorting": [[0, "desc"]]
         });
         $("#dashboard-tasks").dataTable({
             "sDom": 'tipr',
