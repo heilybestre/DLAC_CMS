@@ -21,7 +21,7 @@
         right: 'month,agendaWeek,agendaDay'
       },
       //Shows appoinments
-      events: "<?php echo base_url() ?>calendar/userschedules/" + <?php echo $this->session->userdata('userid') ?>,
+      events: "<?php echo base_url() ?>calendar/caseevents/" + <?php echo $case->caseID ?>,
       selectable: true,
       selectHelper: true,
       //Shows Add Appointment modal
@@ -52,20 +52,11 @@
           var fullCalendarEnd = $.fullCalendar.formatDate(fullCalendarEnd_FC, "yyyy-MM-dd HH:mm");
 
         });
-        //
+
       },
       editable: true,
               eventClick: function(calEvent, jsEvent, view) {
                 $('#viewAppointmentModal').modal('show');
-                $('#editapptdiv').addClass('hide');
-                $('#deleteapptdiv').addClass('hide');
-                $('#cantattendapptdiv').addClass('hide');
-                $('#doneapptdiv').addClass('hide');
-
-                $('#actionEventsDiv').removeClass('hide');
-                $('#actionEventTopDiv').removeClass('hide');
-                $('#viewapptdiv').removeClass('hide');
-
 
                 //For view div
                 $.ajax({
@@ -79,7 +70,7 @@
                 //For done div
                 $.ajax({
                   type: "POST",
-                  url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/calendar',
+                  url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/cases',
                   success: function(result) {
                     $('#doneapptdiv').html(result);
                   }
@@ -97,7 +88,7 @@
                 //For cant attend div
                 $.ajax({
                   type: "POST",
-                  url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/calendar',
+                  url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/cases',
                   success: function(result) {
                     $('#cantattendapptdiv').html(result);
                   }
@@ -188,7 +179,6 @@
           </div>
         </div>
       </div>
-
 
     </div>
     <!-- end: CALENDAR DIV -->
@@ -380,9 +370,8 @@
             </div>
 
             <div class="modal-footer">
-              <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
+              <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
