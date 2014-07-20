@@ -167,19 +167,28 @@
                         </div>
                         <div class="modal-body">
                             <h5> <b>Task: </b> <?php echo $row->task ?></h5>
-                            <h5> <b>Case Number: </b> <?php
+                            <h5> <b>Case Number: </b>
+                                <?php
                                 if ($row->caseID != NULL) {
                                     echo $this->Case_model->select_case($row->caseID)->caseNum;
                                 }
-                                ?></h5>
+                                ?>
+                            </h5>
+                            <h5>
+                                <b>Case Title: </b>
+                                <?php echo $this->Case_model->select_case($row->caseID)->caseName; ?>
+                            </h5>
                             <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
-                            <h5> <b>Assigned by: </b> <?php
-                                if ($row->assignedBy == $this->session->userdata('userid')) {
-                                    echo "Me";
-                                } else {
-                                    echo $row->firstname . ' ' . $row->lastname;
-                                }
-                                ?></h5>
+                            <?php if ($row->assignedBy != NULL) { ?>
+                                <h5> <b>Assigned by: </b> <?php
+                                    if ($row->assignedBy == $this->session->userdata('userid')) {
+                                        echo "Me";
+                                    } else {
+                                        echo $row->bfirstname . ' ' . $row->blastname;
+                                    }
+                                    ?>
+                                </h5>
+                            <?php } ?>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -245,13 +254,13 @@
                         </tr>
                     </thead>   
                     <tbody>
-<?php foreach ($drafts as $row): ?>
+                        <?php foreach ($drafts as $row): ?>
                             <tr>
                                 <td class="center"><?php echo $row->caseNum ?></td>
                                 <td class="center"><?php echo $row->file_name ?></td>
                                 <td class="center"><?php echo $row->status ?></td>
                             </tr>
-<?php endforeach; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
                 <br>   
@@ -281,7 +290,7 @@
                             </tr>
                         </thead>   
                         <tbody>
-<?php foreach ($cases as $row) : ?>
+                            <?php foreach ($cases as $row) : ?>
                                 <tr>
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
@@ -289,7 +298,7 @@
                                     <td class="center"><?php echo $row->offense ?></td>
                                     <td class="center"><?php echo "$row->firstname $row->lastname" ?></td>
                                 </tr>
-<?php endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>  
                 </div>
@@ -323,7 +332,7 @@
 
     <!-- START OF MODAL : EDIT Appointment -->
     <div class="row">
-<?php echo form_open(base_url() . 'lawyer/editAppointment', array('class' => 'form-horizontal')); ?>
+        <?php echo form_open(base_url() . 'lawyer/editAppointment', array('class' => 'form-horizontal')); ?>
 
         <div class="modal fade" id="editAppointmentModal">
             <div class="modal-dialog">
@@ -341,7 +350,7 @@
 
                         <div class="col-sm-7 control-group">
                             <div class="controls">
-<?php echo form_input(array('class' => 'form-control')); ?>
+                                <?php echo form_input(array('class' => 'form-control')); ?>
                             </div>
                         </div>
 
@@ -355,7 +364,7 @@
 
                         <div class="col-sm-7 control-group">
                             <div class="controls">
-<?php echo form_input(array('class' => 'form-control', 'name' => 'editappt_title')); ?>
+                                <?php echo form_input(array('class' => 'form-control', 'name' => 'editappt_title')); ?>
                             </div>
                         </div>
 
@@ -415,7 +424,7 @@
                                     </label>
                                 </div>
                                 <br>
-<?php echo form_input(array('class' => 'form-control', 'name' => 'editappt_place', 'placeholder' => 'Exact Location')); ?>
+                                <?php echo form_input(array('class' => 'form-control', 'name' => 'editappt_place', 'placeholder' => 'Exact Location')); ?>
                             </div>
                         </div>
 
@@ -464,12 +473,12 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Save Changes'); ?>
+                        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Save Changes'); ?>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-<?php echo form_close(); ?>
+        <?php echo form_close(); ?>
     </div>
     <!-- END OF MODAL : EDIT Appointment -->
 

@@ -1132,6 +1132,22 @@ class Calendar extends CI_Controller {
         echo '</table>';
     }
 
+    function change_client($cid) {
+        $caseclient = $this->Case_model->select_caseclient($cid);
+
+        $index = 0;
+        echo '<h5>';
+        foreach ($caseclient as $client) {
+            if ($index > 0) {
+                echo ", $client->firstname $client->lastname";
+            } else {
+                echo "$client->firstname $client->lastname";
+            }
+            $index++;
+        }
+        echo '</h5>';
+    }
+
     function send_sms($sender, $numbers, $message) {
         // Authorisation details.
         $username = "lewin_gaw@yahoo.com";

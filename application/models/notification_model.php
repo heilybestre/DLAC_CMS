@@ -83,7 +83,7 @@ class Notification_model extends CI_Model {
             'dateTime' => $datetimenow,
             'category' => 'case',
             'destination' => 'cases/caseFolder/' . $caseid . '?tid=actionplan'
-        );
+        );  
 
         $this->db->insert('notification', $data);
     }
@@ -240,7 +240,7 @@ class Notification_model extends CI_Model {
             'status' => 0,
             'dateTime' => $datetimenow,
             'category' => 'case',
-            'destination' => "cases/caseFolder/$caseid"
+            'destination' => "archive/view/$caseid"
         );
 
         $this->db->insert('notification', $data);

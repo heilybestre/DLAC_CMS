@@ -255,14 +255,24 @@
                             </div>
                             <div class="modal-body">
                                 <h5> <b>Task: </b> <?php echo $row->task ?></h5>
-                                <h5> <b>Case Number: </b> <?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></h5>
+                                <h5> <b>Case Number: </b>
+                                    <?php
+                                    if ($row->caseID != NULL) {
+                                        echo $this->Case_model->select_case($row->caseID)->caseNum;
+                                    }
+                                    ?>
+                                </h5>
+                                <h5>
+                                    <b>Case Title: </b>
+                                    <?php echo $this->Case_model->select_case($row->caseID)->caseName; ?>
+                                </h5>
                                 <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
                                 <?php if ($row->assignedBy != NULL) { ?>
                                     <h5> <b>Assigned by: </b> <?php
                                         if ($row->assignedBy == $this->session->userdata('userid')) {
                                             echo "Me";
                                         } else {
-                                            echo $row->firstname . ' ' . $row->lastname;
+                                            echo $row->bfirstname . ' ' . $row->blastname;
                                         }
                                         ?>
                                     </h5>
@@ -306,7 +316,12 @@
                                 <tr>
                                     <td class="center"><a href="cases/caseFolder/<?php echo $row->caseID ?>"><?php echo $row->caseNum ?></a></td>
                                     <td class="center"><?php echo $row->caseName ?></td>
-                                    <td><?php echo $row->dateReceived ?></td>
+                                    <td>
+                                        <?php
+                                        $date = DateTime::createFromFormat("Y-m-d H:i:s", $row->dateReceived);
+                                        echo $date->format("F d, Y");
+                                        ?>
+                                    </td>
                                     <td>
                                         <?php
                                         $offenses = explode(",", $row->offense);

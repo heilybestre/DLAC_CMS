@@ -135,7 +135,7 @@ class Report extends CI_Controller {
         // 
 
         $data['case'] = $this->Case_model->select_monthly_active_cases($month, $year);
-        $data['count'] = $this->Case_model->count_monthly_accepted_cases($month, $year);
+        $data['count'] = $this->Case_model->count_monthly_active_cases($month, $year);
         $html = $this->load->view('director/reports/activeCases_Monthly', $data, true);
 
         $pdf->WriteHTML($html, 1);
