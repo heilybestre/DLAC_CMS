@@ -1451,7 +1451,7 @@ class Cases extends CI_Controller {
             'summary' => $summary
         );
 
-        $this->Case_model->update_task($tid, $changes);
+        $this->Task_model->update_task($tid, $changes);
         redirect("dashboard");
     }
 

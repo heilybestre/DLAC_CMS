@@ -9,7 +9,7 @@ class Task_model extends CI_Model {
     }
 
     function select_mytask($uid) {
-        $query = $this->db->query("SELECT * FROM tasks WHERE assignedTo = $uid AND CURDATE() <= `dateDue`");
+        $query = $this->db->query("SELECT * FROM task WHERE assignedTo = $uid AND CURDATE() <= `dateDue`");
         return $query->result();
     }
 
@@ -32,8 +32,8 @@ class Task_model extends CI_Model {
         $this->db->insert('task', $data);
     }
 
-    function update_task($tid) {
-        $this->db->where('taskID', $tid);
+    function update_task($tid, $changes) {
+        $this->db->where('taskID', 3);
         $this->db->update('task', $changes);
     }
 
