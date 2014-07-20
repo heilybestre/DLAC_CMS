@@ -240,8 +240,8 @@
                             </div>
 
                             <div class="col-sm-7 control-group">
-                                <div class="controls">
-                                    <h5>'Client Name'</h5> </center>
+                                <div class="controls" id="appointclients">
+                                    
                                 </div>
                             </div>
                             

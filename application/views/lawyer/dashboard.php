@@ -167,17 +167,18 @@
                         </div>
                         <div class="modal-body">
                             <h5> <b>Task: </b> <?php echo $row->task ?></h5>
-                            <h5> <b>Case Number: </b>
-                                <?php
-                                if ($row->caseID != NULL) {
-                                    echo $this->Case_model->select_case($row->caseID)->caseNum;
-                                }
-                                ?>
-                            </h5>
-                            <h5>
-                                <b>Case Title: </b>
-                                <?php echo $this->Case_model->select_case($row->caseID)->caseName; ?>
-                            </h5>
+                            <?php if ($row->caseID != NULL) { ?>
+                                <h5>
+                                    <b>Case Number: </b>
+                                    <?php echo $this->Case_model->select_case($row->caseID)->caseNum; ?>
+                                </h5>
+                            <?php } ?>
+                            <?php if ($row->caseID != NULL) { ?>
+                                <h5>
+                                    <b>Case Title: </b>
+                                    <?php echo $this->Case_model->select_case($row->caseID)->caseName; ?>
+                                </h5>
+                            <?php } ?>
                             <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
                             <?php if ($row->assignedBy != NULL) { ?>
                                 <h5> <b>Assigned by: </b> <?php
@@ -213,11 +214,11 @@
                         </div>
                         <div class="modal-body">
                             <h5> <b>Task: </b> <?php echo $row->task ?></h5>
-                            <h5> <b>Case Number: </b> <?php
-                                if ($row->caseID != NULL) {
-                                    echo $this->Case_model->select_case($row->caseID)->caseNum;
-                                }
-                                ?></h5>
+                            <?php if ($row->caseID != NULL) { ?>
+                                <h5> <b>Case Number: </b>
+                                    <?php echo $this->Case_model->select_case($row->caseID)->caseNum; ?>
+                                </h5>
+                            <?php } ?>
                             <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
                             <h5> <b>Assigned by: </b> <?php echo "$row->tfirstname $row->tlastname" ?></h5>
                         </div>

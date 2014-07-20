@@ -1258,6 +1258,16 @@
                         + "</tr>"
 
                         + "<tr>"
+                        + "<td>Date Issued:</td>"
+                        + "<td class='col-sm-3'>"
+                        + "<div class='input-group date col-sm-5'>"
+                        + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                        + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_court' name='dateissuedCourt[]' data-date-format='yyyy-mm-dd' value='" + datetoday + "'>"
+                        + "</div>"
+                        + "</td>"
+                        + "</tr>"
+                
+                        + "<tr>"
                         + "<td>Date Received:</td>"
                         + "<td class='col-sm-3'>"
                         + "<div class='input-group date col-sm-5'>"

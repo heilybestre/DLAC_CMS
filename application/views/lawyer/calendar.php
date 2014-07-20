@@ -57,15 +57,15 @@
             editable: true,
                     eventClick: function(calEvent, jsEvent, view) {
                         $('#viewAppointmentModal').modal('show');
-                            $('#editapptdiv').addClass('hide');
-                            $('#deleteapptdiv').addClass('hide');
-                            $('#cantattendapptdiv').addClass('hide');
-                            $('#doneapptdiv').addClass('hide');
+                        $('#editapptdiv').addClass('hide');
+                        $('#deleteapptdiv').addClass('hide');
+                        $('#cantattendapptdiv').addClass('hide');
+                        $('#doneapptdiv').addClass('hide');
 
-                            $('#actionEventsDiv').removeClass('hide');
-                            $('#actionEventTopDiv').removeClass('hide');
-                            $('#viewapptdiv').removeClass('hide');
-                            
+                        $('#actionEventsDiv').removeClass('hide');
+                        $('#actionEventTopDiv').removeClass('hide');
+                        $('#viewapptdiv').removeClass('hide');
+
 
                         //For view div
                         $.ajax({
@@ -238,7 +238,7 @@
                             </div>
 
                             <br><br>
-                            
+
                             <div class="col-sm-3 control-group">
                                 <div class="controls">
                                     <center> <h5> <b>Client Name</b> </h5> </center>
@@ -246,11 +246,11 @@
                             </div>
 
                             <div class="col-sm-7 control-group">
-                                <div class="controls">
-                                    <h5>'Client Name'</h5> </center>
+                                <div class="controls" id="appointclients">
+                                    
                                 </div>
                             </div>
-                            
+
                             <br><br><br>
 
                             <div class="col-sm-3 control-group">
@@ -388,23 +388,23 @@
                                 </div>
                             </div>
                             <br><br><br><br><br><br><br><br>
-                            
-                            <div class="col-sm-3 control-group">
-                <div class="controls">
-                    <center> <h5> <b>Action plan </b></h5> </center>
-                </div>
-              </div>
 
-              <div class="col-sm-7 control-group">
-                <div class="controls">
-                  <select id="actionplanforevent" name="actionplanforevent" class="form-control">
-                    <?php foreach($actionplanforevent as $action) : ?>
-                    <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-              </div>
-              <br>
+                            <div class="col-sm-3 control-group">
+                                <div class="controls">
+                                    <center> <h5> <b>Action plan </b></h5> </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 control-group">
+                                <div class="controls">
+                                    <select id="actionplanforevent" name="actionplanforevent" class="form-control">
+                                        <?php foreach ($actionplanforevent as $action) : ?>
+                                            <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
                         </div>
 
                         <div class="modal-footer">
@@ -426,10 +426,10 @@
                         <div class="modal-header">
                             <button type="button" class="close btnapptclose" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Appointment
-                            <label id="actionEventTopDiv">
-                                <a id="btneditapptshow"><i class="icon-pencil"></i></a>
-                                <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
-                            </label>
+                                <label id="actionEventTopDiv">
+                                    <a id="btneditapptshow"><i class="icon-pencil"></i></a>
+                                    <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
+                                </label>
                             </h4>
                         </div>
 
@@ -480,26 +480,31 @@
             <div class="modal fade" id="addTaskModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <?php echo form_open(base_url() . 'cases/addTask', array('class' => 'form-horizontal')); ?>
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Add New Task</h4>
                         </div>
                         <div class="modal-body">
-                            
+
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
                                     <center> <h5> <b> Case Title </b></h5> </center>
                                 </div>
-                              </div>
+                            </div>
 
-                              <div class="col-sm-7 control-group">
+                            <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                    <select class="form-control">
-                                        <option>Option 1</option>
+                                    <select id="newtask_case" name="newtask_case" class="form-control"> 
+                                        <option value="">NONE</option>
+                                        <?php
+                                        foreach ($allcases as $dd)
+                                            echo "<option value='" . $dd->caseID . "'>" . $dd->caseName . ' (' . $dd->caseNum . ") </option>";
+                                        ?>
                                     </select>
                                 </div>
-                              </div>
-                            
+                            </div>
+
                             <br><br>
 
                             <div class="col-sm-4 control-group">
@@ -510,12 +515,12 @@
 
                             <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                    <?php echo form_input(array('class' => 'form-control')); ?>
+                                    <?php echo form_input(array('class' => 'form-control', 'name' => 'task')); ?>
                                 </div>
                             </div>
 
                             <br><br>
-                            
+
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
                                     <center> <h5> <b>Notes </b></h5> </center>
@@ -524,11 +529,11 @@
 
                             <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                  <?php echo form_textarea(array('style' => 'height: 80px', 'name' => 'notes', 'type' => 'text', 'class' => 'form-control')); ?>
+                                    <?php echo form_textarea(array('style' => 'height: 80px', 'name' => 'notes', 'type' => 'text', 'class' => 'form-control')); ?>
                                 </div>
-                              </div>
+                            </div>
 
-                              <br><br><br><br><br>
+                            <br><br><br><br><br>
 
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
@@ -546,60 +551,65 @@
                             </div>
 
                             <br><br>
-                            
+
                             <div class="col-sm-4 control-group">
                                 <div class="controls">
-                                  <center> <h5><b> Assign To </b></h5> </center>
+                                    <center> <h5><b> Assign To </b></h5> </center>
                                 </div>
-                              </div>
+                            </div>
 
-                              <div class="col-sm-7 control-group">
+                            <div class="col-sm-7 control-group">
                                 <div class="controls">
-                                    <select class='form-control'>
-                                        <option>Self (Lawyer)</option>
-                                        <option>Intern 1</option>
+                                    <select class='form-control' id='newtask_intern'>
+                                        <option value='<?php echo $this->session->userdata('userid'); ?>'>Self (Lawyer)</option>
+                                        <?php //if selection of case is NULL or not?>
+                                        <?php foreach ($allinterns as $intern) : ?>
+                                            <option value='<?php echo $intern->personID ?>'><?php echo "$intern->firstname $intern->lastname"; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
-                              </div>
+                            </div>
 
                             <br>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success">Add Task</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            
+                        <div class = "modal-footer">
+                            <input type = "submit" class = "btn btn-success" value='Add Task'>
+                            <button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
+
                         </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                        <?php echo form_close(); ?>
+                    </div><!--/.modal-content -->
+                </div><!--/.modal-dialog -->
+            </div><!--/.modal -->
 
         </div>
-        <!-- END OF MODAL : ADD Task -->
+        <!--END OF MODAL : ADD Task -->
 
-        <!-- START OF MODAL : DONE Task -->
-        <div class="row">
+        <!--START OF MODAL : DONE Task -->
+        <div class = "row">
 
-            <div class="modal fade" id="doneTaskModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Task</h4>
+            <div class = "modal fade" id = "doneTaskModal">
+                <div class = "modal-dialog">
+                    <div class = "modal-content">
+                        <div class = "modal-header">
+                            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">&times;
+                            </button>
+                            <h4 class = "modal-title">Task</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class = "modal-body">
                             <p>Are you sure this task has been done?</p>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success">Yes</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            
+                        <div class = "modal-footer">
+                            <button type = "button" class = "btn btn-success">Yes</button>
+                            <button type = "button" class = "btn btn-default" data-dismiss = "modal">No</button>
+
                         </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                    </div><!--/.modal-content -->
+                </div><!--/.modal-dialog -->
+            </div><!--/.modal -->
 
         </div>
-        <!-- END OF MODAL : DONE Task -->
+        <!--END OF MODAL : DONE Task -->
 
     </div>
 </div>

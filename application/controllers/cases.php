@@ -883,6 +883,7 @@ class Cases extends CI_Controller {
 
             $docnamecourt = $_POST['docnameCourt'];
             $datereceivedcourt = $_POST['datereceivedCourt'];
+            $dateissuedcourt = $_POST['dateissuedCourt'];
             $selectactionplanfordocument = $_POST['selectactionplanfordocument'];
             $doctitlecourt = $_POST['doctitleCourt'];
             $addnewdocdeadline = $_POST['addNewDocDeadline'];
@@ -895,6 +896,7 @@ class Cases extends CI_Controller {
                     'doctype' => 4,
                     'stage' => $sid,
                     'dateReceived' => $datereceivedcourt[$count],
+                    'dateIssued' => $dateissuedcourt[$count],
                     'file_type' => $file['file_type'],
                     'file_path' => $file['full_path'],
                     'file_name' => $docnamecourt[$count],
@@ -1087,7 +1089,7 @@ class Cases extends CI_Controller {
         $datestring = "%Y-%m-%d %H:%i:%s";
         $time = now();
         $datetimenow = mdate($datestring, $time);
-        
+
         foreach ($allactions as $action) {
             if (isset(${'actionnotes_name_' . $action->actionplanID})) {
                 for ($index = 0; $index < count(${'actionnotes_name_' . $action->actionplanID}); $index++) {
@@ -1408,26 +1410,30 @@ class Cases extends CI_Controller {
         redirect("cases/caseFolder/$cid?tid=events");
     }
 
-    function addTask($cid) {
+    function addTask() {
         extract($_POST);
 
         $datestring = "%Y-%m-%d %H:%i:%s";
         $time = now();
         $datetimenow = mdate($datestring, $time);
 
-        foreach ($assignedTo as $intern) {
-            $changes = array(
-                'caseID' => $cid,
-                'task' => $task,
-                'assignedBy' => $assignedBy,
-                'assignedTo' => $intern,
-                'dateAssigned' => $datetimenow,
-                'notes' => $notes,
-                'dateDue' => $taskduedate
-            );
 
-            $this->Case_model->insert_task($changes);
+        if ($newtask_case == 0) {
+            $newtask_case = NULL;
         }
+        $changes = array(
+            'caseID' => $newtask_case,
+            'task' => $task,
+            'assignedBy' => $assignedBy,
+            'assignedTo' => $intern,
+            'dateAssigned' => $datetimenow,
+            'dateDue' => $taskduedate,
+            'notes' => $notes,
+            'dateDue' => $taskduedate
+        );
+
+        $this->Case_model->insert_task($changes);
+
 
         redirect("cases/caseFolder/$cid?tid=events");
     }
