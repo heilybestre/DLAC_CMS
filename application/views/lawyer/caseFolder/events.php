@@ -52,7 +52,7 @@
           var fullCalendarEnd = $.fullCalendar.formatDate(fullCalendarEnd_FC, "yyyy-MM-dd HH:mm");
 
         });
-
+        //
       },
       editable: true,
               eventClick: function(calEvent, jsEvent, view) {
@@ -138,9 +138,9 @@
             <div id='calendar' style="margin:1px;"></div>
           </div>
         </div>
-      </div>
+       </div>
 
-      <div class="col-lg-5">
+        <div class="col-lg-5">
         <div class="box">
           <div class="box-header">
             <h2><i class="icon-check"></i>Things To-Do</h2>
@@ -150,35 +150,36 @@
           </div>
           <div class="box-content">
             <table class="table table-striped table-bordered datatable">
-              <thead>
-                <tr>
-                  <th>Task</th>
-                  <th>Case Number</th>
-                  <th></th>
-                </tr>
-              </thead>   
-              <tbody>
-                <?php foreach ($thingstodo as $row): ?>
-                  <tr>
-                    <td class="center"><a href="#taskDetailsModal_<?= $row->taskID ?>" data-toggle="modal" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
-                    </td>
-                    <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
-                    <td class="center">
-                      <?php if ($row->summary == NULL) { ?>
-                        <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
-                          <i class="icon-ok"></i>  
-                        </a>
-                      <?php } else { ?>
-                        <label class='label label-default'>Completed</label>
-                      <?php } ?>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table> 
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Case Number</th>
+                                <th></th>
+                            </tr>
+                        </thead>   
+                        <tbody>
+                            <?php foreach ($thingstodo as $row): ?>
+                                <tr>
+                                    <td class="center"><a href="#taskDetailsModal" data-toggle="modal" class="btn btn-link" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
+                                    </td>
+                                    <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
+                                    <td class="center">
+                                        <?php if ($row->summary == NULL) { ?>
+                                            <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
+                                                <i class="icon-ok"></i>  
+                                            </a>
+                                        <?php } else { ?>
+                                            <label class='label label-default'>Completed</label>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table> 
           </div>
         </div>
-      </div>
+        </div>
+
 
     </div>
     <!-- end: CALENDAR DIV -->
@@ -197,7 +198,7 @@
             <div class="modal-body" style='height:465px ! important; overflow-y: scroll;'>
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> <b> Case Title </b></h5> </center>
+                    <center> <h5> <b> Case Title </b></h5> </center>
                 </div>
               </div>
 
@@ -207,12 +208,12 @@
                   <input type="hidden" name="newappt_case" value="<?= $case->caseID ?>"/>
                 </div>
               </div>
-
-              <br><br>
-
-              <div class="col-sm-3 control-group">
+                
+                <br><br>
+                
+                <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> <b> Client Name </b></h5> </center>
+                    <center> <h5> <b> Client Name </b></h5> </center>
                 </div>
               </div>
 
@@ -349,19 +350,18 @@
               </div>
 
               <br><br><br><br><br><br><br><br>
-
+              
               <div class="col-sm-3 control-group">
                 <div class="controls">
-                  <center> <h5> <b>Action plan </b></h5> </center>
+                    <center> <h5> <b>Action plan </b></h5> </center>
                 </div>
               </div>
 
               <div class="col-sm-7 control-group">
                 <div class="controls">
                   <select id="actionplanforevent" name="actionplanforevent" class="form-control">
-                    <option value="0">None</option>
-                    <?php foreach ($actionplanforevent as $action) : ?>
-                      <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
+                    <?php foreach($actionplanforevent as $action) : ?>
+                    <option value="<?= $action->actionplanID ?>"> <?= $action->action ?> </option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -370,8 +370,9 @@
             </div>
 
             <div class="modal-footer">
+                <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success'), 'Add Appointment'); ?>
+              
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -387,12 +388,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close btnapptclose" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Appointment
-                <label id="actionEventTopDiv">
-                  <a id="btneditapptshow"><i class="icon-pencil"></i></a>
-                  <a id="btndeleteapptshow"><i class="icon-trash"></i></a>
-                </label>
-              </h4>
+              <h4 class="modal-title">Appointment</h4>
             </div>
 
             <div class="modal-body">
@@ -448,25 +444,24 @@
               <h4 class="modal-title">Add New Task</h4>
             </div>
             <div class="modal-body">
-
+                
               <div class="col-sm-4 control-group">
                 <div class="controls">
-                  <center> <h5> <b> Case Title </b></h5> </center>
+                    <center> <h5> <b> Case Title </b></h5> </center>
                 </div>
               </div>
 
               <div class="col-sm-7 control-group">
                 <div class="controls">
-                  <h5><?php echo "$case->caseName ($case->caseNum)" ?></h5>
-                  <input type="hidden" name="newappt_case" value="<?= $case->caseID ?>"/>
+                 (Case Title)
                 </div>
               </div>
 
-              <br><br><br>
+              <br><br>
 
               <div class="col-sm-4 control-group">
                 <div class="controls">
-                  <center> <h5> <b> Task </b></h5> </center>
+                    <center> <h5> <b> Task </b></h5> </center>
                 </div>
               </div>
 
@@ -480,7 +475,7 @@
 
               <div class="col-sm-4 control-group">
                 <div class="controls">
-                  <center> <h5><b> Notes </b></h5> </center>
+                  <center> <h5><b> Notes </h5></b> </center>
                 </div>
               </div>
 
@@ -508,15 +503,30 @@
               </div>
 
               <br><br>
+              
+              <div class="col-sm-4 control-group">
+                <div class="controls">
+                  <center> <h5><b> Assign To </b></h5> </center>
+                </div>
+              </div>
 
+              <div class="col-sm-7 control-group">
+                <div class="controls">
+                    <select class='form-control'>
+                        <option>Self (Lawyer)</option>
+                        <option>Intern 1</option>
+                    </select>
+                </div>
+              </div>
+              <br>
 
             </div>
             <div class="modal-footer">
-              <input type="submit" class="btn btn-success">
+                 <input type="submit" class="btn btn-success">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <input type="hidden" name="assignedBy" value="<?php echo $this->session->userdata('userid') ?>">
               <input type="hidden" name="cid" value="<?php echo $case->caseID ?>">
-
+             
             </div>
           </div><!-- /.modal-content -->
           <?php echo form_close(); ?>
@@ -537,14 +547,13 @@
               <h4 class="modal-title">Task</h4>
             </div>
             <div class="modal-body">
-              <p>To confirm this action, please briefly discuss what you did for the task:</p>
-              <div class="controls">
-                <textarea id="limit" rows="6" style="width:100%"></textarea>
-              </div>
+              <p>Are you sure this task has been done?</p>
+             
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success">Confirm</button>
+                <button type="button" class="btn btn-success">Yes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+              
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -553,41 +562,5 @@
     </div>
     <!-- END OF MODAL : DONE Task -->
 
-    <!-- START OF MODAL : Task Details -->
-    <?php foreach ($thingstodo as $row) { ?>
-      <div class="row">
-        <div class="modal fade" id="taskDetailsModal_<?= $row->taskID ?>">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Task Details</h4>
-              </div>
-              <div class="modal-body">
-                <h5> <b>Task: </b> <?php echo $row->task ?></h5>
-                <h5> <b>Case Number: </b> <?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></h5>
-                <h5> <b>Notes: </b> <?php echo $row->notes ?></h5>
-                <?php if ($row->assignedBy != NULL) { ?>
-                  <h5> <b>Assigned by: </b> <?php
-                    if ($row->assignedBy == $this->session->userdata('userid')) {
-                      echo "Me";
-                    } else {
-                      echo $row->firstname . ' ' . $row->lastname;
-                    }
-                    ?>
-                  </h5>
-                <?php } ?>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <input type="hidden" id="taskID" name="taskID" value="">
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-      </div>
-    <?php } ?>
-    <!-- END OF MODAL :  Task Details--> 
-    
   </div>
 </div>
