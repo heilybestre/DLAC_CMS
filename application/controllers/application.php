@@ -131,11 +131,6 @@ class Application extends CI_Controller {
             }
         }
 
-        //$data['specialize'] = $this->People_model->select_specialized($o->offenseID));
-        //$data['nonspecialize'] = $this->People_model->select_non_specialized($o->offenseID);
-        //var_dump($data['specialize']);
-        //var_dump($data['nonspecialize']);
-
         $data['interns'] = $this->People_model->select_interns();
         $data['lawyers'] = $this->People_model->select_lawyers();
 
@@ -435,7 +430,7 @@ class Application extends CI_Controller {
         $opposingparties = array();
         $this->session->set_userdata('clients', $clients);
         $this->session->set_userdata('opposingparties', $opposingparties);
-        
+
         $this->load->view('header');
         $this->load->view('intern/menubar', $data);
         $this->load->view('intern/createApplication', $data);
