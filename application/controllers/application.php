@@ -303,7 +303,8 @@ class Application extends CI_Controller {
           'task' => "Set Client Meeting for $caseName",
           'assignedTo' => $intern1,
           'dateAssigned' => $datetimenow,
-          'dateDue' => $datenow
+          'dateDue' => $datenow,
+          'actionplanID' => '1'
       );
       $this->Task_model->insert_task($intern1task);
 
@@ -312,7 +313,8 @@ class Application extends CI_Controller {
           'task' => "Create action plan for $caseName",
           'assignedTo' => $intern2,
           'dateAssigned' => $datetimenow,
-          'dateDue' => $datenow
+          'dateDue' => $datenow,
+          'actionplanID' => '2'
       );
       $this->Task_model->insert_task($intern2task);
     } else {
@@ -321,7 +323,8 @@ class Application extends CI_Controller {
           'task' => "Set Client Meeting for $caseName",
           'assignedTo' => $intern2,
           'dateAssigned' => $datetimenow,
-          'dateDue' => $datenow
+          'dateDue' => $datenow,
+          'auto' => '1'
       );
       $this->Task_model->insert_task($intern2task);
 
@@ -330,7 +333,8 @@ class Application extends CI_Controller {
           'task' => "Create action plan for $caseName",
           'assignedTo' => $intern1,
           'dateAssigned' => $datetimenow,
-          'dateDue' => $datenow
+          'dateDue' => $datenow,
+          'auto' => '2'
       );
       $this->Task_model->insert_task($intern1task);
     }

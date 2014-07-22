@@ -164,11 +164,14 @@
                     </td>
                     <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
                     <td class="center">
-                      <?php if ($row->summary == NULL) { ?>
-                        <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
-                          <i class="icon-ok"></i>  
-                        </a>
-                      <?php } else { ?>
+                      <?php if ($row->dateDone == NULL) { ?>
+                        <?php if ($row->auto == NULL) { ?>
+                          <a class="btn btn-success" title="Done" href="#doneTaskModal" data-toggle="modal" onclick="doneclick(<?php echo $row->taskID ?>)">
+                            <i class="icon-ok"></i>  
+                          </a>
+                        <?php } ?>
+                      <?php } ?>
+                      <?php if ($row->dateDone != NULL) { ?>
                         <label class='label label-default'>Completed</label>
                       <?php } ?>
                     </td>
@@ -588,6 +591,6 @@
       </div>
     <?php } ?>
     <!-- END OF MODAL :  Task Details--> 
-    
+
   </div>
 </div>
