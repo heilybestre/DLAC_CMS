@@ -206,7 +206,7 @@ class People extends CI_Controller {
     array_push($opposingparties, $opposingID);
     $this->session->set_userdata('opposingparties', $opposingparties);
 
-    $data['opposinglist'] = $this->People_model->externallist();
+    $data['opposingpartylist'] = $this->People_model->externallist();
     $data['addedopposing'] = $this->session->userdata('opposingparties');
     $data['addedclients'] = $this->session->userdata('clients');
     $this->load->view('intern/createApplication/divopposingparty', $data);
