@@ -4,7 +4,7 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
   <label id='currentstage' class='hide'><?= $case->stage ?></label>
-
+  
   <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
     <i class="icon-book"></i> View Narrative
@@ -59,15 +59,22 @@
 
   <!-- ACTION PLAN : APPROVED / PENDING -->
   <?php if ($actionplanstatus == 'approved' || $actionplanstatus == 'pending') { ?>
-    <div id='actionplandiv' class="row <?php if ($actionplanstatus == 'pending') echo 'disable fadedlight'; ?>" >
-      <?php echo form_open(base_url() . "cases/editactionplan/$case->caseID"); ?>
+    <div id='actionplandiv' class="row" >
+      <?php echo form_open(base_url() . "cases/approveactionplan/$case->caseID"); ?>
 
-      <div id='actionplanbuttonsdiv' class='hide pull-right' style='margin-right: 50px;'>
-        <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Submit'); ?>
-        <a href="<?= base_url() ?>cases/caseFolder/<?= $case->caseID ?>?tid=actionplan" class="btn btn-medium btn-default" style="margin-bottom:10px">Cancel</a>
-      </div>
+      <?php if ($actionplanstatus == 'pending') { ?>
+        <div id='actionplanbuttonsdiv' class='pull-right' style='margin-right: 50px;'>
+          <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-medium btn-success', 'style' => 'margin-bottom:10px'), 'Accept'); ?>
+          <a href="" class="btn btn-medium btn-danger" style="margin-bottom:10px">Reject</a>
+        </div>
+      <?php } ?>
 
-      <div id='actionplanbuttonsbrdiv' class='hide'>
+      <div id='actionplanbuttonsbrdiv' class=''>
+        <div>
+          <div class='col-sm-4'>
+            <h3>ACTION PLAN FOR EACH STAGE</h3>
+          </div>
+        </div>
         <br><br><br>
       </div>
 
@@ -88,48 +95,14 @@
                 <tr id="actionTableRow_<?= $action->actionplanID ?>">
                   <td>
                     <?php if ($actionplanstatus == 'approved') { ?>
-                      <input name='action1[]' class='cbactionstage<?= $x ?> <?php if ($actionplanstatus == null || $action->category == 2 || $action->category == 3 || $action->category == 5 || $action->category == 6) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
+                      <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
                     <?php } ?>
                   </td>
                   <td>
                     <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
                     <label class="removeBold" id="actionNameLabel_<?= $action->actionplanID ?>"> <?= $action->action ?> </label>
                   </td>
-                  <td class='editpopover hide'>
-                    <a href="#" id="popover-edit_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-edit btn btn-info pull-right"> <i class="icon-edit"></i> </a>
-                    <div id="popover-edit-head_<?= $action->actionplanID ?>" class="hide"></div>
-                    <div id="popover-edit-content_<?= $action->actionplanID ?>" class="hide">
-                      <!-- Action plan POPOVER -->
-                      <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
-                        <br>
-                        <!--Edit-->
-                        <div id="actionPlanOption-center-edit_<?= $action->actionplanID ?>">
-                          <div class="col-lg-3"><h5>Action:</h5></div>
-                          <div class="col-lg-9"><?php echo form_input(array('id' => "editAction_$action->actionplanID", 'name' => 'editAction', 'placeholder' => 'Action', 'class' => 'form-control', 'value' => "$action->action")); ?></div>
-
-                          <br><br>
-
-                          <div class="col-lg-3"><h5>Type:</h5></div>
-                          <div class="col-lg-7">
-                            <select id='editactiontype_<?= $action->actionplanID ?>' name='newactiontype' class='form-control'>
-                              <?php foreach ($actioncategory as $category) : ?>
-                                <option value='<?= $category->racID ?>' <?php if ($category->racID == $action->category) echo 'selected'; ?>><?= $category->category ?></option>
-                              <?php endforeach; ?>
-                            </select>
-                          </div>
-                          <div class="col-lg-1">
-                            <a class="btn btn-success saveActionButton" id="saveActionButton_<?= $action->actionplanID ?>"> <i class="icon-save"></i> </a>
-                          </div>
-                          <br><br>
-                          <div class='col-lg-12'>
-                            <button class='btn btn-danger' style='width:100%'><i class="icon-trash"></i> Delete this action</button>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- Action plan POPOVER -->
-                    </div>
-                  </td>
-                  <td class='origpopover'>
+                  <td>
                     <a href="#" id="popover-orig_<?= $action->actionplanID ?>" data-placement="bottom" class="popover-orig btn 
                     <?php
                     if ($this->Case_model->select_action_notes_count($action->actionplanID)->count > 0) {
@@ -141,13 +114,19 @@
                     <div id="popover-orig-head_<?= $action->actionplanID ?>" class="hide"></div>
                     <div id="popover-orig-content_<?= $action->actionplanID ?>" class="hide">
                       <!-- Action plan POPOVER -->
-                      <div id="actionPlan_stage1" class="actionPlan_stage1">
+                      <div id="actionPlan_stage<?= $x ?>" class="actionPlan_stage<?= $x ?>">
 
                         <div id="actionPlanOption-top">
+
                           <?php if ($action->category == 5) { ?>
+                            <div id="actionPlanActionButtons_<?= $action->actionplanID ?>" class="pull-right">
+                              <a class="btn btn-success getActionButton" id="getActionButton_<?= $action->actionplanID ?>"> <i class="icon-user"></i> </a>
+                              <a class="btn btn-primary backActionButton hide" id="backActionButton_<?= $action->actionplanID ?>"> <i class="icon-arrow-left"></i> </a>
+                            </div>
+
                             <h5>
                               <b>Assigned to </b>
-                              <label class="label label-default">
+                              <label id="labelAssignPerson_<?= $action->actionplanID ?>" class="label label-default">
                                 <?php if ($action->assignedTo != null) echo $this->People_model->getuserfield('firstname', $action->assignedTo) . ' ' . $this->People_model->getuserfield('lastname', $action->assignedTo); ?>
                                 <?php if ($action->assignedTo == null) echo 'None'; ?>
                               </label>
@@ -159,6 +138,32 @@
                               <?php echo $this->Case_model->getactioncategoryname($action->category)->category; ?>
                             </label>
                           </h5>
+                        </div>
+
+                        <!--Assign-->
+                        <div id="actionPlanOption-center-assign_<?= $action->actionplanID ?>" class="hide">
+                          <hr>
+                          <div id="assignAction">
+
+                            <h5><b>Assign to: </b></h5>
+                            <table class="table table-striped">
+                              <tr>
+                                <th>Intern</th>
+                                <th>Experience</th>
+                                <th></th>
+                              </tr>
+                              <?php foreach ($caseinterns as $intern) { ?>
+                                <tr>
+                                  <td><?= "$intern->firstname $intern->lastname" ?></td>
+                                  <td>(##)</td>
+                                  <td><button type="button" class="btn btn-success btnAssignPerson" id="btnAssignPerson_<?= $action->actionplanID ?>" value="<?= $intern->personID ?>"> <i class="icon-ok"></i> </button>
+                                    <button type="button" class="btn btn-danger hide btnUnassignPerson btnUnassignPerson_<?= $intern->personID ?>" id="btnUnassignPerson_<?= $action->actionplanID ?>"> <i class="icon-remove"></i> </button>                                                                    
+                                    <input type="hidden" value="<?= "$intern->firstname $intern->lastname" ?>" id="task_<?= $action->actionplanID ?>_intern_<?= $intern->personID ?>">
+                                  </td>
+                                </tr>
+                              <?php } ?>
+                            </table>
+                          </div>
                         </div>
 
                         <!-- Add notes -->
@@ -194,6 +199,7 @@
                   </td>
                 </tr>
               <?php endforeach; ?>
+
             </table>
           </ul>
         </div>
