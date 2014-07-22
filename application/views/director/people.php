@@ -17,13 +17,13 @@
 
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane active" id="internal">
-                            <?php $this->load->view('intern/people/internal'); ?>
+                            <?php $this->load->view('director/people/internal'); ?>
                         </div>
                         <div class="tab-pane" id="external">
-                            <?php $this->load->view('intern/people/external'); ?>
+                            <?php $this->load->view('director/people/external'); ?>
                         </div>
                         <div class="tab-pane" id="judge">
-                            <?php $this->load->view('intern/people/judge'); ?>
+                            <?php $this->load->view('director/people/judge'); ?>
                         </div>
                     </div>
                 </div>

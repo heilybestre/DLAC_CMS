@@ -148,7 +148,7 @@
 
                         <div class="col-sm-9 control-group">
                             <div class="controls">
-                                <h5></h5>
+                                <h5><?php echo $this->Case_model->select_strtype($row->participation)->typeName . ' (' . $this->Case_model->select_strtype($row->side)->typeName . ')' ?></h5>
                             </div>   
                         </div>
 

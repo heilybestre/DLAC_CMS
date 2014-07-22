@@ -1,42 +1,155 @@
+<link href='<?= base_url() ?>assets/css/fullcalendar.css' rel='stylesheet' />
+<link href='<?= base_url() ?>assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='<?= base_url() ?>assets/js/jquery.min.js'></script>
+<script src='<?= base_url() ?>assets/js/jquery-ui.custom.min.js'></script>
+<script src='<?= base_url() ?>assets/js/fullcalendar.min.js'></script>
 
+<script>
+
+    $(document).ready(function() {
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        var calendar = $('#calendar').fullCalendar({
+            editable: false,
+            disableDragging: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            //Shows appoinments
+            events: "<?php echo base_url() ?>calendar/userschedules/" + <?php echo $this->session->userdata('userid') ?>,
+            selectable: true,
+            selectHelper: true,
+            //Shows Add Appointment modal
+            select: function(start, end, allDay) {
+                var dateChosen = $.fullCalendar.formatDate(start, "yyyy-MM-dd");
+                var timeStart = $.fullCalendar.formatDate(start, "hh:mm TT");
+                var timeEnd = $.fullCalendar.formatDate(end, "hh:mm TT");
+                document.getElementById("newappt_date").value = dateChosen;
+                document.getElementById('newappt_starttime').value = timeStart;
+                document.getElementById('newappt_endtime').value = timeEnd;
+                $('#addAppointmentModal').modal('show');
+                calendar.fullCalendar('unselect');
+
+                //Add Appointment function
+                $('#btnaddappointment').click(function() {
+                    var caseid = $('select[name="newappt_case"]').val();
+                    var title = $('#newappt_title').val();
+                    var dateSelected = $('#newappt_date').val();
+                    var startSelected = $('#newappt_starttime').val();
+                    var endSelected = $('#newappt_endtime').val();
+                    var type = $('input[name="newappt_type"]:checked').val();
+                    var place = $('#newappt_place').val();
+
+                    var fullCalendarStart_FC = $.fullCalendar.parseDate(dateSelected + ' ' + startSelected);
+                    var fullCalendarEnd_FC = $.fullCalendar.parseDate(dateSelected + ' ' + endSelected);
+
+                    var fullCalendarStart = $.fullCalendar.formatDate(fullCalendarStart_FC, "yyyy-MM-dd HH:mm");
+                    var fullCalendarEnd = $.fullCalendar.formatDate(fullCalendarEnd_FC, "yyyy-MM-dd HH:mm");
+
+                });
+                //
+            },
+            editable: true,
+                    eventClick: function(calEvent, jsEvent, view) {
+                        $('#viewAppointmentModal').modal('show');
+                        $('#editapptdiv').addClass('hide');
+                        $('#deleteapptdiv').addClass('hide');
+                        $('#cantattendapptdiv').addClass('hide');
+                        $('#doneapptdiv').addClass('hide');
+
+                        $('#actionEventsDiv').removeClass('hide');
+                        $('#actionEventTopDiv').removeClass('hide');
+                        $('#viewapptdiv').removeClass('hide');
+
+
+                        //For view div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view/" + calEvent.id,
+                            success: function(result) {
+                                $('#viewapptdiv').html(result);
+                            }
+                        });
+
+                        //For done div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_done/" + calEvent.id + '/calendar',
+                            success: function(result) {
+                                $('#doneapptdiv').html(result);
+                            }
+                        });
+
+                        //For edit div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_edit/" + calEvent.id,
+                            success: function(result) {
+                                $('#editapptdiv').html(result);
+                            }
+                        });
+
+                        //For cant attend div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_cantattend/" + calEvent.id + '/calendar',
+                            success: function(result) {
+                                $('#cantattendapptdiv').html(result);
+                            }
+                        });
+
+                        //For delete attend div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_delete/" + calEvent.id,
+                            success: function(result) {
+                                $('#deleteapptdiv').html(result);
+                            }
+                        });
+
+                        //For footer div
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url() ?>calendar/view_modalfooter/" + calEvent.id,
+                            success: function(result) {
+                                $('#modalfooterdiv').html(result);
+                            }
+                        });
+                    }
+        });
+    });
+</script>
+
+<style>
+    #calendar {
+        width: 800px;
+        margin: 0 auto;
+    }
+</style>
 <div id="content" class="col-lg-10 col-sm-11">
 
     <!-- start: Content -->
     <div class="row">
 
-        <!-- Appointments -->
-        <div class="col-lg-9" style="font-size:13px;">
-            <div class="box">
-                <div class="box-header">
-                    <h2><i class="icon-calendar"></i>Appointments</h2>
-                </div>
-                <div class="box-content">
-
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="20%">Date</th>
-                                <th width="20%">Time</th>
-                                <th width="10%">Case</th>
-                                <th width="50%">Appointment</th>
-                            </tr>
-                        </thead>   
-                        <tbody>
-                            <?php foreach ($appointments as $row) : ?>
-                                <tr>
-                                    <td class="center"><?php echo $row->date ?></td>
-                                    <td class="center"><?php echo $row->time ?></td>
-                                    <td class="center"><?php echo $row->caseNum ?></td>
-                                    <td>
-                            <tabletitle><?php echo $row->title ?></tabletitle><br>
-                            <tabledesc><?php echo $row->attendee ?></tabledesc>
-                            </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>  
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h2><i class="icon-calendar"></i>Calendar</h2>
+                    </div>              
+                    <div class="box-content">
+                        <br/>
+                        <div id='calendar'></div>
+                    </div>
                 </div>
             </div>
+    </div>
+
+              <div class="row">
 
             <!-- Appointments to ReAssign -->
             <div class="box" style="font-size:13px;">
@@ -70,67 +183,6 @@
                     </table>  
                 </div>
             </div>
-
-            <!-- Task Assigned -->
-            <div class="box hide" style="font-size:13px;">
-                <div class="box-header">
-                    <h2><i class="icon-tasks"></i>Tasks Assigned</h2>
-                    <div class="box-icon">
-                        <a href="#addTaskAssignedModal" data-toggle="modal"><i class="icon-plus"></i></a>
-                    </div>
-                </div>
-                <div class="box-content">
-
-                    <div id="myTabContent" class="tab-content">
-
-                        <div class="tab-pane active" id="ongoing">
-                            <br/>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th width="10%">Due Date</th>
-                                        <th width="40%">Task</th>
-                                        <th width="20%">Assigned To</th>
-                                        <th width="10%">Status</th>
-                                        <th width="10%"></th>
-                                    </tr>
-                                </thead>   
-                                <tbody>
-                                    <?php foreach ($tasksassigned as $row) : ?>
-                                        <tr>
-                                            <td class="center"><?php echo $row->dateDue ?></td>
-                                            <td class="center"><?php echo $row->task ?></td>
-                                            <td><?php echo $row->assignedTo ?></td>
-                                            <td> </td>
-                                            <td class="center">
-                                                <a class="btn btn-danger" tite="Delete" href="#deleteTaskModal" data-toggle="modal" title="Delete">
-                                                    <i class="icon-trash"></i> 
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Calendar -->
-        <div class="col-lg-3">
-            <div class="box">
-                <div class="box-header">
-                    <h2><i class="icon-calendar"></i>Calendar</h2>
-                </div>
-                <div class="box-content">
-                    <center><h2>
-                            <?php echo $this->calendar->generate(2013, 11); ?>
-                        </h2></center>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 
