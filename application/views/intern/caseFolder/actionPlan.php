@@ -5,7 +5,7 @@
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
   <label id='actionplanstatusforaction' class='hide'><?= $actionplanstatus ?></label>
   <label id='currentstage' class='hide'><?= $case->stage ?></label>
-  
+
   <br>
   <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
@@ -189,7 +189,7 @@
                       <div id="actionPlan_stage1" class="actionPlan_stage1">
 
                         <div id="actionPlanOption-top">
-                          <?php if($action->category == 5) { ?>
+                          <?php if ($action->category == 5) { ?>
                             <h5>
                               <b>Assigned to </b>
                               <label class="label label-default">

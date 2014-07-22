@@ -4,7 +4,7 @@
   <label id="usernameforaction" class="hide"><?= $name; ?></label>
   <label id="useridforaction" class="hide"><?= $this->session->userdata('userid') ?></label>
   <label id='currentstage' class='hide'><?= $case->stage ?></label>
-  
+
   <div class="col-lg-9"> </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a class ="btn-small btn-primary" style='padding:5px;' href="#viewNarrativeInActionPlanModal" data-toggle="modal">
     <i class="icon-book"></i> View Narrative
@@ -95,7 +95,7 @@
                 <tr id="actionTableRow_<?= $action->actionplanID ?>">
                   <td>
                     <?php if ($actionplanstatus == 'approved') { ?>
-                      <input name="actiontype<?= $x ?>[]" value="<?= $action->category ?>" class='hide' id="arrayActionType_<?= $action->actionplanID ?>">
+                      <input name='action1[]' class='cbactionstage<?= $x ?> <?php if ($actionplanstatus == null || $action->category == 2 || $action->category == 3 || $action->category == 5 || $action->category == 6) { ?> disable <?php } ?>' type='checkbox' value="<?= $action->actionplanID ?>" style='margin: 0px 5px 0px 10px;' onclick="actionclick(<?= $action->actionplanID ?>, 1, <?= $case->stage ?>)" <?php if ($action->status == 1) { ?> checked <?php } ?> />
                     <?php } ?>
                   </td>
                   <td>

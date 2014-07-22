@@ -790,6 +790,8 @@
     $('#notesThread_' + x + ' ul').append(html);
     $('#actionWriteNotes_' + x).val('');
     $('#actionPlan-bottom-notes_' + x).removeClass('hide');
+    $('#popover-orig_' + x).removeClass('btn-default');
+    $('#popover-orig_' + x).addClass('btn-info');
   });
   //EDIT ACTIONS start
   $(".editActionButton").live('click', function() {
@@ -1635,15 +1637,6 @@
         $('#addClientModal1').modal('hide');
         $("#createAppClientList").chosen({max_selected_options: 5});
         $('.newclientfield').val('');
-      }
-    });
-
-    $.ajax({
-      type: 'post',
-      url: "<?php echo base_url() ?>people/changeopposing",
-      success: function(result) {
-        $('#opposingpartydiv').html(result);
-        $("#createAppOpposingPartyList").chosen({max_selected_options: 5});
       }
     });
   });

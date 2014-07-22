@@ -1076,22 +1076,22 @@ class Cases extends CI_Controller {
       );
       $this->Task_model->insert_task($addtask);
     }
-    
+
     /* TASK TABLE */
     $task = $this->Task_model->select_task_auto($cid, 2); // 2 - Create action plan
     $createactionplandone = false;
     $tid = $task->taskID;
-    
-    if($task->dateDone != NULL){
+
+    if ($task->dateDone != NULL) {
       $createactionplandone = true;
     }
-    
-    if(!$createactionplandone){
+
+    if (!$createactionplandone) {
       $taskdone = array('dateDone' => $datetimenow);
       $this->Task_model->update_task($tid, $taskdone);
     }
 
-    
+
     redirect("cases/caseFolder/$cid?tid=actionplan");
   }
 
