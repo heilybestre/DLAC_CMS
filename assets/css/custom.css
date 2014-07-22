@@ -470,3 +470,7 @@ tabletags{
 .onecasenote{
   margin: 0 10px 5px 10px;
 }
+
+#legaladvice_form, #casefacts_form{
+  margin: 20px;
+}
