@@ -738,6 +738,21 @@ class Cases extends CI_Controller {
           $this->Notification_model->draft_new($uid, $lawyer->personID, $cid, $did);
       }
 
+      /* TASK TABLE - DONE TASK */
+      $task = $this->Task_model->select_task_auto($cid, 3); // 2 - Draft affidavit
+      $draftaffidavitdone = false;
+      $tid = $task->taskID;
+
+      if ($task->dateDone != NULL) {
+        $draftaffidavitdone = true;
+      }
+
+      if (!$draftaffidavitdone) {
+        $taskdone = array('dateDone' => $datetimenow);
+        $this->Task_model->update_task($tid, $taskdone);
+      }
+
+
       redirect("cases/caseFolder/$cid?tid=documents");
     }
   }
@@ -1077,7 +1092,7 @@ class Cases extends CI_Controller {
       $this->Task_model->insert_task($addtask);
     }
 
-    /* TASK TABLE */
+    /* TASK TABLE - DONE TASK */
     $task = $this->Task_model->select_task_auto($cid, 2); // 2 - Create action plan
     $createactionplandone = false;
     $tid = $task->taskID;
@@ -1173,6 +1188,13 @@ class Cases extends CI_Controller {
     $actionName = $action->action;
 
     /* TASK TABLE */
+    echo 'actionName: ' . $actionName;
+    $auto = NULL;
+    if ($actionName == 'File Affidavit/s') {
+      $actionName = 'Draft Affidavit/s';
+      $auto = 3; // 3 - Draft Affidavit/s
+    }
+
     $addtask = array(
         'caseID' => $cid,
         'task' => "$actionName for $caseName",
@@ -1180,7 +1202,8 @@ class Cases extends CI_Controller {
         'assignedTo' => $intern,
         'dateAssigned' => $datetimenow,
         'dateDue' => $datenow,
-        'actionplanID' => $apid
+        'actionplanID' => $apid,
+        'auto' => $auto
     );
     $this->Task_model->insert_task($addtask);
   }

@@ -141,7 +141,10 @@
     /* Assign action to intern (lawyer) */
     $.ajax({
       type: "POST",
-      url: "<?php echo base_url() ?>cases/assignAction/" + actionplanID + '/' + personID + '/'
+      url: "<?php echo base_url() ?>cases/assignAction/" + actionplanID + '/' + personID + '/',
+      success:  function(result) {
+        alert(result);
+      }
     });
   });
 
@@ -1146,6 +1149,8 @@
       cell3s.innerHTML = "Size";
       cell4s.innerHTML = "";
 
+      cell1s.className = 'adddraft_documentcolumn';
+      
       for (var i = 0; i < files.length; i++) {
         var fileName = files[i].name;
         var fileSize = files[i].size;
@@ -1156,7 +1161,7 @@
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         var cell4 = row.insertCell(3);
-        cell1.innerHTML = "<input type='text' name='rawName[]' value='" + rawName + "' /> ." + fileExt;
+        cell1.innerHTML = "<input type='text' name='rawName[]' class='adddraft_documentinput form-control' value='" + rawName + "' /> ." + fileExt;
         cell2.innerHTML = htmlSelect;
         cell3.innerHTML = fileSize + 'KB';
         cell4.innerHTML = "<button class='btn btn-danger' type='button' id='remove_row'><i class='icon-trash'></i></button>";
@@ -1240,9 +1245,9 @@
         var tableHTML = '';
         tableHTML += "<table class='table-condensed'>"
                 + "<tr>"
-                + "<td width='12%'></td>"
+                + "<td width='20%'></td>"
                 + "<td width='38%'></td>"
-                + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
+                + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' style='margin-right:20px' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
 
                 + "<tr>"
@@ -1257,7 +1262,7 @@
 
                 + "<tr>"
                 + "<td>Title:</td>"
-                + "<td> <input class='text form-control' style='width:300px;' name='doctitleCourt[]'/></td>"
+                + "<td> <input class='text form-control' style='width:300px;' name='doctitleCourt[]' value='" + rawName + "' /></td>"
                 + "</tr>"
 
                 + "<tr>"
@@ -1269,7 +1274,7 @@
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-
+        
                 + "<tr>"
                 + "<td>Date Received:</td>"
                 + "<td class='col-sm-3'>"
@@ -1282,8 +1287,8 @@
 
                 + "<tr>"
                 + "<td colspan=2>"
-                + "<input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadline[]'> Add New Document Deadline"
-                + "<br/><br/>"
+                + "<br><input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadline[]'> Add New Document Deadline"
+                + "<br>"
                 + "<div class='form-inline addnewdocDiv hide' style='padding-left:30px'>"
                 + "Document Title : <input name='newDocumentTitle[]' class='text form-control' style='width:300px;'/>"
                 + "<br><br>"
@@ -1297,6 +1302,7 @@
       }
 
       $('#docUpload_dateReceived_court').datepicker();
+      $('#docUpload_dateIssued_court').datepicker();
     });
 
     $('#inputFileByOpposingParty').change(function() {

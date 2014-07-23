@@ -118,8 +118,9 @@
 }
 
 .modal-dialog-addDocument{
-  width: 800px; /* SET THE WIDTH OF THE MODAL */
-  margin: 25px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  width: 700px; /* SET THE WIDTH OF THE MODAL */
+  margin: 0 auto; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  margin-top: 100px;
 }
 
 #textarea_purpose, #textarea_order, #textarea_action{
@@ -473,4 +474,24 @@ tabletags{
 
 #legaladvice_form, #casefacts_form{
   margin: 20px;
+}
+
+.adddraft_documentcolumn{
+  width: 250px;
+}
+
+.adddraft_documentinput{
+  width: 85%;
+  display: -webkit-inline-box;
+}
+
+#tableFileCourt{
+  border-width: 5px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  padding-left: 31px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 650px;
 }
