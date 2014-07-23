@@ -43,10 +43,7 @@
 <script src="<?= base_url() ?>assets/js/pages/index.js"></script>
 <script src="<?= base_url() ?>assets/js/pages/table.js"></script>
 
-<script src="<?= base_url() ?>assets/js/bootstrapValidator.js"></script>
-
 <!-- end: JavaScript-->
-
 
 <script type="text/javascript" src="<?= base_url() ?>assets/js/pages/widgets.js"></script>
 
@@ -61,6 +58,8 @@
 <script src="<?= base_url() ?>assets/js/prism.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>assets/js/jquery.highlight-4.closure.js"></script>
 
+<script type="text/javascript" src="<?= base_url() ?>assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+<!--<script type="text/javascript" src="<?= base_url() ?>assets/bootstrapvalidator/dist/js/language/en_US.js"></script>-->
 
 <!-- CUSTOM JAVASCRIPT ------------------------------------------------------>
 <script type='text/javascript'>
