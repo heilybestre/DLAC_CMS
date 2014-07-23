@@ -189,6 +189,12 @@ class Application extends CI_Controller {
     $data['notifs'] = $this->Notification_model->select_notifs($uid);
     $data['notifcount'] = $this->Notification_model->select_count_unread($uid);
 
+    /* NOTIFICATION TABLE (to interview interns) */
+    $appinterns = $this->Case_model->select_caseinterviewee($cid);
+    foreach ($appinterns as $intern) {
+      $this->Notification_model->app_accepted($intern->personID, $cid);
+    }
+
     /* FOR INTERNS */
     $interns = $this->input->post('intern');
 
@@ -220,13 +226,6 @@ class Application extends CI_Controller {
 
       /* NOTIFICATION TABLE (to assigned lawyer/s) */
       $this->Notification_model->app_assigned($law, $cid);
-    }
-
-
-    /* NOTIFICATION TABLE (to interview interns) */
-    $appinterns = $this->Case_model->select_caseinterviewee($cid);
-    foreach ($appinterns as $intern) {
-      $this->Notification_model->app_accepted($intern->personID, $cid);
     }
 
     /* LOG TABLE */
