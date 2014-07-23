@@ -739,19 +739,65 @@ class Cases extends CI_Controller {
       }
 
       /* TASK TABLE - DONE TASK */
-      $task = $this->Task_model->select_task_auto($cid, 3); // 2 - Draft affidavit
-      $draftaffidavitdone = false;
-      $tid = $task->taskID;
+      if ($this->Task_model->select_task_auto($cid, 3)) { // 3 - Draft affidavit
+        $task = $this->Task_model->select_task_auto($cid, 3);
+        $draftaffidavitdone = false;
+        $tid = $task->taskID;
 
-      if ($task->dateDone != NULL) {
-        $draftaffidavitdone = true;
+        if ($task->dateDone != NULL) {
+          $draftaffidavitdone = true;
+        }
+
+        if (!$draftaffidavitdone) {
+          $taskdone = array('dateDone' => $datetimenow);
+          $this->Task_model->update_task($tid, $taskdone);
+        }
       }
 
-      if (!$draftaffidavitdone) {
-        $taskdone = array('dateDone' => $datetimenow);
-        $this->Task_model->update_task($tid, $taskdone);
+      if ($this->Task_model->select_task_auto($cid, 4)) { // 4 - Prepare Pre-Trial Brief
+        $task = $this->Task_model->select_task_auto($cid, 4);
+        $preparepretrialbriefdone = false;
+        $tid = $task->taskID;
+
+        if ($task->dateDone != NULL) {
+          $preparepretrialbriefdone = true;
+        }
+
+        if ($draftaffidavitdone && !$preparepretrialbriefdone) {
+          $taskdone = array('dateDone' => $datetimenow);
+          $this->Task_model->update_task($tid, $taskdone);
+        }
       }
 
+      if ($this->Task_model->select_task_auto($cid, 5)) { // 5 - File Formal Entry of Appearance
+        $task = $this->Task_model->select_task_auto($cid, 5);
+        $fileformalentryofappearancedone = false;
+        $tid = $task->taskID;
+
+        if ($task->dateDone != NULL) {
+          $fileformalentryofappearancedone = true;
+        }
+
+        if ($draftaffidavitdone && $preparepretrialbriefdone && !$fileformalentryofappearancedone) {
+          $taskdone = array('dateDone' => $datetimenow);
+          $this->Task_model->update_task($tid, $taskdone);
+        }
+      }
+
+      if ($this->Task_model->select_task_auto($cid, 6)) { // 6 - File Judicial Affidavit 
+        $task = $this->Task_model->select_task_auto($cid, 6);
+        $filejudicialaffidavitdone = false;
+        $tid = $task->taskID;
+
+        if ($task->dateDone != NULL) {
+          $filejudicialaffidavitdone = true;
+        }
+
+        if ($draftaffidavitdone && $preparepretrialbriefdone && $fileformalentryofappearancedone && !$filejudicialaffidavitdone) {
+          $taskdone = array('dateDone' => $datetimenow);
+          $this->Task_model->update_task($tid, $taskdone);
+        }
+      }
 
       redirect("cases/caseFolder/$cid?tid=documents");
     }
@@ -867,6 +913,13 @@ class Cases extends CI_Controller {
             'category' => 'DOCUMENT'
         );
         $this->Case_model->insert_log($log);
+
+        /* ACTION PLAN TABLE */
+        $apID = $selectactionplanfordocument[$count];
+        $doneaction = array(
+            'status' => 1
+        );
+        $this->Case_model->update_action($apID, $doneaction);
 
         $count++;
       }
@@ -1075,8 +1128,8 @@ class Cases extends CI_Controller {
     }
 
     /* TASK TABLE */
-    $case = $this->Case_model->select_action($cid);
-    $caseName = $case->title;
+    $case = $this->Case_model->select_case($cid);
+    $caseName = $case->caseName;
     $userName = $this->People_model->getuserfield('firstname', $uid);
     $datetimenow = date("Y-m-d H:i:s", now());
     $datenow = date("Y-m-d", now());
@@ -1193,6 +1246,18 @@ class Cases extends CI_Controller {
     if ($actionName == 'File Affidavit/s') {
       $actionName = 'Draft Affidavit/s';
       $auto = 3; // 3 - Draft Affidavit/s
+    }
+    if ($actionName == 'Prepare Pre-Trial Brief') {
+      $actionName = 'Draft Pre-Trial Brief';
+      $auto = 4; // 4 - Draft Pre-Trial Brief
+    }
+    if ($actionName == 'File Formal Entry of Appearance') {
+      $actionName = 'Draft Formal Entry of Appearance';
+      $auto = 5; // 5 - Draft Formal Entry of Appearance
+    }
+    if ($actionName == 'File Judicial Affidavit') {
+      $actionName = 'Draft Judicial Affidavit';
+      $auto = 6; // 6 - Draft Judicial Affidavit
     }
 
     $addtask = array(
