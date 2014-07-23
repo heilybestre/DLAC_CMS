@@ -149,7 +149,7 @@
             </div>
           </div>
           <div class="box-content">
-            <table class="table table-striped table-bordered datatable">
+            <table id="case-tasks" class="table table-striped table-bordered datatable" style="width: 100% !important">
               <thead>
                 <tr>
                   <th>Task</th>

@@ -314,7 +314,12 @@
     $("#dashboard-tasks").dataTable({
       "sDom": 'tipr',
       "iDisplayLength": 4,
-      "bDestroy": true
+      "bDestroy": true,
+      "aaSorting":[[2, "asc"]]
+    });
+    $("#case-tasks").dataTable({
+      "bDestroy": true,
+      "aaSorting":[[2, "asc"]]
     });
     $("#dashboard-appl").dataTable({
       "sDom": 'tipr',
