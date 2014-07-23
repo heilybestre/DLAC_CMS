@@ -292,19 +292,17 @@
 
             <div class="row" style="max-height:400px; overflow:scroll">
 
-              <div style="border-width:5px; font:8px; background-color:#E4ECD9; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:5px; padding-top:10px; padding-bottom:10px; width:758px;">
+              <div class='adddraftasdocumentmodal_table'>
 
                 <input class="hidden" id="documentID" name="documentID"/> <!-- H's -->
                 <table class="table-condensed" style="font-size:11px;">
                   <tr>
-                    <th width='20%'>Name:</th>
-                    <td width='35%'> <input class="text form-control" id="tb_title_draftasdoc" name="documentname"/> </td>
-                    <th width='15%'>Purpose:</th>
-                    <td width='30%'> <textarea id="textarea_purpose" class='form-control' name="purpose"></textarea> </td>
+                    <th width='10%'>Name:</th>
+                    <td width='35%'> <input class="text form-control" id="tb_title_draftasdoc" name="documentname" style='width:300px'/> </td>
                   </tr>
                   <tr>
                     <th>Date Filed:</th>
-                    <td class="col-sm-3">
+                    <td>
                       <div class="input-group date">
                         <span class="input-group-addon"><i class="icon-calendar"></i></span>
                         <input type="text" class="date-picker form-control" id="docUpload_dateIssued" name="datefiled" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
@@ -312,13 +310,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <th>Date Received:</th>
-                    <td class="col-sm-3">
-                      <div class="input-group date">
-                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                        <input type="text" class="date-picker form-control" id="docUpload_dateReceived" name="datereceived" data-date-format="yyyy-mm-dd" value="<?php echo $datenow; ?>">
-                      </div>
-                    </td>
+                    <th>Purpose:</th>
+                    <td> <textarea id="textarea_purpose" class='form-control adddocumentbyclient_purpose' name="purpose"></textarea> </td>
                   </tr>
                 </table>
               </div>
@@ -364,7 +357,7 @@
             </div> 
 
             <div class="row" style="max-height:400px; overflow:scroll">
-              <div id="tableFileClientID" style="border-width:5px; font-size:13px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:50px; padding-top:10px; padding-bottom:10px; width:758px;">
+              <div id="tableFileClientID" style="border-width:5px; font-size:13px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:50px; padding-top:10px; padding-bottom:10px; width:650px;">
               </div>
             </div>
 
@@ -444,7 +437,7 @@
 
             <div class="row" style="max-height:400px; overflow:scroll">
 
-              <div id="tableFileOpposingParty" style="border-width:5px; font:8px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:5px; padding-top:10px; padding-bottom:10px; width:758px;">
+              <div id="tableFileOpposingParty" style="border-width:5px; font-size:13px; margin-right:5px; margin-left:15px; margin-bottom:5px; padding-left:50px; padding-top:10px; padding-bottom:10px; width:650px;">
               </div>
 
             </div>

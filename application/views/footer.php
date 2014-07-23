@@ -1172,7 +1172,9 @@
       $('#tableFileClientID').css('background-color', '#E4ECD9');
       var tableFileClientID = document.getElementById("tableFileClientID");
       tableFileClientID.innerHTML = '';
-
+      
+      var datetoday = "<?php echo date("Y-m-d", now()); ?>";
+      
       jQuery.fn.toHtmlString = function() {
         return $(this).get()[0].outerHTML;
       };
@@ -1212,13 +1214,13 @@
                 + "<td class='col-sm-3'>"
                 + "<div class='input-group date col-sm-5'>"
                 + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_client' name='datefiled[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_client' name='datefiled[]' data-date-format='yyyy-mm-dd' value='" + datetoday + "'>"
                 + "</div>"
                 + "</td>"
                 + "</tr>"
 
                 + "</table><br><br>";
-        tableFileClientID.innerHTML += tableHTML;
+        tableFileClientID.innerHTML += tableHTML; 
       }
       $('#docUpload_dateIssued_client').datepicker();
     });
@@ -1310,7 +1312,8 @@
       $('#tableFileOpposingParty').css('background-color', '#E4ECD9');
       var tableFileCourt = document.getElementById("tableFileOpposingParty");
       tableFileCourt.innerHTML = '';
-
+      var datetoday = "<?php echo date("Y-m-d", now()); ?>";
+      
       jQuery.fn.toHtmlString = function() {
         return $(this).get()[0].outerHTML;
       };
@@ -1326,7 +1329,7 @@
         var tableHTML = '';
         tableHTML += "<table class='table-condensed'>"
                 + "<tr>"
-                + "<td width='12%'></td>"
+                + "<td width='20%'></td>"
                 + "<td width='38%'></td>"
                 + "<td width='5%' rowspan='6' valign='top'> <button type='button' class='close' aria-hidden='true'>×</button> </td>"
                 + "</tr>"
@@ -1343,22 +1346,32 @@
 
                 + "<tr>"
                 + "<td>Title:</td>"
-                + "<td> <input class='text form-control' style='width:300px;' name='doctitleOpposingParty[]'/></td>"
+                + "<td> <input class='text form-control' style='width:300px;' name='doctitleOpposingParty[]' value='" + rawName + "' /></td>"
                 + "</tr>"
 
+                + "<tr>"
+                + "<td>Date Issued:</td>"
+                + "<td class='col-sm-3'>"
+                + "<div class='input-group date col-sm-5'>"
+                + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
+                + "<input type='text' class='date-picker form-control' id='docUpload_dateIssued_court' name='dateissuedCourt[]' data-date-format='yyyy-mm-dd' value='" + datetoday + "'>"
+                + "</div>"
+                + "</td>"
+                + "</tr>"
+                
                 + "<tr>"
                 + "<td>Date Received:</td>"
                 + "<td class='col-sm-3'>"
                 + "<div class='input-group date col-sm-5'>"
                 + "<span class='input-group-addon'><i class='icon-calendar'></i></span>"
-                + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_opposingParty' name='datereceivedOpposingParty[]' data-date-format='yyyy-mm-dd' value='yyyy-mm-dd'>"
+                + "<input type='text' class='date-picker form-control' id='docUpload_dateReceived_opposingParty' name='datereceivedOpposingParty[]' data-date-format='yyyy-mm-dd' value='" + datetoday + "'>"
                 + "</div>"
                 + "</td>"
                 + "</tr>"
 
                 + "<tr>"
                 + "<td colspan=2>"
-                + "<input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadlineOpposingParty[]'> Add New Document Deadline"
+                + "<br><input type='checkbox' class='addnewdoccheckbox' name='addNewDocDeadlineOpposingParty[]'> Add New Document Deadline"
                 + "<br/><br/>"
                 + "<div class='form-inline addnewdocDiv hide' style='padding-left:30px'>"
                 + "Document Title : <input class='text form-control' style='width:300px;'/>"

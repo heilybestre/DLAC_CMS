@@ -495,3 +495,26 @@ tabletags{
   padding-bottom: 10px;
   width: 650px;
 }
+
+.adddraftasdocumentmodal_table{
+  border-width: 5px;
+  background-color: #E4ECD9;
+  margin-right: 5px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  padding-left: 35px;
+  padding-top: 10px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+  width: 650px;
+}
+
+.adddocumentbyclient_purpose{
+  overflow: hidden !important;
+  word-wrap: break-word !important;
+  resize: none !important;
+  height: 100px !important;
+  width: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+}
