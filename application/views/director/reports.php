@@ -48,6 +48,7 @@
                                     <option value="1">Active Cases Summary</option> 
                                     <option value="2">Closed Cases Summary</option> 
                                     <option value="3">Accepted Cases Summary</option> 
+                                    <option value="4">Intern Activity Summary</option> 
                                 </select>
                             </div>
                         </div>
@@ -99,6 +100,26 @@
                         </div>
                     </div>
                     <br><br>
+                    
+                    <div class="hide" id="internActivityName">
+                        
+                    <div class="col-sm-2 control-group">
+                        <div class="controls">
+                            <center> <h5> <b>Intern Name:</b> </h5> </center>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 control-group">
+                        <div class="controls">
+                            <select class="form-control" name="month"> 
+                                 
+                            </select>
+                        </div>
+                    </div>
+                        <br><br>
+                    </div>
+                    
+                    
 
                     <a href="" target="_blank">
                         <?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success', 'style' => 'margin-left: 182px; width: 200px'), 'Generate'); ?>

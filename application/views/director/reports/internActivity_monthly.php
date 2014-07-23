@@ -7,24 +7,29 @@
     <body>
         <br><br>
         
-        <h5><b>Intern:</b> (Name)</h5>
+        <h5><b>Intern Name:</b> (Name)</h5>
+        
+        
     <center>
         <table class="table table-striped table-bordered datatable" id="dashboard-cases" data-provides="rowlink">
             <thead>
                 <tr>
-                    <th>Case No.</th>
+                    <th></th>
                     <th>Activity</th>
                 </tr>
             </thead>   
             <tbody>
-                <tr>
-                    <td>0912</td>
-                    <td>Uploaded a Document: (Doc Title)</td>
-
-                </tr>
+                    <tr>
+                        <td>July 2</td>
+                        <td>Uploaded a Document</td>
+                    </tr>
             </tbody>
         </table>
-    </center>
+    </center> <br>
+    <div style="text-align: right;">
+            <b>Total:</b>
+            <?php echo $count->count; ?>
+        </div>
 
 </body>
 </html>

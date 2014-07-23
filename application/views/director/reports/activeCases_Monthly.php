@@ -1,21 +1,16 @@
 <html>
     <head>
-        <title>Active Cases</title>
+        
         <link href="<?= base_url() ?>assets/css/reports.css" rel="stylesheet">
 
     </head>
     <body>
         <br><br>
-        <div class="pull-left">
-            <b>Total:</b>
-            <?php echo $count->count; ?>
-        </div>
-        <br><br>
     <center>
-        <table class="table table-striped table-bordered datatable" id="dashboard-cases" data-provides="rowlink">
+        <table class="table table-bordered datatable" id="dashboard-cases" data-provides="rowlink">
             <thead>
                 <tr>
-                    <th>Day</th>
+                    <th></th>
                     <th>Title</th>
                     <th>(Life) Span</th>
                     <th>Offense</th>
@@ -28,7 +23,7 @@
                         <td>
                             <?php
                             $date = DateTime::createFromFormat("Y-m-d H:i:s", $row->appDateSubmitted);
-                            echo $date->format("d");
+                            echo $date->format("m/d");
                             ?>
                         </td>
                         <td><?php echo $row->caseName; ?></td>
@@ -53,6 +48,10 @@
                 <?php endforeach; ?>
             </tbody>
         </table> 
-    </center>
+    </center><br>
+        <div style="text-align: right;">
+            <b>Total:</b>
+            <?php echo $count->count; ?>
+        </div>
 </body>
 </html>

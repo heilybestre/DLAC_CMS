@@ -6,11 +6,6 @@
     </head>
     <body>
         <br><br>
-        <div class="pull-left">
-            <b>Total:</b>
-            <?php echo $count->count; ?>
-        </div>
-        <br><br>
     <center>
         <table class="table table-striped table-bordered datatable" id="dashboard-cases" data-provides="rowlink">
             <thead>
@@ -54,5 +49,10 @@
             </tbody>
         </table> 
     </center>
+    <br>
+            <div style="text-align: right;">
+            <b>Total:</b>
+            <?php echo $count->count; ?>
+        </div>
 </body>
 </html>

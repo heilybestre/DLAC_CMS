@@ -7,11 +7,18 @@ table{
     //background-color: pink ! important;
 }
 
-td, tr, th{
-    border:1px solid black;
+ td{
+    border-right:1px solid black;
+    border-bottom:1px solid black;
     text-align: center;
+    margin: 0px;
     //border-width: 20px;
     //background-color: pink ! important;
+}
+
+th{
+    border-right:1px solid black;
+    border-bottom:1px solid black;
 }
 
 h1{

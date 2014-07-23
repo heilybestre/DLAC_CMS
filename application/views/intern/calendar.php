@@ -127,7 +127,7 @@
 
 <style>
     #calendar {
-        width: 900px;
+        width: 600px;
         margin: 0 auto;
     }
 </style>
@@ -137,7 +137,7 @@
 
         <!-- start: CALENDAR DIV -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-7">
                 <div class="box">
                     <div class="box-header">
                         <h2><i class="icon-calendar"></i>Calendar</h2>
@@ -149,7 +149,7 @@
                 </div>
             </div>
 
-            <div class="box">
+            <div class="box col-lg-5">
                 <div class="box-header">
                     <h2><i class="icon-check"></i>Things To-Do</h2>
                     <div class="box-icon">

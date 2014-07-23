@@ -262,7 +262,160 @@ class Report extends CI_Controller {
 
         exit;
     }
+    
+    
+    function internActivity_monthly() {
 
+        $uid = $this->session->userdata('userid');
+        if (empty($uid)) {
+            redirect('login/index');
+        }
+        $utype = $this->People_model->getuserfield('type', $uid);
+        $username = $this->People_model->getuserfield('firstname', $uid) . ' ' . $this->People_model->getuserfield('lastname', $uid);
+        $datestring = "%m/%d/%Y";
+        $time = now();
+        $datenow = mdate($datestring, $time);
+
+
+        $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+        $pdf->AddPage();
+
+        // <editor-fold defaultstate="collapsed" desc="Logo">
+        $pdf->Image(base_url() . '/assets/img/logo.png', 80, 10, 50);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Prepared by and Date">
+        $pdf->SetFont('Times', '', 8);  // TIMES REGULAR 8
+        $pdf->Cell(140);
+        $pdf->Cell(18, 5, 'Prepared By:');
+        $pdf->Cell(20, 5, $username, 0, 1);
+
+        $pdf->Cell(140);
+        $pdf->Cell(10, 5, 'Date:');
+        $pdf->Cell(20, 5, $datenow, 0, 1);
+        $pdf->Ln(8);
+        // </editor-fold>
+        // 
+        // <editor-fold defaultstate="collapsed" desc="Report Header">
+        $pdf->SetFont('Times', 'B', 12); // TIMES BOLD 8
+        $pdf->Cell(72);
+        $pdf->Cell(18, 5, 'Intern Activity', 0, 1);
+
+        $pdf->Cell(73);
+        $pdf->Cell(20, 5, '(Month Year)', 0, 1);
+
+        $pdf->SetFont('Times', '', 12); // TIMES REGULAR 8
+        $pdf->Cell(75);
+        // </editor-fold>
+        // 
+        // Line break
+        $pdf->Ln(20);
+
+
+        // <editor-fold defaultstate="collapsed" desc="Report Header">
+        $cases = $this->Case_model->select_mycaseaccepted($uid);
+
+        foreach ($cases as $case) {
+
+            // <editor-fold defaultstate="collapsed" desc="Case Title">
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(15);
+            $pdf->Write(5, 'Case Title:  ');
+            $pdf->SetFont('Times', '', 10); // TIMES REGULAR 8
+            $pdf->Write(5, $case->caseName);
+            $pdf->Ln();
+            // </editor-fold>
+            // 
+            // <editor-fold defaultstate="collapsed" desc="Case Status">
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(15);
+            $pdf->Write(5, 'Case Status:  ');
+            $pdf->SetFont('Times', '', 10); // TIMES REGULAR 8
+            $pdf->Write(5, $case->statusName);
+            $pdf->Ln();
+            // </editor-fold>
+            // 
+            // <editor-fold defaultstate="collapsed" desc="Case Stage">
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(15);
+            $pdf->Write(5, 'Stage of the case:  ');
+            $pdf->SetFont('Times', '', 10); // TIMES REGULAR 8
+            $pdf->Write(5, $case->stageName);
+            $pdf->Ln();
+            // </editor-fold>
+            // 
+            // <editor-fold defaultstate="collapsed" desc="Last Incident">
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(15);
+            $pdf->Write(5, 'Last Incident:  ');
+            $pdf->SetFont('Times', '', 10); // TIMES REGULAR 8
+            $pdf->Write(5, '');
+            $pdf->Ln();
+            // </editor-fold>
+            // 
+            // <editor-fold defaultstate="collapsed" desc="Brief Summary">
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(15);
+            $pdf->Write(5, 'Brief Summary:  ');
+            $pdf->SetFont('Times', '', 10); // TIMES REGULAR 8
+            $pdf->Write(5, '');
+            $pdf->Ln();
+            // </editor-fold>
+            // Line break
+            $pdf->Ln(20);
+
+            // <editor-fold defaultstate="collapsed" desc="Timeline Table">
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(15);
+            $pdf->Write(5, 'Timeline:');
+            $pdf->Ln();
+            // </editor-fold>
+
+            $pdf->SetFont('Times', '', 10); // TIMES REGULAR 8
+            $timelines = $this->Case_model->select_weekly_log($case->caseID, $case->stage);
+
+            // <editor-fold defaultstate="collapsed" desc="Table Header">
+            $pdf->Cell(15);
+            $pdf->SetFont('Times', 'B', 10); // TIMES BOLD 8
+            $pdf->Cell(80, 5, 'Date', 1, 0);
+            $pdf->Cell(80, 5, 'Action', 1);
+            $pdf->Ln();
+            // </editor-fold>
+
+            $pdf->SetFont('Times', '', 10); // TIMES Regular 8
+            if (!empty($timelines)) {
+                foreach ($timelines as $TL) {
+
+                    $pdf->Cell(15);
+                    $pdf->Cell(80, 5, $TL->dateTime, 1, 0);
+                    $pdf->Cell(80, 5, $TL->action, 1);
+                    $pdf->Ln();
+                }
+            } else {
+                $pdf->Cell(15);
+                $pdf->Cell(160, 5, 'No data Available', 1, 0, 'C');
+            }
+            $pdf->AddPage();
+        }
+        // </editor-fold>
+        // Line break
+        $pdf->Ln(20);
+        $pdf->Output();
+
+        if (file_exists($pdfFilePath) == FALSE) {
+            $data['cases'] = $this->Case_model->select_mycaseaccepted($uid);
+            $html = $this->load->view("intern/internActivity_monthly", $data, true);
+
+
+            $pdf->SetTitle('cases');
+            $pdf->SetFooter($footNote . '|{PAGENO}|' . date("Y-m-d H:i:s")); // Add a footer for good measure <img src="http://davidsimpson.me/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley lastChild">
+            $pdf->WriteHTML($html); // write the HTML into the PDF
+            //$pdf->Output(); // save to file 
+            exit;
+        }
+    }
+   
     // <editor-fold defaultstate="collapsed" desc="BETA VERSION">
     function weeklyreport() {
         define('FPDF_FONTPATH', APPPATH . 'plugins/fpdf/font/');
