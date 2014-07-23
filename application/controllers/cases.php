@@ -942,7 +942,7 @@ class Cases extends CI_Controller {
           $datenow = date("Y-m-d", now());
           $uid = $this->session->userdata('userid');
 
-          $deadline = date('Y-m-d', strtotime("+$newdocumentdeadline[$count] weekdays"));
+          $deadline = date('Y-m-d', strtotime("+$newdocumentdeadline[$count] days"));
 
           $newdeadline = array(
               'caseID' => $cid,

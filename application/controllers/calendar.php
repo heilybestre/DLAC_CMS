@@ -235,6 +235,7 @@ class Calendar extends CI_Controller {
     $numbers = ''; // Number of the client
     $message = ''; // What is the message?
     //$this->send_sms($sender, $numbers, $message);
+    
     //last id inserted
     $scheduleID = $this->db->insert_id();
 
@@ -256,24 +257,24 @@ class Calendar extends CI_Controller {
         'status' => 1
     );
     $this->Case_model->update_action($actionplanforevent, $doneaction);
-
+    
     /* TASK TABLE */
     $cid = $newappt_case;
     $datetimenow = date("Y-m-d H:i:s", now()); //datetimenow
     $task = $this->Task_model->select_task_auto($cid, 1); // 1 = Set Client Meeting
     $setclientmeetingdone = false;
     $tid = $task->taskID;
-
-    if ($task->dateDone != NULL) {
+    
+    if($task->dateDone != NULL){
       $setclientmeetingdone = true;
     }
-
-    if (!$setclientmeetingdone) {
+    
+    if(!$setclientmeetingdone){
       $taskdone = array('dateDone' => $datetimenow);
       $this->Task_model->update_task($tid, $taskdone);
     }
-
-
+    
+    
     if ($desti == 'calendar')
       redirect('calendar');
     else if ($desti == 'cases')
@@ -748,6 +749,8 @@ class Calendar extends CI_Controller {
                 <button id='btndoneapptshow' type='button' class='btn btn-success'>Done</button>
                 <button id='btncantattendapptshow' type='button' class='btn btn-danger'>Cant Attend</button>
             </div>";
+//      if ($this->session->userdata('userid') == $schedule->createdBy)
+//        echo "<button id='btndeleteapptshow' type='button' class='btn alert-danger'>Delete</button>";
     }
 
     echo "<script>
