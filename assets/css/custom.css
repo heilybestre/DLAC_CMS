@@ -158,8 +158,9 @@
 }
 
 .modal-dialog-transferClose {
-  width: 850px; /* SET THE WIDTH OF THE MODAL */
-  margin: 50px 0 0 250px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  width: 900px; /* SET THE WIDTH OF THE MODAL */
+  margin: 0 auto; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+  margin-top: 50px;
 }
 
 #ulnotif{
