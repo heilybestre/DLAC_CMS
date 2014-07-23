@@ -158,13 +158,13 @@
           </div>
         </div>
         <div class="box-content box-dashboard">
-
           <br>
           <table class="table table-striped table-bordered datatable" id="dashboard-importantdates">
             <thead>
               <tr>
-                <th id="hi" width="25%">Date</th>
+                <th width="25%">Date</th>
                 <th width="50%">Activity</th>
+                <th width="25%">Case</th>
               </tr>
             </thead>   
             <tbody>
@@ -173,37 +173,36 @@
                   <td>
                     <?php
                     $date = DateTime::createFromFormat("Y-m-d", $event->date);
-                    echo $date->format("M d, Y");
+                    echo $date->format("M d");
                     ?>
                   </td>
                   <td>
                     <?php echo $event->title; ?>
                   </td>
-                </tr>
-              <?php endforeach; ?>
-              <?php foreach ($IDtasks as $task): ?>
-                <tr>
                   <td>
-                    <?php echo $task->dateDue; ?>
-                  </td>
-                  <td>
-                    <?php echo $task->task; ?>
+                    <?php echo $this->Case_model->select_case($event->caseID)->caseNum; ?>
                   </td>
                 </tr>
               <?php endforeach; ?>
-              <?php foreach ($IDdocuments as $document): ?>
-                <tr>
-                  <td>
-                    <?php
-                    $date = DateTime::createFromFormat("Y-m-d H:i:s", $document->datereceived);
-                    date_add($date, date_interval_create_from_date_string("14 days"));
-                    echo $date->format("M d, Y");
-                    ?>
-                  </td>
-                  <td>
-                    <?php echo $document->file_name; ?>
-                  </td>
-                </tr>
+              <?php foreach ($cases as $case): ?>
+                <?php $deadline = $this->Case_model->select_duedocuments($case->caseID); ?>
+                <?php foreach ($deadline as $deadline) { ?>
+                  <tr>
+                    <td>
+                      <?php
+                      $date = DateTime::createFromFormat("Y-m-d H:i:s", $deadline->start);
+                      date_add($date, date_interval_create_from_date_string("14 days"));
+                      echo $date->format("M d");
+                      ?>
+                    </td>
+                    <td>
+                      <?php echo $deadline->title; ?>
+                    </td>
+                    <td>
+                      <?php echo $this->Case_model->select_case($deadline->caseID)->caseNum; ?>
+                    </td>
+                  </tr>
+                <?php } ?>
               <?php endforeach; ?>
             </tbody>
           </table>    

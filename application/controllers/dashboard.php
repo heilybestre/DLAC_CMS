@@ -40,6 +40,7 @@ class Dashboard extends CI_Controller {
         $data['transferrequests'] = $this->Case_model->select_transferrequest();
         $data['applications'] = $this->Case_model->select_casepending();
         $data['cases'] = $this->Case_model->select_caseactiveinactive();
+        $data['IDevents'] = $this->Calendar_model->select_allschedule();
 
         $this->load->view('director/menubar', $data);
         $this->load->view('director/dashboard', $data);
@@ -59,7 +60,6 @@ class Dashboard extends CI_Controller {
         $data['thingstodo'] = $this->Task_model->select_mytask($uid);
         $data['IDevents'] = $this->Calendar_model->select_userschedule($uid);
         $data['IDtasks'] = $this->Task_model->select_mytask($uid);
-        $data['IDdocuments'] = $this->Case_model->select_duedocuments($uid);
 
         $this->load->view('lawyer/menubar', $data);
         $this->load->view('lawyer/dashboard', $data);
@@ -71,7 +71,6 @@ class Dashboard extends CI_Controller {
         $data['person'] = $this->People_model->select_person($uid);
         $data['IDevents'] = $this->Calendar_model->select_userschedule($uid);
         $data['IDtasks'] = $this->Task_model->select_mytask($uid);
-        $data['IDdocuments'] = $this->Case_model->select_duedocuments($uid);
 
         $this->load->view('intern/menubar', $data);
         $this->load->view('intern/dashboard', $data);

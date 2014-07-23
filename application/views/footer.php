@@ -142,7 +142,7 @@
     $.ajax({
       type: "POST",
       url: "<?php echo base_url() ?>cases/assignAction/" + actionplanID + '/' + personID + '/',
-      success:  function(result) {
+      success: function(result) {
         alert(result);
       }
     });
@@ -233,7 +233,7 @@
       "sDom": 'tipr',
       "iDisplayLength": 4,
       "bDestroy": true,
-      "aaSorting": [[0, "desc"]]
+      "aaSorting": [[0, "asc"]]
     });
     $("#dashboard-tasks").dataTable({
       "sDom": 'tipr',
@@ -284,6 +284,10 @@
     if (segment == 'dashboard') {
       $('div.dataTables_paginate').css('margin-top', '-25px');
       $('div.dataTables_paginate').css('margin-right', '0px');
+    }
+    // First row of important dates in dashboard = red
+    if($('#dashboard-importantdates tr').eq(1).text() != 'No data available in table'){
+      $('#dashboard-importantdates tr').eq(1).addClass('mostimportantdate');
     }
   });
   // Load calendar on Events Tab
@@ -1150,7 +1154,7 @@
       cell4s.innerHTML = "";
 
       cell1s.className = 'adddraft_documentcolumn';
-      
+
       for (var i = 0; i < files.length; i++) {
         var fileName = files[i].name;
         var fileSize = files[i].size;
@@ -1172,9 +1176,9 @@
       $('#tableFileClientID').css('background-color', '#E4ECD9');
       var tableFileClientID = document.getElementById("tableFileClientID");
       tableFileClientID.innerHTML = '';
-      
+
       var datetoday = "<?php echo date("Y-m-d", now()); ?>";
-      
+
       jQuery.fn.toHtmlString = function() {
         return $(this).get()[0].outerHTML;
       };
@@ -1220,7 +1224,7 @@
                 + "</tr>"
 
                 + "</table><br><br>";
-        tableFileClientID.innerHTML += tableHTML; 
+        tableFileClientID.innerHTML += tableHTML;
       }
       $('#docUpload_dateIssued_client').datepicker();
     });
@@ -1276,7 +1280,7 @@
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-        
+
                 + "<tr>"
                 + "<td>Date Received:</td>"
                 + "<td class='col-sm-3'>"
@@ -1313,7 +1317,7 @@
       var tableFileCourt = document.getElementById("tableFileOpposingParty");
       tableFileCourt.innerHTML = '';
       var datetoday = "<?php echo date("Y-m-d", now()); ?>";
-      
+
       jQuery.fn.toHtmlString = function() {
         return $(this).get()[0].outerHTML;
       };
@@ -1358,7 +1362,7 @@
                 + "</div>"
                 + "</td>"
                 + "</tr>"
-                
+
                 + "<tr>"
                 + "<td>Date Received:</td>"
                 + "<td class='col-sm-3'>"
