@@ -143,7 +143,6 @@
       type: "POST",
       url: "<?php echo base_url() ?>cases/assignAction/" + actionplanID + '/' + personID + '/',
       success: function(result) {
-        alert(result);
       }
     });
   });
