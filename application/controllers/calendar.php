@@ -1060,6 +1060,13 @@ class Calendar extends CI_Controller {
     );
     $this->Case_model->insert_log($log);
 
+    /* ACTION PLAN TABLE */
+    $doneaction = array(
+        'status' => 1
+    );
+    $this->Case_model->update_action($actionplanforminutes, $doneaction);
+
+    
     if ($desti == 'calendar')
       redirect('calendar');
     else if ($desti == 'cases')
