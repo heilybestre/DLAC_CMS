@@ -221,7 +221,20 @@
 
               <div class="col-sm-7 control-group">
                 <div class="controls">
-                  <h5> (Client) </h5>
+                  <?php $clients = $this->Case_model->select_caseclient($case->caseID); ?>
+                  <h5>
+                    <?php $count = 0; ?>
+                    <?php
+                    foreach ($clients as $client) {
+                      if ($count == 0) {
+                        echo $this->People_model->getuserfield('firstname', $client->personID) . ' ' . $this->People_model->getuserfield('lastname', $client->personID);
+                      } else {
+                        echo ', ' . $this->People_model->getuserfield('firstname', $client->personID) . ' ' . $this->People_model->getuserfield('lastname', $client->personID);
+                      }
+                      $count++;
+                    }
+                    ?>
+                  </h5>
                   <input type="hidden" name="newappt_case" value="<?= $case->caseID ?>"/>
                 </div>
               </div>
