@@ -75,8 +75,8 @@
               message: 'The password cannot be the same as username'
             },
             stringLength: {
-              min: 6,
-              message: 'The password must have at least 6 characters'
+              min: 8,
+              message: 'The password must have at least 8 characters'
             }
           }
         }
