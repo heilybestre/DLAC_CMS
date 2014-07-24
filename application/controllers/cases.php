@@ -1140,7 +1140,8 @@ class Cases extends CI_Controller {
           'task' => "Check action plan for $caseName by $userName",
           'assignedTo' => $lawyer->personID,
           'dateAssigned' => $datetimenow,
-          'dateDue' => $datenow
+          'dateDue' => $datenow,
+          'auto' => 7
       );
       $this->Task_model->insert_task($addtask);
     }
@@ -1158,7 +1159,6 @@ class Cases extends CI_Controller {
       $taskdone = array('dateDone' => $datetimenow);
       $this->Task_model->update_task($tid, $taskdone);
     }
-
 
     redirect("cases/caseFolder/$cid?tid=actionplan");
   }
@@ -1208,6 +1208,22 @@ class Cases extends CI_Controller {
         'category' => 'ACTIONPLAN'
     );
     $this->Case_model->insert_log($log);
+
+    /* TASK TABLE - DONE TASK */
+    if ($this->Task_model->select_task_auto($cid, 7)) { // 7 - approve action plan
+      $task = $this->Task_model->select_task_auto($cid, 3);
+      $approveactionplandone = false;
+      $tid = $task->taskID;
+
+      if ($task->dateDone != NULL) {
+        $approveactionplandone = true;
+      }
+
+      if (!$approveactionplandone) {
+        $taskdone = array('dateDone' => $datetimenow);
+        $this->Task_model->update_task($tid, $taskdone);
+      }
+    }
 
     redirect("cases/caseFolder/$cid?tid=actionplan");
   }
