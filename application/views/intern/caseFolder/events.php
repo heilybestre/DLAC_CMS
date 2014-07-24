@@ -160,7 +160,7 @@
               <tbody>
                 <?php foreach ($thingstodo as $row): ?>
                   <tr>
-                    <td class="center"><a href="#taskDetailsModal_<?= $row->taskID ?>" data-toggle="modal" style='font-size:11px; width:100px;'><?php echo $row->task ?></a>
+                    <td class="center"><a href="#taskDetailsModal_<?= $row->taskID ?>" data-toggle="modal" style='color:black; font-size:11px; width:100px;'><?php echo $row->task ?></a>
                     </td>
                     <td class="center"><?php echo $this->Case_model->select_case($row->caseID)->caseNum ?></td>
                     <td class="center">
