@@ -118,7 +118,7 @@
 <!-- Button -->
 <!-- Button -->
 <div class="row">
-  <div class="control-group pull-right pull-down">
+  <div class="control-group pull-right pull-down" style="margin-right:40px;">
     <label class="control-label" for="submit"></label>
     <div class="controls"><?php echo form_submit(array('name' => 'submit', 'class' => 'btn btn-success pull-right'), 'Submit'); ?>
     </div>
