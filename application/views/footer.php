@@ -244,55 +244,59 @@
     });
   });
 
+<?php if ($this->uri->segment(1) == 'cases' && $this->uri->segment(2) == 'caseFolder') { ?>
   // ACTION PLAN STAGE CHECK
-  $(document).ready(function() {
-    var cid = "<?= $this->uri->segment(3) ?>";
-  <?php $caseID = $this->uri->segment(3); ?>
-    var currentstage = "<?= $this->Case_model->select_case($caseID)->stage ?>";
+    $(document).ready(function() {
+      var cid = "<?= $this->uri->segment(3) ?>";
 
-    if (currentstage == 1) {
-      if ($('.cbactionstage1:checked').length == $('.cbactionstage1').length) {
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url() ?>cases/casenextstage/" + cid,
-          success: function(result) {
-            alert('The case has moved to the next stage.');
-            window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
-          }
-        });
+  <?php $caseID = $this->uri->segment(3); ?>
+      var currentstage = "<?= $this->Case_model->select_case($caseID)->stage ?>";
+
+      if (currentstage == 1) {
+        if ($('.cbactionstage1:checked').length == $('.cbactionstage1').length) {
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>cases/casenextstage/" + cid,
+            success: function(result) {
+              alert('The case has moved to the next stage.');
+              window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
+            }
+          });
+        }
       }
-    }
-    else if (currentstage == 2) {
-      if ($('.cbactionstage2:checked').length == $('.cbactionstage2').length) {
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url() ?>cases/casenextstage/" + cid,
-          success: function(result) {
-            alert('The case has moved to the next stage.');
-            window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
-          }
-        });
+      else if (currentstage == 2) {
+        if ($('.cbactionstage2:checked').length == $('.cbactionstage2').length) {
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>cases/casenextstage/" + cid,
+            success: function(result) {
+              alert('The case has moved to the next stage.');
+              window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
+            }
+          });
+        }
       }
-    }
-    else if (currentstage == 3) {
-      if ($('.cbactionstage3:checked').length == $('.cbactionstage3').length) {
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url() ?>cases/casenextstage/" + cid,
-          success: function(result) {
-            alert('The case has moved to the next stage.');
-            window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
-          }
-        });
+      else if (currentstage == 3) {
+        if ($('.cbactionstage3:checked').length == $('.cbactionstage3').length) {
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>cases/casenextstage/" + cid,
+            success: function(result) {
+              alert('The case has moved to the next stage.');
+              window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
+            }
+          });
+        }
       }
-    }
-    else if (currentstage == 4) {
-      if ($('.cbactionstage4:checked').length == $('.cbactionstage4').length) {
-        alert("Trial stage has been completed.");
-        window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
+      else if (currentstage == 4) {
+        if ($('.cbactionstage4:checked').length == $('.cbactionstage4').length) {
+          alert("Trial stage has been completed.");
+          window.location.assign("<?php echo base_url() ?>cases/caseFolder/" + cid);
+        }
       }
-    }
-  });
+
+    });
+<?php } ?>
 
   //customized datatables
   $(document).ready(function() {
