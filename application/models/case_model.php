@@ -457,6 +457,11 @@ class Case_model extends CI_Model {
     return $query->result();
   }
 
+  function select_all_documents($cid) {
+    $query = $this->db->query("SELECT * FROM legaldocument WHERE caseID = $cid HAVING doctype IN (2,3,4)");
+    return $query->result();
+  }
+
   //</editor-fold>
   //
     // <editor-fold defaultstate="collapsed" desc="OFFENSE">
@@ -482,6 +487,11 @@ class Case_model extends CI_Model {
     // <editor-fold defaultstate="collapsed" desc="CASE PEOPLE">
   function insert_caseperson($data) {
     $this->db->insert('case_people', $data);
+  }
+
+  function update_caseperson($pid, $changes) {
+    $this->db->where('personID', $pid);
+    $this->db->update('case_people', $changes);
   }
 
   function apply_to_transfer($cid, $pid, $changes) {

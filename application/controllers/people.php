@@ -103,15 +103,81 @@ class People extends CI_Controller {
   }
 
   function add($person) {
-    $this->People_model->insert_client($person);
+    $this->People_model->insert_person($person);
   }
 
-  function edit($pid) {
-    
+  function edit($pid, $person) {
+    $this->People_model->update_person($pid, $person);
   }
 
   function delete($pid) {
-    
+    $this->People_model->delete_person($pid);
+  }
+
+  function addlinkedpeople($cid) {
+
+    $datetimenow = date("Y-m-d H:i:s", now());
+
+    extract($_POST);
+    $pid = 0;
+    if ($pid == 0) { //dropdown from existing people is not set
+      $person = array(
+          'firstname' => $partyFirstName,
+          'middlename' => $partyMiddleName,
+          'lastname' => $partyLastName,
+          'addrhouse' => $partyAddressHouseNo,
+          'addrstreet' => $partyAddressStreet,
+          'addrtown' => $partyAddressTown,
+          'addrdistrict' => $partyAddressDistrict,
+          'addrpostalcode' => $partyAddressPostalCode,
+          'contacthome' => $partyCNHome,
+          'contactoffice' => $partyCNOffice,
+          'contactmobile' => $partyCNMobile
+      );
+      $this->add($person);
+      $pid = $this->db->insert_id();
+    } else {
+      //$pid = $personID from dropdown
+    }
+
+    $data = array(
+        'caseID' => $cid,
+        'personID' => $pid,
+        'participation' => $partyParticipation,
+        'condition' => 'current',
+        'datestart' => $datetimenow
+    );
+    $this->Case_model->insert_caseperson($data);
+  }
+
+  function editlinkedpeople($pid) {
+    extract($_POST);
+
+    $person = array(
+        'firstname' => $partyFirstName,
+        'middlename' => $partyMiddleName,
+        'lastname' => $partyLastName,
+        'addrhouse' => $partyAddressHouseNo,
+        'addrstreet' => $partyAddressStreet,
+        'addrtown' => $partyAddressTown,
+        'addrdistrict' => $partyAddressDistrict,
+        'addrpostalcode' => $partyAddressPostalCode,
+        'contacthome' => $partyCNHome,
+        'contactoffice' => $partyCNOffice,
+        'contactmobile' => $partyCNMobile
+    );
+
+    $this->edit($pid, $person);
+  }
+
+  function deletelinkedpeople($cid, $pid) {
+    $datetimenow = date("Y-m-d H:i:s", now());
+
+    $changes = array(
+        'condition' => 'expired',
+        'dateend' => $datetimenow
+    );
+    $this->Case_model->update_caseperson($pid, $changes);
   }
 
   function newclient() {

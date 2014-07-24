@@ -78,13 +78,9 @@
                 if ($client->contacthome != null) {
                   echo $client->contacthome . ' (Home) | ';
                 }
-                ?>
-                <?php
                 if ($client->contactoffice != null) {
                   echo $client->contactoffice . ' (Office) | ';
                 }
-                ?>
-                <?php
                 if ($client->contactmobile != null) {
                   echo $client->contactmobile;
                 }
