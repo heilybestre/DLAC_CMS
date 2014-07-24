@@ -894,14 +894,15 @@ class Cases extends CI_Controller {
             'doctype' => 3,
             'stage' => $sid,
             'datereceived' => $datereceived[$count],
-            'dateissued' => $datefiled[$count],
+            'dateissued' => $dateissuedOpposingParty[$count],
             'datefiled' => $datetimenow,
-            'file_name ' => $docname[$count],
+            'file_name ' => $docnameOpposingParty[$count],
             'file_type' => $file['file_type'],
             'file_path ' => 'uploads/' . $file['file_name'], //$file['full_path'],
             'file_ext' => $file['file_ext'],
             'file_size' => $file['file_size'],
-            'purpose' => $docpurpose[$count]
+            'purpose' => $docpurpose[$count],
+            'title' => $docnameOpposingParty[$count]
         );
 
         $this->Case_model->insert_casedocument($cid, $changes);
