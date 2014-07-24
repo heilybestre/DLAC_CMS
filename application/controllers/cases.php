@@ -1300,6 +1300,30 @@ class Cases extends CI_Controller {
     $this->Case_model->insert_log($log);
   }
 
+  function casenextstage($cid) {
+    $case = $this->Case_model->select_case($cid);
+    $currentstage = $case->stage;
+    $newstage = $currentstage + 1;
+    $strnewstage = $this->Case_model->select_strstage($newstage)->stageName;
+
+    $datestring = "%Y-%m-%d %H:%i:%s";
+    $time = now();
+    $datetimenow = mdate($datestring, $time);
+
+    //Update stage in case table
+    $this->Case_model->update_case($cid, array('stage' => "$newstage"));
+
+    /* LOG TABLE */
+    $log = array(
+        'caseID' => $cid,
+        'action' => 'Just started at ' . $strnewstage . ' stage.',
+        'dateTime' => $datetimenow,
+        'stage' => $newstage,
+        'category' => 'CASE'
+    );
+    $this->Case_model->insert_log($log);
+  }
+
   function EditCaseTags() {
     $cid = $_POST['caseID'];
     $tags = $_POST['caseTags'];
