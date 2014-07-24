@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
   public function index() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
 

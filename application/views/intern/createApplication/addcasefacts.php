@@ -1,6 +1,19 @@
 <div id='casefacts_form' class="container">
 
   <div class="row">
+    <h5>
+      <?php echo validation_errors(); ?>
+
+      <?php if ($this->session->flashdata('createapp_error')) { ?>
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Warning!</strong> There are some fields that you cannot leave blank.
+        </div>
+      <?php } ?>
+    </h5>
+  </div>
+
+  <div class="row">
     <div class="col-sm-2 control-group">
       <div class="controls">
         <center> <h5> <b> Application Form No. </b></h5> </center>

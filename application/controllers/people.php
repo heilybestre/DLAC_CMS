@@ -15,6 +15,7 @@ class People extends CI_Controller {
   function index() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -58,6 +59,7 @@ class People extends CI_Controller {
 
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -115,6 +117,7 @@ class People extends CI_Controller {
   function newclient() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -244,6 +247,7 @@ class People extends CI_Controller {
   function attendanceLogs() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $datestring = "%F %j, %Y";
@@ -278,6 +282,7 @@ class People extends CI_Controller {
   function internmgt() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $datestring = "%F %j, %Y";

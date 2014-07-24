@@ -10,12 +10,15 @@ class Application extends CI_Controller {
   function __construct() {
     parent:: __construct();
     $this->load->spark('markdown-extra/0.0.0');
+    $this->load->helper(array('form', 'url'));
+    $this->load->library('form_validation');
   }
 
   //Application Page
   function index() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -64,6 +67,7 @@ class Application extends CI_Controller {
   function view($cid) {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
 
@@ -371,6 +375,7 @@ class Application extends CI_Controller {
   function createapplication() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -459,232 +464,245 @@ class Application extends CI_Controller {
       $incidenttime = $appincidenttime;
 
     /* CASE TABLE */
-    $forcase = array(
-        'appAdviceGiven' => $appadvicegiven,
-        'appNotes' => $appnotes,
-        'appSubmittedBy' => $uid,
-        'appDateSubmitted' => $datetimenow,
-        'appNarrative' => $appnarrative,
-        'appIncidentPlace' => $appplace,
-        'appIncidentCity' => $appplacecity,
-        'appIncidentDate' => $incidentdate,
-        'appIncidentTime' => $incidenttime,
-        'status' => 2, //Pending
-        'stage' => $appstage,
-        'caseName' => $apptitle,
-        'caseNum' => $appnumber
-    );
-    $this->Case_model->insert_app($forcase);
-    //get the case id by last id inserted
-    $caseID = $this->db->insert_id();
 
-    /* CASE_PEOPLE TABLE (CLIENT) */
-    for ($index = 0; $index < count($appclient); $index++) {
-      $forcasepeopleclient = array(
-          'caseID' => $caseID,
-          'personID' => $appclient[$index],
-          'participation' => 6, //client
-          'condition' => 'current',
-          'side' => $appclienttype,
-          'datestart' => $datetimenow
+    $this->form_validation->set_rules('appclient[]', 'Client', 'required');
+    $this->form_validation->set_rules('appstage', 'Case Stage', 'required');
+    $this->form_validation->set_rules('appclienttype', 'Client Type', 'required');
+    $this->form_validation->set_rules('apptitle', 'Title', 'required');
+    $this->form_validation->set_rules('appnarrative', 'Narrative', 'required');
+    $this->form_validation->set_rules('applawyer', 'Lawyer', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->session->set_flashdata('createapp_error', TRUE);
+      redirect('application/createapplication');
+    } else {
+      $forcase = array(
+          'appAdviceGiven' => $appadvicegiven,
+          'appNotes' => $appnotes,
+          'appSubmittedBy' => $uid,
+          'appDateSubmitted' => $datetimenow,
+          'appNarrative' => $appnarrative,
+          'appIncidentPlace' => $appplace,
+          'appIncidentCity' => $appplacecity,
+          'appIncidentDate' => $incidentdate,
+          'appIncidentTime' => $incidenttime,
+          'status' => 2, //Pending
+          'stage' => $appstage,
+          'caseName' => $apptitle,
+          'caseNum' => $appnumber
       );
-      $this->Case_model->insert_caseperson($forcasepeopleclient);
-    }
+      $this->Case_model->insert_app($forcase);
+      //get the case id by last id inserted
+      $caseID = $this->db->insert_id();
 
-    /* CASE_PEOPLE TABLE (OPPOSING PARTY) */
-    $appopptype = 0;
-    switch ($appclienttype) {
-      case 8: $appopptype = 9;
-        break;
-      case 9: $appopptype = 8;
-        break;
-      case 10: $appopptype = 11;
-        break;
-      case 11: $appopptype = 10;
-        break;
-      case 12: $appopptype = 13;
-        break;
-      case 13: $appopptype = 12;
-        break;
-    };
-    for ($index = 0; $index < count($appopposing); $index++) {
-      $forcasepeopleopp = array(
+      /* CASE_PEOPLE TABLE (CLIENT) */
+      for ($index = 0; $index < count($appclient); $index++) {
+        $forcasepeopleclient = array(
+            'caseID' => $caseID,
+            'personID' => $appclient[$index],
+            'participation' => 6, //client
+            'condition' => 'current',
+            'side' => $appclienttype,
+            'datestart' => $datetimenow
+        );
+        $this->Case_model->insert_caseperson($forcasepeopleclient);
+      }
+
+      /* CASE_PEOPLE TABLE (OPPOSING PARTY) */
+      $appopptype = 0;
+      switch ($appclienttype) {
+        case 8: $appopptype = 9;
+          break;
+        case 9: $appopptype = 8;
+          break;
+        case 10: $appopptype = 11;
+          break;
+        case 11: $appopptype = 10;
+          break;
+        case 12: $appopptype = 13;
+          break;
+        case 13: $appopptype = 12;
+          break;
+      };
+      for ($index = 0; $index < count($appopposing); $index++) {
+        $forcasepeopleopp = array(
+            'caseID' => $caseID,
+            'personID' => $appopposing[$index],
+            'participation' => 7, //opposing party
+            'condition' => 'current',
+            'side' => $appopptype,
+            'datestart' => $datetimenow
+        );
+        $this->Case_model->insert_caseperson($forcasepeopleopp);
+      }
+
+      /* COURT TABLE */
+      if ($appcaseno == null || $appcaseno == '')
+        $appcaseno = '-';
+
+      if ($appforum != '-') {
+        $forcourt = array(
+            'caseID' => $caseID,
+            'court' => $appforum,
+            'casenumber' => $appcaseno,
+            'courtstatus' => 3 //active
+        );
+        $this->Case_model->insert_court($forcourt);
+      }
+
+      /* INTERVIEW TABLE (INTERN) */
+      $forinterviewintern = array(
           'caseID' => $caseID,
-          'personID' => $appopposing[$index],
-          'participation' => 7, //opposing party
-          'condition' => 'current',
-          'side' => $appopptype,
-          'datestart' => $datetimenow
-      );
-      $this->Case_model->insert_caseperson($forcasepeopleopp);
-    }
-
-    /* COURT TABLE */
-    if ($appcaseno == null || $appcaseno == '')
-      $appcaseno = '-';
-
-    if ($appforum != '-') {
-      $forcourt = array(
-          'caseID' => $caseID,
-          'court' => $appforum,
-          'casenumber' => $appcaseno,
-          'courtstatus' => 3 //active
-      );
-      $this->Case_model->insert_court($forcourt);
-    }
-
-    /* INTERVIEW TABLE (INTERN) */
-    $forinterviewintern = array(
-        'caseID' => $caseID,
-        'personID' => $uid,
-        'interviewDate' => $appinterviewdate
-    );
-    $this->Case_model->insert_interview($forinterviewintern);
-
-    /* INTERVIEW TABLE (LAWYER) */
-    $forinterviewlawyer = array(
-        'caseID' => $caseID,
-        'personID' => $applawyer,
-        'interviewDate' => $appinterviewdate
-    );
-    $this->Case_model->insert_interview($forinterviewlawyer);
-
-    /* INTERVIEW TABLE (OTHER INTERVIEWERS) */
-    for ($index = 0; $index < count($otherinterviewers); $index++) {
-      $forinterviewothers = array(
-          'caseID' => $caseID,
-          'personID' => $otherinterviewers[$index],
+          'personID' => $uid,
           'interviewDate' => $appinterviewdate
       );
-      $this->Case_model->insert_interview($forinterviewothers);
-    }
+      $this->Case_model->insert_interview($forinterviewintern);
 
-    /* OFFENSE TABLE */
-    $tagoffense = ''; //for tags later  
+      /* INTERVIEW TABLE (LAWYER) */
+      $forinterviewlawyer = array(
+          'caseID' => $caseID,
+          'personID' => $applawyer,
+          'interviewDate' => $appinterviewdate
+      );
+      $this->Case_model->insert_interview($forinterviewlawyer);
 
-    if (isset($appoffensename)) {
-      for ($index = 0; $index < count($appoffensename); $index++) {
-        $data = array(
+      /* INTERVIEW TABLE (OTHER INTERVIEWERS) */
+      for ($index = 0; $index < count($otherinterviewers); $index++) {
+        $forinterviewothers = array(
             'caseID' => $caseID,
-            'offenseID' => $appoffensename [$index],
-            'stage' => $appoffensestage [$index]
+            'personID' => $otherinterviewers[$index],
+            'interviewDate' => $appinterviewdate
         );
-        $this->Case_model->insert_offense($data);
-        $tagoffense = $tagoffense . ' #' . $this->Case_model->select_stroffense($appoffensename[$index])->offenseName;
+        $this->Case_model->insert_interview($forinterviewothers);
       }
-    }
 
-    /* EVIDENCEDOC TABLE */
-    if (isset($idocname)) {
-      for ($index = 0; $index < count($idocname); $index++) {
-        $data = array(
-            'caseID' => $caseID,
-            'dparty' => $idocevidenceof[$index],
-            'dname' => $idocname[$index],
-            'dtype' => $idoctype[$index],
-            'dstatus' => $idocstatus[$index],
-            'ddesc' => $idocdesc[$index],
-            'dpurpose' => $idocpurpose[$index],
-            'dissueDate' => $idocdateissued[$index],
-            'dissuePlace' => $idocplaceissued[$index],
-            'ddateReceived' => $idocdatereceived[$index],
-            'dtestified' => $idoctestify[$index],
-        );
-        $this->Case_model->insert_evidencedoc($data);
+      /* OFFENSE TABLE */
+      $tagoffense = ''; //for tags later  
 
-        /* CASE_PEOPLE TABLE (WITNESS) */
-        $forcasepeopledoc = array(
-            'caseID' => $caseID,
-            'personID' => $idoctestify[$index],
-            'participation' => 18, //witness
-            'condition' => 'current',
-            'side' => $idocevidenceof[$index],
-            'datestart' => $datetimenow
-        );
-        $this->Case_model->insert_caseperson($forcasepeopledoc);
+      if (isset($appoffensename)) {
+        for ($index = 0; $index < count($appoffensename); $index++) {
+          $data = array(
+              'caseID' => $caseID,
+              'offenseID' => $appoffensename [$index],
+              'stage' => $appoffensestage [$index]
+          );
+          $this->Case_model->insert_offense($data);
+          $tagoffense = $tagoffense . ' #' . $this->Case_model->select_stroffense($appoffensename[$index])->offenseName;
+        }
       }
-    }
 
-    /* EVIDENCEOBJ TABLE */
-    if (isset($iobjname)) {
-      for ($index = 0; $index < count($iobjname); $index++) {
-        $data = array(
-            'caseID' => $caseID,
-            'oparty' => $iobjevidenceof[$index],
-            'oobject' => $iobjname[$index],
-            'ostatus' => $iobjstatus[$index],
-            'odescription' => $iobjdesc[$index],
-            'odateReceived' => $iobjdatereceived[$index],
-            'odateRetrieved' => $iobjdateretrieved[$index],
-            'otestified' => $iobjtestify[$index]
-        );
-        $this->Case_model->insert_evidenceobj($data);
+      /* EVIDENCEDOC TABLE */
+      if (isset($idocname)) {
+        for ($index = 0; $index < count($idocname); $index++) {
+          $data = array(
+              'caseID' => $caseID,
+              'dparty' => $idocevidenceof[$index],
+              'dname' => $idocname[$index],
+              'dtype' => $idoctype[$index],
+              'dstatus' => $idocstatus[$index],
+              'ddesc' => $idocdesc[$index],
+              'dpurpose' => $idocpurpose[$index],
+              'dissueDate' => $idocdateissued[$index],
+              'dissuePlace' => $idocplaceissued[$index],
+              'ddateReceived' => $idocdatereceived[$index],
+              'dtestified' => $idoctestify[$index],
+          );
+          $this->Case_model->insert_evidencedoc($data);
 
-        /* CASE_PEOPLE TABLE (WITNESS) */
-        $forcasepeopleobj = array(
-            'caseID' => $caseID,
-            'personID' => $iobjtestify[$index],
-            'participation' => 18, //witness
-            'condition' => 'current',
-            'side' => $iobjevidenceof[$index],
-            'datestart' => $datetimenow
-        );
-        $this->Case_model->insert_caseperson($forcasepeopleobj);
+          /* CASE_PEOPLE TABLE (WITNESS) */
+          $forcasepeopledoc = array(
+              'caseID' => $caseID,
+              'personID' => $idoctestify[$index],
+              'participation' => 18, //witness
+              'condition' => 'current',
+              'side' => $idocevidenceof[$index],
+              'datestart' => $datetimenow
+          );
+          $this->Case_model->insert_caseperson($forcasepeopledoc);
+        }
       }
-    }
 
-    /* EVIDENCETES TABLE */
-    if (isset($itesname)) {
-      for ($index = 0; $index < count($itesname); $index++) {
-        $data = array(
-            'caseID' => $caseID,
-            'tparty' => $itesevidenceof[$index],
-            'ttestified' => $itesname[$index],
-            'tpurpose' => $itespurpose[$index],
-            'tstatus' => $itesstatus[$index],
-            'tnarrative' => $itesnarrative[$index],
-            'trelationship' => $itesrel[$index]
-        );
-        $this->Case_model->insert_evidencetes($data);
+      /* EVIDENCEOBJ TABLE */
+      if (isset($iobjname)) {
+        for ($index = 0; $index < count($iobjname); $index++) {
+          $data = array(
+              'caseID' => $caseID,
+              'oparty' => $iobjevidenceof[$index],
+              'oobject' => $iobjname[$index],
+              'ostatus' => $iobjstatus[$index],
+              'odescription' => $iobjdesc[$index],
+              'odateReceived' => $iobjdatereceived[$index],
+              'odateRetrieved' => $iobjdateretrieved[$index],
+              'otestified' => $iobjtestify[$index]
+          );
+          $this->Case_model->insert_evidenceobj($data);
 
-        /* CASE_PEOPLE TABLE (WITNESS) */
-        $forcasepeopletes = array(
-            'caseID' => $caseID,
-            'personID' => $itesname[$index],
-            'participation' => 18, //witness
-            'condition' => 'current',
-            'side' => $itesevidenceof[$index],
-            'datestart' => $datetimenow
-        );
-        $this->Case_model->insert_caseperson($forcasepeopletes);
+          /* CASE_PEOPLE TABLE (WITNESS) */
+          $forcasepeopleobj = array(
+              'caseID' => $caseID,
+              'personID' => $iobjtestify[$index],
+              'participation' => 18, //witness
+              'condition' => 'current',
+              'side' => $iobjevidenceof[$index],
+              'datestart' => $datetimenow
+          );
+          $this->Case_model->insert_caseperson($forcasepeopleobj);
+        }
       }
+
+      /* EVIDENCETES TABLE */
+      if (isset($itesname)) {
+        for ($index = 0; $index < count($itesname); $index++) {
+          $data = array(
+              'caseID' => $caseID,
+              'tparty' => $itesevidenceof[$index],
+              'ttestified' => $itesname[$index],
+              'tpurpose' => $itespurpose[$index],
+              'tstatus' => $itesstatus[$index],
+              'tnarrative' => $itesnarrative[$index],
+              'trelationship' => $itesrel[$index]
+          );
+          $this->Case_model->insert_evidencetes($data);
+
+          /* CASE_PEOPLE TABLE (WITNESS) */
+          $forcasepeopletes = array(
+              'caseID' => $caseID,
+              'personID' => $itesname[$index],
+              'participation' => 18, //witness
+              'condition' => 'current',
+              'side' => $itesevidenceof[$index],
+              'datestart' => $datetimenow
+          );
+          $this->Case_model->insert_caseperson($forcasepeopletes);
+        }
+      }
+
+      /* TAGS TABLE */
+      $strclienttype = $this->Case_model->select_strtype($appclienttype);
+      $strclientname = '';
+      for ($index = 0; $index < count($appclient); $index++) {
+        $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $appclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $appclient[$index]);
+      }
+      $tags = $apptitle . $tagoffense . ' #' . $strclienttype->typeName . $strclientname;
+
+      $this->Case_model->update_casetags($caseID, $tags);
+
+      /* NOTIFICATION TABLE */
+      $this->Notification_model->app_new($uid, 1, $caseID);
+
+
+      /* LOG TABLE */
+      $log = array(
+          'caseID' => $caseID,
+          'action' => 'Application has been created ',
+          'dateTime' => $datetimenow,
+          'stage' => $this->Case_model->select_case($caseID)->stage,
+          'category' => 'APPLICATION'
+      );
+      $this->Case_model->insert_log($log);
+
+      redirect('application/index');
     }
-
-    /* TAGS TABLE */
-    $strclienttype = $this->Case_model->select_strtype($appclienttype);
-    $strclientname = '';
-    for ($index = 0; $index < count($appclient); $index++) {
-      $strclientname = $strclientname . ' #' . $this->People_model->getuserfield('firstname', $appclient[$index]) . ' ' . $this->People_model->getuserfield('lastname', $appclient[$index]);
-    }
-    $tags = $apptitle . $tagoffense . ' #' . $strclienttype->typeName . $strclientname;
-
-    $this->Case_model->update_casetags($caseID, $tags);
-
-    /* NOTIFICATION TABLE */
-    $this->Notification_model->app_new($uid, 1, $caseID);
-
-
-    /* LOG TABLE */
-    $log = array(
-        'caseID' => $caseID,
-        'action' => 'Application has been created ',
-        'dateTime' => $datetimenow,
-        'stage' => $this->Case_model->select_case($caseID)->stage,
-        'category' => 'APPLICATION'
-    );
-    $this->Case_model->insert_log($log);
-
-    redirect('application/index');
   }
 
   function removeclient($clientid, $for) {
@@ -729,14 +747,14 @@ class Application extends CI_Controller {
     }
     echo '</ul>';
   }
-  
-  function seeallnotif($uid){
+
+  function seeallnotif($uid) {
     $allnotif = $this->Notification_model->select_notifs($uid);
-    
-    foreach($allnotif as $notif){
+
+    foreach ($allnotif as $notif) {
       $this->Notification_model->update_status($notif->notificationID, 1);
     }
-    
+
     $this->load->view('notifdropdown');
   }
 

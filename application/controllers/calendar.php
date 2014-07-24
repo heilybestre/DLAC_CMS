@@ -15,6 +15,7 @@ class Calendar extends CI_Controller {
   function index() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -1066,7 +1067,7 @@ class Calendar extends CI_Controller {
     );
     $this->Case_model->update_action($actionplanforminutes, $doneaction);
 
-    
+
     if ($desti == 'calendar')
       redirect('calendar');
     else if ($desti == 'cases')

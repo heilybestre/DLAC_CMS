@@ -3,84 +3,87 @@
 //login controller
 
 if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+  exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
-    function __construct() {
-        parent:: __construct();
-        $this->load->spark('markdown-extra/0.0.0');
-    }
+  function __construct() {
+    parent:: __construct();
+    $this->load->spark('markdown-extra/0.0.0');
+  }
 
-    function index() {
-        $this->form_validation->set_rules('username', 'Username', 'required|trim|max_length(50)|xaa_clean');
-        $this->form_validation->set_rules('password', 'Password', 'required|trim|max_length(50)|xaa_clean');
+  function index() {
+    $this->load->helper(array('form', 'url'));
+    $this->load->library('form_validation');
 
-        $datestring = "%Y-%m-%d";
-        $timestring = "%H:%i:%s";
-        $time = now();
+    $this->form_validation->set_rules('username', 'Username', 'required|trim|max_length(50)|xaa_clean');
+    $this->form_validation->set_rules('password', 'Password', 'required|trim|max_length(50)|xaa_clean');
 
-        $datenow = mdate($datestring, $time);
-        $timenow = mdate($timestring, $time);
+    $datestring = "%Y-%m-%d";
+    $timestring = "%H:%i:%s";
+    $time = now();
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('loginheader');
-            $this->load->view('loginbody');
-            $this->load->view('loginfooter');
-        } else {
-            //process their input and login the user            
-            extract($_POST); //Gets everything $username $password
+    $datenow = mdate($datestring, $time);
+    $timenow = mdate($timestring, $time);
 
-            $userid = $this->People_model->login($username, $password);
+    if ($this->form_validation->run() == FALSE) {
+      $this->load->view('loginheader');
+      $this->load->view('loginbody');
+      $this->load->view('loginfooter');
+    } else {
+      //process their input and login the user            
+      extract($_POST); //Gets everything $username $password
 
-            if (!$userid) {
-                //login failed error
-                $this->session->set_flashdata('login_error', TRUE);
-                redirect('login/index');
-            } else {
-                //logem in
-                //admin privileges
-                $changes = array(
-                    'userID' => $userid,
-                    'date' => $datenow,
-                    'timeStarted' => $timenow,
-                );
+      $userid = $this->People_model->login($username, $password);
 
-                $utype = $this->People_model->getuserfield('type', $userid);
+      if (!$userid) {
+        //login failed error
+        $this->session->set_flashdata('login_error', TRUE);
+        redirect('login/index');
+      } else {
+        //logem in
+        //admin privileges
+        $changes = array(
+            'userID' => $userid,
+            'date' => $datenow,
+            'timeStarted' => $timenow,
+        );
 
-                if ($utype == 5) {
-                    $this->People_model->insert_residency($changes);
-                }
-                $rid = $this->db->insert_id();
-
-                $login_data = array(
-                    'logged_in' => TRUE,
-                    'userid' => $userid,
-                    'residencyid' => $rid
-                );
-                $this->session->set_userdata($login_data);
-                $this->session->set_userdata('cid', '0');
-
-                redirect("dashboard/");
-            }
-        }
-    }
-
-    function logout() {
-        $uid = $this->session->userdata('userid');
-        $utype = $this->People_model->getuserfield('type', $uid);
-        $rid = $this->session->userdata('residencyid');
+        $utype = $this->People_model->getuserfield('type', $userid);
 
         if ($utype == 5) {
-            $this->People_model->update_residency($rid);
+          $this->People_model->insert_residency($changes);
         }
-        //Delete cookies
-        foreach ($_COOKIE AS $key => $value) {
-            SETCOOKIE($key, $value, TIME() - 10000, "/", ".domain.com");
-        }
-        $this->session->sess_destroy();
-        redirect('login/');
+        $rid = $this->db->insert_id();
+
+        $login_data = array(
+            'logged_in' => TRUE,
+            'userid' => $userid,
+            'residencyid' => $rid
+        );
+        $this->session->set_userdata($login_data);
+        $this->session->set_userdata('cid', '0');
+
+        redirect("dashboard/");
+      }
     }
+  }
+
+  function logout() {
+    $uid = $this->session->userdata('userid');
+    $utype = $this->People_model->getuserfield('type', $uid);
+    $rid = $this->session->userdata('residencyid');
+
+    if ($utype == 5) {
+      $this->People_model->update_residency($rid);
+    }
+    //Delete cookies
+    foreach ($_COOKIE AS $key => $value) {
+      SETCOOKIE($key, $value, TIME() - 10000, "/", ".domain.com");
+    }
+    $this->session->sess_destroy();
+    redirect('login/');
+  }
 
 }
 

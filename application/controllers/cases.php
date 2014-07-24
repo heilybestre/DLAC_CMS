@@ -15,6 +15,7 @@ class Cases extends CI_Controller {
   function index() {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -132,7 +133,7 @@ class Cases extends CI_Controller {
   function caseApplytoclose() {
     $cid = $this->input->post('cid');
     $pid = $this->input->post('pid');
-    $closereason = $this->input->post('reason');
+    $closereason = $this->input->post('applytoclosereason');
     $closenotes = $this->input->post('notes');
 
     if ($closereason == 0) {
@@ -278,6 +279,7 @@ class Cases extends CI_Controller {
   function caseFolder($cid) {
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
     $utype = $this->People_model->getuserfield('type', $uid);
@@ -460,6 +462,7 @@ class Cases extends CI_Controller {
     extract($_POST);
     $uid = $this->session->userdata('userid');
     if (empty($uid)) {
+      $this->session->set_flashdata('session_error', TRUE);
       redirect('login/index');
     }
 
