@@ -244,8 +244,7 @@
       });
     });
   });
-
-<?php if ($this->uri->segment(1) == 'cases' && $this->uri->segment(2) == 'caseFolder') { ?>
+<?php if ($this->uri->segment(1) == 'cases' && $this->uri->segment(2) == 'caseFolder' && $this->Case_model->select_case($this->uri->segment(3))->actionplanstatus != NULL) { ?>
   // ACTION PLAN STAGE CHECK
     $(document).ready(function() {
       var cid = "<?= $this->uri->segment(3) ?>";
