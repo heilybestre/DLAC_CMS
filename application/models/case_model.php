@@ -417,7 +417,7 @@ class Case_model extends CI_Model {
   }
 
   function select_action_percategory($cid, $stage, $category) {
-    $query = $this->db->query("SELECT * FROM actionplan WHERE caseID = $cid AND stage = $stage AND category = $category");
+    $query = $this->db->query("SELECT * FROM actionplan WHERE caseID = $cid AND stage = $stage AND category = $category AND status = 0");
     return $query->result();
   }
 
