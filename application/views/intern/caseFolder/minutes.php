@@ -38,7 +38,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title"><?= $m->title ?></h4>
             </div>
-            <div class="modal-body" style="height:300px; overflow-y: scroll; margin-left: 25px;">
+            <div class="modal-body" style="min-height:300px; overflow-y: scroll; margin-left: 25px;">
 
               <br><br>
               
