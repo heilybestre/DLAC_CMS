@@ -729,6 +729,16 @@ class Application extends CI_Controller {
     }
     echo '</ul>';
   }
+  
+  function seeallnotif($uid){
+    $allnotif = $this->Notification_model->select_notifs($uid);
+    
+    foreach($allnotif as $notif){
+      $this->Notification_model->update_status($notif->notificationID, 1);
+    }
+    
+    $this->load->view('notifdropdown');
+  }
 
   /* END - NOTIFICATION FUNCTIONS */
 }

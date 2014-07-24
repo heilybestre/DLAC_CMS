@@ -186,7 +186,6 @@
         return $("#popover-orig-content_" + x).html();
       }
     });
-
     $('.popover-orig-lawyer').popover({
       html: true,
       content: function() {
@@ -208,18 +207,43 @@
       }
     });
 
-    // When clicked outside, popovers will close
-//        $('body').on('click', function(e) {
-//            $('.popover-orig').each(function() {
-//                //the 'is' for buttons that trigger popups
-//                //the 'has' for icons within a button that triggers a popup
-//                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-//                    $(this).popover('hide');
-//                }
-//            });
-//        });
+    /*
+     When clicked outside, popovers will close
+     $('body').on('click', function(e) {
+     $('.popover-orig').each(function() {
+     //the 'is' for buttons that trigger popups
+     //the 'has' for icons within a button that triggers a popup
+     if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+     $(this).popover('hide');
+     }
+     });
+     });
+     */
 
   });
+
+  // NOTIFICATIONS
+  $(document).ready(function() {
+    $('#notifbutton').click(function() {
+      $(document).mouseup(function(e)
+      {
+        var container = $("#ulnotif");
+        if (!container.is(e.target) // if the target of the click isn't the container...
+                && container.has(e.target).length === 0) // ... nor a descendant of the container
+        {
+          var uid = "<?php echo $this->session->userdata('userid'); ?>";
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url() ?>application/seeallnotif/" + uid,
+            success: function(result) {
+              $('#notifdropdown').html(result);
+            }
+          });
+        }
+      });
+    });
+  });
+
   //customized datatables
   $(document).ready(function() {
     $("#dashboard-appo").dataTable({
@@ -284,7 +308,7 @@
       $('div.dataTables_paginate').css('margin-right', '0px');
     }
     // First row of important dates in dashboard = red
-    if($('#dashboard-importantdates tr').eq(1).text() != 'No data available in table'){
+    if ($('#dashboard-importantdates tr').eq(1).text() != 'No data available in table') {
       $('#dashboard-importantdates tr').eq(1).addClass('mostimportantdate');
     }
   });
